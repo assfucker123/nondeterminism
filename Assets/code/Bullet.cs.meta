@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2ca97bba936e80b4d8ea8b09430667d9
+timeCreated: 1444865877
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - bulletFadeGameObject: {instanceID: 0}
+  - bulletExplosionGameObject: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

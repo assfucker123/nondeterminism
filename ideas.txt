@@ -1,0 +1,309 @@
+Nondeterminism ~ Proto
+
+Attacking:
+- Jump and shoot megaman style.
+- Movement is a little faster, bullets are much faster (near instantaneous)
+	- Bullets produce tracer lines.
+- Can throw a grenade a short distance.
+
+Dodge roll:
+- Hold a direction and press DODGE to dodge in that direction.
+
+Visions:
+- Player has the passive ability to perceive attacks enemies are about to make.
+- These pereptions are silhouettes of attacks that are about to happen (like a tracer line for a gunshot, slash attack, or enemy teleporting in)
+- Silhouette has different colors depending the duration until the actual attack.
+	- Pink: fast (1 second?)
+	- Yellow: medium (3 seconds?)
+	- Light Green: slow (5 seconds?)
+
+Flashback ("Braid/Prince of Persia"):
+- Hold down the FLASH button to go backwards in time.
+- Enemies move backwards, player can get healed, etc.
+NEW IDEA ("Savestates"):
+- Press FLASH to setup a "vision beacon"
+- Press FLASH again to revert time back to the vision beacon.
+- Have to wait before can be used again.
+- This would be cool as an optional obtainable ability in ~SR.
+	- In ~SR, vision beacons are removed when entering another room.
+
+Phase meter:
+- While phase meter is not empty:
+	- Player can see Visions.
+	- Player can use Flashback.
+- Phase meter drains slowly over time.
+- Phase meter drains much faster while using Flashback.
+- Increase phase meter by collecting phase essence from fallen enemies.
+- Phase meter also increases by doing slow motion dodge rolls.
+
+Enemy Attacks:
+(Need to be really hard to predict normally, but reasonable with the vision ability)
+(If enemies were penguins they'd be easier to animate)
+(Evil penguins, seals, bears)
+- Bullet tracers
+	- Heavy weapons: slow, high HP, fire gatling gun where each individual bullet can be dodged
+		- Bears with gatling guns on their backs.
+			- Shoot at them from behind to destroy the gun.
+	- Flyers: fly from point to point, spreading bullets on the way there.
+		- Similar to those things from Project Eclipse
+		- Penguins with jet boots
+			- Aim at the feet to have them spiral out of control for a quick death.
+- Appearing from a portal
+	- All enemies spawn from a portal.
+- Teleportation attacks
+	- Delayed causality attacks (slashes take effect at random points)
+	- Cyborg ninja penguins with giant swords
+- Airstrikes
+- (BAD IDEA) Bombs that explode at random intervals
+- Lightning paths
+	- Seal that looks like a floating zapfish
+
+
+Special Enemy Attacks:
+- Quantum Attacks
+	- Produce many fake visions and one real one.  Need to use pattern recognition to determine the real one?
+- Vision Viruses
+	- Attacks that appear on the screen itself, and don't move with the camera or through flashbacks.
+	- In lore these are viruses in Oracle's programming.
+	- In ~SR, happen at random the longer you play the game, similar to the ghosts in An Untitled Story.
+	
+
+
+Nondeterminism ~ SR
+(SR stands for Soft Reset, Speed Run, or Senior)
+
+Premise:
+- A bomb has been set to explode in 20 minutes.  Deactivation codes and color keys are needed to disarm it, all of which are found in the villain's lair.
+- Appears to be a miniature Metroid game at first.  Need to collect a number of color keys (physical) to get to the bomb room, and parts of a deactivation code (information) to deactivate the bomb.
+- New skills can be found with "decryptors", which unlock new abilities for the player.  Decryptors are information, so they are remembered when flashing back.  Some decryptors are useless until the booster is obtained.
+- There is 1 physical upgrade called a "booster" which enables some decryptors.  This also physically changes the player's appearence.
+- Time Hubs act as "checkpoints".  Upon reaching a time hub, game is saved.  Player can then warp to any time hub previously reached (mandatory when player dies)
+	- Player loses all physical upgrades and color keys obtained since getting to the time hub.
+	- Time on clock reverts back to the time when the hub was reached.
+	- Information, such as map data, decryptors, and deactication code parts, are still saved.
+- Game is similar to the movie "Edge of Tomorrow"
+- First area of the game has a huge variety of paths and secrets to keep the player from becoming bored.
+	- Early on branch off into multiple short paths, all but one are dead ends.  Can remember which path is the real one on next play attempt.
+	- Can use earned abilities for shortcuts, which also happen to go through physical upgrade rooms.
+
+Newer ideas:
+- Origin Story: Oracle's true form is a mealworm shaped like a brain and spinal cord.
+	- Infant Oracle have electrical neurons and memories stored in metallic semiconductors, making it functionally similar to a computer.
+	- Infant Oracle has full future sensing abilities, but can't talk.
+	- Discovered by Wally, a nerdy young human-like aspiring scientist, who studies it.
+	- Discovers Oracle's future sensing abilities.
+	- Wants to share discovery with the world, but Oracle takes action to prevent him from doing so.
+		- Chews through power cord on desktop, phone, etc.
+	- Wally realizes Oracle must know something about the future he doesn't, and that revealing Oracle's powers to the world would end in disaster.  As such, he keeps her powers a secret from everybody, including their family.
+		- Doesn't use Oracle to help with winning more lotteries, as to not draw attention.
+	- Learns more about Oracle's abilities.  She can only detect events where Oracle is present, and she cannot detect events that happen when she's asleep or unconscious.
+		- For this reason, Oracle is instinctively an insomniac, and pushes to keep herself awake for as long as possible.
+	
+	- (ISSUE:) How and when does Oracle get her suit?  Wally couldn't have made it, since he doesn't know the suit's full potential.  Need to preserve gameplay mechanic of finding decryptors to unlock abilities.
+	- Wally receives a large package, which is the suit for Oracle.
+		- Inside is a letter commending Wally for taking great care of Oracle.
+		- Sender is unknown. (Who?)
+		- Oracle was appearing anxious for this day, and wants to use the suit, so Wally trusts it.
+	
+	- Managed to get Oracle to speak.
+	- Oracle rarely encountered anyone else, so Wally became Oracle's closest friend and father figure.
+	- Likewise, Wally considered Oracle a loyal pet.
+- Oracle has a calculating personality, but is amused by instigating slight annoyance from others.
+	- Speaks and acts like Bladewolf from MGRR.
+	- Very rarely feels surprised or shocked (since she knows what's coming anyway)
+	- Cocky since she knows she'll win.
+		- "I didn't say you can't beat be, I said you don't."
+	- Oracle is crippled with fear if she's unable to predict the future, however.
+		- Explains while Oracle hates sleeping, since she can't predict things that happen to her while asleep.
+		- Happens when something appears to happen that she can't predict.
+			- e.g. viruses that cause her to unknowingly hallucinate.
+			- e.g. quantum attacks.
+		- She overcomes this fear at the end of the game.
+- Tommy: Wally's younger brother.
+	- As a child, Tommy looked up to his brilliant brother Wally.
+	- In time, he studied in Wally's footsteps and became a great programmer.
+	- As Wally spent more time with Oracle, he spent less time with Tommy.  Tommy faced abandonment issues.
+		- Infant Oracle seemed to actively prevent Wally from seeing Tommy.
+		- Tommy found it rude that Wally cared more about his pet than his brother.
+		- Wally trusted Oracle's judgement, and grew suspicious of Tommy since Oracle didn't like him.
+	- As Wally and Tommy grew up, they lived on their own in separate areas.  Tommy would visit Wally every now and then.
+	- Tommy digs up on data about Orcale from Wally's computer when both of them are asleep (This is rare; Oracle goes for months without sleeping)
+	- Tommy leaves Wally and gets to work developing a virus that can hinder some parts of Oracle's future-sensing abilities.
+		- A data nullifier program that detects and deletes any data having to do with Tommy.
+	- Tommy injects the virus into Oracle the next time she sleeps.
+	- Now Oracle is indifferent to Tommy, and reacts comfortably to him.  Noticing the improvement, Wally enjoys Tommy's company more.
+	- Tommy figured out
+
+- Tommy's nullifier program gets repurposed into giving Oracle hallucinations.
+	- Whenever they're really talking about Tommy, Oracle thinks they're talking about something else: Entity X.
+
+- Tommy asks Wally for Oracle's help to defeat invaders
+- Invaders: evil penguins, seals, bears.
+- Oracle detects a gigantic bomb will go off soon.
+	- Involved with Tommy's request.
+
+- The younger Oracle is, the more powerful her future sense powers are.
+	
+Final boss gimmick:
+- Splitscreen: one part is the gameplay as usual, other part is the actual current time.
+- There is a timer ticking down that does not go backwards when going back in time.
+- Current time is Infant Oracle talking to her father on their homeworld.
+	- Use realistic graphics instead of pixelated to show this is actually the real current time, and that everything else was a vision by Oracle.
+- She has little time left before making a big decision: whether or not she should accept her father's mission.
+	- Mission involves being sent to earth and defeating the final boss.
+	- Oracle is told to accept only if she knows she can succeed.
+	- Time is running out for Oracle to decide what to do, as shown by the timer.
+- During the boss fight, Oracle and father are talking in the "current time" part.
+	- Oracle explains she's so close.  She's been trying for so long to find a path that arrives at victory.
+	- Oracle explains all the good times she'll have with Wally, her only friend.
+		- On Oracle's homeworld, people regarded Oracle as a freak for her future powers and calculating personality, so she was never able to make friends.
+	- Father insists that it's not worth it if she ends up dying.
+- If Oracle dies during the boss fight (likely to happen during first attempt), Oracle answers father's question.
+	- Answers yes anyway.
+	- This is the first time Oracle agrees to doing something without being certain what will happen next.
+	
+Player:
+- Protagonist is robot, fights similar to megaman.
+- Can do a directional dodge to avoid damage.
+- Perceives attacks before they happen (shown with a colored silhouette).
+
+Puzzles:
+- Key words or codes are stored in a "memory bank", accessed from menu
+- Use in other parts of the world
+
+Scenarios:
+- Deactivate code is actually an anagram, which are other instructions
+ULEB RODO ERFI NNIE HENT JMUP ROUF
+->
+BLUE DOOR FIRE NINE THEN JUMP FOUR
+- A certain area is destroyed ~7 minutes in
+	- Need to explore it before that happens
+	- Or can prevent it from being destroyed altogether
+-
+
+- Advertised as "15 minutes until your world ends"
+- Countdown is actually to when protagonist's life is terminated, not when the world blows up.
+	- Shown when giant counter in a room late in the game shows how old protagonist's life is.  Add it to the countdown timer gets exactly 20 years
+
+
+Basic controls (told to player at beginning):
+- LEFT, RIGHT: movement
+- DOWN: duck
+- A: jump
+- B: shoot (megaman style)
+- Takes damage from water
+
+Two game modes:
+Main:
+- Complex controls
+- Physical upgrades and color keys lost upon resetting.  Information and skills are still conserved.
++ Skills can be learned in any order.
++ Physical upgrades, color keys, and information can be obtained in any order.
++ The intended way to play
+Conventional:
++ Simplified controls
++ Physical upgrades, color keys, information, and skills are all conserved upon resetting.
+- Skills must be learned in a set order.
+- Little variability in the order physical upgrades and skills are obtained.
+ 
+Physical items/upgrades (lost on game over):
+- Health packs (increase max health)
+- Color keys (need to collect all 4 to open a door)
+
+Time Hubs:
+- Save areas
+- Can warp back to time hubs accessed earlier
+- Identified by letter, number.
+	- Letter is relative location on X axis (left->right)
+	- Number is relative location on Y axis (up->down)
+	- Rooms need to have really obvious features so the player can remember them
+- Keeps track of physical upgrades obtained at that point
+
+Time Tree:
+
+10min ... 8min ... 6min ... 4min ... 2min ... 0
+
+                    _ T4
+    T4 --------- U6 \___
+  /                      W5
+S5 ---- U6 ---- U9
+  \____
+       \__ R8 --- U6
+
+- One strategy is to warp to a previous hub then travel back to the current one to save time.
+
+Map:
+- Standard map that gets filled in as player finds rooms.
+- Map is information, so does not revert back when warping to a previous time.
+- Records location of physical upgrades and keys
+	- Also marks if the item was picked up
+	- If found item (thus picking it up), then warped to a previous time, then the item's location would appear on the map, but it would not be marked as if it was obtained.
+
+Special Skill: Vision
+- Can see when gunshots or other traps are coming a second before they happen.
+- Danger is shown as a gray indicator.
+	- As a line for the path a bullet will take.
+	- As numerous silhouettes for enemies that make an attack.
+- Press DODGE to dodge in a cool slow-motion action.
+- Need to dodge in direction perpendicular to the attack.
+
+- Silhouette has different colors depending the duration until the actual attack.
+	- Pink: fast (1 second?)
+	- Yellow: medium (3 seconds?)
+	- Light Green: slow (5 seconds?)
+- Some enemies have an "invincible mode" for a few seconds.  They can't be defeated or altered.
+	- This means every attack they make while in this mode is forseen.
+
+- Can place bombs or mines in preparation for enemies appearing.
+- Have enemies that appear or warp out of nowhere.
+
+
+Skills:
+- Dash ability
+
+- "Shinespark" charged by falling
+	
+- Charge shot (stronger shot, breaks other obstacles)
+	- Hold B for a duration
+	- Probably easy for the player to figure out on their own
+- Omega shot (very strong shot at close range, then splits/fans out for less damage at long range)
+	- Press B twice, then hold B for a long duration
+	- Goes to charge shot like usual, then omega shot
+- Shield flash (puts up a gradually growing circular barrier that goes away after a short duration)
+	- While having a charge or omega shot ready, press RIGHT, UP, LEFT, DOWN or LEFT, UP, RIGHT, DOWN in order.
+	- Able to go through some unavoidable obstacles.
+	- Can't charge anything or use concentration while the shield is up.
+- Somersault jump (some extra jump height)
+	- While running in a direction, hold the opposite direction and press A
+- Wall run (briefly run up walls, given enough upwards velocity)
+	- Hold UP while hugging a wall with large (negative) enough y velocity.
+	- Y velocity goes to 0 slower than the effect of gravity.  At a certain point wall run will stop.  So wall runs will be longer by having a greater starting velocity.
+	- Can press JUMP while wall running to preform a wall jump.
+- Wing glide (greatly lowers descent speed)
+	- Hold UP while falling
+- Air hop (small double jump)
+	- While in the air, press DOWN, UP, A
+	- Can only do one before touching the ground again
+	- Be be followed up by a small wall run
+- Fire dive (downward slam from the air)
+	- While having a charge or omega shot ready and in the air, press DOWN twice in a row
+	- Landing lag when hit ground, but can press A to leap out of it, as in SM3DW
+	- Hitting a slope will bounce dive horizontally?
+- Concentration (health regen)
+	- Hold DOWN for a duration while at low health to regain some back.
+- Concentration+ (replaces Concentration, restores more health)
+	- Same as concentration, but rapidly tap DOWN while health is being restored to restore more.
+- Strip Suit (takes robot suit off)
+	- Press UP, DOWN, UP rapidly while on the ground to take the suit off
+	- Severely decreased health and severely decreased firepower
+	- Can swim in water
+- Rebuild suit (when suit is stripped, put suit back on)
+	- Hold B while staying still for a duration
+- Death warp (upon dying, can transmit consciousness to another body in the room)
+	- While in death animation, hold A and B and press UP.
+	- Need to then direct soul to another body (looks exactly the same)
+- Grav Shift (slows down speed of everything around player)
+	- Hold A and B while holding DOWN for a duration
+
+
+- "Final challenge" portion where most of the 10 minutes is spent on a new linear level testing all the abilities?
