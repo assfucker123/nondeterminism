@@ -11,6 +11,20 @@ public class CameraConfig : MonoBehaviour {
     //room tile size: 44 x 25
     //practical room tile size: 42 x 23 (edge tiles are obscured)
     //orthographic size = screen height / (pixel per unit * pixel per unit scale) / 2
+
+    // Tiled map stuff
+    public static Rect getMapBounds() {
+        GameObject map = GameObject.FindWithTag("Map");
+        Debug.Assert(map != null);
+        Tiled2Unity.TiledMap tiledMap = map.GetComponent<Tiled2Unity.TiledMap>();
+        Debug.Assert(tiledMap != null);
+        return new Rect(
+            map.transform.position.x,
+            -map.transform.position.y,
+            tiledMap.GetMapWidthInPixelsScaled(),
+            tiledMap.GetMapHeightInPixelsScaled()
+            );
+    }
     
     void Awake() {
         

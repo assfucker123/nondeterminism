@@ -60,18 +60,6 @@ public static class Utilities {
         return easeInOutQuad(t, b, c, d);
     }
 
-    // Tiled map stuff
-    public static Rect getMapBounds() {
-        GameObject map = GameObject.FindWithTag("Map");
-        Debug.Assert(map != null);
-        Tiled2Unity.TiledMap tiledMap = map.GetComponent<Tiled2Unity.TiledMap>();
-        Debug.Assert(tiledMap != null);
-        return new Rect(
-            map.transform.position.x,
-            -map.transform.position.y,
-            tiledMap.GetMapWidthInPixelsScaled(),
-            tiledMap.GetMapHeightInPixelsScaled()
-            );
-    }
+    
 	
 };

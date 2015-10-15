@@ -69,7 +69,7 @@ public class Bullet : MonoBehaviour {
         }
 
         // leaving map
-        Rect rect = Utilities.getMapBounds();
+        Rect rect = CameraConfig.getMapBounds();
         if (!rect.Contains(rb2d.position)) {
             destroyBullet = true;
             destroyPoint = rb2d.position;
