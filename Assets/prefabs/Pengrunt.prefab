@@ -234,10 +234,7 @@ MonoBehaviour:
   walkLongDuration: .800000012
   preSprayDuration: .200000003
   sprayDuration: .699999988
-  accel: 30
-  maxSpeed: 3
-  friction: 20
-  sprayAccel: 60
+  speed: 3
   spraySpeed: 1
   state: 0
 --- !u!114 &11478874

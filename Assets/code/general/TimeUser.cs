@@ -84,8 +84,6 @@ public class TimeUser : MonoBehaviour {
     }
     public static bool revertMutex { get { return _revertMutex; } }
 
-    public static float VISION_DURATION = .5f;
-    
     ////////////////
     // PROPERTIES //
     ////////////////
@@ -101,6 +99,11 @@ public class TimeUser : MonoBehaviour {
     public float timeCreated { get { return _timeCreated; } }
     public bool createdAtLevelLoad { get { return timeCreated < .1f; } }
     public int randSeed { get { return _randSeed; } }
+    public FrameInfo getLastFrameInfo() {
+        if (fis.Count == 0)
+            return null;
+        return fis[fis.Count - 1];
+    }
     
     ///////////////
     // FUNCTIONS //
@@ -136,6 +139,21 @@ public class TimeUser : MonoBehaviour {
         }
         FrameInfo fiRevert = fis[fiRevertIndex];
 
+        revertToFrameInfoUnsafe(fiRevert);
+
+        //delete all FrameInfo following this revert
+        for (int i = fiRevertIndex + 1; i < fis.Count; i++) {
+            FrameInfo.destroy(fis[i]);
+        }
+        fis.RemoveRange(fiRevertIndex + 1, fis.Count - fiRevertIndex - 1);
+
+    }
+
+    /* Reverts to a specific FrameInfo.
+     * No safety checking is done here.
+     * Also sends OnRevert message. */
+    public void revertToFrameInfoUnsafe(FrameInfo fiRevert) {
+
         // is this being brought into existance?
         if (!exists && fiRevert.exists) {
             _exists = true;
@@ -148,7 +166,7 @@ public class TimeUser : MonoBehaviour {
             SendMessage("OnRevertExist", SendMessageOptions.DontRequireReceiver);
         }
         Debug.Assert(!(exists && !fiRevert.exists));
-        
+
         // apply other properties
         if (rb2d != null) {
             rb2d.position = fiRevert.position;
@@ -163,11 +181,11 @@ public class TimeUser : MonoBehaviour {
                 spriteRenderer.transform.localScale.z);
             Quaternion quat = Quaternion.identity;
             quat.SetFromToRotation(
-			    Vector3.right,
-			    new Vector3(
-                    Mathf.Cos(fiRevert.spriteRendererLocalRotation*Mathf.PI/180),
-                    Mathf.Sin(fiRevert.spriteRendererLocalRotation*Mathf.PI/180))
-			    );
+                Vector3.right,
+                new Vector3(
+                    Mathf.Cos(fiRevert.spriteRendererLocalRotation * Mathf.PI / 180),
+                    Mathf.Sin(fiRevert.spriteRendererLocalRotation * Mathf.PI / 180))
+                );
             spriteRenderer.transform.localRotation = quat;
         }
         if (animator != null) {
@@ -176,15 +194,9 @@ public class TimeUser : MonoBehaviour {
                 fiRevert.animatorNormalizedTime);
         }
         _randSeed = fiRevert.randSeed;
-        
+
         // manually adjust other stuff
         SendMessage("OnRevert", fiRevert, SendMessageOptions.DontRequireReceiver);
-
-        //delete all FrameInfo following this revert
-        for (int i = fiRevertIndex + 1; i < fis.Count; i++) {
-            FrameInfo.destroy(fis[i]);
-        }
-        fis.RemoveRange(fiRevertIndex + 1, fis.Count - fiRevertIndex - 1);
 
     }
 

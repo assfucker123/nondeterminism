@@ -46,10 +46,12 @@ Enemy Attacks:
 			- Shoot at them from behind to destroy the gun.
 	- Flyers: fly from point to point, spreading bullets on the way there.
 		- Similar to those things from Project Eclipse
+		- Move with easeInOutQuad
 		- Penguins with jet boots
 			- Aim at the feet to have them spiral out of control for a quick death.
 - Appearing from a portal
 	- All enemies spawn from a portal.
+	- Portal damages player when opened.
 - Teleportation attacks
 	- Delayed causality attacks (slashes take effect at random points)
 	- Cyborg ninja penguins with giant swords
@@ -57,6 +59,17 @@ Enemy Attacks:
 - (BAD IDEA) Bombs that explode at random intervals
 - Lightning paths
 	- Seal that looks like a floating zapfish
+- Whack-a-mole type enemies, popping up at "random" spots
+- Wall climbers: shimmy up and down a vertical wall.
+- Ceiling stickers: move left to right on a ceiling.
+	- Yo-yo attack from the ceiling in any direction
+- Bomb puzzle:
+	- Need to hit special symbol, 1 of 4 that rotate around the enemy.
+	- Hit the wrong one:
+		- The correct one flashes on the enemy, then it explodes in a huge explosion that launches seekers at the player that are impossible to dodge.
+		- Strategy: after hitting the wrong one, flashback to before you shot it and hit the correct one.
+	- Hit the right one:
+		- Enemy is defeated just like normal.
 
 
 Special Enemy Attacks:
@@ -67,7 +80,11 @@ Special Enemy Attacks:
 	- In lore these are viruses in Oracle's programming.
 	- In ~SR, happen at random the longer you play the game, similar to the ghosts in An Untitled Story.
 
-
+Enemy Behavior:
+- Place static "Spots" all over the map.
+- Every movement from an enemy starts at one spot and ends at another.
+- Gives us the ability to predict where enemy will be at a certain time.
+	
 Nondeterminism ~ SR
 (SR stands for Soft Reset, Speed Run, or Senior)
 

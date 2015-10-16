@@ -17,10 +17,7 @@ public class Pengrunt : MonoBehaviour {
     public float walkLongDuration = .8f;
     public float preSprayDuration = .2f;
     public float sprayDuration = .7f;
-    public float accel = 60;
-    public float maxSpeed = 8;
-    public float friction = 40;
-    public float sprayAccel = 60;
+    public float speed = 8;
     public float spraySpeed = 4;
     public State state = State.IDLE;
 
@@ -47,34 +44,25 @@ public class Pengrunt : MonoBehaviour {
         visionUser = GetComponent<VisionUser>();
     }
 
-	void Start () {
-	    
+	void Start() {
+        // attach to Segment
+        segment = Segment.findBottom(rb2d.position);
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Update() {
 
         if (timeUser.shouldNotUpdate)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            GameObject vision = visionUser.createVision();
-            if (vision != null) {
-                Rigidbody2D vRb2d = vision.GetComponent<Rigidbody2D>();
-                vRb2d.position = rb2d.position + new Vector2(5, 0);
-            }
+        if (state == State.WALK && Input.GetKeyDown(KeyCode.Alpha1)) {
+            visionUser.createVision(VisionUser.VISION_DURATION);
         }
 
-        Vector2 v = rb2d.velocity;
         time += Time.deltaTime;
 
         switch (state) {
         case State.IDLE:
-            // apply friction
-            if (v.x < 0)
-                v.x = Mathf.Min(0, v.x + friction * Time.deltaTime);
-            else
-                v.x = Mathf.Max(0, v.x - friction * Time.deltaTime);
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
             // next state
             if (time >= idleDuration && colFinder.hitBottom) {
                 state = State.WALK;
@@ -86,32 +74,44 @@ public class Pengrunt : MonoBehaviour {
                 }
             }
             break;
+
         case State.WALK:
-            if (flippedHoriz) {
-                // going left
-                if (v.x > 0) { // if currently moving right
-                    v.x = Mathf.Max(0, v.x - friction * Time.deltaTime);
-                }
-                v.x = Mathf.Max(-maxSpeed, v.x - accel * Time.deltaTime);
-                // check if needs to go right
-                if (colFinder.onLeftEdge() || colFinder.hitLeft)
-                    flippedHoriz = false;
-            } else {
-                // going right
-                if (v.x < 0) { // if currently moving left
-                    v.x = Mathf.Min(0, v.x + friction * Time.deltaTime);
-                }
-                v.x = Mathf.Min(maxSpeed, v.x + accel * Time.deltaTime);
-                // check if needs to go left
-                if (colFinder.onRightEdge() || colFinder.hitRight)
-                    flippedHoriz = true;
+
+            float s = speed;
+            if (flippedHoriz)
+                s *= -1;
+            float x = segment.travel(rb2d.position.x, s, Time.fixedDeltaTime);
+            bool turnaround = segment.travelTurnsAround(rb2d.position.x, s, Time.fixedDeltaTime);
+            rb2d.MovePosition(new Vector2(x, rb2d.position.y));
+            if (turnaround) {
+                flippedHoriz = !flippedHoriz;
             }
             break;
         }
 
-        rb2d.velocity = v;
-
 	}
+
+    // called when this becomes a vision
+    void TimeSkip(float timeInFuture) {
+        Debug.Assert(state == State.WALK); //vision should only be made when Pengrunt is walking
+
+        // Start() hasn't been called yet
+        Start();
+
+        // increment time
+        time += timeInFuture;
+
+        // change position after duration
+        float s = speed;
+        if (flippedHoriz)
+            s *= -1;
+        float x = segment.travel(rb2d.position.x, s, VisionUser.VISION_DURATION);
+        bool turnaround = segment.travelTurnsAround(rb2d.position.x, s, VisionUser.VISION_DURATION);
+        rb2d.position = new Vector2(x, rb2d.position.y);
+        if (turnaround) {
+            flippedHoriz = !flippedHoriz;
+        }
+    }
 
     void OnSaveFrame(FrameInfo fi) {
         fi.state = (int) state;
@@ -126,6 +126,7 @@ public class Pengrunt : MonoBehaviour {
 
     float time = 0;
     float duration = 0;
+    Segment segment = null;
 
     // components
     Rigidbody2D rb2d;

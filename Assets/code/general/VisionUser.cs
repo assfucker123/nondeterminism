@@ -14,7 +14,16 @@ public class VisionUser : MonoBehaviour {
      * - Colliders do not deal damage.
      * - Are invisible during flashbacks
      * */
-    
+
+    ///////////////////
+    // SEND MESSAGES //
+    ///////////////////
+
+    /* Skips ahead the given amount of time.
+     * Called when this gameObject becomes a vision. */
+    // void TimeSkip(float timeInFuture);
+
+    public static float VISION_DURATION = 1.0f;
 
     public bool isVision { get { return _isVision; } }
     public float duration = 1.0f; // how long the vision lasts before diappearing
@@ -24,11 +33,13 @@ public class VisionUser : MonoBehaviour {
     public Material material;
 
     /* Creates a clone of this gameObject, converted into a vision. */
-    public GameObject createVision() {
+    public GameObject createVision(float timeInFuture) {
         if (isVision) return null; //visions cannot create visions
+        if (timeUser.getLastFrameInfo() == null) //this should only happen if this hasn't existed for more than 1 frame
+            return null;
         GameObject vision = GameObject.Instantiate(gameObject) as GameObject;
         VisionUser vu = vision.GetComponent<VisionUser>();
-        vu.becomeVision();
+        vu.becomeVision(timeInFuture, timeUser.getLastFrameInfo());
         visionsMade.Add(vu);
         vu.visionCreator = this;
         return vision;
@@ -42,11 +53,15 @@ public class VisionUser : MonoBehaviour {
     }
 
     /* When creating a vision, this function is called after the vision gameObject is instansiated.
+     * currentFI parameter is used to help make this vision be as close to the original as possible.
      * This should only be called by createVision().
      * Becoming a vision is permenant. */
-    public void becomeVision() {
+    public void becomeVision(float timeInFuture, FrameInfo currentFI) {
         if (isVision) return;
         _isVision = true;
+
+        //be more like the original
+        timeUser.revertToFrameInfoUnsafe(currentFI);
 
         //color diffently
         spriteRenderer.material = material;
@@ -58,10 +73,13 @@ public class VisionUser : MonoBehaviour {
             GameObject child = gameObject.transform.GetChild(i).gameObject;
             child.layer = LayerMask.NameToLayer("Visions");
         }
+
+        //call TimeSkip
+        SendMessage("TimeSkip", timeInFuture, SendMessageOptions.DontRequireReceiver);
         
     }
     
-	void Awake(){
+	void Awake() {
 		rb2d = GetComponent<Rigidbody2D>();
         Transform sot = this.transform.Find("spriteObject");
         if (sot == null) {
@@ -73,6 +91,7 @@ public class VisionUser : MonoBehaviour {
         }
         Debug.Assert(spriteRenderer != null);
         timeUser = GetComponent<TimeUser>();
+        Debug.Assert(timeUser != null);
 	}
 	
 	void Update() {
@@ -91,7 +110,7 @@ public class VisionUser : MonoBehaviour {
         }
 	}
 
-    void Destroy() {
+    void OnDestroy() {
         if (visionCreator != null) {
             visionCreator.visionsMade.Remove(this);
             visionCreator = null;
