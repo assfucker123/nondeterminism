@@ -40,6 +40,7 @@ public class TimeUser : MonoBehaviour {
     public static void beginContinuousRevert(float speed = 1) {
         continuousRevertSpeed = speed;
         _reverting = true;
+        _revertingTime = 0;
     }
     /* Ends a continuous revert. */
     public static void endContinuousRevert() {
@@ -49,6 +50,13 @@ public class TimeUser : MonoBehaviour {
      * All TimeUsers should check TimeUser.reverting in the beginning of
      * their Update() etc. functions, and return if TimeUser.reverting is true. */
     public static bool reverting { get { return _reverting; } }
+    /* Gets how far back in time since the start of this continuous revert. */
+    public static float revertingTime {
+        get {
+            if (!reverting) return 0;
+            return _revertingTime;
+        }
+    }
     /* Speed for the continuous revert, minimum is 0.
      * Can be set without calling a function. */
     public static float continuousRevertSpeed = 1;
@@ -76,6 +84,7 @@ public class TimeUser : MonoBehaviour {
     }
     public static bool revertMutex { get { return _revertMutex; } }
 
+    public static float VISION_DURATION = .5f;
     
     ////////////////
     // PROPERTIES //
@@ -219,6 +228,7 @@ public class TimeUser : MonoBehaviour {
     private static float _timeDiff = 0;
     private static bool _revertMutex = false;
     private static bool _reverting = false;
+    private static float _revertingTime = 0;
     private static bool continuousRevertAppliedThisFrame = false;
 
     void Awake() {
@@ -245,6 +255,7 @@ public class TimeUser : MonoBehaviour {
         if (reverting && !continuousRevertAppliedThisFrame) {
             continuousRevertSpeed = Mathf.Max(0, continuousRevertSpeed);
             TimeUser.revert(TimeUser.time - Time.deltaTime * (1 + continuousRevertSpeed));
+            _revertingTime += Time.deltaTime * (1 + continuousRevertSpeed);
             continuousRevertAppliedThisFrame = true;
         }
 

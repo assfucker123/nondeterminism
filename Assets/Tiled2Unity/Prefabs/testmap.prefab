@@ -59,6 +59,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 490626}
   - 60: {fileID: 6052322}
+  - 251: {fileID: 25139652}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Untagged
@@ -139,7 +140,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1772338085
+  m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!33 &3321280
 MeshFilter:
@@ -157,7 +158,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
@@ -173,21 +174,17 @@ PolygonCollider2D:
       - {x: 528, y: -96}
       - {x: 528, y: -112}
       - {x: 624, y: -112}
-    - - {x: 464, y: -176}
-      - {x: 432, y: -176}
-      - {x: 432, y: -208}
-      - {x: 576, y: -208}
-      - {x: 576, y: -192}
-      - {x: 544, y: -176}
-      - {x: 496, y: -176}
-      - {x: 496, y: -160}
-      - {x: 464, y: -160}
     - - {x: 304, y: -160}
       - {x: 176, y: -160}
       - {x: 176, y: -176}
       - {x: 256, y: -176}
       - {x: 288, y: -192}
       - {x: 304, y: -192}
+    - - {x: 432, y: -208}
+      - {x: 576, y: -208}
+      - {x: 576, y: -192}
+      - {x: 544, y: -176}
+      - {x: 432, y: -176}
     - - {x: 704, y: 0}
       - {x: 672, y: 0}
       - {x: 672, y: -240}
@@ -201,8 +198,8 @@ PolygonCollider2D:
       - {x: 208, y: -272}
       - {x: 128, y: -272}
       - {x: 128, y: -224}
-      - {x: 48, y: -224}
-      - {x: 48, y: -176}
+      - {x: 64, y: -224}
+      - {x: 64, y: -176}
       - {x: 32, y: -176}
       - {x: 32, y: 0}
       - {x: 0, y: 0}
@@ -249,13 +246,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialOpacity: 1
+--- !u!251 &25139652
+PlatformEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175298}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseOneWay: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_UseOneWay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_UsedByEffector
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162130}

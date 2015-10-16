@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: oracle_bullet_explosion
+  m_Name: enemy1_bullet_explosion
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
     - time: 0
       value: {fileID: 21300000, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
     - time: .0500000007
-      value: {fileID: 21300002, guid: b02e613368ac2d44d90d067324203009, type: 3}
+      value: {fileID: 21300002, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
     - time: .100000001
-      value: {fileID: 21300004, guid: b02e613368ac2d44d90d067324203009, type: 3}
+      value: {fileID: 21300004, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
     - time: .400000006
-      value: {fileID: 21300004, guid: b02e613368ac2d44d90d067324203009, type: 3}
+      value: {fileID: 21300004, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,9 +44,9 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
-    - {fileID: 21300002, guid: b02e613368ac2d44d90d067324203009, type: 3}
-    - {fileID: 21300004, guid: b02e613368ac2d44d90d067324203009, type: 3}
-    - {fileID: 21300004, guid: b02e613368ac2d44d90d067324203009, type: 3}
+    - {fileID: 21300002, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
+    - {fileID: 21300004, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
+    - {fileID: 21300004, guid: 94f708620fe877f4188266ef3607c6ff, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0

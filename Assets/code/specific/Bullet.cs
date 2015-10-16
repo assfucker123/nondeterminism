@@ -3,14 +3,16 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+    /* The layer determines what the Bullet will hit.
+     * PlayerAttacks: will only hit enemies
+     * EnemyAttacks: will only hit players
+     * MiscAttacks: will only hit players and enemies
+     * */
 
-
-	// PROPERTIES
+    // PROPERTIES
     public float speed = 100;
     public float heading = 0;
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
-    public bool damagesPlayers = true; //note: hitting players/enemies determined by the layer it's in.
-    public bool damagesEnemies = true;
     public GameObject bulletFadeGameObject;
     public GameObject bulletExplosionGameObject;
 
@@ -44,8 +46,7 @@ public class Bullet : MonoBehaviour {
         _distTravelled += distance;
         // perform raycast
         Vector2 direction = new Vector2(Mathf.Cos(heading * Mathf.PI / 180), Mathf.Sin(heading * Mathf.PI / 180));
-        int layerMask = 1 << LayerMask.NameToLayer("Players");
-        layerMask = ~layerMask;
+        int layerMask = ColFinder.getLayerCollisionMask(gameObject.layer);
         RaycastHit2D rh2d = Physics2D.Raycast(
             rb2d.position,
             direction,

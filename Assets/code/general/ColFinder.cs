@@ -65,6 +65,61 @@ public class ColFinder : MonoBehaviour {
 		get { return _gosHitRight.ToArray(); }
 	}
 
+    public Rect boundsOfColliders(Collider2D[] colliders) {
+        if (colliders.Length == 0)
+            return new Rect(0, 0, 0, 0);
+        Rect ret = new Rect(colliders[0].bounds.min.x, colliders[0].bounds.min.y,
+            colliders[0].bounds.extents.x * 2, colliders[0].bounds.extents.y * 2);
+        foreach (Collider2D coldr in colliders) {
+            ret.xMin = Mathf.Min(ret.xMin, coldr.bounds.min.x);
+            ret.yMin = Mathf.Min(ret.yMin, coldr.bounds.min.y);
+            ret.xMax = Mathf.Max(ret.xMax, coldr.bounds.max.x);
+            ret.yMax = Mathf.Max(ret.yMax, coldr.bounds.max.y);
+        }
+        return ret;
+    }
+
+    /* Gets an int that acts as a filter to detect Colliders only on the layers objects
+     * on layerName would collide with.  */
+    public static int getLayerCollisionMask(int layer) {
+        int allLayers = Physics2D.AllLayers;
+        int mask = 0;
+        for (int otherLayer = 0; otherLayer < 32; otherLayer++) {
+            int shiftIndex = 1 << otherLayer;
+            if ((shiftIndex & allLayers) == 0)
+                continue;
+            if (!Physics2D.GetIgnoreLayerCollision(layer, otherLayer))
+                mask |= shiftIndex;
+        }
+        return mask;
+    }
+
+    /* Call to check if the object is about to walk off a platform (flat platforms only) */
+    public bool onRightEdge() {
+        //find bottom right of this gameObject
+        Rect bounds = boundsOfColliders(GetComponents<Collider2D>());
+        Vector2 pt = new Vector2(bounds.xMax, bounds.yMin);
+        float raycastDistance = raycastDownDistance;
+        RaycastHit2D rh2d = Physics2D.Raycast(
+            pt, //origin
+            new Vector2(0, -1), //direction
+            raycastDistance,  //distance
+            getLayerCollisionMask(gameObject.layer));
+        return (rh2d.collider == null);
+    }
+    public bool onLeftEdge() {
+        //find bottom left of this gameObject
+        Rect bounds = boundsOfColliders(GetComponents<Collider2D>());
+        Vector2 pt = new Vector2(bounds.xMin, bounds.yMin);
+        float raycastDistance = raycastDownDistance;
+        RaycastHit2D rh2d = Physics2D.Raycast(
+            pt, //origin
+            new Vector2(0, -1), //direction
+            raycastDistance,  //distance
+            getLayerCollisionMask(gameObject.layer));
+        return (rh2d.collider == null);
+    }
+
 	/* Call this to attempt to snap an object down to a platform
 	 * if it's close enough.
 	 * returns if the raycast hit something */
@@ -88,7 +143,8 @@ public class ColFinder : MonoBehaviour {
 		RaycastHit2D rh2d = Physics2D.Raycast(
 			botPoint, //origin
 			new Vector2(0, -1), //direction
-			raycastDistance); //distance
+			raycastDistance,
+            getLayerCollisionMask(gameObject.layer)); //distance
 		
 		if (rh2d.collider == null){
 			//raycast hit nothing

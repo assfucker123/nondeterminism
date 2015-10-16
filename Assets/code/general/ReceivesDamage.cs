@@ -7,9 +7,7 @@ public class ReceivesDamage : MonoBehaviour {
     public static Color MERCY_FLASH_COLOR = Color.red;
 
     public int health = 10;
-    public bool isPlayer = false;
-    public bool isEnemy = true;
-
+    
     /* Granting mercyInvincibility does not change any events and does not alter AttackInfo at any point.
      * Modification to health lost is only done in the calculation, and is not reflected in PreDamage()
      * nor OnDamage(). */
@@ -54,6 +52,7 @@ public class ReceivesDamage : MonoBehaviour {
         } else {
             ai.impactHeading = -180;
         }
+        ai.impactMagnitude = 1;
         dealDamage(ai);
     }
     /* Calling dealDamage(attackInfo) will not change the attackInfo parameter */

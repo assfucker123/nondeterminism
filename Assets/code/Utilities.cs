@@ -60,6 +60,5 @@ public static class Utilities {
         return easeInOutQuad(t, b, c, d);
     }
 
-    
 	
 };

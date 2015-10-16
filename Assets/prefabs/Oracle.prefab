@@ -15,8 +15,8 @@ GameObject:
   - 114: {fileID: 11478022}
   - 114: {fileID: 11400784}
   - 114: {fileID: 11451260}
-  - 114: {fileID: 11425680}
   - 114: {fileID: 11418066}
+  - 114: {fileID: 11425680}
   m_Layer: 8
   m_Name: Oracle
   m_TagString: Player
@@ -162,8 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  isPlayer: 1
-  isEnemy: 0
 --- !u!114 &11425680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,7 +189,7 @@ MonoBehaviour:
   bulletMuzzleGameObject: {fileID: 114470, guid: 7208b24a79914e04d973ce54c733052c,
     type: 2}
   bulletSpawn: {x: 1, y: .5}
-  revertSpeed: 2
+  revertSpeed: 1.5
   revertEaseDuration: 1
   minRevertDuration: .100000001
   damageSpeed: 14
@@ -347,7 +345,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: revertEaseDuration
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: minRevertDuration
@@ -355,7 +353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: revertSpeed
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: isPlayer

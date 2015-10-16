@@ -66,7 +66,6 @@ Special Enemy Attacks:
 	- Attacks that appear on the screen itself, and don't move with the camera or through flashbacks.
 	- In lore these are viruses in Oracle's programming.
 	- In ~SR, happen at random the longer you play the game, similar to the ghosts in An Untitled Story.
-	
 
 
 Nondeterminism ~ SR
@@ -136,6 +135,10 @@ Newer ideas:
 
 - Tommy's nullifier program gets repurposed into giving Oracle hallucinations.
 	- Whenever they're really talking about Tommy, Oracle thinks they're talking about something else: Entity X.
+	
+- Oracle doesn't forsee events without forseeing every event that leads up to it first.
+- Beginning of game: Oracle gets a vision of a bomb detonating in (1 hour?), but doesn't know what causes it.  This is concerning because she doesn't know what events lead up to it.
+	- Vision was sent to Oracle in a similar way to Tommy's nullifier program.
 
 - Tommy asks Wally for Oracle's help to defeat invaders
 - Invaders: evil penguins, seals, bears.

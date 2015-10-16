@@ -89,10 +89,6 @@ public class Player : MonoBehaviour {
         jumpPressed = Input.GetButtonDown("Jump");
         jumpHeld = Input.GetButton("Jump");
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            receivesDamage.dealDamage(3, rightHeld);
-        }
-
         //control reverting
         timeReverting();
 
