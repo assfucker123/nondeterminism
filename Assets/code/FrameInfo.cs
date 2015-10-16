@@ -21,6 +21,7 @@ public class FrameInfo {
     public int state = 0;
     public Dictionary<string, int> ints = new Dictionary<string, int>();
     public Dictionary<string, float> floats = new Dictionary<string, float>();
+    public Dictionary<string, bool> bools = new Dictionary<string, bool>();
     public Dictionary<string, string> strings = new Dictionary<string, string>();
 
     public bool thisFrameInfoDestroyed { get { return _thisFrameInfoDestroyed; } }
@@ -41,6 +42,7 @@ public class FrameInfo {
         fi.state = 0;
         fi.ints.Clear();
         fi.floats.Clear();
+        fi.bools.Clear();
         fi.strings.Clear();
         fi._thisFrameInfoDestroyed = false;
     }

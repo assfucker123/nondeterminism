@@ -30,6 +30,57 @@ public class Segment {
         return ret;
     }
 
+    /* Finds topSegment that most closely matches the position.
+     * Returns null if none found. */
+    public static Segment findTop(Vector2 pos) {
+        Segment ret = null;
+        float dist = 0;
+        foreach (Segment seg in topSegments) {
+            if (seg.p0.x <= pos.x && pos.x <= seg.p1.x) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.y - seg.p0.y) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.y - seg.p0.y);
+                }
+            }
+        }
+        return ret;
+    }
+
+    /* Finds leftSegment that most closely matches the position.
+     * Returns null if none found. */
+    public static Segment findLeft(Vector2 pos) {
+        Segment ret = null;
+        float dist = 0;
+        foreach (Segment seg in leftSegments) {
+            if (seg.p0.y <= pos.y && pos.y <= seg.p1.y) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.x - seg.p0.x) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.x - seg.p0.x);
+                }
+            }
+        }
+        return ret;
+    }
+
+    /* Finds rightSegment that most closely matches the position.
+     * Returns null if none found. */
+    public static Segment findRight(Vector2 pos) {
+        Segment ret = null;
+        float dist = 0;
+        foreach (Segment seg in rightSegments) {
+            if (seg.p0.y <= pos.y && pos.y <= seg.p1.y) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.x - seg.p0.x) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.x - seg.p0.x);
+                }
+            }
+        }
+        return ret;
+    }
+
     /* Selects a random Segment from segments, provided value is a random number in [0, 1).
      * Segments with a greater length are more likely to be picked. */
     public static Segment weightedRandom(List<Segment> segments, float value) {

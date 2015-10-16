@@ -98,7 +98,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 432996, guid: 7def326f5054bbb4d98c41b1d43d5dde, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.98999977
+      value: 2.98000002
       objectReference: {fileID: 0}
     - target: {fileID: 432996, guid: 7def326f5054bbb4d98c41b1d43d5dde, type: 2}
       propertyPath: m_LocalPosition.z
@@ -529,63 +529,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 150f4715618fa0d4189bd04dbac7a114, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &847425717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 847425720}
-  - 68: {fileID: 847425719}
-  - 68: {fileID: 847425718}
-  m_Layer: 14
-  m_Name: VertSegments
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!68 &847425718
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 847425717}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-  - {x: 20.4893551, y: 9.14759827}
-  - {x: 20.4242229, y: -2.31822729}
---- !u!68 &847425719
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 847425717}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-  - {x: -18.0433407, y: 1.50371528}
-  - {x: -18.0458183, y: 9.52352715}
---- !u!4 &847425720
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 847425717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.26727951, y: .91875273, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
 --- !u!1 &874033442
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,8 +547,10 @@ GameObject:
   - 68: {fileID: 874033452}
   - 68: {fileID: 874033451}
   - 114: {fileID: 874033453}
+  - 68: {fileID: 874033455}
+  - 68: {fileID: 874033454}
   m_Layer: 14
-  m_Name: HorizSegments
+  m_Name: Segments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,6 +705,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850196f2c2f59bb4c89d6aa10d9419df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!68 &874033454
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 874033442}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+  - {x: -22.3665199, y: 15.5383873}
+  - {x: -22.3063431, y: 6.82937241}
+--- !u!68 &874033455
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 874033442}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+  - {x: 16.41679, y: 15.5383863}
+  - {x: 16.4143162, y: 3.00743032}
 --- !u!1 &996819637
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +877,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1001 &1217266634
 Prefab:
   m_ObjectHideFlags: 0

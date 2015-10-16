@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21279518}
   - 95: {fileID: 9562734}
   - 114: {fileID: 11485282}
+  - 114: {fileID: 11486342}
   - 114: {fileID: 11460280}
   m_Layer: 10
   m_Name: OracleBulletFade
@@ -71,6 +72,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11486342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInDuration: .200000003
+  material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!212 &21279518
 SpriteRenderer:
   m_ObjectHideFlags: 1

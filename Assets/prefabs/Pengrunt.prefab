@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.06000042, y: 5.98999977, z: 0}
+  m_LocalPosition: {x: 8.06000042, y: 2.98000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 457966}
@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
   fadeInDuration: .200000003
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!114 &11477066
@@ -230,13 +229,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleDuration: .5
-  walkShortDuration: .300000012
-  walkLongDuration: .800000012
-  preSprayDuration: .200000003
+  walkShortDuration: 1.10000002
+  walkLongDuration: 1.89999998
   sprayDuration: .699999988
   speed: 3
   spraySpeed: 1
+  bulletGameObject: {fileID: 147210, guid: e6acf5b46e6ed354e9cc9bf4fab36be4, type: 2}
+  bulletSpawn: {x: 1, y: -.400000006}
+  bulletSpread: 5
+  bulletPeriod: .0399999991
   state: 0
+  aimRight: 0
 --- !u!114 &11478874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -316,6 +319,22 @@ Prefab:
       propertyPath: friction
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: walkLongDuration
+      value: 1.89999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawn.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawn.y
+      value: -.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletGameObject
+      value: 
+      objectReference: {fileID: 147210, guid: e6acf5b46e6ed354e9cc9bf4fab36be4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119236}

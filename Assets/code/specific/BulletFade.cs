@@ -11,6 +11,8 @@ public class BulletFade : MonoBehaviour {
 
     void Awake() {
         timeUser = GetComponent<TimeUser>();
+        visionUser = GetComponent<VisionUser>();
+        Debug.Assert(timeUser != null && visionUser != null);
     }
     
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class BulletFade : MonoBehaviour {
 	}
 
     TimeUser timeUser;
+    VisionUser visionUser;
     float time = 0;
 
 }

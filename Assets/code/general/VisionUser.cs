@@ -26,29 +26,32 @@ public class VisionUser : MonoBehaviour {
     public static float VISION_DURATION = 1.0f;
 
     public bool isVision { get { return _isVision; } }
-    public float duration = 1.0f; // how long the vision lasts before diappearing
     public float fadeInDuration = .2f; //how long for the vision to fade in
-    private float time = 0;
-
+    public float time { get { return _time; } } //how long this visionUser has been a vision
+    public float duration { get { return _duration; } } //how long this visionUser will be a vision for
+    
     public Material material;
 
     /* Creates a clone of this gameObject, converted into a vision. */
-    public GameObject createVision(float timeInFuture) {
-        if (isVision) return null; //visions cannot create visions
+    public GameObject createVision(float timeInFuture, float visionDuration) {
+        if (isVision) return null; //visions cannot create visions of themselves
         if (timeUser.getLastFrameInfo() == null) //this should only happen if this hasn't existed for more than 1 frame
             return null;
         GameObject vision = GameObject.Instantiate(gameObject) as GameObject;
         VisionUser vu = vision.GetComponent<VisionUser>();
-        vu.becomeVision(timeInFuture, timeUser.getLastFrameInfo());
-        visionsMade.Add(vu);
-        vu.visionCreator = this;
+        vu.becomeVision(timeInFuture, visionDuration, timeUser.getLastFrameInfo(), this);
         return vision;
     }
+    /* Automatically sets visionDuration to timeInFuture. */
+    public GameObject createVision(float timeInFuture) {
+        return createVision(timeInFuture, timeInFuture);
+    }
+
     /* Tells all the visions created to immediately fade out.
      * This is useful if this gameObject died while a vision is still being displayed. */
     public void cutVisions() {
         foreach (VisionUser vu in visionsMade) {
-            vu.time = Mathf.Max(vu.time, vu.duration - vu.fadeInDuration);
+            vu._time = Mathf.Max(vu.time, vu.duration - vu.fadeInDuration);
         }
     }
 
@@ -56,12 +59,16 @@ public class VisionUser : MonoBehaviour {
      * currentFI parameter is used to help make this vision be as close to the original as possible.
      * This should only be called by createVision().
      * Becoming a vision is permenant. */
-    public void becomeVision(float timeInFuture, FrameInfo currentFI) {
+    public void becomeVision(float timeInFuture, float visionDuration, FrameInfo currentFI, VisionUser visionCreator) {
         if (isVision) return;
         _isVision = true;
 
+        _duration = visionDuration;
+
         //be more like the original
-        timeUser.revertToFrameInfoUnsafe(currentFI);
+        if (currentFI != null) {
+            timeUser.revertToFrameInfoUnsafe(currentFI);
+        }
 
         //color diffently
         spriteRenderer.material = material;
@@ -74,11 +81,25 @@ public class VisionUser : MonoBehaviour {
             child.layer = LayerMask.NameToLayer("Visions");
         }
 
+        //add vision to list
+        if (visionCreator != null) {
+            visionCreator.visionsMade.Add(this);
+        }
+        this.visionCreator = visionCreator;
+
         //call TimeSkip
-        SendMessage("TimeSkip", timeInFuture, SendMessageOptions.DontRequireReceiver);
+        if (timeInFuture > 0) {
+            SendMessage("TimeSkip", timeInFuture, SendMessageOptions.DontRequireReceiver);
+        }
         
     }
-    
+
+    /* Immediately converts a gameObject into a vision.
+     * Useful for when visions spawn other visions (like bullets) */
+    public void becomeVisionNow(float visionDuration, VisionUser visionCreator) {
+        becomeVision(0, visionDuration, null, visionCreator);
+    }
+
 	void Awake() {
 		rb2d = GetComponent<Rigidbody2D>();
         Transform sot = this.transform.Find("spriteObject");
@@ -103,7 +124,7 @@ public class VisionUser : MonoBehaviour {
         if (!isVision)
             return;
         
-        time += Time.deltaTime;
+        _time += Time.deltaTime;
 
         if (time >= duration) {
             timeUser.timeDestroy();
@@ -127,8 +148,8 @@ public class VisionUser : MonoBehaviour {
         fi.floats["visionDuration"] = duration;
     }
     void OnRevert(FrameInfo fi) {
-        time = fi.floats["visionTime"];
-        duration = fi.floats["visionDuration"];
+        _time = fi.floats["visionTime"];
+        _duration = fi.floats["visionDuration"];
     }
     void OnTimeDestroy() {
         cutVisions();
@@ -157,6 +178,8 @@ public class VisionUser : MonoBehaviour {
     bool _isVision = false;
     List<VisionUser> visionsMade = new List<VisionUser>();
     VisionUser visionCreator;
+    private float _time = 0;
+    private float _duration = 1.0f; // how long the vision lasts before diappearing
 	
 	// components
     Rigidbody2D rb2d;

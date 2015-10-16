@@ -7,6 +7,8 @@ public class BulletExplosion : MonoBehaviour {
 
     void Awake() {
         timeUser = GetComponent<TimeUser>();
+        visionUser = GetComponent<VisionUser>();
+        Debug.Assert(timeUser != null && visionUser != null);
     }
 
     void Update() {
@@ -21,5 +23,6 @@ public class BulletExplosion : MonoBehaviour {
     }
 
     TimeUser timeUser;
+    VisionUser visionUser;
     float time = 0;
 }

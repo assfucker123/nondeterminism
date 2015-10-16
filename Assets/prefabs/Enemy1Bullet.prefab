@@ -13,6 +13,7 @@ GameObject:
   - 50: {fileID: 5083616}
   - 114: {fileID: 11498388}
   - 114: {fileID: 11412170}
+  - 114: {fileID: 11466162}
   m_Layer: 11
   m_Name: Enemy1Bullet
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11466162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInDuration: .200000003
+  material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!114 &11498388
 MonoBehaviour:
   m_ObjectHideFlags: 1

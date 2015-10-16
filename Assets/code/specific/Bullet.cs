@@ -21,6 +21,8 @@ public class Bullet : MonoBehaviour {
     void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
         timeUser = GetComponent<TimeUser>();
+        visionUser = GetComponent<VisionUser>();
+        Debug.Assert(timeUser != null && visionUser != null);
     }
 
 	void Start() {
@@ -81,15 +83,21 @@ public class Bullet : MonoBehaviour {
             //create bulletFade at point of hit
             bool createBulletFade = aliveTime > 0;
             if (bulletFadeGameObject != null && createBulletFade) {
-                GameObject.Instantiate(bulletFadeGameObject,
+                GameObject bF = GameObject.Instantiate(bulletFadeGameObject,
                     destroyPoint,
-                    gameObject.transform.rotation);
+                    gameObject.transform.rotation) as GameObject;
+                if (visionUser.isVision) {
+                    bF.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                }
             }
             //create bulletExplosion at point of hit
             if (bulletExplosionGameObject != null) {
-                GameObject.Instantiate(bulletExplosionGameObject,
+                GameObject bE = GameObject.Instantiate(bulletExplosionGameObject,
                     destroyPoint,
-                    gameObject.transform.rotation);
+                    gameObject.transform.rotation) as GameObject;
+                if (visionUser.isVision) {
+                    bE.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration-visionUser.time, visionUser);
+                }
             }
 
             timeUser.timeDestroy();
@@ -109,6 +117,7 @@ public class Bullet : MonoBehaviour {
 
     private Rigidbody2D rb2d;
     private TimeUser timeUser;
+    private VisionUser visionUser;
     private float aliveTime = 0;
     private float _distTravelled = 0;
 

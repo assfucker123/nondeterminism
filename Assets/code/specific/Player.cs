@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+    public static Player instance { get { return _instance; } }
+
     ///////////////////////
     // PUBLIC PROPERTIES //
     ///////////////////////
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour {
     public float mercyInvincibilityDuration = 1.0f;
     public State state = State.GROUND;
 
+    public Rigidbody2D rb2d { get { return _rb2d; } }
     public bool flippedHoriz {
         get { return spriteRenderer.transform.localScale.x < 0; }
         set {
@@ -68,7 +71,8 @@ public class Player : MonoBehaviour {
     /////////////////////
 
     void Awake() {
-        rb2d = GetComponent<Rigidbody2D>();
+        _instance = this;
+        _rb2d = GetComponent<Rigidbody2D>();
         spriteObject = this.transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
@@ -155,6 +159,9 @@ public class Player : MonoBehaviour {
         spriteRenderer.color = new Color(float.Parse(colorParts[0]), float.Parse(colorParts[1]), float.Parse(colorParts[2]), float.Parse(colorParts[3]));
     }
 
+    void OnDestroy() {
+        _instance = null;
+    }
 
     // control time reverting (called each frame)
     void timeReverting() {
@@ -472,6 +479,8 @@ public class Player : MonoBehaviour {
 
     // PRIVATE
 
+    private static Player _instance;
+
     // vars
     float revertTime = 0;
     float jumpTime = 99999;
@@ -479,7 +488,7 @@ public class Player : MonoBehaviour {
     float damageTime = 0;
 
     // components
-    Rigidbody2D rb2d;
+    Rigidbody2D _rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;

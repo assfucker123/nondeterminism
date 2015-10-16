@@ -8,18 +8,21 @@ public class Pengrunt : MonoBehaviour {
     public enum State {
         IDLE,
         WALK, //walk for set duration (short or long).  Turn around at walls and edges
-        PRE_SPRAY, //should be a short duration.  Possibly turn around?
         SPRAY //pushed backwards during this
     }
 
     public float idleDuration = .5f;
-    public float walkShortDuration = .3f;
-    public float walkLongDuration = .8f;
-    public float preSprayDuration = .2f;
+    public float walkShortDuration = 1.1f;
+    public float walkLongDuration = 1.9f;
     public float sprayDuration = .7f;
     public float speed = 8;
     public float spraySpeed = 4;
+    public GameObject bulletGameObject;
+    public Vector2 bulletSpawn = new Vector2();
+    public float bulletSpread = 20;
+    public float bulletPeriod = .04f;
     public State state = State.IDLE;
+    public bool aimRight = false;
 
     public bool flippedHoriz {
         get { return spriteRenderer.transform.localScale.x < 0; }
@@ -54,10 +57,7 @@ public class Pengrunt : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
 
-        if (state == State.WALK && Input.GetKeyDown(KeyCode.Alpha1)) {
-            visionUser.createVision(VisionUser.VISION_DURATION);
-        }
-
+        float prevTime = time;
         time += Time.deltaTime;
 
         switch (state) {
@@ -85,6 +85,68 @@ public class Pengrunt : MonoBehaviour {
             rb2d.MovePosition(new Vector2(x, rb2d.position.y));
             if (turnaround) {
                 flippedHoriz = !flippedHoriz;
+            }
+
+            // create a vision at the correct time
+            if (prevTime+VisionUser.VISION_DURATION < duration &&
+                time + VisionUser.VISION_DURATION >= duration) {
+                GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
+
+                // would also be a good time to decide which direction to fire in
+                aimRight = (Player.instance.rb2d.position.x > rb2d.position.x);
+                vGO.GetComponent<Pengrunt>().aimRight = aimRight;
+            }
+
+            // detect when going to SPRAY state
+            if (time >= duration) {
+                state = State.SPRAY;
+                time -= duration;
+                bulletTime = 0;
+
+                flippedHoriz = !aimRight;
+            }
+
+            break;
+        case State.SPRAY:
+
+            //fire bullets
+            bulletTime += Time.deltaTime;
+            while (bulletTime >= bulletPeriod) {
+
+                //spawning bullet
+                Vector2 relSpawnPosition = bulletSpawn;
+                relSpawnPosition.x *= spriteRenderer.transform.localScale.x;
+                relSpawnPosition.y *= spriteRenderer.transform.localScale.y;
+                float heading = 0;
+                if (flippedHoriz) {
+                    heading = 180;
+                }
+                heading += (timeUser.randomValue() * 2 - 1) * bulletSpread;
+                GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
+                    rb2d.position + relSpawnPosition,
+                    Utilities.setQuat(heading)) as GameObject;
+                Bullet bullet = bulletGO.GetComponent<Bullet>();
+                bullet.heading = heading;
+                //make bullet a vision if this is also a vision
+                if (visionUser.isVision) {
+                    VisionUser bvu = bullet.GetComponent<VisionUser>();
+                    bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                }
+
+                bulletTime -= bulletPeriod;
+            }
+
+            //pushed backward
+            s = -spraySpeed;
+            if (flippedHoriz)
+                s *= -1;
+            x = segment.travelClamp(rb2d.position.x, s, Time.fixedDeltaTime);
+            rb2d.MovePosition(new Vector2(x, rb2d.position.y));
+
+            //detect done with spray
+            if (time >= sprayDuration) {
+                time -= sprayDuration;
+                state = State.IDLE;
             }
             break;
         }
@@ -117,16 +179,19 @@ public class Pengrunt : MonoBehaviour {
         fi.state = (int) state;
         fi.floats["time"] = time;
         fi.floats["duration"] = duration;
+        fi.bools["aimRight"] = aimRight;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
         time = fi.floats["time"];
         duration = fi.floats["duration"];
+        aimRight = fi.bools["aimRight"];
     }
 
     float time = 0;
     float duration = 0;
     Segment segment = null;
+    float bulletTime = 0;
 
     // components
     Rigidbody2D rb2d;
