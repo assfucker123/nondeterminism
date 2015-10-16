@@ -23,7 +23,7 @@ public class VisionUser : MonoBehaviour {
      * Called when this gameObject becomes a vision. */
     // void TimeSkip(float timeInFuture);
 
-    public static float VISION_DURATION = 1.0f;
+    public static float VISION_DURATION = .8f;
 
     public bool isVision { get { return _isVision; } }
     public float fadeInDuration = .2f; //how long for the vision to fade in

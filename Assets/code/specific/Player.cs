@@ -439,6 +439,9 @@ public class Player : MonoBehaviour {
         animator.Play("oracle_damage");
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
         state = State.DAMAGE;
+
+        //end jump if jumping
+        jumpTime = jumpMaxDuration + 1;
     }
 
 

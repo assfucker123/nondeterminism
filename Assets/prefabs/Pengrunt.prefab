@@ -231,7 +231,7 @@ MonoBehaviour:
   idleDuration: .5
   walkShortDuration: 1.10000002
   walkLongDuration: 1.89999998
-  sprayDuration: .699999988
+  sprayDuration: .600000024
   speed: 3
   spraySpeed: 1
   bulletGameObject: {fileID: 147210, guid: e6acf5b46e6ed354e9cc9bf4fab36be4, type: 2}
@@ -335,6 +335,14 @@ Prefab:
       propertyPath: bulletGameObject
       value: 
       objectReference: {fileID: 147210, guid: e6acf5b46e6ed354e9cc9bf4fab36be4, type: 2}
+    - target: {fileID: 0}
+      propertyPath: sprayDuration
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: idleDuration
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119236}

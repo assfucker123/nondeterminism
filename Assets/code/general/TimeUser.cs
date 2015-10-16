@@ -35,6 +35,10 @@ public class TimeUser : MonoBehaviour {
     // PUBLIC STATIC //
     ///////////////////
 
+    /* Once a TimeUser has been time destroyed for this amount of time, 
+     * it will get destroyed for real. */
+    public static float MAX_TIME_DESTROY_AGE = 7.0f;
+
     /* Begins a continuous revert.  The game will appear to go back in
      * time until endContinuousRevert() is called */
     public static void beginContinuousRevert(float speed = 1) {
@@ -278,9 +282,22 @@ public class TimeUser : MonoBehaviour {
         continuousRevertAppliedThisFrame = false;
         addCurrentFrameInfo();
 
+        // if has been time destroyed, delete for good if it gets too old
+        if (!this.exists) {
+            if (TimeUser.time - getLastFrameInfo().time >= TimeUser.MAX_TIME_DESTROY_AGE) {
+                GameObject.Destroy(gameObject);
+            }
+        }
+
 	}
 
     void OnDestroy() {
+        //destroy all frame infos
+        foreach (FrameInfo fi in fis) {
+            FrameInfo.destroy(fi);
+        }
+        fis.Clear();
+        //
         allTimeUsers.Remove(this);
     }
 

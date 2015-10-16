@@ -90,13 +90,16 @@ public class Bullet : MonoBehaviour {
                     bF.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
                 }
             }
-            //create bulletExplosion at point of hit
-            if (bulletExplosionGameObject != null) {
-                GameObject bE = GameObject.Instantiate(bulletExplosionGameObject,
-                    destroyPoint,
-                    gameObject.transform.rotation) as GameObject;
-                if (visionUser.isVision) {
-                    bE.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration-visionUser.time, visionUser);
+
+            if (!visionUser.isVision) {
+                //create bulletExplosion at point of hit
+                if (bulletExplosionGameObject != null) {
+                    GameObject bE = GameObject.Instantiate(bulletExplosionGameObject,
+                        destroyPoint,
+                        gameObject.transform.rotation) as GameObject;
+                    if (visionUser.isVision) {
+                        bE.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                    }
                 }
             }
 
