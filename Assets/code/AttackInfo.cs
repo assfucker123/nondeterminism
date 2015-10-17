@@ -4,8 +4,6 @@ using System.Collections;
 public class AttackInfo {
 
     public int damage = 0;
-    public bool damagesPlayer = true;
-    public bool damagesEnemy = true;
     public Vector2 impactPoint = new Vector2();
     public float impactHeading = 0;
     public float impactMagnitude = 0;
@@ -15,8 +13,6 @@ public class AttackInfo {
     public AttackInfo clone() {
         AttackInfo ret = new AttackInfo();
         ret.damage = damage;
-        ret.damagesPlayer = damagesPlayer;
-        ret.damagesEnemy = damagesEnemy;
         ret.impactPoint = impactPoint;
         ret.impactHeading = impactHeading;
         ret.impactMagnitude = impactMagnitude;

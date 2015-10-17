@@ -11,9 +11,9 @@ GameObject:
   - 212: {fileID: 21247570}
   - 95: {fileID: 9518964}
   - 50: {fileID: 5075978}
-  - 114: {fileID: 11483872}
   - 114: {fileID: 11435412}
   - 114: {fileID: 11451150}
+  - 114: {fileID: 11483872}
   m_Layer: 10
   m_Name: OracleBullet
   m_TagString: Untagged
@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: .200000003
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!114 &11483872
 MonoBehaviour:
@@ -102,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 90
+  damage: 2
   heading: 0
   maxDistance: -1
   bulletFadeGameObject: {fileID: 142210, guid: 6666dd46dc383bd49b1469934493fcd0, type: 2}

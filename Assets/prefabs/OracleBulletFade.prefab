@@ -12,7 +12,7 @@ GameObject:
   - 95: {fileID: 9562734}
   - 114: {fileID: 11485282}
   - 114: {fileID: 11486342}
-  - 114: {fileID: 11460280}
+  - 114: {fileID: 11403152}
   m_Layer: 10
   m_Name: OracleBulletFade
   m_TagString: Untagged
@@ -49,7 +49,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11460280
+--- !u!114 &11403152
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 142210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f1f53ea148cd74698daba66950d0d5, type: 3}
+  m_Script: {fileID: 11500000, guid: bfa31e6d6a8df4545bcf57bb11d38a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: .100000001
@@ -83,7 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: .200000003
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!212 &21279518
 SpriteRenderer:

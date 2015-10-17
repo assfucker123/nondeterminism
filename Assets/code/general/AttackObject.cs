@@ -9,9 +9,10 @@ public class AttackObject : MonoBehaviour {
 
     public int damage = 2;
 
-	void Awake(){
+	void Awake() {
         rb2d = transform.parent.GetComponent<Rigidbody2D>();
         visionUser = transform.parent.GetComponent<VisionUser>(); //it's okay if this is null
+        defaultDeath = transform.parent.GetComponent<DefaultDeath>(); //it's okay if this is null
 	}
 	
 	void Update () {
@@ -20,6 +21,8 @@ public class AttackObject : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D c2d){
         if (visionUser != null && visionUser.isVision) //visions can't deal damage
+            return;
+        if (defaultDeath != null && defaultDeath.activated) //don't deal damage while dying
             return;
         GameObject gO = c2d.gameObject;
         Rigidbody2D gOrb2d = gO.GetComponent<Rigidbody2D>();
@@ -33,4 +36,5 @@ public class AttackObject : MonoBehaviour {
 	// components
     Rigidbody2D rb2d;
     VisionUser visionUser;
+    DefaultDeath defaultDeath;
 }

@@ -14,9 +14,10 @@ GameObject:
   - 61: {fileID: 6194494}
   - 114: {fileID: 11478874}
   - 114: {fileID: 11427558}
-  - 114: {fileID: 11465352}
-  - 114: {fileID: 11477066}
   - 114: {fileID: 11473484}
+  - 114: {fileID: 11465352}
+  - 114: {fileID: 11479872}
+  - 114: {fileID: 11477066}
   m_Layer: 9
   m_Name: Pengrunt
   m_TagString: Untagged
@@ -204,6 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  autoHitFlash: 1
+  autoActivateDefaultDeath: 1
 --- !u!114 &11473484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -215,7 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: .200000003
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!114 &11477066
 MonoBehaviour:
@@ -228,9 +230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9360250f0ce213d4dbe7a1ffe46d5f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleDuration: .5
-  walkShortDuration: 1.10000002
-  walkLongDuration: 1.89999998
+  idleDuration: .100000001
+  walkShortDuration: 1.20000005
+  walkLongDuration: 1.60000002
   sprayDuration: .600000024
   speed: 3
   spraySpeed: 1
@@ -254,6 +256,25 @@ MonoBehaviour:
   bottomAngleThreshold: 35
   raycastDownDistance: .200000003
   raycastDownGravity: 70
+--- !u!114 &11479872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e2965627bac3947b4987fc6b610623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: .800000012
+  explosionSpawnWidth: 1
+  explosionSpawnHeight: 2
+  explosionDensity: 20
+  velocity: {x: 3, y: 3.5}
+  gravity: 10
+  setColor: 1
+  explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
 --- !u!114 &11489410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,7 +342,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: walkLongDuration
-      value: 1.89999998
+      value: 1.60000002
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bulletSpawn.x
@@ -341,7 +362,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: idleDuration
-      value: .5
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialYVelocity
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: gravity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: velocity.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: velocity.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: duration
+      value: .800000012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

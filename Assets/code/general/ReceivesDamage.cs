@@ -3,10 +3,15 @@ using System.Collections;
 
 public class ReceivesDamage : MonoBehaviour {
 
+    public static float HIT_FLASH_DURATION = .06f;
+    public static Color HIT_FLASH_COLOR = new Color(.89f, 0, 0);
+
     public static float MERCY_FLASH_PERIOD = .2f;
     public static Color MERCY_FLASH_COLOR = Color.red;
 
     public int health = 10;
+    public bool autoHitFlash = true; //if set to true, spriteRenderer will briefly flash after being hit
+    public bool autoActivateDefaultDeath = true; //if set to true, will call activate() from the DefaultDeath component (if available)
     
     /* Granting mercyInvincibility does not change any events and does not alter AttackInfo at any point.
      * Modification to health lost is only done in the calculation, and is not reflected in PreDamage()
@@ -45,8 +50,6 @@ public class ReceivesDamage : MonoBehaviour {
     public void dealDamage(int damage, bool toRight) {
         AttackInfo ai = new AttackInfo();
         ai.damage = damage;
-        ai.damagesEnemy = true;
-        ai.damagesPlayer = true;
         if (toRight) {
             ai.impactHeading = 0;
         } else {
@@ -80,6 +83,18 @@ public class ReceivesDamage : MonoBehaviour {
         }
 
         if (sendOnDamage) {
+            if (health <= 0 && autoActivateDefaultDeath) {
+                if (defaultDeath != null) {
+                    if (!defaultDeath.activated) {
+                        defaultDeath.activate(attackInfo.impactToRight());
+                    }
+                }
+            }
+            if (autoHitFlash && spriteRenderer != null &&
+                (defaultDeath == null || !defaultDeath.activated)) {
+                hitFlashTime = 0;
+                spriteRenderer.color = HIT_FLASH_COLOR;
+            }
             SendMessage("OnDamage", ai, SendMessageOptions.DontRequireReceiver);
         }
         return ai;
@@ -91,8 +106,27 @@ public class ReceivesDamage : MonoBehaviour {
     float mercyInvincibilityDuration = 0;
     int mercyInvincibilityDamageDecrease = int.MaxValue;
 
+    void Awake() {
+        Transform sot = this.transform.Find("spriteObject");
+        GameObject spriteObject;
+        if (sot == null) {
+            spriteObject = gameObject;
+            spriteRenderer = this.GetComponent<SpriteRenderer>();
+        } else {
+            spriteObject = sot.gameObject;
+            spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
+        }
+        defaultDeath = GetComponent<DefaultDeath>();
+    }
     void Update() {
         _mercyInvincibilityTime += Time.deltaTime;
+
+        if (autoHitFlash && hitFlashTime < HIT_FLASH_DURATION) {
+            hitFlashTime += Time.deltaTime;
+            if (hitFlashTime >= HIT_FLASH_DURATION && spriteRenderer != null ) {
+                spriteRenderer.color = Color.white;
+            }
+        }
     }
 
     // TimeUser stuff
@@ -108,5 +142,9 @@ public class ReceivesDamage : MonoBehaviour {
         mercyInvincibilityDuration = fi.floats["miDuration"];
         mercyInvincibilityDamageDecrease = fi.ints["miDD"];
     }
+
+    private SpriteRenderer spriteRenderer;
+    private DefaultDeath defaultDeath;
+    private float hitFlashTime = 9999;
 
 }

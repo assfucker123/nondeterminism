@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour {
 
     // PROPERTIES
     public float speed = 100;
+    public int damage = 2;
     public float heading = 0;
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
     public GameObject bulletFadeGameObject;
@@ -65,6 +66,13 @@ public class Bullet : MonoBehaviour {
             //hit thing
             
             //todo: affect object hit
+            ReceivesDamage rd = rh2d.collider.gameObject.GetComponent<ReceivesDamage>();
+            if (rd != null) {
+                AttackInfo ai = new AttackInfo();
+                ai.damage = damage;
+                ai.impactHeading = heading;
+                rd.dealDamage(ai);
+            }
 
             rb2d.position = rh2d.point;
             destroyBullet = true;

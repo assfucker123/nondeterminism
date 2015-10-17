@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletMuzzle : MonoBehaviour {
+public class VisualEffect : MonoBehaviour {
 
-    public float duration = .2f;
+    public float duration = .1f;
 
-	void Awake () {
+    void Awake() {
         timeUser = GetComponent<TimeUser>();
-	}
+        visionUser = GetComponent<VisionUser>();
+        Debug.Assert(timeUser != null && visionUser != null);
+    }
 
     void Update() {
 
@@ -21,6 +23,7 @@ public class BulletMuzzle : MonoBehaviour {
     }
 
     TimeUser timeUser;
+    VisionUser visionUser;
     float time = 0;
 
 }

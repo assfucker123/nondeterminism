@@ -8,7 +8,8 @@ public class Pengrunt : MonoBehaviour {
     public enum State {
         IDLE,
         WALK, //walk for set duration (short or long).  Turn around at walls and edges
-        SPRAY //pushed backwards during this
+        SPRAY, //pushed backwards during this
+        DEAD //don't do anything; DefaultDeath takes care of this
     }
 
     public float idleDuration = .5f;
@@ -45,6 +46,7 @@ public class Pengrunt : MonoBehaviour {
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
+        defaultDeath = GetComponent<DefaultDeath>();
     }
 
 	void Start() {
@@ -56,6 +58,8 @@ public class Pengrunt : MonoBehaviour {
 
         if (timeUser.shouldNotUpdate)
             return;
+        if (defaultDeath.activated)
+            return;
 
         float prevTime = time;
         time += Time.deltaTime;
@@ -66,7 +70,9 @@ public class Pengrunt : MonoBehaviour {
             // next state
             if (time >= idleDuration && colFinder.hitBottom) {
                 state = State.WALK;
-                time -= idleDuration;
+                animator.Play("walk");
+                playerNearbyDuringWalk = false;
+                time = 0;
                 if (timeUser.randomValue() < .5f) {
                     duration = walkShortDuration;
                 } else {
@@ -87,14 +93,29 @@ public class Pengrunt : MonoBehaviour {
                 flippedHoriz = !flippedHoriz;
             }
 
-            // create a vision at the correct time
-            if (prevTime+VisionUser.VISION_DURATION < duration &&
-                time + VisionUser.VISION_DURATION >= duration) {
-                GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
+            //only consider going to other states (like spray) if player is nearby
+            if (!playerNearbyDuringWalk) {
+                time -= Time.deltaTime;
 
-                // would also be a good time to decide which direction to fire in
-                aimRight = (Player.instance.rb2d.position.x > rb2d.position.x);
-                vGO.GetComponent<Pengrunt>().aimRight = aimRight;
+                //check if player is nearby
+                Vector2 pos = Player.instance.rb2d.position;
+                if (rb2d.position.x - 40 < pos.x && pos.x < rb2d.position.x + 40 &&
+                    rb2d.position.y - 3 < pos.y && pos.y < rb2d.position.y + 6) {
+                    playerNearbyDuringWalk = true;
+                }
+
+            }
+
+            // create a vision at the correct time
+            if (!visionUser.isVision) {
+                if (prevTime + VisionUser.VISION_DURATION < duration &&
+                    time + VisionUser.VISION_DURATION >= duration) {
+                    GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
+
+                    // would also be a good time to decide which direction to fire in
+                    aimRight = (Player.instance.rb2d.position.x > rb2d.position.x);
+                    vGO.GetComponent<Pengrunt>().aimRight = aimRight;
+                }
             }
 
             // detect when going to SPRAY state
@@ -104,6 +125,7 @@ public class Pengrunt : MonoBehaviour {
                 bulletTime = 0;
 
                 flippedHoriz = !aimRight;
+                animator.Play("idle");
             }
 
             break;
@@ -175,23 +197,33 @@ public class Pengrunt : MonoBehaviour {
         }
     }
 
+    void OnDamage(AttackInfo ai) {
+        if (receivesDamage.health <= 0) {
+            flippedHoriz = ai.impactToRight();
+            animator.Play("damage");
+        }
+    }
+
     void OnSaveFrame(FrameInfo fi) {
         fi.state = (int) state;
         fi.floats["time"] = time;
         fi.floats["duration"] = duration;
         fi.bools["aimRight"] = aimRight;
+        fi.bools["pndw"] = playerNearbyDuringWalk;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
         time = fi.floats["time"];
         duration = fi.floats["duration"];
         aimRight = fi.bools["aimRight"];
+        playerNearbyDuringWalk = fi.bools["pndw"];
     }
 
     float time = 0;
     float duration = 0;
     Segment segment = null;
     float bulletTime = 0;
+    bool playerNearbyDuringWalk = false;
 
     // components
     Rigidbody2D rb2d;
@@ -202,5 +234,6 @@ public class Pengrunt : MonoBehaviour {
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;
+    DefaultDeath defaultDeath;
 
 }

@@ -88,6 +88,17 @@ public class TimeUser : MonoBehaviour {
     }
     public static bool revertMutex { get { return _revertMutex; } }
 
+    /* Helper functions for converting Colors to strings and back.
+     * Useful for storing color in OnSaveFrame() and OnRevert(). */
+    public static string colorToString(Color c){
+        return "" + c.r + "," + c.g + "," + c.b + "," + c.a;
+    }
+    public static Color stringToColor(string s) {
+        char[] chars = { ',' };
+        string[] colorParts = s.Split(chars);
+        return new Color(float.Parse(colorParts[0]), float.Parse(colorParts[1]), float.Parse(colorParts[2]), float.Parse(colorParts[3]));
+    }
+
     ////////////////
     // PROPERTIES //
     ////////////////

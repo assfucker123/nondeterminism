@@ -23,14 +23,43 @@ public class VisionUser : MonoBehaviour {
      * Called when this gameObject becomes a vision. */
     // void TimeSkip(float timeInFuture);
 
-    public static float VISION_DURATION = .8f;
+    ////////////
+    // STATIC //
+    ////////////
+
+    public static float VISION_DURATION = 1.1f; //recommended duration for all visions (for consistency)
+
+    /* Activates Oracle's vision ability, which makes these visions visible. */
+    public static void activateAbility() {
+        if (abilityActive) return;
+        _abilityActive = true;
+    }
+    /* Deactivates Oracle's vision ability, which will cause all visions to be invisible. */
+    public static void deactivateAbility() {
+        if (!abilityActive) return;
+        cutAllVisions();
+        _abilityActive = false;
+    }
+    /* If Oracle's vision ability is currently active. */
+    public static bool abilityActive { get { return _abilityActive; } }
+    /* Cuts all visions. */
+    public static void cutAllVisions() {
+        foreach (VisionUser vu in allVisionUsers) {
+            vu.cutVisions();
+        }
+    }
+    
+    ////////////
+    // PUBLIC //
+    ////////////
 
     public bool isVision { get { return _isVision; } }
-    public float fadeInDuration = .2f; //how long for the vision to fade in
+    private float fadeInDuration = .35f; //how long for the vision to fade in
     public float time { get { return _time; } } //how long this visionUser has been a vision
     public float duration { get { return _duration; } } //how long this visionUser will be a vision for
+    public bool createdWhenAbilityDeactivated { get { return _createdWhenAbilityDeactivated; } }
     
-    public Material material;
+    public Material material; //material for the vision's sprite.
 
     /* Creates a clone of this gameObject, converted into a vision. */
     public GameObject createVision(float timeInFuture, float visionDuration) {
@@ -63,6 +92,7 @@ public class VisionUser : MonoBehaviour {
         if (isVision) return;
         _isVision = true;
 
+        _createdWhenAbilityDeactivated = !VisionUser.abilityActive;
         _duration = visionDuration;
 
         //be more like the original
@@ -91,7 +121,6 @@ public class VisionUser : MonoBehaviour {
         if (timeInFuture > 0) {
             SendMessage("TimeSkip", timeInFuture, SendMessageOptions.DontRequireReceiver);
         }
-        
     }
 
     /* Immediately converts a gameObject into a vision.
@@ -100,9 +129,16 @@ public class VisionUser : MonoBehaviour {
         becomeVision(0, visionDuration, null, visionCreator);
     }
 
+    /////////////
+    // PRIVATE //
+    /////////////
+
+    private static bool _abilityActive = true;
+    private static List<VisionUser> allVisionUsers = new List<VisionUser>();
+
 	void Awake() {
-		rb2d = GetComponent<Rigidbody2D>();
-        Transform sot = this.transform.Find("spriteObject");
+        allVisionUsers.Add(this);
+		Transform sot = this.transform.Find("spriteObject");
         if (sot == null) {
             spriteObject = gameObject;
             spriteRenderer = this.GetComponent<SpriteRenderer>();
@@ -132,6 +168,7 @@ public class VisionUser : MonoBehaviour {
 	}
 
     void OnDestroy() {
+        allVisionUsers.Remove(this);
         if (visionCreator != null) {
             visionCreator.visionsMade.Remove(this);
             visionCreator = null;
@@ -161,7 +198,9 @@ public class VisionUser : MonoBehaviour {
         float a = 1;
         if (timeUser != null && !timeUser.exists){
             a = 0;
-        } else if (TimeUser.reverting){
+        } else if (createdWhenAbilityDeactivated) {
+            a = 0;
+        } else if (TimeUser.reverting) {
             //should be invisible while reverting
             a = Utilities.easeLinearClamp(TimeUser.revertingTime, 1, -1, fadeInDuration);
         } else {
@@ -180,9 +219,9 @@ public class VisionUser : MonoBehaviour {
     VisionUser visionCreator;
     private float _time = 0;
     private float _duration = 1.0f; // how long the vision lasts before diappearing
+    private bool _createdWhenAbilityDeactivated = false;
 	
 	// components
-    Rigidbody2D rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;

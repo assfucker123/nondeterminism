@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
     public GameObject bulletGameObject;
     public GameObject bulletMuzzleGameObject;
     public Vector2 bulletSpawn = new Vector2(1f, .4f);
+    public float bulletSpread = 3.0f;
     public float revertSpeed = 2.0f;
     public float revertEaseDuration = .4f;
     public float minRevertDuration = 1.0f;
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour {
 
         if (timeUser.shouldNotUpdate)
             return;
-
+        
         switch (state) {
         case State.GROUND:
             stateGround();
@@ -147,16 +148,14 @@ public class Player : MonoBehaviour {
         fi.floats["jumpTime"] = jumpTime;
         fi.floats["idleGunTime"] = idleGunTime;
         fi.floats["damageTime"] = damageTime;
-        fi.strings["color"] = "" + spriteRenderer.color.r + "," + spriteRenderer.color.g + "," + spriteRenderer.color.b + "," + spriteRenderer.color.a;
+        fi.strings["color"] = TimeUser.colorToString(spriteRenderer.color);
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
         jumpTime = fi.floats["jumpTime"];
         idleGunTime = fi.floats["idleGunTime"];
         damageTime = fi.floats["damageTime"];
-        char[] chars = {','};
-        string[] colorParts = fi.strings["color"].Split(chars);
-        spriteRenderer.color = new Color(float.Parse(colorParts[0]), float.Parse(colorParts[1]), float.Parse(colorParts[2]), float.Parse(colorParts[3]));
+        spriteRenderer.color = TimeUser.stringToColor(fi.strings["color"]);
     }
 
     void OnDestroy() {
@@ -462,6 +461,7 @@ public class Player : MonoBehaviour {
         if (flippedHoriz) {
             heading = 180;
         }
+        heading += (Random.value * 2 - 1) * bulletSpread;
         GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
             rb2d.position + relSpawnPosition,
             Utilities.setQuat(heading)) as GameObject;
