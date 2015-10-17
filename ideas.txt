@@ -59,6 +59,8 @@ Enemy Attacks:
 - (BAD IDEA) Bombs that explode at random intervals
 - Lightning paths
 	- Seal that looks like a floating zapfish
+- Lightning cloud
+	- Is a cloud that floats above, dropping lightning attacks at "random"
 - Whack-a-mole type enemies, popping up at "random" spots
 - Wall climbers: shimmy up and down a vertical wall.
 - Ceiling stickers: move left to right on a ceiling.

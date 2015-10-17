@@ -7,8 +7,7 @@ public class VisualEffect : MonoBehaviour {
 
     void Awake() {
         timeUser = GetComponent<TimeUser>();
-        visionUser = GetComponent<VisionUser>();
-        Debug.Assert(timeUser != null && visionUser != null);
+        Debug.Assert(timeUser != null && GetComponent<VisionUser>() != null);
     }
 
     void Update() {
@@ -23,7 +22,6 @@ public class VisualEffect : MonoBehaviour {
     }
 
     TimeUser timeUser;
-    VisionUser visionUser;
     float time = 0;
 
 }

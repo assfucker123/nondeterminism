@@ -254,7 +254,8 @@ public class ColFinder : MonoBehaviour {
             RaycastHit2D rh2d = Physics2D.Raycast(
                 botPoint, //origin
                 new Vector2(0, -1), //direction
-                raycastDistance); //distance
+                raycastDistance, //distance
+                getLayerCollisionMask(gameObject.layer));
 
             if (rh2d.collider != null) { //raycaster hit something
                 Vector2 normal = rh2d.normal;
