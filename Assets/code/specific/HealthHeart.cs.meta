@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 64ca44db5a320644c97bc63e904340c8
+timeCreated: 1445120131
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - fullSprite: {fileID: 21300000, guid: b564455ed44a4cd4f805111e24762690, type: 3}
+  - halfSprite: {fileID: 21300002, guid: b564455ed44a4cd4f805111e24762690, type: 3}
+  - emptySprite: {fileID: 21300004, guid: b564455ed44a4cd4f805111e24762690, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

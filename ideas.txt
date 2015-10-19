@@ -137,6 +137,17 @@ Newer ideas:
 			- e.g. viruses that cause her to unknowingly hallucinate.
 			- e.g. quantum attacks.
 		- She overcomes this fear at the end of the game.
+	- Oracle is slow to remember things.
+		- Visions of the future are more useful than memories of the past, so they prioritized when recalling information.
+		- 
+		- Wally's rebuttal:
+			- But memories are, in a way, the only thing we *can* be sure of.  We know for a fact that what has happened, happened.  The past is set in stone, and there's nothing that can be done to change it.
+			- It's the future that is uncertain.  The random choices we make all influence events to come.  Your visions are never 100% true, correct?  When you realize what will happen, you change how you act, which in turn modifies the future a tiny bit. 
+		- Wally's challenge:
+			- When you were at (place that gets destroyed), there was a picture of (...).  What color was (...)?  And I'm only going to respond with yes or no.
+			- Need to pick answer from a range of colors.
+			- Can technically constantly revert and win with trial and error.
+				- If win, Wally will say "good thing you didn't cheat"
 - Tommy: Wally's younger brother.
 	- As a child, Tommy looked up to his brilliant brother Wally.
 	- In time, he studied in Wally's footsteps and became a great programmer.
@@ -183,7 +194,14 @@ Final boss gimmick:
 - If Oracle dies during the boss fight (likely to happen during first attempt), Oracle answers father's question.
 	- Answers yes anyway.
 	- This is the first time Oracle agrees to doing something without being certain what will happen next.
-	
+
+Conversation mechanic:
+- Important conversations between Oracle and Wally will pause gameplay.
+	- Similar to codec calls from MGS.
+- Sometimes asked questions and player needs to choose an answer.
+- Secret: Can hold FLASHBACK to go back in time during conversations.
+- Secret: Hold (...) to bring up a simple minigame to play while talking (like Snake, similar to the youtube easter egg)
+
 Player:
 - Protagonist is robot, fights similar to megaman.
 - Can do a directional dodge to avoid damage.
@@ -315,17 +333,22 @@ Skills:
 	- Hold DOWN for a duration while at low health to regain some back.
 - Concentration+ (replaces Concentration, restores more health)
 	- Same as concentration, but rapidly tap DOWN while health is being restored to restore more.
-- Strip Suit (takes robot suit off)
+- (BAD IDEA) Strip Suit (takes robot suit off)
 	- Press UP, DOWN, UP rapidly while on the ground to take the suit off
 	- Severely decreased health and severely decreased firepower
 	- Can swim in water
-- Rebuild suit (when suit is stripped, put suit back on)
+- (BAD IDEA) Rebuild suit (when suit is stripped, put suit back on)
 	- Hold B while staying still for a duration
-- Death warp (upon dying, can transmit consciousness to another body in the room)
+- (BAD IDEA) Death warp (upon dying, can transmit consciousness to another body in the room)
 	- While in death animation, hold A and B and press UP.
 	- Need to then direct soul to another body (looks exactly the same)
 - Grav Shift (slows down speed of everything around player)
 	- Hold A and B while holding DOWN for a duration
+
+- Strip: Suit comes off revealing Oracle's tiny mealworm form.
+	- Can crawl in tight corners and learn info, but can't fight.
+	- Can't save.
+	- Idea is to learn info then revert back to a time before the strip.
 
 
 - "Final challenge" portion where most of the 10 minutes is spent on a new linear level testing all the abilities?

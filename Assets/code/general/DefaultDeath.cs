@@ -7,7 +7,7 @@ using System.Collections;
 
 public class DefaultDeath : MonoBehaviour {
 
-    public float duration = .8f; //time until death
+    public float duration = .6f; //time until death
     public float explosionSpawnWidth = 1.0f;
     public float explosionSpawnHeight = 2.0f;
     public float explosionDensity = 20f;
@@ -102,6 +102,7 @@ public class DefaultDeath : MonoBehaviour {
         if (spriteRenderer == null) return;
         if (activated) {
             float t = time / duration;
+            t = Utilities.easeInQuadClamp(t, 0, 1, 1);
             Color c0 = ReceivesDamage.HIT_FLASH_COLOR;
             Color c1 = new Color(0, 0, 0, 0);
 

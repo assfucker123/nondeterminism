@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: .200000003
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!114 &11498388
 MonoBehaviour:
@@ -102,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 90
+  damage: 2
   heading: 0
   maxDistance: -1
   bulletFadeGameObject: {fileID: 177068, guid: 51a6b998cec1ad64fb634ccbdb0106d5, type: 2}

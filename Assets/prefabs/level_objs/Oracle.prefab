@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 8
   autoHitFlash: 0
-  autoActivateDefaultDeath: 1
+  autoActivateDefaultDeath: 0
 --- !u!114 &11425680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,6 +195,11 @@ MonoBehaviour:
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
+  maxHealth: 8
+  maxPhase: 100
+  startPhase: .5
+  phaseDecreaseSpeed: 2.5
+  phaseRevertingDecreaseSpeed: 12
   damageSpeed: 14
   damageFriction: 40
   damageDuration: .300000012
@@ -385,6 +390,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bulletSpread
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: autoActivateDefaultDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: phaseRevertingDecreaseSpeed
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

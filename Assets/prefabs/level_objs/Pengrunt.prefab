@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e2965627bac3947b4987fc6b610623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: .800000012
+  duration: .600000024
   explosionSpawnWidth: 1
   explosionSpawnHeight: 2
   explosionDensity: 20
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab9b924bddccc940addfdd00eddf172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
 --- !u!212 &21285306
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -382,7 +382,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: duration
-      value: .800000012
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

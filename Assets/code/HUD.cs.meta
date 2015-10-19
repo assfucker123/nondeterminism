@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b4fc3c04eb17ded4cbf5d0735545f3a4
+timeCreated: 1445147872
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - healthHeartGameObject: {fileID: 113086, guid: 73675e0b383578940a5a84071386a8de,
+      type: 2}
+  - phaseMeterGameObject: {fileID: 171160, guid: 751b2242187060e4f9b5fa2cfaaa9d53,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

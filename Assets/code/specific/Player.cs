@@ -28,6 +28,11 @@ public class Player : MonoBehaviour {
     public float revertSpeed = 2.0f;
     public float revertEaseDuration = .4f;
     public float minRevertDuration = 1.0f;
+    public int maxHealth = 8;
+    public float maxPhase = 100;
+    public float startPhase = .5f;
+    public float phaseDecreaseSpeed = 2.5f;
+    public float phaseRevertingDecreaseSpeed = 7.0f;
     public float damageSpeed = 10;
     public float damageFriction = 20;
     public float damageDuration = .5f;
@@ -60,11 +65,28 @@ public class Player : MonoBehaviour {
             }
         }
     }
+    public float phase { get { return HUD.instance.phaseMeter.phase; } }
 
     public enum State:int {
         GROUND,
         AIR,
         DAMAGE
+    }
+
+    //////////////////////
+    // PUBLIC FUNCTIONS //
+    //////////////////////
+
+    /* Called by Pickup when picking up a phase pickup */
+    public void phasePickup(float phase) {
+        HUD.instance.phaseMeter.increasePhase(phase);
+        phaseFlashTime = 0;
+    }
+    /* When reverting to before a phase pickup was collected, need to lose the phase gained.
+     * This doesn't have to be done for other pickups because health etc. already reverts correctly.
+     * Phase is special because it does not revert back to a previous value. */
+    public void revertBeforePhasePickup(float phase) {
+        HUD.instance.phaseMeter.setPhase(this.phase - phase);
     }
 
     /////////////////////
@@ -82,10 +104,34 @@ public class Player : MonoBehaviour {
         receivesDamage = GetComponent<ReceivesDamage>();
     }
     void Start() {
-        
+        HUD.instance.setMaxHealth(maxHealth);
+        HUD.instance.setHealth(receivesDamage.health);
+        HUD.instance.phaseMeter.setMaxPhase(maxPhase);
+        HUD.instance.phaseMeter.setPhase(maxPhase*startPhase);
 	}
 
 	void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            // increase from pickup
+            phasePickup(30);
+        }
+
+        // decrease phase over time
+        if (!HUD.instance.phaseMeter.increasing) {
+            if (TimeUser.reverting) {
+                HUD.instance.phaseMeter.setPhase(phase - phaseRevertingDecreaseSpeed * Time.deltaTime);
+            } else {
+                HUD.instance.phaseMeter.setPhase(phase - phaseDecreaseSpeed * Time.deltaTime);
+            }
+        }
+
+        // activating vision ability based on amount of phase
+        if (VisionUser.abilityActive && phase <= 0) {
+            VisionUser.deactivateAbility();
+        } else if (!VisionUser.abilityActive && phase > 0) {
+            VisionUser.activateAbility();
+        }
 
         //set button vars
         horiz = Input.GetAxis("Horizontal");
@@ -128,6 +174,14 @@ public class Player : MonoBehaviour {
             } else {
                 spriteRenderer.color = Color.Lerp(Color.white, ReceivesDamage.MERCY_FLASH_COLOR, (t-.5f) * 2);
             }
+        } else if (phaseFlashTime < Pickup.PHASE_FLASH_DURATION) {
+            phaseFlashTime += Time.deltaTime;
+            float t = Mathf.Min(1, phaseFlashTime / Pickup.PHASE_FLASH_DURATION);
+            if (t < .5) {
+                spriteRenderer.color = Color.Lerp(Color.white, Pickup.PHASE_FLASH_COLOR, t * 2);
+            } else {
+                spriteRenderer.color = Color.Lerp(Pickup.PHASE_FLASH_COLOR, Color.white, (t - .5f) * 2);
+            }
         } else {
             if (spriteRenderer.color != Color.white) {
                 spriteRenderer.color = Color.white;
@@ -148,6 +202,7 @@ public class Player : MonoBehaviour {
         fi.floats["jumpTime"] = jumpTime;
         fi.floats["idleGunTime"] = idleGunTime;
         fi.floats["damageTime"] = damageTime;
+        fi.floats["pFTime"] = phaseFlashTime;
         fi.strings["color"] = TimeUser.colorToString(spriteRenderer.color);
     }
     void OnRevert(FrameInfo fi) {
@@ -155,7 +210,9 @@ public class Player : MonoBehaviour {
         jumpTime = fi.floats["jumpTime"];
         idleGunTime = fi.floats["idleGunTime"];
         damageTime = fi.floats["damageTime"];
+        phaseFlashTime = fi.floats["pFTime"];
         spriteRenderer.color = TimeUser.stringToColor(fi.strings["color"]);
+        HUD.instance.setHealth(receivesDamage.health); //update health on HUD
     }
 
     void OnDestroy() {
@@ -170,7 +227,7 @@ public class Player : MonoBehaviour {
 
         if (TimeUser.reverting) {
             revertTime += Time.deltaTime;
-
+            
             TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
 
             if (bo != null) {
@@ -180,11 +237,16 @@ public class Player : MonoBehaviour {
                 ccc.saturation = Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration);
             }
 
+            //conditions for reverting
             bool stopReverting = !Input.GetButton("Flash");
+            if (phase <= 0 || TimeUser.time <= 0.0001f)
+                stopReverting = true;
             if (revertTime < minRevertDuration)
                 stopReverting = false;
+
             if (stopReverting) {
                 TimeUser.endContinuousRevert();
+                HUD.instance.phaseMeter.endPulse();
 
                 if (bo != null) {
                     bo.enabled = false;
@@ -194,8 +256,9 @@ public class Player : MonoBehaviour {
                 }
             }
         } else {
-            if (Input.GetButtonDown("Flash")) {
+            if (Input.GetButtonDown("Flash") && phase > 0) {
                 TimeUser.beginContinuousRevert(.5f);
+                HUD.instance.phaseMeter.beginPulse();
                 revertTime = 0;
 
                 if (bo != null) {
@@ -434,6 +497,7 @@ public class Player : MonoBehaviour {
             flippedHoriz = false;
             rb2d.velocity = new Vector2(-damageSpeed, 0);
         }
+        HUD.instance.setHealth(receivesDamage.health);
         damageTime = 0;
         animator.Play("oracle_damage");
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
@@ -489,6 +553,7 @@ public class Player : MonoBehaviour {
     float jumpTime = 99999;
     float idleGunTime = 0;
     float damageTime = 0;
+    float phaseFlashTime = 99999;
 
     // components
     Rigidbody2D _rb2d;
