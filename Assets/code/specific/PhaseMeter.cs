@@ -5,7 +5,7 @@ public class PhaseMeter : MonoBehaviour {
 
     public Vector2 position = new Vector2(0, -42);
     public float increaseDuration = .4f;
-    public float warningThreshold = .25f;
+    public float warningThreshold = .2f;
     public float pulsePeriod = .4f;
     public Sprite fullMeterSprite;
     public Sprite fullBarSprite;

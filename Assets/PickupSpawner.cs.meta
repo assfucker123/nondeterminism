@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: b485bea4fbb79f7448f7e73aa5b1d13b
+timeCreated: 1445383834
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - healthPickupGameObject: {fileID: 172112, guid: 4dbac7f2d16bce84ea6da5eeed76724c,
+      type: 2}
+  - healthBigPickupGameObject: {fileID: 122504, guid: 71149b1913979a6469b34a0d486f4692,
+      type: 2}
+  - phasePickupGameObject: {fileID: 171392, guid: 21122980161b82443bd3b8cdc24a9530,
+      type: 2}
+  - phaseBigPickupGameObject: {fileID: 191378, guid: 0a4a7d3598a8768458bf49d3c18ff8f6,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

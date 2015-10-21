@@ -1,0 +1,165 @@
+
+* Basic jumping and shooting controls.
+
+* Fight enemies, acquire phase pickup.
+
+** Vision ability is introduced. (Phase meter does not decrease over time)
+
+* Phase crystals are introduced.
+	- Shooting a phase crystal will cause a phase pickup to fly out.
+
+* Fight enemies, max out phase meter.
+
+* Chamber Save.
+
+* Encounter large door that obviously requires password to unlock (e.g. stepping on tiles in a certain order)
+	- Gamedev cheating: make this impossible to guess until going into the room with the password.
+
+* Find health upgrade (is a physical upgrade, so will be lost when reverting before a time it was acquired)
+	- Technically optional, but very hard to miss.
+
+** Flashback ability introduced.
+	- There is a truss bridge over a vat of quicksand.
+		- Quicksand drags victims towards the middle, then down under to kill them.
+		- Can't move or jump in quicksand, but can shoot.
+	- Mines have been placed all over the bridge.  Walking into one will cause the bridge to collapse, dropping Oracle into the quicksand.
+	- Need to use Flashback ability to revert back to before the mine was set off.
+		- There is a phase crystal on the left that can be shot, which will give Oracle phase if needed to do the revert.
+	- To solve puzzle: shoot boulders on the side in a way that Oracle can climb to the top of the truss bridge and walk over the mines.
+
+* Find decryptor upgrade (is information that unlocks one of Oracle's innate abilities, so it not lost when reverting)
+	- Something obvious but really easy to grasp, e.g. charge shot.
+	- Upgrade is mandatory to get to the next room.
+
+** Chamber Flashback ability introduced.
+	- Find password for the large door on the wall.
+	- Tutorial screen pops up acknowledging it's obvious what to do next, suggests Chamber Flashback in order to get back to the door quickly.
+	- Shortcuts (shown as prompts during flashbacks):
+		- FLASHBACK + DODGE to automatically revert to the last Chamber/save point.
+		- FLASHBACK + START to open up the Time Tree in the pause menu and select from there.
+
+* Unlock door by inputting the password.
+	- Wally is surprised she knows it, Oracle explains she had a vision of finding the room with the password.
+
+* Simple puzzle involving charge shot.
+	- Wally surprised again.  Oracle explains decryptor code.
+	- Wally reiterates that information is saved when doing a flashback.
+	- If Oracle picked up the health upgrade but forgot to get it again after the chamber flashback, she will explain her vision and acknowledge that her health didn't increase.
+	- Wally reiterates that physical upgrades are not saved when doing a flashback.  (But you can go back and get them again)
+	- Wally mentions he's going to stop getting surprised when Oracle does something she's never done before.
+	
+...
+
+** Dodge ability decryptor (Hold direction and press R to dodge in that direction)
+	- Can be used to get a bit more height/distance.
+
+...
+
+** Grenade decryptor (Hold direction and press X/Triangle to throw)
+
+...
+	
+* Grenade distance decryptor (tap direction before pressing to throw the grenade a greater distance) (optional)
+
+...
+
+** Wall run decryptor (Hold up to run up wall for a short duration)
+
+...
+
+* Dodge slide decryptor (maintain momentum when using the dodge ability at an angle towards the ground) (optional)
+
+...
+
+*** Booster upgrade (allows use of several decrypted abilities that require the booster)
+
+** Super speed (requires booster) (greatly increases run speed after running for a few seconds)
+
+...
+
+** Grenade flashback aim decryptor (choose where and when a grenade will explode by pressing X/Triangle during a flashback) (optional?)
+
+...
+	
+** Glide decryptor (requires booster) (greatly reduces fall speed for a duration)
+
+...
+
+* Precision flashback decryptor (can essentially make and load save points at the cost of phase) (optional)
+
+...
+
+** Double jump (requires booster)
+
+...
+
+*** Strip suit (reduces Oracle to her larval form, allowing her to travel through tight corridors)
+
+===========================================
+
+At ____ hours/minutes in, gameplay is spontaneously interrupted with a cutscene of the world blowing up.  Neither Oracle nor Wally expect this to happen so soon.
+
+- Next scene is back at the start of the game, with Oracle being shocked.
+- Explains that world ends at exactly ____ time, and that they don't know if it's even possible to collect all the ____ in time.
+- Wally just received the saucer, so he couldn't get here any earlier.
+- Oracle admits she lied and doesn't actually know the outcome of the mission.  Something is "blocking" Oracle from seeing further.
+	- Foreshadowing: Oracle falls asleep just before landing the finishing blow on the final boss.
+- Oracle shares everything she (and the player) found out about the map.
+(time map is shown on screen)
+- Wally notes that Oracle seemed to spend a long time going from (current/first area) to (early area with the first ____), even though they're not far from each other.
+- Wally suggests that Oracle (the player) use her new abilities to find a shortcut to the early area.  That will give her more time to collect all the ___.
+	- Wally: Try exploring this area close by.  Your new abilities might let you get through.
+- There is a mandatory decryptor on the path there.
+
+===========================================
+
+Important early conversations to close plot-holes:
+
+- Oracle waiting for others to finish speaking:
+	- Wally: I was wondering, if you know everything I'm about to say--
+	- Oracle: --why do I not finish your sentences?
+	- Wally: ... yes.
+	- Oracle: Well clearly I am able to do so.  You are curious as to why I wait for you to finish before speaking?"
+	- Wally: Well if you know what I'm going to tell you--
+	- Oracle: --then why say anything at all?
+	- Wally: ... then... s-stop that!
+	- Oracle: Heh heh.  You now have your answer.  You understandably do not appreciate getting interrupted.  Forming a hostile relationship between us is not advantageous for either of us, so I prefer we converse like ordinary humans.
+	- Wally: Good point.  But how cool would it be if you acknowledge everything I'm about to say before I take the time to let the words come out?  Conversation would be so efficient!
+	- Oracle: I am not a mind reader Wally.  I will not understand you if you do not actually speak anything.
+	- Wally: That is true.
+
+- Wally and Oracle not arriving earlier if it's eventually revealed that there's huge time pressure:
+	- Wally: A functional saucer spontaneously appearing on my doorstep just yesterday?  No that part is true.  It's probably from the same "stork" that sent you and your suit.
+	- Oracle: You did not build the suit and you did not build the saucer.  And you clearly only have a child's grasp on how any of them work.  Wally is there anything you *can* do?
+	- Wally: I told you.  I tinker.  I modify, take part, and learn.  Actually constructing large projects are for no-life mega nerds with oodles of grant money.  And I don't have any grant money.
+
+- Other early conversation:
+	- Wally: ...
+	- Oracle: I am not easily surprised.
+
+- Other early conversation:
+	- Wally: So Oracle... do we win?  We make it out alive after defeating the bad guys and stuff right?
+	- Oracle: Of course!
+
+Story arcs take place on different paths to different parts of the map.
+	
+
+Gimmicks to "Vision" mechanic that actually make sense:
+- Quantum attacks:
+	- Multiple visions of an attack going in different directions, and a direction is randomly chosen when the attack is actually made.
+	- When reverting back before the attack is made, the direction chosen may be different.
+- Virus hallucinations:
+	- Vaguely described as hallucinations or viruses in Oracle's computer-like brain.
+	- Oracle gets stuck in a vision, and cannot revert back while a virus is present.
+	- Oracle in "present time" appears to be paralyzed.
+		- "Present time" referring to when she gets a vision of the viruses.
+	- When the virus(es) in an encounter are defeated, Oracle automatically reverts back to "present time".
+	- After the virus(es) are dealt with, "present time" Oracle is no longer paralyzed, and seems to have just envisioned all of those events.
+		- However, these events do not happen.  Viruses will only appear on "false timelines".  This is asserted by Oracle always reverting to "present time" before the viruses appear.
+	- 100% reality: Oracle being temporarily paralyzed.
+		- This happens, can be predicted, will always happen at the same time, etc.
+
+
+BAD IDEAS:
+- Events being different than how they were envisioned
+	- Because that in itself is a vision, which is the same as envisioned.

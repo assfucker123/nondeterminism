@@ -48,6 +48,11 @@ public class HUD : MonoBehaviour {
             foreach (HealthHeart hh in healthHearts) {
                 hh.jostle();
             }
+        } else if (health > this.health) {
+            //shine hearts
+            foreach (HealthHeart hh in healthHearts) {
+                hh.shine();
+            }
         }
 
         _health = health;

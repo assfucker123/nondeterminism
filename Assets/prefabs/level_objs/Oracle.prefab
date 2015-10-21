@@ -198,8 +198,8 @@ MonoBehaviour:
   maxHealth: 8
   maxPhase: 100
   startPhase: .5
-  phaseDecreaseSpeed: 2.5
-  phaseRevertingDecreaseSpeed: 12
+  phaseDecreaseSpeed: 3
+  phaseRevertingDecreaseSpeed: 16
   damageSpeed: 14
   damageFriction: 40
   damageDuration: .300000012
@@ -401,7 +401,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseRevertingDecreaseSpeed
-      value: 12
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: phaseDecreaseSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

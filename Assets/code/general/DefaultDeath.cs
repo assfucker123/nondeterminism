@@ -15,6 +15,7 @@ public class DefaultDeath : MonoBehaviour {
     public float gravity = 10f;
     public bool setColor = true;
     public GameObject explosionGameObject;
+    public PickupSpawner.BurstSize pickupSize = PickupSpawner.BurstSize.NONE;
 
     float time = 0;
     bool toRight = false;
@@ -34,6 +35,15 @@ public class DefaultDeath : MonoBehaviour {
         //cut visions
         if (visionUser != null) {
             visionUser.cutVisions();
+        }
+
+        //spawn pickups
+        if (pickupSpawner == null) {
+            if (pickupSize != PickupSpawner.BurstSize.NONE) {
+                Debug.Log("Not spawning pickups because object doesn't have PickupSpawner component");
+            }
+        } else {
+            pickupSpawner.burstSpawn(rb2d.position, pickupSize);
         }
 
         _activated = true;
@@ -56,6 +66,7 @@ public class DefaultDeath : MonoBehaviour {
         timeUser = GetComponent<TimeUser>();
         Debug.Assert(rb2d != null && timeUser != null);
         visionUser = GetComponent<VisionUser>();
+        pickupSpawner = GetComponent<PickupSpawner>();
 	}
 	
 	void Update() {
@@ -135,4 +146,5 @@ public class DefaultDeath : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;
     VisionUser visionUser;
+    PickupSpawner pickupSpawner;
 }

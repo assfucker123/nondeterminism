@@ -94,6 +94,7 @@ Premise:
 - A bomb has been set to explode in 20 minutes.  Deactivation codes and color keys are needed to disarm it, all of which are found in the villain's lair.
 - Appears to be a miniature Metroid game at first.  Need to collect a number of color keys (physical) to get to the bomb room, and parts of a deactivation code (information) to deactivate the bomb.
 - New skills can be found with "decryptors", which unlock new abilities for the player.  Decryptors are information, so they are remembered when flashing back.  Some decryptors are useless until the booster is obtained.
+- Health upgrades are physical.  This means that, when reverting to a previous time, all the health upgrades accumulated since then will be lost.
 - There is 1 physical upgrade called a "booster" which enables some decryptors.  This also physically changes the player's appearence.
 - Time Hubs act as "checkpoints".  Upon reaching a time hub, game is saved.  Player can then warp to any time hub previously reached (mandatory when player dies)
 	- Player loses all physical upgrades and color keys obtained since getting to the time hub.
@@ -105,7 +106,7 @@ Premise:
 	- Can use earned abilities for shortcuts, which also happen to go through physical upgrade rooms.
 
 Newer ideas:
-- Origin Story: Oracle's true form is a mealworm shaped like a brain and spinal cord.
+- Origin Story: Oracle's true form is a larval shaped like a brain and spinal cord.
 	- Infant Oracle have electrical neurons and memories stored in metallic semiconductors, making it functionally similar to a computer.
 	- Infant Oracle has full future sensing abilities, but can't talk.
 	- Discovered by Wally, a nerdy young human-like aspiring scientist, who studies it.
@@ -136,6 +137,7 @@ Newer ideas:
 		- Happens when something appears to happen that she can't predict.
 			- e.g. viruses that cause her to unknowingly hallucinate.
 			- e.g. quantum attacks.
+		- When she gets unsure of how to continue, Wally's confidence encourages her to keep going despite uncertainties.
 		- She overcomes this fear at the end of the game.
 	- Oracle is slow to remember things.
 		- Visions of the future are more useful than memories of the past, so they prioritized when recalling information.
@@ -174,6 +176,9 @@ Newer ideas:
 - Invaders: evil penguins, seals, bears.
 - Oracle detects a gigantic bomb will go off soon.
 	- Involved with Tommy's request.
+
+- Once Oracle realizes that her memories and visions are being tampered with, begins to not trust her own visions, memories, friends.
+- Oracle and the Player become suspicious of Wally, need to decide if Wally is a malicious AI or not.
 
 - The younger Oracle is, the more powerful her future sense powers are.
 	
@@ -233,24 +238,11 @@ Basic controls (told to player at beginning):
 - B: shoot (megaman style)
 - Takes damage from water
 
-Two game modes:
-Main:
-- Complex controls
-- Physical upgrades and color keys lost upon resetting.  Information and skills are still conserved.
-+ Skills can be learned in any order.
-+ Physical upgrades, color keys, and information can be obtained in any order.
-+ The intended way to play
-Conventional:
-+ Simplified controls
-+ Physical upgrades, color keys, information, and skills are all conserved upon resetting.
-- Skills must be learned in a set order.
-- Little variability in the order physical upgrades and skills are obtained.
- 
 Physical items/upgrades (lost on game over):
 - Health packs (increase max health)
 - Color keys (need to collect all 4 to open a door)
 
-Time Hubs:
+Chambers:
 - Save areas
 - Can warp back to time hubs accessed earlier
 - Identified by letter, number.
@@ -345,10 +337,12 @@ Skills:
 - Grav Shift (slows down speed of everything around player)
 	- Hold A and B while holding DOWN for a duration
 
-- Strip: Suit comes off revealing Oracle's tiny mealworm form.
+- Strip: Suit comes off revealing Oracle's tiny larval form.
 	- Can crawl in tight corners and learn info, but can't fight.
 	- Can't save.
 	- Idea is to learn info then revert back to a time before the strip.
+- Commandeer: While in larval form, can crawl into another suit and use that.
+	- Secret and situational; only used once.
 
 
 - "Final challenge" portion where most of the 10 minutes is spent on a new linear level testing all the abilities?

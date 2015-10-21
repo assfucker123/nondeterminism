@@ -13,6 +13,8 @@ public class HealthHeart : MonoBehaviour {
     private float jostleMagnitude = 5f;
     private float jostleDuration = .4f;
 
+    private bool shining = false;
+
     public State state {
         get {
             return _state;
@@ -52,6 +54,12 @@ public class HealthHeart : MonoBehaviour {
     public void jostle() {
         time = 0;
         jostleAngle = timeUser.randomValue() * Mathf.PI * 2;
+        shining = false;
+    }
+
+    public void shine() {
+        time = 0;
+        shining = true;
     }
 	
 	void Awake() {
@@ -65,12 +73,13 @@ public class HealthHeart : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
 
+
         if (time < jostleDuration) {
             time += Time.deltaTime;
 
             setJostle();
         }
-
+        
 	}
 
     void setJostle() {
@@ -85,6 +94,8 @@ public class HealthHeart : MonoBehaviour {
         float mag = Mathf.Sin(time * 20.0f);
         mag *= jostleMagnitude;
         mag *= Utilities.easeLinearClamp(time, 1, -1, jostleDuration);
+        if (shining)
+            mag = 0;
         rt.anchoredPosition = centerPos + mag * (new Vector2(Mathf.Cos(jostleAngle), Mathf.Sin(jostleAngle)));
 
         //setting color
@@ -93,11 +104,15 @@ public class HealthHeart : MonoBehaviour {
         } else {
             float mit = time;
             float p = ReceivesDamage.MERCY_FLASH_PERIOD;
+            Color color = ReceivesDamage.MERCY_FLASH_COLOR;
+            if (shining) {
+                color = Pickup.HEALTH_FLASH_COLOR;
+            }
             float t = (mit - p * Mathf.Floor(mit / p)) / p; //t in [0, 1)
             if (t < .5) {
-                image.color = Color.Lerp(ReceivesDamage.MERCY_FLASH_COLOR, Color.white, t * 2);
+                image.color = Color.Lerp(color, Color.white, t * 2);
             } else {
-                image.color = Color.Lerp(Color.white, ReceivesDamage.MERCY_FLASH_COLOR, (t - .5f) * 2);
+                image.color = Color.Lerp(Color.white, color, (t - .5f) * 2);
             }
         }
 

@@ -65,6 +65,7 @@ public class Player : MonoBehaviour {
             }
         }
     }
+    public int health { get { return receivesDamage.health; } }
     public float phase { get { return HUD.instance.phaseMeter.phase; } }
 
     public enum State:int {
@@ -76,6 +77,16 @@ public class Player : MonoBehaviour {
     //////////////////////
     // PUBLIC FUNCTIONS //
     //////////////////////
+
+
+    public void healthPickup(int health) {
+        int h = this.health + health;
+        if (h > maxHealth)
+            h = maxHealth;
+        receivesDamage.health = h;
+        HUD.instance.setHealth(receivesDamage.health);
+        healthFlashTime = 0;
+    }
 
     /* Called by Pickup when picking up a phase pickup */
     public void phasePickup(float phase) {
@@ -173,6 +184,14 @@ public class Player : MonoBehaviour {
                 spriteRenderer.color = Color.Lerp(ReceivesDamage.MERCY_FLASH_COLOR, Color.white, t * 2);
             } else {
                 spriteRenderer.color = Color.Lerp(Color.white, ReceivesDamage.MERCY_FLASH_COLOR, (t-.5f) * 2);
+            }
+        } else if (healthFlashTime < Pickup.HEALTH_FLASH_DURATION) {
+            healthFlashTime += Time.deltaTime;
+            float t = Mathf.Min(1, healthFlashTime / Pickup.HEALTH_FLASH_DURATION);
+            if (t < .5) {
+                spriteRenderer.color = Color.Lerp(Color.white, Pickup.HEALTH_FLASH_COLOR, t * 2);
+            } else {
+                spriteRenderer.color = Color.Lerp(Pickup.HEALTH_FLASH_COLOR, Color.white, (t - .5f) * 2);
             }
         } else if (phaseFlashTime < Pickup.PHASE_FLASH_DURATION) {
             phaseFlashTime += Time.deltaTime;
@@ -538,8 +557,7 @@ public class Player : MonoBehaviour {
             bullet.transform.localRotation);
     }
 
-
-
+    // helper function
     bool isAnimatorCurrentState(string stateString) {
         return animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(stateString);
     }
@@ -554,6 +572,7 @@ public class Player : MonoBehaviour {
     float idleGunTime = 0;
     float damageTime = 0;
     float phaseFlashTime = 99999;
+    float healthFlashTime = 99999;
 
     // components
     Rigidbody2D _rb2d;
