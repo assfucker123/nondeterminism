@@ -192,6 +192,7 @@ MonoBehaviour:
     type: 2}
   bulletSpawn: {x: 1, y: .5}
   bulletSpread: .5
+  bulletMinDuration: .140000001
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
@@ -406,6 +407,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: phaseDecreaseSpeed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletMinDuration
+      value: .140000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

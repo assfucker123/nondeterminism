@@ -78,7 +78,7 @@ public class TimeUser : MonoBehaviour {
 
         //adjust time
         TimeUser._timeDiff += TimeUser.time - time;
-
+        
         //revert all TimeUsers
         foreach (TimeUser tu in allTimeUsers) {
             tu.revertThis(time);
@@ -97,6 +97,15 @@ public class TimeUser : MonoBehaviour {
         char[] chars = { ',' };
         string[] colorParts = s.Split(chars);
         return new Color(float.Parse(colorParts[0]), float.Parse(colorParts[1]), float.Parse(colorParts[2]), float.Parse(colorParts[3]));
+    }
+
+    /* Called by Vars.loadLevel() */
+    public static void onUnloadLevel() {
+        _timeDiff = 0;
+        _revertMutex = false;
+        _reverting = false;
+        _revertingTime = 0;
+        continuousRevertAppliedThisFrame = false;
     }
 
     ////////////////
@@ -244,9 +253,6 @@ public class TimeUser : MonoBehaviour {
         return val;
     }
 
-
-    
-    
     /////////////
     // PRIVATE //
     /////////////
@@ -258,6 +264,7 @@ public class TimeUser : MonoBehaviour {
     private static float _revertingTime = 0;
     private static bool continuousRevertAppliedThisFrame = false;
 
+    
     void Awake() {
         _timeCreated = TimeUser.time;
         allTimeUsers.Add(this);
@@ -271,6 +278,10 @@ public class TimeUser : MonoBehaviour {
             animator = sot.gameObject.GetComponent<Animator>();
         }
         _randSeed = (int)(int.MaxValue * Random.value);
+    }
+    void OnLevelWasLoaded(int level) {
+        //fixing odd bug.  For some TimeUsers that get created at the start, TimeUser.time isn't reset to 0 when Awake() is called
+        _timeCreated = 0;
     }
 
     void Start() {

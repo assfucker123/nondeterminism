@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
     public GameObject bulletMuzzleGameObject;
     public Vector2 bulletSpawn = new Vector2(1f, .4f);
     public float bulletSpread = 3.0f;
+    public float bulletMinDuration = 0.3f; //prevents Player from shooting too fast
     public float revertSpeed = 2.0f;
     public float revertEaseDuration = .4f;
     public float minRevertDuration = 1.0f;
@@ -123,9 +124,9 @@ public class Player : MonoBehaviour {
 
 	void Update() {
 
+        //restart level
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            // increase from pickup
-            phasePickup(30);
+            Vars.restartLevel();
         }
 
         // decrease phase over time
@@ -208,14 +209,20 @@ public class Player : MonoBehaviour {
         }
 
         // fire bullets
+        bulletTime += Time.deltaTime;
         if (canFireBullet) {
             if (Input.GetButtonDown("Fire1")) {
+                bulletPrePress = true;
+            }
+            if (bulletPrePress && bulletTime >= bulletMinDuration) {
                 fireBullet();
+                bulletTime = 0;
+                bulletPrePress = false;
             }
         }
 
 	}
-
+    
     void OnSaveFrame(FrameInfo fi) {
         fi.state = (int) state;
         fi.floats["jumpTime"] = jumpTime;
@@ -232,6 +239,8 @@ public class Player : MonoBehaviour {
         phaseFlashTime = fi.floats["pFTime"];
         spriteRenderer.color = TimeUser.stringToColor(fi.strings["color"]);
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
+        bulletTime = 0;
+        bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
     }
 
     void OnDestroy() {
@@ -570,6 +579,8 @@ public class Player : MonoBehaviour {
     float revertTime = 0;
     float jumpTime = 99999;
     float idleGunTime = 0;
+    float bulletTime = 99999; //involved in preventing Player from shooting too fast
+    bool bulletPrePress = false;
     float damageTime = 0;
     float phaseFlashTime = 99999;
     float healthFlashTime = 99999;

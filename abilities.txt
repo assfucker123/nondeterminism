@@ -10,6 +10,7 @@ PAUSE (Start/Enter)
 
 
 (S) - Starting ability
+(S+) - Starting ability after have beaten the game already
 (D) - Decryptor (information)
 (E) - Expansion (physical)
 (I) - Information (information)
@@ -38,7 +39,14 @@ PAUSE (Start/Enter)
 *(S) - Chamber Flashback
 	- Reverts back to a previous Chamber Save.
 	- All information (e.g. decryptors, map progress, information) obtained since the Chamber Save is conserved.
-	- All physical expansions (e.g. health, booster) obtained since the Chamber Save is lost. 
+	- All physical expansions (e.g. health, booster) obtained since the Chamber Save is lost.
+
+(S+) - Timer
+	- Displays a timer showing how much time until the world blows up.
+	- This is unlocked after finding out how much time it takes for this to happen.
+
+(S+) - Dialogue toggle
+	- Can toggle whether or not dialogue appears.
 
 *(D) - Charge Shot
 	- Hold down SHOOT to charge up the blaster, and release for a powerful shot.

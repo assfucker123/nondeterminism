@@ -141,6 +141,38 @@ Important early conversations to close plot-holes:
 	- Wally: So Oracle... do we win?  We make it out alive after defeating the bad guys and stuff right?
 	- Oracle: Of course!
 
+- Isn't Oracle doing everything?
+	- Wally: Well, my combat abilities aren't as good as yours Oracle.  Erm, it would be best for me to just stay here in the saucer where it's warm.  And provide, you know, support.
+	- Oracle: That seems like the best way to maximize your usefulness.
+	- Wally: Do I detect sarcasm?  You think I won't be that much of a help stuck here huh?
+	- Oracle: That is an odd way to interpret what I said.  But I do not disagree.
+	- Wally: If you know everything that will happen there's not a lot to help out with.
+	- Oracle: An extra brain to process information cannot be unhelpful.  I urge you to remain here.
+	- Oracle: Additionally if you leave now you do not, uh, stay together.
+	- Wally: Oh... thank you.  Hey, at least we can keep each other from getting bored.  No matter how prepared you must be, it'll be better if you're less lonely right!
+	- Oracle: I appreciate the company Wally.
+
+- What happens to the "current timeline" when Oracle does a flashback?
+	- Wally: Hmm, you seem to be in a tight spot.  Do you see a way out?
+	- Oracle: No I do not.
+	- Wally: What happens now?  Do we just stay here forever?  Until the world ends?
+	- Oracle: ...
+	- Wally: Our chance at a happy ending, all gone because of some stupid mistake?  No blaze of glory, we can't even really say we tried our best!  Oracle is there really no way back?
+	- Oracle: ... well...
+	- Wally: Oh hell no, please don't pull that time travel vision crap here.  I know how it works, you've told me enough times.  But when you do a flashback you're leaving the rest of the world in the dust!
+	- Oracle: Wally--
+	- Wally: Yes, your body stays here, whatever.  You're not going back to the past, but at the same time, *you* are retreating back to a time when the world isn't screwed over.
+	- Oracle: Wally.  If it makes you feel better, none of this is actually happening.  This entire universe at this moment is just an illusion, a figment of how I perceive the world to be.
+	- Wally: ...
+	- Oracle: Meaning you are not real.
+	- Wally: That doesn't make me feel better at all!
+	- Oracle: I know.
+	- Wally: So now what?  I spend my last remaining moments alive knowing nothing was worth it because I don't even exist?
+	- Oracle: ... yeah?
+	- Wally: ...
+	- Oracle: You should not think about it too hard.
+
+
 Story arcs take place on different paths to different parts of the map.
 	
 
@@ -158,6 +190,13 @@ Gimmicks to "Vision" mechanic that actually make sense:
 		- However, these events do not happen.  Viruses will only appear on "false timelines".  This is asserted by Oracle always reverting to "present time" before the viruses appear.
 	- 100% reality: Oracle being temporarily paralyzed.
 		- This happens, can be predicted, will always happen at the same time, etc.
+- Secret creepy stuff
+	- Enter a room, something unnerving happens, then automatically flashes back to the beginning of the room.
+		- Similar to sanity effects from Eternal Darkness.
+	- When doing a flashback during a conversation, some of the words on screen will change briefly.
+- The Salesman
+	- Reference to the classic NP-Hard Traveling Salesman problem.
+	- Someone else is moving around the world, visiting specific areas at specific time intervals. 
 
 
 BAD IDEAS:

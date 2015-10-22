@@ -48,6 +48,12 @@ public class VisionUser : MonoBehaviour {
             vu.cutVisions();
         }
     }
+
+    /* Called by Vars.loadLevel() */
+    public static void onUnloadLevel() {
+        _abilityActive = true;
+    }
+
     
     ////////////
     // PUBLIC //
