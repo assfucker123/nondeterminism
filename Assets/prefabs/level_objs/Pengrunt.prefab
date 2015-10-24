@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 12
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
 --- !u!114 &11473484
@@ -251,8 +251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleDuration: .100000001
-  walkShortDuration: 1.20000005
-  walkLongDuration: 1.60000002
+  walkShortDuration: 1
+  walkLongDuration: 1.20000005
   sprayDuration: .600000024
   speed: 3
   spraySpeed: 1
@@ -363,7 +363,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: walkLongDuration
-      value: 1.60000002
+      value: 1.20000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bulletSpawn.x
@@ -425,6 +425,10 @@ Prefab:
       propertyPath: phaseBigPickupGameObject
       value: 
       objectReference: {fileID: 191378, guid: 0a4a7d3598a8768458bf49d3c18ff8f6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119236}

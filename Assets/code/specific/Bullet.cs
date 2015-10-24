@@ -80,7 +80,7 @@ public class Bullet : MonoBehaviour {
         }
 
         // leaving map
-        Rect rect = CameraConfig.getMapBounds();
+        Rect rect = CameraControl.getMapBounds();
         if (!rect.Contains(rb2d.position)) {
             destroyBullet = true;
             destroyPoint = rb2d.position;

@@ -249,21 +249,15 @@ public class Player : MonoBehaviour {
 
     // control time reverting (called each frame)
     void timeReverting() {
-        Camera cam = Camera.main;
-        UnityStandardAssets.ImageEffects.BloomOptimized bo = cam.GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>();
-        UnityStandardAssets.ImageEffects.ColorCorrectionCurves ccc = cam.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>();
-
+        
         if (TimeUser.reverting) {
             revertTime += Time.deltaTime;
             
             TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
 
-            if (bo != null) {
-                bo.intensity = Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration);
-            }
-            if (ccc != null) {
-                ccc.saturation = Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration);
-            }
+            CameraControl.instance.enableEffects(
+                Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
+                Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration));
 
             //conditions for reverting
             bool stopReverting = !Input.GetButton("Flash");
@@ -275,28 +269,14 @@ public class Player : MonoBehaviour {
             if (stopReverting) {
                 TimeUser.endContinuousRevert();
                 HUD.instance.phaseMeter.endPulse();
-
-                if (bo != null) {
-                    bo.enabled = false;
-                }
-                if (ccc != null) {
-                    ccc.enabled = false;
-                }
+                CameraControl.instance.disableEffects();
             }
         } else {
             if (Input.GetButtonDown("Flash") && phase > 0) {
                 TimeUser.beginContinuousRevert(.5f);
                 HUD.instance.phaseMeter.beginPulse();
                 revertTime = 0;
-
-                if (bo != null) {
-                    bo.enabled = true;
-                    bo.intensity = 0;
-                }
-                if (ccc != null) {
-                    ccc.enabled = true;
-                    ccc.saturation = 1;
-                }
+                CameraControl.instance.enableEffects(0, 1);
             }
         }
 
@@ -529,6 +509,7 @@ public class Player : MonoBehaviour {
         damageTime = 0;
         animator.Play("oracle_damage");
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
+        CameraControl.instance.shake();
         state = State.DAMAGE;
 
         //end jump if jumping

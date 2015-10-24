@@ -117,7 +117,7 @@ public class TimeUser : MonoBehaviour {
      * do anything during Update() and similar functions. */
     public bool shouldNotUpdate {
         get {
-            return TimeUser.reverting || !exists;
+            return TimeUser.reverting || !exists || PauseScreen.instance.paused;
         }
     }
     public float timeCreated { get { return _timeCreated; } }
@@ -290,6 +290,9 @@ public class TimeUser : MonoBehaviour {
 
     void Update() {
 
+        if (PauseScreen.instance.paused)
+            return;
+
         if (reverting && !continuousRevertAppliedThisFrame) {
             continuousRevertSpeed = Mathf.Max(0, continuousRevertSpeed);
             TimeUser.revert(TimeUser.time - Time.deltaTime * (1 + continuousRevertSpeed));
@@ -302,6 +305,10 @@ public class TimeUser : MonoBehaviour {
 	void LateUpdate() {
 
         continuousRevertAppliedThisFrame = false;
+
+        if (PauseScreen.instance.paused)
+            return;
+
         addCurrentFrameInfo();
 
         // if has been time destroyed, delete for good if it gets too old

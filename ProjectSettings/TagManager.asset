@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 1193662943
+    locked: 0
   - name: Platforms
     uniqueID: 1772338085
     locked: 0

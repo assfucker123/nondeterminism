@@ -176,11 +176,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  amount: 8
+  amount: 6
   hopSpeed: 7
   hopRandomOffset: .100000001
   friction: 0
   spinMaxSpeed: 400
+  fadeDuration: 6.5
+  fadeMercyDuration: 2.5
 --- !u!114 &11478212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,7 +245,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: amount
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hopRandomOffset

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0b966e819f51bd946bcd8ccf53abb91e
+timeCreated: 1445540207
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - snowflakeGameObject: {fileID: 100720, guid: f06b2797f010cee4ba8e81f5d62622d9,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

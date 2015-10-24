@@ -36,66 +36,12 @@ Phase meter:
 - Increase phase meter by collecting phase essence from fallen enemies.
 - Phase meter also increases by doing slow motion dodge rolls.
 
-Enemy Attacks:
-(Need to be really hard to predict normally, but reasonable with the vision ability)
-(If enemies were penguins they'd be easier to animate)
-(Evil penguins, seals, bears)
-- Bullet tracers
-	- Heavy weapons: slow, high HP, fire gatling gun where each individual bullet can be dodged
-		- Bears with gatling guns on their backs.
-			- Shoot at them from behind to destroy the gun.
-	- Flyers: fly from point to point, spreading bullets on the way there.
-		- Similar to those things from Project Eclipse
-		- Move with easeInOutQuad
-		- Penguins with jet boots
-			- Aim at the feet to have them spiral out of control for a quick death.
-- Appearing from a portal
-	- All enemies spawn from a portal.
-	- Portal damages player when opened.
-- Teleportation attacks
-	- Delayed causality attacks (slashes take effect at random points)
-	- Cyborg ninja penguins with giant swords
-- Airstrikes
-- (BAD IDEA) Bombs that explode at random intervals
-- Lightning paths
-	- Seal that looks like a floating zapfish
-- Lightning cloud
-	- Is a cloud that floats above, dropping lightning attacks at "random"
-- Whack-a-mole type enemies, popping up at "random" spots
-- Wall climbers: shimmy up and down a vertical wall.
-- Ceiling stickers: move left to right on a ceiling.
-	- Yo-yo attack from the ceiling in any direction
-- Bomb puzzle:
-	- Need to hit special symbol, 1 of 4 that rotate around the enemy.
-	- Hit the wrong one:
-		- The correct one flashes on the enemy, then it explodes in a huge explosion that launches seekers at the player that are impossible to dodge.
-		- Strategy: after hitting the wrong one, flashback to before you shot it and hit the correct one.
-	- Hit the right one:
-		- Enemy is defeated just like normal.
-- Fake projectiles:
-	- A bunch of projectiles appear to fall around the player.  But Vision will show all but one of them, which is fake.
-
-
-
-Special Enemy Attacks:
-- Quantum Attacks
-	- Produce many fake visions and one real one.  Need to use pattern recognition to determine the real one?
-- Vision Viruses
-	- Attacks that appear on the screen itself, and don't move with the camera or through flashbacks.
-	- In lore these are viruses in Oracle's programming.
-	- In ~SR, happen at random the longer you play the game, similar to the ghosts in An Untitled Story.
-- Music related where a secret message is heard when playing the level in reverse?
-
-Enemy Behavior:
-- Place static "Spots" all over the map.
-- Every movement from an enemy starts at one spot and ends at another.
-- Gives us the ability to predict where enemy will be at a certain time.
-	
 Nondeterminism ~ SR
 (SR stands for Soft Reset, Speed Run, or Senior)
 
 Premise:
 - A bomb has been set to explode in 20 minutes.  Deactivation codes and color keys are needed to disarm it, all of which are found in the villain's lair.
+	- In Majora's Mask, time limit is 18 minutes * 3 = 54 minutes.
 - Appears to be a miniature Metroid game at first.  Need to collect a number of color keys (physical) to get to the bomb room, and parts of a deactivation code (information) to deactivate the bomb.
 - New skills can be found with "decryptors", which unlock new abilities for the player.  Decryptors are information, so they are remembered when flashing back.  Some decryptors are useless until the booster is obtained.
 - Health upgrades are physical.  This means that, when reverting to a previous time, all the health upgrades accumulated since then will be lost.
@@ -215,6 +161,12 @@ Player:
 - Protagonist is robot, fights similar to megaman.
 - Can do a directional dodge to avoid damage.
 - Perceives attacks before they happen (shown with a colored silhouette).
+
+Map Ideas:
+- Short hidden path from start to a physical key (for the introduction)
+- Medium-short hidden path from start to Booster (physical upgrade that's best to get as soon as possible)
+	- Goes through Sky area
+	- Falling will set you way back to a bottom screen, so be sure to use a Flashback before that happens.
 
 Puzzles:
 - Key words or codes are stored in a "memory bank", accessed from menu

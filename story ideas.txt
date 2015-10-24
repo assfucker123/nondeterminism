@@ -24,7 +24,9 @@
 		- Can't move or jump in quicksand, but can shoot.
 	- Mines have been placed all over the bridge.  Walking into one will cause the bridge to collapse, dropping Oracle into the quicksand.
 	- Need to use Flashback ability to revert back to before the mine was set off.
-		- There is a phase crystal on the left that can be shot, which will give Oracle phase if needed to do the revert.
+		- Need to "cheat" and make sure player has enough phase at this point.
+		- Reward a lot of phase to player in fight immediately before this, and give the player enough phase if they're really stupid before then.
+		- NO Phase Crystals nearby.  This wouldn't help.
 	- To solve puzzle: shoot boulders on the side in a way that Oracle can climb to the top of the truss bridge and walk over the mines.
 
 * Find decryptor upgrade (is information that unlocks one of Oracle's innate abilities, so it not lost when reverting)
@@ -196,7 +198,10 @@ Gimmicks to "Vision" mechanic that actually make sense:
 	- When doing a flashback during a conversation, some of the words on screen will change briefly.
 - The Salesman
 	- Reference to the classic NP-Hard Traveling Salesman problem.
-	- Someone else is moving around the world, visiting specific areas at specific time intervals. 
+	- Someone else is moving around the world, visiting specific areas at specific time intervals.
+	- Can meet at certain points during the adventure.  Sells special phase crystals that permanently increase your phase meter in exchange for a health upgrade.
+		- In UI, a health upgrade traded for a crystal is represented by drawing a crystal over where the heart would be.
+		- The trades affect Salesman's own abilities for the bossfight later.
 
 
 BAD IDEAS:

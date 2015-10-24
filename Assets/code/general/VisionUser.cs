@@ -27,7 +27,7 @@ public class VisionUser : MonoBehaviour {
     // STATIC //
     ////////////
 
-    public static float VISION_DURATION = 1.1f; //recommended duration for all visions (for consistency)
+    public static float VISION_DURATION = .9f; //recommended duration for all visions (for consistency)
 
     /* Activates Oracle's vision ability, which makes these visions visible. */
     public static void activateAbility() {

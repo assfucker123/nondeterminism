@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Vars {
 
+    public static bool arcadeMode = true;
+
     /* Loads the given level after doing some stuff first. */
     public static void loadLevel(string name) {
 
