@@ -12,6 +12,7 @@ public class PauseScreen : MonoBehaviour {
         MAP,
         TIME_TREE,
         TALK,
+        PROGRESS,
         OPTIONS
     }
 
@@ -59,6 +60,7 @@ public class PauseScreen : MonoBehaviour {
         m_hide();
         tt_hide();
         t_hide();
+        p_hide();
         o_hide();
         hide();
     }
@@ -73,6 +75,7 @@ public class PauseScreen : MonoBehaviour {
             mapPageText.enabled = true;
             timeTreePageText.enabled = true;
             talkPageText.enabled = true;
+            progressPageText.enabled = true;
             switchPagesText.enabled = true;
         }
         optionsPageText.enabled = true;
@@ -90,6 +93,8 @@ public class PauseScreen : MonoBehaviour {
         timeTreePageText.enabled = false;
         talkPageText.color = DEFAULT_COLOR;
         talkPageText.enabled = false;
+        progressPageText.color = DEFAULT_COLOR;
+        progressPageText.enabled = false;
         optionsPageText.color = DEFAULT_COLOR;
         optionsPageText.enabled = false;
         pageSelection.enabled = false;
@@ -112,6 +117,10 @@ public class PauseScreen : MonoBehaviour {
         case Page.TALK:
             option = talkPageText;
             t_hide();
+            break;
+        case Page.PROGRESS:
+            option = progressPageText;
+            p_hide();
             break;
         case Page.OPTIONS:
             option = optionsPageText;
@@ -138,6 +147,10 @@ public class PauseScreen : MonoBehaviour {
         case Page.TALK:
             option = talkPageText;
             t_show();
+            break;
+        case Page.PROGRESS:
+            option = progressPageText;
+            p_show();
             break;
         case Page.OPTIONS:
             option = optionsPageText;
@@ -172,10 +185,12 @@ public class PauseScreen : MonoBehaviour {
 		mapPageText = transform.Find("MapPageText").GetComponent<Text>();
         timeTreePageText = transform.Find("TimeTreePageText").GetComponent<Text>();
         talkPageText = transform.Find("TalkPageText").GetComponent<Text>();
+        progressPageText = transform.Find("ProgressPageText").GetComponent<Text>();
         optionsPageText = transform.Find("OptionsPageText").GetComponent<Text>();
         pageSelection = transform.Find("PageSelection").GetComponent<Image>();
         switchPagesText = transform.Find("SwitchPagesText").GetComponent<Text>();
 
+        // options page
         optionsPage = transform.Find("OptionsPage").gameObject;
         o_selection = optionsPage.transform.Find("Selection").GetComponent<Image>();
         o_resumeText = optionsPage.transform.Find("ResumeText").GetComponent<Text>();
@@ -198,22 +213,32 @@ public class PauseScreen : MonoBehaviour {
         if (!Vars.arcadeMode) { // can only be on options page in arcade mode
             if (Input.GetButtonDown("PageLeft")) {
                 Page pageTo = page;
+                bool immediately = false;
                 switch (page) {
-                case Page.MAP: pageTo = Page.OPTIONS; break;
+                case Page.MAP:
+                    pageTo = Page.OPTIONS;
+                    immediately = true; //wrapping around looks awkward
+                    break;
                 case Page.TIME_TREE: pageTo = Page.MAP; break;
                 case Page.TALK: pageTo = Page.TIME_TREE; break;
-                case Page.OPTIONS: pageTo = Page.TALK; break;
+                case Page.PROGRESS: pageTo = Page.TALK; break;
+                case Page.OPTIONS: pageTo = Page.PROGRESS; break;
                 }
-                switchPage(pageTo);
+                switchPage(pageTo, immediately);
             } else if (Input.GetButtonDown("PageRight")) {
                 Page pageTo = page;
+                bool immediately = false;
                 switch (page) {
                 case Page.MAP: pageTo = Page.TIME_TREE; break;
                 case Page.TIME_TREE: pageTo = Page.TALK; break;
-                case Page.TALK: pageTo = Page.OPTIONS; break;
-                case Page.OPTIONS: pageTo = Page.MAP; break;
+                case Page.TALK: pageTo = Page.PROGRESS; break;
+                case Page.PROGRESS: pageTo = Page.OPTIONS; break;
+                case Page.OPTIONS:
+                    pageTo = Page.MAP;
+                    immediately = true; //wrapping around looks weird
+                    break;
                 }
-                switchPage(pageTo);
+                switchPage(pageTo, immediately);
             }
         }
 
@@ -318,6 +343,7 @@ public class PauseScreen : MonoBehaviour {
     Text mapPageText;
     Text timeTreePageText;
     Text talkPageText;
+    Text progressPageText;
     Text optionsPageText;
     Image pageSelection;
     Text switchPagesText;
@@ -338,6 +364,10 @@ public class PauseScreen : MonoBehaviour {
      * */
     void t_show() { }
     void t_hide() { }
+
+    // progress page
+    void p_show() { }
+    void p_hide() { }
 
     // options page
     GameObject optionsPage;
