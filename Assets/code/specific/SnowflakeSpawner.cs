@@ -19,6 +19,7 @@ public class SnowflakeSpawner : MonoBehaviour {
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
         left = bc2d.bounds.min.x;
         right = bc2d.bounds.max.x;
+        time = snowflakeDuration; //so it starts with snowflakes already made
     }
 	
 	void Update() {
@@ -36,6 +37,7 @@ public class SnowflakeSpawner : MonoBehaviour {
                     transform.localPosition.y, 0), Quaternion.identity) as GameObject;
             Snowflake sf = sfGO.GetComponent<Snowflake>();
             sf.swayTimeOffset = timeUser.randomValue() * sf.swayPeriod;
+            sf.time = time - dur;
             sf.duration = snowflakeDuration;
             
             time -= dur;

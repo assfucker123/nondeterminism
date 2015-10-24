@@ -8,6 +8,7 @@ public class Snowflake : MonoBehaviour {
     public float swayMagnitude = 2f;
     public float swayPeriod = 1.0f;
     public float swayTimeOffset = 0; //set by SnowflakeSpawner
+    public float time = 0;
     public float duration = 1.5f;
     public Sprite[] sprites;
 
@@ -35,7 +36,6 @@ public class Snowflake : MonoBehaviour {
         float x = startPos.x + horizSpeed * time;
         float xOff = swayMagnitude * Mathf.Sin((time + swayTimeOffset) / swayPeriod * Mathf.PI * 2);
         x += xOff;
-
         transform.localPosition = new Vector3(x, y, transform.localPosition.z);
 
         if (time >= duration) {
@@ -58,6 +58,5 @@ public class Snowflake : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;
 
-    private float time = 0;
     private Vector3 startPos = new Vector3();
 }
