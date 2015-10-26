@@ -37,6 +37,8 @@ Enemy Attacks:
 		- Enemy is defeated just like normal.
 - Fake projectiles:
 	- A bunch of projectiles appear to fall around the player.  But Vision will show all but one of them, which is fake.
+- Random exploders:
+	- Things that move around and sometimes explode.
 
 
 

@@ -1,12 +1,14 @@
 fileFormatVersion: 2
 guid: 91e2965627bac3947b4987fc6b610623
-timeCreated: 1445054118
+timeCreated: 1445834730
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb,
       type: 2}
+  - deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
+  - deathSound2: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

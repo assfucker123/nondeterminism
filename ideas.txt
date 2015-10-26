@@ -1,5 +1,8 @@
 Nondeterminism ~ Proto
 
+Vision ~ Proto
+Vision ~ SR
+
 Attacking:
 - Jump and shoot megaman style.
 - Movement is a little faster, bullets are much faster (near instantaneous)
@@ -100,7 +103,11 @@ Newer ideas:
 			- Need to pick answer from a range of colors.
 			- Can technically constantly revert and win with trial and error.
 				- If win, Wally will say "good thing you didn't cheat"
-- Tommy: Wally's younger brother.
+- Better idea for motivation: Wally receiving instructions from his father, who has been gone for a very long time.
+	- He sent Wally infant Oracle, later her suit, then finally instructions on the mission.
+- Wally represents the player.  Some tutorials are framed as Oracle explaining things to Wally instead of the other way around.
+	- "True" protagonist?
+- (BAD IDEA) Tommy: Wally's younger brother.
 	- As a child, Tommy looked up to his brilliant brother Wally.
 	- In time, he studied in Wally's footsteps and became a great programmer.
 	- As Wally spent more time with Oracle, he spent less time with Tommy.  Tommy faced abandonment issues.
@@ -302,3 +309,27 @@ Skills:
 
 
 - "Final challenge" portion where most of the 10 minutes is spent on a new linear level testing all the abilities?
+
+
+
+Sound Effects needed:
+x step/land
+x jump
+x shoot
+x gun put down
+x hit1
+x oracle damage
+o oracle death
+o vision
+o flashback
+x ui switch selection
+o ui switch page
+o ui select
+o ui cancel
+x pengrunt death
+x death explosions
+o phase pickup
+o health pickup
+x low phase (ticking sound during flashback)
+x empty phase (off tune loud tick sound)
+o low health

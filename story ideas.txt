@@ -174,7 +174,29 @@ Important early conversations to close plot-holes:
 	- Wally: ...
 	- Oracle: You should not think about it too hard.
 
+========================================
 
+Character-building conversations:
+
+Wally's education:
+	...
+	- Wally: I taught you some of what I know about the world, but not all.  So *logically* that means all the knowledge you know is a subset of the knowledge I know.
+	- Wally: And *that*, ha-HA!  ...proves I'm smarter.  Don't feel bad, I'll have you know I skipped a grade in high school.
+	- Oracle: That is a flawed argument and you know it.  You assume I do not learn on my own.
+	- Wally: Uh, likewise.
+	- ...
+	- Wally: Tried it once, didn't like it.
+	- Wally: I experiment and do research on my own because it makes me feel good.
+	- Wally: At a university, everyone acts like they've got something to prove, and they expected me to do the same.  There's no genuine pursuit of discovery, just the pursuit 
+	
+
+Wally and his father:
+	- Wally: 
+
+
+
+=========================================
+	
 Story arcs take place on different paths to different parts of the map.
 	
 
@@ -202,6 +224,25 @@ Gimmicks to "Vision" mechanic that actually make sense:
 	- Can meet at certain points during the adventure.  Sells special phase crystals that permanently increase your phase meter in exchange for a health upgrade.
 		- In UI, a health upgrade traded for a crystal is represented by drawing a crystal over where the heart would be.
 		- The trades affect Salesman's own abilities for the bossfight later.
+
+==========================================
+
+World-building:
+
+- Futuristic world, with advanced tech and weapons, but populated with animals and creatures.
+- Wally is the only human creature in the game.
+- Arctic setting.
+- Mantle within the world is dangerously unstable, is in danger of bursting through the ground.
+	- Was artificially sealed with a barrier.
+	- Side affect of the sealing was making the world much colder.
+
+World ending moment:
+- The seal around the mantle is broken.
+- Volcanoes sprout out of nowhere, spewing lava onto the ground and ash into the atmosphere.
+- Everything on the surface burns to death.  Everything in the air beneath the clouds suffocates from the noxious gases in the atmosphere.
+- One safe spot: Mount Apogee, a mountain whose peak rests above the clouds.
+	- Player and other characters can survive the apocalypse by being on Mount Apogee when the barrier breaks.
+
 
 
 BAD IDEAS:

@@ -7,6 +7,8 @@ public class PauseScreen : MonoBehaviour {
 
     public static PauseScreen instance { get { return _instance; } }
 
+    public AudioClip switchSound;
+
     public enum Page {
         NONE, //meaning entire pause screen is hidden
         MAP,
@@ -195,6 +197,9 @@ public class PauseScreen : MonoBehaviour {
         o_selection = optionsPage.transform.Find("Selection").GetComponent<Image>();
         o_resumeText = optionsPage.transform.Find("ResumeText").GetComponent<Text>();
         o_restartText = optionsPage.transform.Find("RestartText").GetComponent<Text>();
+        o_sfxVolumeText = optionsPage.transform.Find("sfxVolumeText").GetComponent<Text>();
+        o_musicVolumeText = optionsPage.transform.Find("MusicVolumeText").GetComponent<Text>();
+        o_volumeText = optionsPage.transform.Find("VolumeText").GetComponent<Text>();
         o_quitText = optionsPage.transform.Find("QuitText").GetComponent<Text>();
         o_quitSureText = optionsPage.transform.Find("QuitSureText").GetComponent<Text>();
         o_quitSureYesText = optionsPage.transform.Find("QuitSureYesText").GetComponent<Text>();
@@ -323,8 +328,10 @@ public class PauseScreen : MonoBehaviour {
         if (options.Count > 0) {
             if (Input.GetButtonDown("Down")) {
                 setSelection(selectionIndex + 1);
+                SoundManager.instance.playSFX(switchSound);
             } else if (Input.GetButtonDown("Up")) {
                 setSelection(selectionIndex - 1);
+                SoundManager.instance.playSFX(switchSound);
             }
         }
         // move selection image
@@ -374,24 +381,38 @@ public class PauseScreen : MonoBehaviour {
     Image o_selection;
     Text o_resumeText;
     Text o_restartText; // only use in Arcade
+
+    Text o_sfxVolumeText;
+    Text o_musicVolumeText;
+    Text o_volumeText;
+
     Text o_quitText;
     Text o_quitSureText;
     Text o_quitSureYesText;
     Text o_quitSureNoText;
+    bool o_settingSFX = false;
+    bool o_settingMusic = false;
     void o_show() {
         o_selection.enabled = true;
         o_resumeText.enabled = true;
         o_restartText.enabled = true;
+        o_sfxVolumeText.enabled = true;
+        o_musicVolumeText.enabled = true;
+        o_volumeText.enabled = false;
         o_quitText.enabled = true;
         o_quitSureText.enabled = false;
         o_quitSureYesText.enabled = false;
         o_quitSureNoText.enabled = false;
+        o_settingSFX = false;
+        o_settingMusic = false;
         // set options helper
         selectionImage = o_selection;
         selectionImageOffset.Set(0, 2);
         options.Clear();
         options.Add(o_resumeText);
         options.Add(o_restartText);
+        options.Add(o_sfxVolumeText);
+        options.Add(o_musicVolumeText);
         options.Add(o_quitText);
         setSelection(0, true);
     }
@@ -399,6 +420,9 @@ public class PauseScreen : MonoBehaviour {
         o_selection.enabled = false;
         o_resumeText.enabled = false;
         o_restartText.enabled = false;
+        o_sfxVolumeText.enabled = false;
+        o_musicVolumeText.enabled = false;
+        o_volumeText.enabled = false;
         o_quitText.enabled = false;
         o_quitSureText.enabled = false;
         o_quitSureYesText.color = DEFAULT_COLOR;
@@ -412,14 +436,45 @@ public class PauseScreen : MonoBehaviour {
 
         bool madeSelection = false;
         Text option = null;
-        if (Input.GetButtonDown("Jump")) {
-            madeSelection = true;
-            option = options[selectionIndex];
-        }
-        if (Input.GetButtonDown("Fire1")) {
-            if (o_quitSureNoText.enabled) {
+        if (o_settingSFX || o_settingMusic) {
+            if (Input.GetButtonDown("Left")) {
+                if (o_settingSFX) {
+                    Vars.sfxVolume = Mathf.Max(0, Vars.sfxVolume - .2f);
+                    o_setVolumeText(true);
+                } else {
+                    Vars.musicVolume = Mathf.Max(0, Vars.musicVolume - .2f);
+                    o_setVolumeText(false);
+                }
+                SoundManager.instance.playSFX(switchSound);
+            } else if (Input.GetButtonDown("Right")) {
+                if (o_settingSFX) {
+                    Vars.sfxVolume = Mathf.Min(1, Vars.sfxVolume + .2f);
+                    o_setVolumeText(true);
+                } else {
+                    Vars.musicVolume = Mathf.Min(1, Vars.musicVolume + .2f);
+                    o_setVolumeText(false);
+                }
+                SoundManager.instance.playSFX(switchSound);
+            }
+            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) {
+                // exit out of setting SFX/Music
+                bool temp = o_settingSFX;
+                o_show();
+                if (temp)
+                    setSelection(options.IndexOf(o_sfxVolumeText), true);
+                else
+                    setSelection(options.IndexOf(o_musicVolumeText), true);
+            }
+        } else {
+            if (Input.GetButtonDown("Jump")) {
                 madeSelection = true;
-                option = o_quitSureNoText;
+                option = options[selectionIndex];
+            }
+            if (Input.GetButtonDown("Fire1")) {
+                if (o_quitSureNoText.enabled) {
+                    madeSelection = true;
+                    option = o_quitSureNoText;
+                }
             }
         }
         if (madeSelection) { // pressed selection
@@ -430,19 +485,37 @@ public class PauseScreen : MonoBehaviour {
                 // restart game
                 unpauseGame();
                 Vars.restartLevel();
+            } else if (option == o_sfxVolumeText) {
+                // toggle sfx volue
+                option.color = DEFAULT_COLOR;
+                o_hide();
+                o_volumeText.enabled = true;
+                o_setVolumeText(true);
+                options.Clear();
+                o_settingSFX = true;
+
+            } else if (option == o_musicVolumeText) {
+                // toggle music volue
+                option.color = DEFAULT_COLOR;
+                o_hide();
+                o_volumeText.enabled = true;
+                o_setVolumeText(false);
+                options.Clear();
+                o_settingMusic = true;
+
             } else if (option == o_quitText) {
                 // go to quit sure mode
                 // get rid of other options
                 option.color = DEFAULT_COLOR;
                 o_hide();
                 o_selection.enabled = true;
+                o_quitSureYesText.rectTransform.localPosition = options[1].rectTransform.localPosition;
+                o_quitSureNoText.rectTransform.localPosition = options[2].rectTransform.localPosition;
                 options.Clear();
                 // set new options
                 o_quitSureText.enabled = true;
                 o_quitSureYesText.enabled = true;
-                o_quitSureYesText.rectTransform.localPosition = o_restartText.rectTransform.localPosition;
                 o_quitSureNoText.enabled = true;
-                o_quitSureNoText.rectTransform.localPosition = o_quitText.rectTransform.localPosition;
                 options.Add(o_quitSureYesText);
                 options.Add(o_quitSureNoText);
                 setSelection(1, true);
@@ -461,6 +534,24 @@ public class PauseScreen : MonoBehaviour {
 
         }
 
+    }
+    void o_setVolumeText(bool sfx) {
+        float val = 0;
+        if (sfx) val = Vars.sfxVolume;
+        else val = Vars.musicVolume;
+        string left = "<";
+        if (val <= .0001f) left = " ";
+        string right = ">";
+        if (val >= .9999f) right = " ";
+        int ones = Mathf.FloorToInt(val);
+        string str = "" + ones;
+        val -= ones;
+        str += "." + Mathf.FloorToInt(val*10 + .01f);
+        if (sfx) {
+            o_volumeText.text = "SFX Volume: " + left + " " + str + " " + right;
+        } else {
+            o_volumeText.text = "Music Volume: " + left + " " + str + " " + right;
+        }
     }
 
 

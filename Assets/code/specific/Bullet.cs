@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour {
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
     public GameObject bulletFadeGameObject;
     public GameObject bulletExplosionGameObject;
+    public AudioClip hitSound; // can be null for no sound
 
     public float distTravelled { get { return _distTravelled; } }
 
@@ -65,13 +66,14 @@ public class Bullet : MonoBehaviour {
         } else {
             //hit thing
             
-            //todo: affect object hit
             ReceivesDamage rd = rh2d.collider.gameObject.GetComponent<ReceivesDamage>();
-            if (rd != null) {
+            if (rd != null && rd.health > 0) {
                 AttackInfo ai = new AttackInfo();
                 ai.damage = damage;
                 ai.impactHeading = heading;
-                rd.dealDamage(ai);
+                ai = rd.dealDamage(ai);
+                if (hitSound != null)
+                    SoundManager.instance.playSFXRandPitchBend(hitSound);
             }
 
             rb2d.position = rh2d.point;

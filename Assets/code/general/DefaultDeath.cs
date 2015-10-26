@@ -16,6 +16,8 @@ public class DefaultDeath : MonoBehaviour {
     public bool setColor = true;
     public GameObject explosionGameObject;
     public PickupSpawner.BurstSize pickupSize = PickupSpawner.BurstSize.NONE;
+    public AudioClip deathSound1 = null; // optional
+    public AudioClip deathSound2 = null; // optional
 
     float time = 0;
     bool toRight = false;
@@ -24,6 +26,9 @@ public class DefaultDeath : MonoBehaviour {
     /* Call this to activate the death behavior */
     public void activate(bool toRight = true) {
         if (activated) return;
+
+        if (timeUser.shouldNotUpdate)
+            return;
 
         //initial velocity
         this.toRight = toRight;
@@ -44,6 +49,14 @@ public class DefaultDeath : MonoBehaviour {
             }
         } else {
             pickupSpawner.burstSpawn(rb2d.position, pickupSize);
+        }
+
+        //death sound
+        if (deathSound1 != null) {
+            SoundManager.instance.playSFX(deathSound1);
+        }
+        if (deathSound2 != null) {
+            SoundManager.instance.playSFX(deathSound2);
         }
 
         _activated = true;

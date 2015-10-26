@@ -7,10 +7,15 @@ public class PhaseMeter : MonoBehaviour {
     public float increaseDuration = .4f;
     public float warningThreshold = .2f;
     public float pulsePeriod = .4f;
+    public float lowSoundStart = 25;
     public Sprite fullMeterSprite;
     public Sprite fullBarSprite;
     public Sprite emptyMeterSprite;
     public Sprite emptyBarSprite;
+    public AudioClip phaseLowSound;
+    public AudioClip phaseEmptySound;
+    public Color increaseColor = new Color(1, 1, 0);
+    public Color pulseColor = new Color(0, 0, 1);
 
     /* Called by HUD after being instantiated. */
     public void setUp() {
@@ -23,9 +28,6 @@ public class PhaseMeter : MonoBehaviour {
     public float phase { get { return _phase; } }
     public bool increasing { get { return increaseTime < increaseDuration; } }
     public bool pulsing { get { return pulseTime < pulsePeriod; } }
-
-    public Color increaseColor = new Color(1, 1, 0);
-    public Color pulseColor = new Color(0, 0, 1);
 
     private float increaseTime = 99999;
     private float increaseInitialPhase = 0;
@@ -44,9 +46,17 @@ public class PhaseMeter : MonoBehaviour {
 
     public void beginPulse() {
         pulseTime = 0;
+        // low sound
+        if (displayPhase < lowSoundStart) {
+            float volume = Utilities.easeLinearClamp(displayPhase, 1, -1, lowSoundStart);
+            SoundManager.instance.playSFX(phaseLowSound, volume);
+        }
     }
     public void endPulse() {
         pulseTime = 99999;
+        if (phase == 0) {
+            SoundManager.instance.playSFX(phaseEmptySound);
+        }
     }
 
     /* Increases phase by given amount, and goes through increase animation. */
@@ -96,6 +106,11 @@ public class PhaseMeter : MonoBehaviour {
             pulseTime += Time.deltaTime;
             if (pulseTime >= pulsePeriod){
                 pulseTime -= pulsePeriod;
+                // low sound
+                if (displayPhase < lowSoundStart) {
+                    float volume = Utilities.easeLinearClamp(displayPhase, 1, -1, lowSoundStart);
+                    SoundManager.instance.playSFX(phaseLowSound, volume);
+                }
             }
 
             //change color

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(TimeUser))]
 public class VisionUser : MonoBehaviour {
 	
     /* Component for all GameObjects that can produce visions of themselves.

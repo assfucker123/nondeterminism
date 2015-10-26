@@ -206,6 +206,11 @@ MonoBehaviour:
   damageDuration: .300000012
   mercyInvincibilityDuration: 1.10000002
   state: 0
+  stepSound: {fileID: 8300000, guid: 9e2a7c604390ae74bbfc09b342021d3b, type: 3}
+  jumpSound: {fileID: 8300000, guid: 639a64b5e89066b49b29e0b5a06120da, type: 3}
+  bulletSound: {fileID: 8300000, guid: d53163181e2d92f4d99e07fa4a6fc04c, type: 3}
+  gunDownSound: {fileID: 8300000, guid: f64723ece8c84094789d245628eae9a8, type: 3}
+  damageSound: {fileID: 8300000, guid: bb47a802ae10f8c4a83cee2cc5592172, type: 3}
 --- !u!114 &11451260
 MonoBehaviour:
   m_ObjectHideFlags: 1

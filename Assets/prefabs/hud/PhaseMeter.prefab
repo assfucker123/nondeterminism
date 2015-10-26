@@ -104,10 +104,13 @@ MonoBehaviour:
   increaseDuration: .400000006
   warningThreshold: .200000003
   pulsePeriod: .400000006
+  lowSoundStart: 35
   fullMeterSprite: {fileID: 21300000, guid: 90ef94578180bfb4bae6230cee2f6d6d, type: 3}
   fullBarSprite: {fileID: 21300000, guid: 1bd035cd6e681e9439063173859412e8, type: 3}
   emptyMeterSprite: {fileID: 21300000, guid: f184a42e76ff9464ab45113250d21a87, type: 3}
   emptyBarSprite: {fileID: 21300000, guid: 8f4a35eb8f1528845becec53cff5ee8f, type: 3}
+  phaseLowSound: {fileID: 8300000, guid: 367270d3f859ac14b8300fd859658e94, type: 3}
+  phaseEmptySound: {fileID: 8300000, guid: 9389ec9b640fb7c4dbba0d850aee3840, type: 3}
   increaseColor: {r: 1, g: 1, b: 0, a: 1}
   pulseColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!222 &22207316
@@ -207,6 +210,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: warningThreshold
       value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: phaseLowSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 367270d3f859ac14b8300fd859658e94, type: 3}
+    - target: {fileID: 0}
+      propertyPath: phaseEmptySound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9389ec9b640fb7c4dbba0d850aee3840, type: 3}
+    - target: {fileID: 0}
+      propertyPath: lowSoundStart
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

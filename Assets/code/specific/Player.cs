@@ -39,6 +39,11 @@ public class Player : MonoBehaviour {
     public float damageDuration = .5f;
     public float mercyInvincibilityDuration = 1.0f;
     public State state = State.GROUND;
+    public AudioClip stepSound;
+    public AudioClip jumpSound;
+    public AudioClip bulletSound;
+    public AudioClip gunDownSound;
+    public AudioClip damageSound;
 
     public Rigidbody2D rb2d { get { return _rb2d; } }
     public bool flippedHoriz {
@@ -341,6 +346,7 @@ public class Player : MonoBehaviour {
                 idleGunTime += Time.deltaTime;
                 if (idleGunTime > idleGunDownDuration) {
                     animator.Play("oracle_gun_to_idle");
+                    SoundManager.instance.playSFXRandPitchBend(gunDownSound);
                 }
             } else if (!isAnimatorCurrentState("oracle_gun_to_idle") &&
                 !isAnimatorCurrentState("oracle_idle")) {
@@ -353,6 +359,7 @@ public class Player : MonoBehaviour {
             jumpTime = 0;
             v.y = jumpSpeed;
             toAirState(true);
+            SoundManager.instance.playSFXRandPitchBend(jumpSound);
         }
 
         if (colFinder.hitBottom) {
@@ -372,6 +379,15 @@ public class Player : MonoBehaviour {
                 toAirState(false);
             }
 
+        }
+
+        // step sounds
+        if (state == State.GROUND && isAnimatorCurrentState("oracle_run")) {
+            stepSoundPlayTime += Time.deltaTime;
+            if (stepSoundPlayTime > .25f){
+                SoundManager.instance.playSFXRandPitchBend(stepSound);
+                stepSoundPlayTime = 0;
+            }
         }
 
         rb2d.velocity = v;
@@ -477,6 +493,8 @@ public class Player : MonoBehaviour {
             animator.Play("oracle_gun");
             idleGunTime = 0;
         }
+        SoundManager.instance.playSFXRandPitchBend(stepSound);
+        stepSoundPlayTime = 0;
     }
 
     // going to air state
@@ -508,6 +526,7 @@ public class Player : MonoBehaviour {
         HUD.instance.setHealth(receivesDamage.health);
         damageTime = 0;
         animator.Play("oracle_damage");
+        SoundManager.instance.playSFX(damageSound);
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
         CameraControl.instance.shake();
         state = State.DAMAGE;
@@ -525,6 +544,7 @@ public class Player : MonoBehaviour {
         if (isAnimatorCurrentState("oracle_gun_to_idle") || isAnimatorCurrentState("oracle_idle")) {
             animator.Play("oracle_gun");
         }
+        SoundManager.instance.playSFXRandPitchBend(bulletSound);
 
         //spawning bullet
         Vector2 relSpawnPosition = bulletSpawn;
@@ -565,6 +585,7 @@ public class Player : MonoBehaviour {
     float damageTime = 0;
     float phaseFlashTime = 99999;
     float healthFlashTime = 99999;
+    float stepSoundPlayTime = 99999;
 
     // components
     Rigidbody2D _rb2d;

@@ -8,11 +8,13 @@ public class HUD : MonoBehaviour {
 
     public GameObject healthHeartGameObject;
     public GameObject phaseMeterGameObject;
+    public GameObject countdownTimerGameObject;
     public GameObject pauseScreenGameObject;
 
     public int health { get { return _health; } }
     public int maxHealth { get { return _maxHealth; } }
     public PhaseMeter phaseMeter { get { return _phaseMeter; } }
+    public CountdownTimer countdownTimer { get { return _countdownTimer; } }
     public PauseScreen pauseScreen { get { return _pauseScreen; } }
 
     public void setMaxHealth(int maxHealth){
@@ -82,11 +84,18 @@ public class HUD : MonoBehaviour {
         pmGO.transform.SetParent(canvas.transform, false);
         _phaseMeter = pmGO.GetComponent<PhaseMeter>();
         _phaseMeter.setUp();
+        //create Countdown Timer
+        GameObject ctGO = GameObject.Instantiate(countdownTimerGameObject) as GameObject;
+        ctGO.transform.SetParent(canvas.transform, false);
+        _countdownTimer = ctGO.GetComponent<CountdownTimer>();
+        _countdownTimer.setUp();
+
         //create Pause Screen
         GameObject psGO = GameObject.Instantiate(pauseScreenGameObject) as GameObject;
         psGO.transform.SetParent(canvas.transform, false);
         _pauseScreen = psGO.GetComponent<PauseScreen>();
         _pauseScreen.initialHide();
+        
 	}
 
     void Start() {
@@ -119,6 +128,7 @@ public class HUD : MonoBehaviour {
 
     private List<HealthHeart> healthHearts = new List<HealthHeart>();
     private PhaseMeter _phaseMeter;
+    private CountdownTimer _countdownTimer;
     private PauseScreen _pauseScreen;
 	
 	// components
