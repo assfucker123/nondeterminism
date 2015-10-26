@@ -44,6 +44,8 @@ public class Player : MonoBehaviour {
     public AudioClip bulletSound;
     public AudioClip gunDownSound;
     public AudioClip damageSound;
+    public AudioClip flashbackBeginSound;
+    public AudioClip flashbackEndSound;
 
     public Rigidbody2D rb2d { get { return _rb2d; } }
     public bool flippedHoriz {
@@ -273,12 +275,15 @@ public class Player : MonoBehaviour {
 
             if (stopReverting) {
                 TimeUser.endContinuousRevert();
+                SoundManager.instance.stopSFX(flashbackBeginSound);
+                SoundManager.instance.playSFX(flashbackEndSound);
                 HUD.instance.phaseMeter.endPulse();
                 CameraControl.instance.disableEffects();
             }
         } else {
             if (Input.GetButtonDown("Flash") && phase > 0) {
                 TimeUser.beginContinuousRevert(.5f);
+                SoundManager.instance.playSFX(flashbackBeginSound);
                 HUD.instance.phaseMeter.beginPulse();
                 revertTime = 0;
                 CameraControl.instance.enableEffects(0, 1);

@@ -321,7 +321,8 @@ x hit1
 x oracle damage
 o oracle death
 o vision
-o flashback
+x flashback begin
+x flashback end
 x ui switch selection
 o ui switch page
 o ui select

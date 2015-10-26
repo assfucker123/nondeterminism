@@ -14,6 +14,16 @@ public class SoundManager : MonoBehaviour {
         float pitch = 1 + (Random.value * 2 - 1) * pitchBendMagnitude;
         playSFXF(clip, volume, pitch);
     }
+    public void stopSFX(AudioClip clip) {
+        if (clip == null) return;
+        foreach (AudioSource audS in sfxSources) {
+            if (audS.clip == null) continue;
+            if (audS.clip == clip) {
+                audS.Stop();
+                return;
+            }
+        }
+    }
 
 	void Awake() {
         // make SoundManager a singleton
