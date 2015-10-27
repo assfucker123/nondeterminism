@@ -71,8 +71,10 @@ public class VisionUser : MonoBehaviour {
     /* Creates a clone of this gameObject, converted into a vision. */
     public GameObject createVision(float timeInFuture, float visionDuration) {
         if (isVision) return null; //visions cannot create visions of themselves
-        if (timeUser.getLastFrameInfo() == null) //this should only happen if this hasn't existed for more than 1 frame
+        if (timeUser.getLastFrameInfo() == null) { //this should only happen if this hasn't existed for more than 1 frame
+            Debug.Log("ERROR: This timeUser must exist for more than 1 frame to create a vision");
             return null;
+        }
         GameObject vision = GameObject.Instantiate(gameObject) as GameObject;
         VisionUser vu = vision.GetComponent<VisionUser>();
         vu.becomeVision(timeInFuture, visionDuration, timeUser.getLastFrameInfo(), this);
@@ -128,6 +130,7 @@ public class VisionUser : MonoBehaviour {
         if (timeInFuture > 0) {
             SendMessage("TimeSkip", timeInFuture, SendMessageOptions.DontRequireReceiver);
         }
+
     }
 
     /* Immediately converts a gameObject into a vision.

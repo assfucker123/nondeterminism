@@ -123,6 +123,7 @@ public class Player : MonoBehaviour {
         receivesDamage = GetComponent<ReceivesDamage>();
     }
     void Start() {
+        if (receivesDamage.health > maxHealth) receivesDamage.health = maxHealth;
         HUD.instance.setMaxHealth(maxHealth);
         HUD.instance.setHealth(receivesDamage.health);
         HUD.instance.phaseMeter.setMaxPhase(maxPhase);
@@ -131,9 +132,9 @@ public class Player : MonoBehaviour {
 
 	void Update() {
 
-        //restart level
+        //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            Vars.restartLevel();
+            
         }
 
         // decrease phase over time

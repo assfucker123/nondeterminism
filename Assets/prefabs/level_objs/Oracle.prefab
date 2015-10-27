@@ -196,7 +196,7 @@ MonoBehaviour:
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
-  maxHealth: 8
+  maxHealth: 4
   maxPhase: 100
   startPhase: .5
   phaseDecreaseSpeed: 0

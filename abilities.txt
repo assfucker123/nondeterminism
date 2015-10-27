@@ -7,14 +7,13 @@ BOMB (X/C)
 PAUSE (Start/Enter)
 
 
-
-
 (S) - Starting ability
 (S+) - Starting ability after have beaten the game already
 (D) - Decryptor (information)
 (E) - Expansion (physical)
 (I) - Information (information)
-* - Required ability
+
+== REQUIREED ==
 
 *(S) - Jumping
 	- Press JUMP to jump.
@@ -45,6 +44,10 @@ PAUSE (Start/Enter)
 	- Displays a timer showing how much time until the world blows up.
 	- This is unlocked after finding out how much time it takes for this to happen.
 
+(S+) - Chamber Wait
+	- Choose to wait a certain amount of time at a chamber.
+	- Unlocked after finding when the world blows up.
+
 (S+) - Dialogue toggle
 	- Can toggle whether or not dialogue appears.
 
@@ -52,15 +55,8 @@ PAUSE (Start/Enter)
 	- Hold down SHOOT to charge up the blaster, and release for a powerful shot.
 	- Can break certain types of obstructions.
 
-(E) - Health Upgrade
-	- Raises maximum health.
-	- There are several of these in the game.
-
 *(D) - Dodge
 	- Hold direction and press DODGE to dodge in that direction.
-
-(D) - Charge Magnet (requires Charge Shot)
-	- Draws in pickups while charging a charge shot.
 
 *(D) - Energy Grenade
 	- Hold direction and press BOMB to throw an energy grenade in that direction.
@@ -68,21 +64,12 @@ PAUSE (Start/Enter)
 	- Destroys barriers on the ground.
 		- And super-low ceiling.
 
-(I) - ... Location
-	- Reveals locations of ... on the map.
-
 *(D) - Wall Run
 	- Hold JUMP while rising (not falling) from a jump towards a wall to start running up it.
 	- Speed of running up the wall will quickly slow down.  When it reaches 0 the wall run ends.
 	- Release JUMP during a wall run to jump from the wall.
 		- The wall jump height is based on the wall run speed immediately before jumping.
 
-(D) - Energy Grenade Distance (requires Energy Grenade)
-	- Tap a direction before pressing BOMB to throw an energy grenade farther in that direction.
-
-(D) - Dodge Slide (requires Dodge)
-	- Slide across the ground when using Dodge downwards at an angle into the ground.
-	
 *(E) - Booster
 	- Physical Expansion that allows use of several Decryptors.
 	- Changes appearance of Oracle's suit.
@@ -98,21 +85,9 @@ PAUSE (Start/Enter)
 	- Energy grenade is launched to the exact location immediately after the flashback ends and explodes at the time specified.
 	- This energy grenade passes through walls.
 
-(I) - Health Upgrade Information
-	- Reveals number of Health Upgrades in the game. 
-	
 *(D) - Glide (requires Booster)
 	- Hold JUMP while falling to greatly reduce falling speed for a duration.
 
-(D) - Precision Flashback
-	- Essentially creates and loads save states.
-	- Hold DOWN for a few seconds while staying still and tap FLASHBACK to set a save point.
-		- Meant to be used in platforming sections for secrets, not during combat.
-		- Prompt will show up after enough time has passed to press FLASHBACK to set the waypoint.
-	- Double-tap FLASHBACK to revert back to the save point.
-		- Prompt will appear during a flashback to double-tap to return to the save state.
-	- Save states are removed when entering another room.
-	
 *(D) - Double Jump (requires Booster)
 	- Press JUMP while in mid-air to jump again.
 	
@@ -125,3 +100,53 @@ PAUSE (Start/Enter)
 	- Auto-regenerates phase to a certain point(can't really get it any other way)
 	- Secret situational ability: Commandeer.
 		- Can crawl into another suit and use that.
+
+== OPTIONAL ==
+
+(E) - Health Upgrade
+	- Raises maximum health.
+	- There are several of these in the game.
+
+(D) - Charge Magnet (requires Charge Shot)
+	- Draws in pickups while charging a charge shot.
+
+(D) - Energy Grenade Distance (requires Energy Grenade)
+	- Tap a direction before pressing BOMB to throw an energy grenade farther in that direction.
+
+(D) - Dodge Slide (requires Dodge)
+	- Slide across the ground when using Dodge downwards at an angle into the ground.
+
+(D) - Spread Shot
+	- Fires 3 bullets instead of one.
+
+(D) - Resistance
+	- Lowers knockback duration to almost 0.
+
+(D) - Skill Shot
+	- Increases the number of pickups dropped by enemies.
+
+(D) - Intuition
+	- Phase decreases slower during a flashback.
+
+(D) - Dodge Duo (requires Dodge)
+	- Can dodge one more time before touching the ground.
+	
+(D) - Faster Fire Rate
+	- The minimum delay between bullets fired is decreased.
+
+(D) - Multi Grenade (requires Energy Grenade)
+	- Press BOMB while fully charged to use up the charge by throwing multiple grenade at once.
+
+(D) - Precision Flashback
+	- Essentially creates and loads save states.
+	- Hold DOWN for a few seconds while staying still and tap FLASHBACK to set a save point.
+		- Meant to be used in platforming sections for secrets, not during combat.
+		- Prompt will show up after enough time has passed to press FLASHBACK to set the waypoint.
+	- Double-tap FLASHBACK to revert back to the save point.
+		- Prompt will appear during a flashback to double-tap to return to the save state.
+	- Save states are removed when entering another room.
+
+(D) - No Objections (requires Strip Suit)
+	- Can use Strip Suit without having to call up Wally.
+		- Input Up, Down, Up very quickly (reference to Samus->ZSS in Brawl)
+	- Useful at the post-end-of-world part when you want to crawl through a small area but Wally isn't alive to do it for you. 
