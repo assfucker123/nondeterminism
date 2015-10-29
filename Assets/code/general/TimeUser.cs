@@ -253,6 +253,10 @@ public class TimeUser : MonoBehaviour {
         return val;
     }
 
+    public void setRandSeed(int seed) {
+        _randSeed = seed;
+    }
+
     /////////////
     // PRIVATE //
     /////////////
@@ -277,7 +281,7 @@ public class TimeUser : MonoBehaviour {
             spriteRenderer = sot.gameObject.GetComponent<SpriteRenderer>();
             animator = sot.gameObject.GetComponent<Animator>();
         }
-        _randSeed = (int)(int.MaxValue * Random.value);
+        setRandSeed((int)(int.MaxValue * Random.value));
     }
     void OnLevelWasLoaded(int level) {
         //fixing odd bug.  For some TimeUsers that get created at the start, TimeUser.time isn't reset to 0 when Awake() is called

@@ -130,12 +130,21 @@ PAUSE (Start/Enter)
 
 (D) - Dodge Duo (requires Dodge)
 	- Can dodge one more time before touching the ground.
+
+(D) - Minigame
+	- Press BOMB while talking to start a minigame that can be played with the arrow keys/d-pad
 	
 (D) - Faster Fire Rate
 	- The minimum delay between bullets fired is decreased.
 
 (D) - Multi Grenade (requires Energy Grenade)
 	- Press BOMB while fully charged to use up the charge by throwing multiple grenade at once.
+
+(D) - Grenade Flashback
+	- Choose exactly where and when a grenade will explode by pressing BOMB during a flashback.
+	- Once the flashback ends, Oracle will automatically throw an energy grenade in a straight line towards the position specified.
+		- Grenade passes through walls.
+	- The grenade explodes when it reaches the position, which should be the exact time BOMB was pressed during the flashback.
 
 (D) - Precision Flashback
 	- Essentially creates and loads save states.
@@ -149,4 +158,5 @@ PAUSE (Start/Enter)
 (D) - No Objections (requires Strip Suit)
 	- Can use Strip Suit without having to call up Wally.
 		- Input Up, Down, Up very quickly (reference to Samus->ZSS in Brawl)
-	- Useful at the post-end-of-world part when you want to crawl through a small area but Wally isn't alive to do it for you. 
+	- Useful at the post-end-of-world part when you want to crawl through a small area but Wally isn't alive to do it for you.
+

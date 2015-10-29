@@ -193,7 +193,42 @@ Wally's education:
 Wally and his father:
 	- Wally: 
 
+=========================================
 
+Wally Advice: General (just after world end revelation):
+	- Wally: The decryptor abilities should be your biggest priority right now.  These abilities will aid you with exploration, and any information we can get about the world map will be useful.
+	- Wally: Don't feel like you have to plan the entire final world-saving route just yet.  Hold off until you know more about the world map, and at the very least wait until we know where all the ____ are.
+
+Wally Advice: Time Tree (1):
+	- Wally: The time tree keeps track of all the different paths through the world you foresee yourself taking.
+	- Wally: Each node of the tree shows the time you arrived at the chamber, as well as the physical upgrades you accumulated at that point.
+	- Wally: Branches are added to the tree by visiting chambers.
+	- Wally: (show example using the map) For example: at t=-50 you were at chamber A3, and then you foresaw yourself arriving at chamber B4 at t=-40.  This is shown by this branch connecting A3 to B4.
+	- Wally: However, this other time you decided to visit C2 instead, at t=-35.  This is shown by this branch connecting A3 to C2.
+	- Wally: Every time you visit a chamber, a branch is added connecting it to the chamber you were at previously.
+	- Wally: There's one exception to this, however.  If you visit the same chamber without acquiring a new physical upgrade, no progress has been made.  In that case, no branch is made, as it would be redundant.
+
+Wally Advice: Time Tree (2):
+	- Wally: One way to use the time tree is to simulate "fast travel".
+	- Wally: (show example using map) Say you want to visit chamber A3, or somewhere near A3.  You can try walking all the way over there, using up precious time.
+	- Wally: However, you've visited chamber A3 at some point.  So instead you can preform a Chamber Flashback to when you visited A3.
+	- Wally: To you it'll appear like you went back to A3 instantly.
+	- Wally: And since you visited A3 in the past, rather than in the future, you get the added bonus of having more time to explore before the world ends.
+	- Wally: Always remember: information you've acquired, like decryptor abilities and map data, is conserved when performing a Chamber Flashback.  But you'll lose any physical upgrades, like health, you accumulated after you left A3.
+
+Wally Advice: Time Tree (3):
+	- Wally: As you know, new branches are added by visiting Chambers, and only by visiting chambers.
+	- Wally: Thus it is impossible to "merge" branches, in case you were wondering.  It's a Time TREE, after all.
+	- Wally: For organization, you may want to delete branches you don't want to use anymore.  This can only be done through the Time Tree menu.
+	- Wally: However, removing a Chamber node will also remove all the branches connected to the right of it.  Be be very careful when deleting nodes.
+
+Wally Advice: Booster Upgrade:
+	- Wally: Hey, you found the Booster upgrade!  That's awesome!
+	- Wally: This is a very powerful physical upgrade.  It's needed to use several decryptor abilities, including one that lets you move super fast.
+	- Wally: But since it's a physical upgrade, you can't use it at a time before you acquired it.
+	- Wally: Clearly it would be best to acquire this upgrade as soon as possible during the final world-saving route.
+	- Wally: When you're feeling up to it, I recommend doing a Chamber Flashback to the very beginning and making a beeline for the booster upgrade.  The earlier you've acquired it, the easier the rest of your run will become. 
+	
 
 =========================================
 	
@@ -229,7 +264,7 @@ Gimmicks to "Vision" mechanic that actually make sense:
 
 World-building:
 
-- Futuristic world, with advanced tech and weapons, but populated with animals and creatures.
+- World populated with animals and creatures.  Many creatures wield weapons.
 - Wally is the only human creature in the game.
 - Arctic setting.
 - Mantle within the world is dangerously unstable, is in danger of bursting through the ground.

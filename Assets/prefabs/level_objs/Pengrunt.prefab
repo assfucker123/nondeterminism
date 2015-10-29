@@ -17,8 +17,8 @@ GameObject:
   - 114: {fileID: 11473484}
   - 114: {fileID: 11465352}
   - 114: {fileID: 11479872}
-  - 114: {fileID: 11477066}
   - 114: {fileID: 11426186}
+  - 114: {fileID: 11477066}
   m_Layer: 9
   m_Name: Pengrunt
   m_TagString: Untagged

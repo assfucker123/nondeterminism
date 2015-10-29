@@ -2,7 +2,7 @@
 Enemy Attacks:
 (Need to be really hard to predict normally, but reasonable with the vision ability)
 (If enemies were penguins they'd be easier to animate)
-(Evil penguins, seals, bears)
+(Evil penguins, seals, bears, dolphins, wolves, shrimp)
 - Bullet tracers
 	- Heavy weapons: slow, high HP, fire gatling gun where each individual bullet can be dodged
 		- Bears with gatling guns on their backs.
@@ -25,7 +25,9 @@ Enemy Attacks:
 - Lightning cloud
 	- Is a cloud that floats above, dropping lightning attacks at "random"
 - Whack-a-mole type enemies, popping up at "random" spots
+	- Pop out one spot -> jump to another?
 - Wall climbers: shimmy up and down a vertical wall.
+	- Yo-yo attack: can chain yo-yo stuff
 - Ceiling stickers: move left to right on a ceiling.
 	- Yo-yo attack from the ceiling in any direction
 - Bomb puzzle:
@@ -39,8 +41,14 @@ Enemy Attacks:
 	- A bunch of projectiles appear to fall around the player.  But Vision will show all but one of them, which is fake.
 - Random exploders:
 	- Things that move around and sometimes explode.
-
-
+- Smash Greninja inspired
+- Pikachu + Charizard Y inspired
+- When attacks happen are predictable, but not which direction.
+- The guy that goes left and right in mega man, but will randomly boost in the opposite direction.
+- Goombers: just hop back and forth without much threat
+	- Based on spheal
+	- Maw Goombers will occasionally do a really powerful bullet attack from the mouth.
+- All enemies have red eyes, controlled by Sonata
 
 Special Enemy Attacks:
 - Quantum Attacks

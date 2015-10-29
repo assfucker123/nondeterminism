@@ -43,9 +43,9 @@ Nondeterminism ~ SR
 (SR stands for Soft Reset, Speed Run, or Senior)
 
 Premise:
-- A bomb has been set to explode in 20 minutes.  Deactivation codes and color keys are needed to disarm it, all of which are found in the villain's lair.
+- A bomb has been set to explode in 60 minutes.  Deactivation codes and color keys are needed to disarm it, all of which are found in the villain's lair.
 	- In Majora's Mask, time limit is 18 minutes * 3 = 54 minutes.
-- Appears to be a miniature Metroid game at first.  Need to collect a number of color keys (physical) to get to the bomb room, and parts of a deactivation code (information) to deactivate the bomb.
+- Appears to be a miniature Metroid game at first.  Need to collect a number of color keys (physical) to get to the bomb room.
 - New skills can be found with "decryptors", which unlock new abilities for the player.  Decryptors are information, so they are remembered when flashing back.  Some decryptors are useless until the booster is obtained.
 - Health upgrades are physical.  This means that, when reverting to a previous time, all the health upgrades accumulated since then will be lost.
 - There is 1 physical upgrade called a "booster" which enables some decryptors.  This also physically changes the player's appearence.
@@ -174,6 +174,10 @@ Map Ideas:
 - Medium-short hidden path from start to Booster (physical upgrade that's best to get as soon as possible)
 	- Goes through Sky area
 	- Falling will set you way back to a bottom screen, so be sure to use a Flashback before that happens.
+
+- Completed map should look more like a web than a blob (as in Super Metroid).  This will make routes a lot clearer.
+	- Hidden shortcuts in-between routes, of course.
+	- Should be many routes close to the starting area and the area where the Booster is acquired.
 
 Puzzles:
 - Key words or codes are stored in a "memory bank", accessed from menu
@@ -310,6 +314,7 @@ Skills:
 
 - "Final challenge" portion where most of the 10 minutes is spent on a new linear level testing all the abilities?
 
+- Battletoads hoverbike reference
 
 
 Sound Effects needed:
@@ -334,3 +339,14 @@ o health pickup
 x low phase (ticking sound during flashback)
 x empty phase (off tune loud tick sound)
 o low health
+o portal
+
+Enemies needed (sorted by priority):
+o Goomseal, bounces back and forth with secret lazor attack
+o Bomb puzzle enemy
+o Cloud lightning
+o Spider wall clinger with yo-yo attacks
+o Pengrunt with rocket boots
+o Tank bear that fires bombs, some are fake/duds
+o Samurai with delayed causality attacks
+

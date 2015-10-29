@@ -3,15 +3,27 @@ using System.Collections;
 
 public class Portal : MonoBehaviour {
 
-    public Color color = Color.blue;
-    public GameObject gameObjectSpawned = null;
+    ///////////////////
+    // SEND MESSAGES //
+    ///////////////////
 
-    public float visionTimeInFuture = 2.0f;
-    public float visionDuration = 1.5f;
+    /* Called when spawned. */
+    // void OnSpawn(SpawnInfo spawnInfo);
 
-    private float enterDuration = 4 / 30.0f;
-    private float idleDuration = 5 / 30.0f;
-    private float exitDuration = 4 / 30.0f;
+    ////////////
+    // PUBLIC //
+    ////////////
+
+    public Color color = new Color(255 / 255.0f, 141 / 255.0f, 141 / 255.0f); // color of the portal
+
+    public GameObject gameObjectToSpawn = null; // the GameObject to spawn
+    public SpawnInfo spawnInfo = null; // optional info that is send to the GameObject through OnSpawn(SpawnInfo)
+    public float visionTimeInFuture = 2.0f; // how far in advance the vision happens
+    public float visionDuration = 1.5f; // how long the vision last
+
+    private float enterDuration = 4 / 40.0f;
+    private float idleDuration = 5 / 40.0f;
+    private float exitDuration = 4 / 40.0f;
 
     enum State {
         PRE_VISION,
@@ -25,17 +37,25 @@ public class Portal : MonoBehaviour {
     private State state = State.VISION;
 
     void spawnGameObject() {
-        if (gameObjectSpawned == null)
+        if (gameObjectToSpawn == null)
             return;
         GameObject sGO = GameObject.Instantiate(
-            gameObjectSpawned,
+            gameObjectToSpawn,
             transform.localPosition,
             Quaternion.identity) as GameObject;
         if (visionUser.isVision) {
             VisionUser sV = sGO.GetComponent<VisionUser>();
             sV.becomeVisionNow(visionDuration, visionUser);
         }
-        
+
+        if (spawnInfo == null) {
+            spawnInfo = new SpawnInfo();
+        }
+        TimeUser sTU = sGO.GetComponent<TimeUser>();
+        sTU.setRandSeed((int)(int.MaxValue * timeUser.randomValue()));
+        spawnInfo.faceRight = false;
+
+        sGO.SendMessage("OnSpawn", spawnInfo, SendMessageOptions.DontRequireReceiver);
     }
 	
 	void Awake() {
@@ -49,7 +69,6 @@ public class Portal : MonoBehaviour {
 
         timeUser = GetComponent<TimeUser>();
         visionUser = GetComponent<VisionUser>();
-
 	}
 
     void Start() {

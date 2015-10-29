@@ -281,7 +281,7 @@ public class Player : MonoBehaviour {
                 HUD.instance.phaseMeter.endPulse();
                 CameraControl.instance.disableEffects();
             }
-        } else {
+        } else if (!PauseScreen.instance.paused) {
             if (Input.GetButtonDown("Flash") && phase > 0) {
                 TimeUser.beginContinuousRevert(.5f);
                 SoundManager.instance.playSFX(flashbackBeginSound);

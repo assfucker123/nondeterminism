@@ -39,7 +39,7 @@ public class Pengrunt : MonoBehaviour {
 
     void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
-        spriteObject = this.transform.Find("spriteObject").gameObject;
+        GameObject spriteObject = this.transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
         colFinder = GetComponent<ColFinder>();
@@ -53,6 +53,10 @@ public class Pengrunt : MonoBehaviour {
         // attach to Segment
         segment = Segment.findBottom(rb2d.position);
 	}
+
+    void OnSpawn(SpawnInfo si) {
+        flippedHoriz = !si.faceRight;
+    }
 
     void Update() {
 
@@ -227,7 +231,6 @@ public class Pengrunt : MonoBehaviour {
 
     // components
     Rigidbody2D rb2d;
-    GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;
     ColFinder colFinder;
