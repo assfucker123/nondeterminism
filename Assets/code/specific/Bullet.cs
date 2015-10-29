@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour {
     public float speed = 100;
     public int damage = 2;
     public float heading = 0;
+    public float radius = 0; // set to 0 for raycast, positive number for circlecast
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
     public GameObject bulletFadeGameObject;
     public GameObject bulletExplosionGameObject;
@@ -51,11 +52,21 @@ public class Bullet : MonoBehaviour {
         // perform raycast
         Vector2 direction = new Vector2(Mathf.Cos(heading * Mathf.PI / 180), Mathf.Sin(heading * Mathf.PI / 180));
         int layerMask = ColFinder.getLayerCollisionMask(gameObject.layer);
-        RaycastHit2D rh2d = Physics2D.Raycast(
-            rb2d.position,
-            direction,
-            distance,
-            layerMask);
+        RaycastHit2D rh2d;
+        if (radius <= .0001f) {
+            rh2d = Physics2D.Raycast(
+                rb2d.position,
+                direction,
+                distance,
+                layerMask);
+        } else {
+            rh2d = Physics2D.CircleCast(
+                rb2d.position,
+                radius,
+                direction,
+                distance,
+                layerMask);
+        }
         if (rh2d.collider == null) {
             //hit nothing
             rb2d.position = rb2d.position + direction * distance;

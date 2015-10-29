@@ -196,7 +196,7 @@ MonoBehaviour:
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
-  maxHealth: 4
+  maxHealth: 6
   maxPhase: 100
   startPhase: .5
   phaseDecreaseSpeed: 0
@@ -423,6 +423,10 @@ Prefab:
       propertyPath: flashbackBeginSound
       value: 
       objectReference: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
+    - target: {fileID: 0}
+      propertyPath: maxHealth
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102646}
