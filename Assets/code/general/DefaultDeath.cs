@@ -37,6 +37,10 @@ public class DefaultDeath : MonoBehaviour {
             xVel *= -1;
         rb2d.velocity = new Vector2(xVel, velocity.y);
 
+        //change layer to disable collision
+        preActiveLayer = gameObject.layer;
+        gameObject.layer = LayerMask.NameToLayer("HitNothing");
+
         //cut visions
         if (visionUser != null) {
             visionUser.cutVisions();
@@ -142,16 +146,24 @@ public class DefaultDeath : MonoBehaviour {
         fi.bools["dDeathActivated"] = activated;
     }
     void OnRevert(FrameInfo fi) {
+        bool prevActivated = activated;
         time = fi.floats["dDeathTime"];
         explosionTime = fi.floats["dDeathETime"];
         _activated = fi.bools["dDeathActivated"];
+
+        // if just reverted to before activated
+        if (prevActivated && !activated) {
+            if (preActiveLayer != -1) {
+                gameObject.layer = preActiveLayer;
+            }
+        }
 
         if (setColor) {
             setColorF();
         }
     }
 
-
+    int preActiveLayer = -1;
 	
 	// components
     Rigidbody2D rb2d;
