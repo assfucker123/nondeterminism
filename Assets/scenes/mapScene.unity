@@ -85,48 +85,6 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &84263456
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 464908, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &124998375
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,6 +646,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11425680, guid: 631edb7ab5bbfb64aa498e5077521ed2, type: 2}
+      propertyPath: bulletGameObject
+      value: 
+      objectReference: {fileID: 194332, guid: 4baa8d8ac98d8174ca8add180251ef9a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 631edb7ab5bbfb64aa498e5077521ed2, type: 2}
   m_IsPrefabParent: 0
@@ -1654,7 +1616,7 @@ Transform:
   - {fileID: 739088990}
   - {fileID: 461284667}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
 --- !u!1001 &1797422137
 Prefab:
   m_ObjectHideFlags: 0
