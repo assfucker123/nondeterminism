@@ -67,6 +67,7 @@ public class VisionUser : MonoBehaviour {
     public bool createdWhenAbilityDeactivated { get { return _createdWhenAbilityDeactivated; } }
     
     public Material material; //material for the vision's sprite.
+    public AudioClip visionSound; //sound made when a vision is created.
 
     /* Creates a clone of this gameObject, converted into a vision. */
     public GameObject createVision(float timeInFuture, float visionDuration) {
@@ -78,6 +79,9 @@ public class VisionUser : MonoBehaviour {
         GameObject vision = GameObject.Instantiate(gameObject) as GameObject;
         VisionUser vu = vision.GetComponent<VisionUser>();
         vu.becomeVision(timeInFuture, visionDuration, timeUser.getLastFrameInfo(), this);
+        if (visionSound != null && VisionUser.abilityActive) {
+            SoundManager.instance.playSFX(visionSound);
+        }
         return vision;
     }
     /* Automatically sets visionDuration to timeInFuture. */

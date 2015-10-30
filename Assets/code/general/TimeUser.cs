@@ -224,6 +224,47 @@ public class TimeUser : MonoBehaviour {
 
     }
 
+    /* Creates a FrameInfo for this frame and adds it.
+     * This is automatically called in LateUpdate(), so it doesn't have to be called manually. */
+    public void addCurrentFrameInfo() {
+
+        if (!this.exists) {
+            //don't bother adding if already didn't exist
+            if (fis.Count > 0) {
+                FrameInfo lastFI = fis[fis.Count - 1];
+                if (!lastFI.exists)
+                    return;
+            }
+        }
+
+        // create new FrameInfo for the current frame
+        FrameInfo fi = FrameInfo.create();
+        fi.time = TimeUser.time;
+        fi.exists = exists;
+        if (rb2d != null) {
+            fi.position = rb2d.position;
+            fi.velocity = rb2d.velocity;
+            fi.rotation = rb2d.rotation;
+            fi.angularVelocity = rb2d.angularVelocity;
+        }
+        if (spriteRenderer != null) {
+            fi.spriteRendererLocalScaleX = spriteRenderer.transform.localScale.x;
+            fi.spriteRendererLocalScaleY = spriteRenderer.transform.localScale.y;
+            fi.spriteRendererLocalRotation = spriteRenderer.transform.localRotation.eulerAngles.z;
+        }
+        if (animator != null) {
+            fi.animatorFullPathHash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+            fi.animatorNormalizedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        }
+        fi.randSeed = randSeed;
+
+        // manually save other info
+        this.SendMessage("OnSaveFrame", fi, SendMessageOptions.DontRequireReceiver);
+
+        // add to fis
+        fis.Add(fi);
+
+    }
 
     /* Call to fake destroy the gameObject.  It won't actually be destroyed,
      * so it can be reverted back into existance later. */
@@ -334,45 +375,7 @@ public class TimeUser : MonoBehaviour {
         allTimeUsers.Remove(this);
     }
 
-    void addCurrentFrameInfo() {
-
-        if (!this.exists) {
-            //don't bother adding if already didn't exist
-            if (fis.Count > 0) {
-                FrameInfo lastFI = fis[fis.Count - 1];
-                if (!lastFI.exists)
-                    return;
-            }
-        }
-
-        // create new FrameInfo for the current frame
-        FrameInfo fi = FrameInfo.create();
-        fi.time = TimeUser.time;
-        fi.exists = exists;
-        if (rb2d != null) {
-            fi.position = rb2d.position;
-            fi.velocity = rb2d.velocity;
-            fi.rotation = rb2d.rotation;
-            fi.angularVelocity = rb2d.angularVelocity;
-        }
-        if (spriteRenderer != null) {
-            fi.spriteRendererLocalScaleX = spriteRenderer.transform.localScale.x;
-            fi.spriteRendererLocalScaleY = spriteRenderer.transform.localScale.y;
-            fi.spriteRendererLocalRotation = spriteRenderer.transform.localRotation.eulerAngles.z;
-        }
-        if (animator != null) {
-            fi.animatorFullPathHash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
-            fi.animatorNormalizedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        }
-        fi.randSeed = randSeed;
-
-        // manually save other info
-        this.SendMessage("OnSaveFrame", fi, SendMessageOptions.DontRequireReceiver);
-
-        // add to fis
-        fis.Add(fi);
-
-    }
+    
 
     private Rigidbody2D rb2d;
     private SpriteRenderer spriteRenderer;

@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
+  visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!212 &21272412
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -237,6 +238,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 23f23bbc2d475f1488113dc3d1453a78, type: 2}
+    - target: {fileID: 0}
+      propertyPath: visionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 126370}

@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
+  visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11453878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,14 +91,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 60
-  damage: 3
+  damage: 2
   heading: 0
   radius: .5
   maxDistance: -1
   bulletFadeGameObject: {fileID: 0}
   bulletExplosionGameObject: {fileID: 145072, guid: 882f89e9f8af4fa4fb7079dffedb22a0,
     type: 2}
-  hitSound: {fileID: 8300000, guid: bf3b6aa334a936047b8e63895b192da0, type: 3}
+  hitSound: {fileID: 0}
 --- !u!114 &11495608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,6 +147,18 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: visionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 173338}

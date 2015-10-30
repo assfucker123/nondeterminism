@@ -332,7 +332,10 @@ x ui switch selection
 o ui switch page
 o ui select
 o ui cancel
+x pengrunt gun
 x pengrunt death
+x sealime gun
+x sealime death
 x death explosions
 o phase pickup
 o health pickup

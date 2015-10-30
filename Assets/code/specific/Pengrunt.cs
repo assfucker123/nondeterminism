@@ -24,6 +24,7 @@ public class Pengrunt : MonoBehaviour {
     public float bulletPeriod = .04f;
     public State state = State.IDLE;
     public bool aimRight = false;
+    public AudioClip bulletSound = null;
 
     public bool flippedHoriz {
         get { return spriteRenderer.transform.localScale.x < 0; }
@@ -157,6 +158,9 @@ public class Pengrunt : MonoBehaviour {
                 if (visionUser.isVision) {
                     VisionUser bvu = bullet.GetComponent<VisionUser>();
                     bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                } else {
+                    // not vision, make sound effect
+                    SoundManager.instance.playSFXRandPitchBend(bulletSound);
                 }
 
                 bulletTime -= bulletPeriod;

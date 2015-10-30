@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
+  visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11477066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,6 +263,7 @@ MonoBehaviour:
   bulletPeriod: .0399999991
   state: 0
   aimRight: 0
+  bulletSound: {fileID: 8300000, guid: 4ae2b939df325504f97c68c2b32c1f58, type: 3}
 --- !u!114 &11478874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -439,6 +441,14 @@ Prefab:
       propertyPath: deathSound2
       value: 
       objectReference: {fileID: 8300000, guid: ebd52a1e497c55943887b2f2c5edc282, type: 3}
+    - target: {fileID: 0}
+      propertyPath: bulletSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ae2b939df325504f97c68c2b32c1f58, type: 3}
+    - target: {fileID: 0}
+      propertyPath: visionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119236}

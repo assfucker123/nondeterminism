@@ -7,7 +7,7 @@ public class AttackObject : MonoBehaviour {
      * Make an empty child object, and add the collider(s) to it.
      * Then add this component to the child object. */
 
-    public int damage = 2;
+    public int damage = 1;
 
 	void Awake() {
         rb2d = transform.parent.GetComponent<Rigidbody2D>();

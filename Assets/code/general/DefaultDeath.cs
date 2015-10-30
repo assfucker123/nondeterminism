@@ -16,8 +16,8 @@ public class DefaultDeath : MonoBehaviour {
     public bool setColor = true;
     public GameObject explosionGameObject;
     public PickupSpawner.BurstSize pickupSize = PickupSpawner.BurstSize.NONE;
-    public AudioClip deathSound1 = null; // optional
-    public AudioClip deathSound2 = null; // optional
+    public AudioClip deathSound1 = null; // optional, recommended to be the explosion sound effect
+    public AudioClip deathSound2 = null; // optional, recommended to be a customized sound effect (will be pitch bent)
 
     float time = 0;
     bool toRight = false;
@@ -60,7 +60,7 @@ public class DefaultDeath : MonoBehaviour {
             SoundManager.instance.playSFX(deathSound1);
         }
         if (deathSound2 != null) {
-            SoundManager.instance.playSFX(deathSound2);
+            SoundManager.instance.playSFXRandPitchBend(deathSound2);
         }
 
         _activated = true;

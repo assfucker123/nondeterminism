@@ -3,12 +3,13 @@ using System.Collections;
 
 public class Dummy : MonoBehaviour {
 
+    
+    public State state = State.IDLE;
+
     public enum State {
         IDLE,
         DEAD //don't do anything; DefaultDeath takes care of this
     }
-
-    public State state = State.IDLE;
 
     public bool flippedHoriz {
         get { return spriteRenderer.transform.localScale.x < 0; }
@@ -24,7 +25,7 @@ public class Dummy : MonoBehaviour {
 	
 	void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
-        GameObject spriteObject = this.transform.Find("spriteObject").gameObject;
+        GameObject spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
         colFinder = GetComponent<ColFinder>();
@@ -53,10 +54,20 @@ public class Dummy : MonoBehaviour {
 
         time += Time.deltaTime;
 
+        Vector2 v = rb2d.velocity;
+
         switch (state) {
         case State.IDLE:
             break;
         }
+
+        rb2d.velocity = v;
+
+        // travel across a segment:
+        /*
+        x = segment.travelClamp(rb2d.position.x, speed, Time.fixedDeltaTime);
+        rb2d.MovePosition(new Vector2(x, rb2d.position.y));
+        */
 		
         // create a vision:
         /*
@@ -108,6 +119,7 @@ public class Dummy : MonoBehaviour {
     }
 
     float time;
+    Segment segment;
 	
 	// components
     Rigidbody2D rb2d;

@@ -58,11 +58,16 @@ Special Enemy Attacks:
 	- In lore these are viruses in Oracle's programming.
 	- In ~SR, happen at random the longer you play the game, similar to the ghosts in An Untitled Story.
 - Music related where a secret message is heard when playing the level in reverse?
-	- Attacks are sound-based.  Instead of visual silhouettes, Vision will detect music.
+	- Attacks are sound-based.  Instead of visual silhouettes, Vision will detect music/sound cues.
 	- High pitched = high attack.  Low pitched = low attack.
 	- Quick rhythm: almost continuous attack.  Slow rhythm: attack appears every other second or so.
+		- Or attacks line up with a staff in the background?
 	- "Sonata"?
 		- Used mind control on enemies, which is why they're all hostile.
+	- When she speaks, there will be actual voice acting, instead of just the text scroll.
+		- Booming voice, does damage, even in cutscenes.
+		- Mouth appears to be sown shut most of the game.  Before the boss fight, she cuts it open with one of her note sickles.
+	- Secret: mute sound in options to make Sonata unable to deal sound-based damage, makes her angry.
 - A boss enemy that can also flashback.
 	- Uses a similar phase mechanic, need to drain their phase.
 	- "The Salesman"?
