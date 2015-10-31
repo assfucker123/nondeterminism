@@ -206,7 +206,7 @@ MonoBehaviour:
   gravity: 10
   setColor: 1
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
-  pickupSize: 0
+  pickupSize: 2
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
   deathSound2: {fileID: 8300000, guid: 647897ec52927c54daefa080e1eab76e, type: 3}
 --- !u!114 &11430450
@@ -349,6 +349,10 @@ Prefab:
       propertyPath: visionSound
       value: 
       objectReference: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
+    - target: {fileID: 0}
+      propertyPath: pickupSize
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 197806}

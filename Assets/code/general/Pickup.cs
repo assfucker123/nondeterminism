@@ -12,6 +12,7 @@ public class Pickup : MonoBehaviour {
     public float spinMaxSpeed = 400f;
     public float fadeDuration = 6.5f; //how long until pickup disappears
     public float fadeMercyDuration = 2.5f; //how long before pickup disappears will it start flashing
+    public AudioClip pickUpSound = null;
 
     public enum Type {
         HEALTH,
@@ -104,6 +105,9 @@ public class Pickup : MonoBehaviour {
             break;
         }
 
+        if (pickUpSound != null) {
+            SoundManager.instance.playSFX(pickUpSound);
+        }
         _pickedUp = true;
 
         timeUser.timeDestroy();

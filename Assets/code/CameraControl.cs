@@ -53,6 +53,24 @@ public class CameraControl : MonoBehaviour {
     }
     public bool shaking { get { return shakeTime < shakeDuration; } }
 
+    public void hitPause(float duration = .034f) {
+        if (Time.timeScale == 0)
+            return;
+        if (TimeUser.reverting)
+            return;
+        bool prevHitPaused = hitPaused;
+        if (!prevHitPaused) {
+            prevTimeScale = Time.timeScale;
+        }
+        hitPauseTime = 0;
+        hitPauseDuration = duration;
+        Time.timeScale = 0;
+    }
+    public bool hitPaused { get { return hitPauseTime < hitPauseDuration; } }
+    private float hitPauseTime = 0;
+    private float hitPauseDuration = 0;
+    private float prevTimeScale = 1;
+
     public void enableEffects(float bloomIntensity, float colorCorrectionSaturation) {
         if (bloomOptimized != null) {
             if (!bloomOptimized.enabled)
@@ -68,8 +86,13 @@ public class CameraControl : MonoBehaviour {
     public void disableEffects() {
         if (bloomOptimized != null)
             bloomOptimized.enabled = false;
-        if (colorCorrectionCurves != null)
-            colorCorrectionCurves.enabled = false;
+        if (colorCorrectionCurves != null) {
+            /* New rule: always have colorCorrectionCurves enabled (even if saturation is 1)
+             * If the Distort shader is the only shader being used, it causes the distortion to be rendered incorrectly.
+             * So always use colorCorrectionCurves. */
+            colorCorrectionCurves.saturation = 1;
+            //colorCorrectionCurves.enabled = false;
+        }
     }
     public bool effectsEnabled { get {
         if (bloomOptimized != null) return bloomOptimized.enabled;
@@ -102,6 +125,17 @@ public class CameraControl : MonoBehaviour {
         //fullscreen
         if (Input.GetKeyDown(KeyCode.F10)) {
             Screen.fullScreen = !Screen.fullScreen;
+        }
+
+        if (timeUser.shouldNotUpdate)
+            return;
+
+        // update hitPause
+        if (hitPaused) {
+            hitPauseTime += Time.unscaledDeltaTime;
+            if (!hitPaused) {
+                Time.timeScale = prevTimeScale;
+            }
         }
 
     }
@@ -142,6 +176,9 @@ public class CameraControl : MonoBehaviour {
         fi.floats["sD"] = shakeDuration;
         fi.floats["sPX"] = shakePos.x;
         fi.floats["sPY"] = shakePos.y;
+        fi.floats["hPT"] = hitPauseTime;
+        fi.floats["hPD"] = hitPauseDuration;
+        fi.floats["pTS"] = prevTimeScale;
     }
     void OnRevert(FrameInfo fi) {
         transform.localPosition = new Vector3(fi.floats["x"], fi.floats["y"], transform.localPosition.z);
@@ -150,6 +187,9 @@ public class CameraControl : MonoBehaviour {
         shakeDuration = fi.floats["sD"];
         shakePos.x = fi.floats["sPX"];
         shakePos.y = fi.floats["sPY"];
+        hitPauseTime = fi.floats["hPT"];
+        hitPauseDuration = fi.floats["hPD"];
+        prevTimeScale = fi.floats["pTS"];
     }
 
     void OnDestroy() {

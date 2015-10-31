@@ -38,6 +38,7 @@ public class Player : MonoBehaviour {
     public float damageFriction = 20;
     public float damageDuration = .5f;
     public float mercyInvincibilityDuration = 1.0f;
+    public float hitPauseDamageMultiplier = .02f;
     public State state = State.GROUND;
     public AudioClip stepSound;
     public AudioClip jumpSound;
@@ -521,6 +522,8 @@ public class Player : MonoBehaviour {
         bool knockbackRight = ai.impactToRight();
         if (receivesDamage.health <= 0) {
             Debug.Log("death");
+        } else {
+            CameraControl.instance.hitPause(ai.damage * hitPauseDamageMultiplier);
         }
         if (knockbackRight) {
             flippedHoriz = true;
@@ -571,6 +574,7 @@ public class Player : MonoBehaviour {
         GameObject.Instantiate(bulletMuzzleGameObject,
             rb2d.position + relSpawnPosition,
             bullet.transform.localRotation);
+
     }
 
     // helper function

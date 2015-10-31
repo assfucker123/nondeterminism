@@ -83,6 +83,7 @@ public class ReceivesDamage : MonoBehaviour {
         }
 
         if (sendOnDamage) {
+            
             if (health <= 0 && autoActivateDefaultDeath) {
                 if (defaultDeath != null) {
                     if (!defaultDeath.activated) {

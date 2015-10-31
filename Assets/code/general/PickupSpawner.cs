@@ -22,8 +22,8 @@ public class PickupSpawner : MonoBehaviour {
     }
     public static int SIZE_NONE = 0;
     public static int SIZE_SMALL = 1;
-    public static int SIZE_MEDIUM = 3;
-    public static int SIZE_LARGE = 6;
+    public static int SIZE_MEDIUM = 2;
+    public static int SIZE_LARGE = 4;
 
     /* Multiplied by the chance of health appearing */
     public static float HEALTH_RARITY = .4f;

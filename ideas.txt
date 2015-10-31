@@ -325,7 +325,8 @@ x gun put down
 x hit1
 x oracle damage
 o oracle death
-o vision
+/ vision
+	- Gets annoying?
 x flashback begin
 x flashback end
 x ui switch selection
@@ -337,8 +338,8 @@ x pengrunt death
 x sealime gun
 x sealime death
 x death explosions
-o phase pickup
-o health pickup
+x phase pickup
+x health pickup
 x low phase (ticking sound during flashback)
 x empty phase (off tune loud tick sound)
 o low health

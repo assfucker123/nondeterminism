@@ -140,6 +140,9 @@ PAUSE (Start/Enter)
 (D) - Faster Fire Rate
 	- The minimum delay between bullets fired is decreased.
 
+(D) - Native Vision
+	- Can foresee attacks even when phase is at zero.
+
 (D) - Multi Grenade (requires Energy Grenade)
 	- Press BOMB while fully charged to use up the charge by throwing multiple grenade at once.
 
