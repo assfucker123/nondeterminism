@@ -196,7 +196,7 @@ MonoBehaviour:
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
-  maxHealth: 6
+  maxHealth: 2
   maxPhase: 80
   startPhase: .5
   phaseDecreaseSpeed: 0
@@ -205,6 +205,14 @@ MonoBehaviour:
   damageFriction: 40
   damageDuration: .300000012
   mercyInvincibilityDuration: 1.10000002
+  hitPauseDamageMultiplier: .0199999996
+  dieExplodeDelay: .0500000007
+  pieceGameObjects:
+  - {fileID: 136208, guid: 4228c0fed841c8540a85beffc526dcc1, type: 2}
+  - {fileID: 113946, guid: 5ce6905b7d8a1544da7e353682b6765c, type: 2}
+  - {fileID: 167922, guid: f08e004d4770a764f890f6d2e3e9f506, type: 2}
+  - {fileID: 116554, guid: b93a49d7e9382f241a1068c28f2acc3e, type: 2}
+  - {fileID: 128744, guid: 7e204c8f521ecd74da86403568e4bc56, type: 2}
   state: 0
   stepSound: {fileID: 8300000, guid: 9e2a7c604390ae74bbfc09b342021d3b, type: 3}
   jumpSound: {fileID: 8300000, guid: 639a64b5e89066b49b29e0b5a06120da, type: 3}
@@ -271,6 +279,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: pieceGameObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_GravityScale
       value: 0
@@ -426,6 +438,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: maxHealth
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pieceGameObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 136208, guid: 4228c0fed841c8540a85beffc526dcc1, type: 2}
+    - target: {fileID: 0}
+      propertyPath: dieExplodeDelay
+      value: .100000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -228,7 +228,21 @@ Wally Advice: Booster Upgrade:
 	- Wally: But since it's a physical upgrade, you can't use it at a time before you acquired it.
 	- Wally: Clearly it would be best to acquire this upgrade as soon as possible during the final world-saving route.
 	- Wally: When you're feeling up to it, I recommend doing a Chamber Flashback to the very beginning and making a beeline for the booster upgrade.  The earlier you've acquired it, the easier the rest of your run will become. 
-	
+
+=========================================
+
+Conversation about something exploding halfway before world ends.
+
+Conversation about no enemies showing up 5 minutes before world ends.
+	- Wally: "Things seem to have simmered down."
+	- Oracle: "Yes... I am not getting attacked anymore."
+	- Wally: "Well I won't take a reprieve for granted, but this feels, uh, wrong.  Enemies were all ready to attack you head on a minute ago, and now they're not even showing up?  That's an abrupt change of heart."
+	- Oracle: "I can faintly hear them.  Those creatures are still around.  But they appear to be... hiding."
+	- Wally: "Hiding?  Oh, I think I get it."
+	- Wally: "After slaughtering their friends and family, those green beach balls finally realized that showing their faces around a walking metal death machine was, shocker, a bad idea!"
+	- Oracle: "..."
+	- Wally: "It's a joke."
+	- Oracle: "... haha."
 
 =========================================
 	
@@ -288,6 +302,10 @@ Quantum Attacks Guy Backstory:
 Sonata Backstory:
 - Mouth sowed up by The Salesman.
 - Cuts her mouth open to enable her to attack when fighting Oracle.
+	- Brainwash effects end a duration after Sonata was silenced.
+	- For the last 5 minutes before the world ends, the enemies are no longer brainwashed, so no enemies attack Oracle.
+		- Enemies don't spawn, "they're hiding"
+	- Can also talk to Quantum Attacks guy during this duration.
 
 The Salesman Backstory:
 - Can sense the future, same as Oracle.

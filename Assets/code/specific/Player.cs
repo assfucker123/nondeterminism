@@ -39,6 +39,8 @@ public class Player : MonoBehaviour {
     public float damageDuration = .5f;
     public float mercyInvincibilityDuration = 1.0f;
     public float hitPauseDamageMultiplier = .02f;
+    public float dieExplodeDelay = 0.3f;
+    public GameObject[] pieceGameObjects;
     public State state = State.GROUND;
     public AudioClip stepSound;
     public AudioClip jumpSound;
@@ -74,13 +76,16 @@ public class Player : MonoBehaviour {
             }
         }
     }
+    public bool isDead { get { return state == State.DEAD; } }
+    public bool exploded { get { return _exploded; } }
     public int health { get { return receivesDamage.health; } }
     public float phase { get { return HUD.instance.phaseMeter.phase; } }
 
     public enum State:int {
         GROUND,
         AIR,
-        DAMAGE
+        DAMAGE,
+        DEAD
     }
 
     //////////////////////
@@ -177,6 +182,9 @@ public class Player : MonoBehaviour {
         case State.DAMAGE:
             stateDamage();
             break;
+        case State.DEAD:
+            stateDead();
+            break;
         }
 
         // apply gravity
@@ -186,7 +194,9 @@ public class Player : MonoBehaviour {
         rb2d.velocity = v;
 
         // color control
-        if (receivesDamage.isMercyInvincible) {
+        if (exploded) {
+            spriteRenderer.color = new Color(1, 1, 1, 0);
+        } else if (receivesDamage.isMercyInvincible) {
             float mit = receivesDamage.mercyInvincibilityTime;
             float p = ReceivesDamage.MERCY_FLASH_PERIOD;
             float t = (mit - p * Mathf.Floor(mit / p)) / p; //t in [0, 1)
@@ -238,7 +248,9 @@ public class Player : MonoBehaviour {
         fi.floats["idleGunTime"] = idleGunTime;
         fi.floats["damageTime"] = damageTime;
         fi.floats["pFTime"] = phaseFlashTime;
+        fi.floats["deadTime"] = deadTime;
         fi.strings["color"] = TimeUser.colorToString(spriteRenderer.color);
+        fi.bools["exploded"] = exploded;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -246,7 +258,9 @@ public class Player : MonoBehaviour {
         idleGunTime = fi.floats["idleGunTime"];
         damageTime = fi.floats["damageTime"];
         phaseFlashTime = fi.floats["pFTime"];
+        deadTime = fi.floats["deadTime"];
         spriteRenderer.color = TimeUser.stringToColor(fi.strings["color"]);
+        _exploded = fi.bools["exploded"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -491,6 +505,29 @@ public class Player : MonoBehaviour {
         rb2d.velocity = v;
     }
 
+    void stateDead() {
+        deadTime += Time.deltaTime;
+
+        if (!exploded) {
+
+            // apply friction like stateDamage()
+            Vector2 v = rb2d.velocity;
+            if (v.x < 0) {
+                v.x = Mathf.Min(0, v.x + damageFriction * Time.deltaTime);
+            } else {
+                v.x = Mathf.Max(0, v.x - damageFriction * Time.deltaTime);
+            }
+            rb2d.velocity = v;
+
+            // explode
+            if (deadTime >= dieExplodeDelay) {
+                explode();
+            }
+
+        }
+
+    }
+
     // going to ground state
     void toGroundState() {
         state = State.GROUND;
@@ -514,17 +551,62 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // going to dead state
+    void die() {
+        if (state == State.DEAD)
+            return;
+
+        deadTime = 0;
+        state = State.DEAD;
+    }
+
+    // explode, pieces fly out
+    void explode() {
+        if (exploded) return;
+
+        foreach (GameObject pieceGameObject in pieceGameObjects) {
+            OraclePiece pGOOP = pieceGameObject.GetComponent<OraclePiece>();
+            Vector3 spawnPos = new Vector3(pGOOP.spawnPos.x, pGOOP.spawnPos.y);
+            if (flippedHoriz) {
+                spawnPos.x *= -1;
+            }
+            spawnPos = transform.TransformPoint(spawnPos);
+            float spawnRot = pGOOP.spawnRot;
+            Vector2 explodeVel = pGOOP.explodeVel;
+            float explodeAngularVel = pGOOP.explodeAngularVel;
+            if (flippedHoriz) {
+                explodeVel.x *= -1;
+            }
+
+            GameObject pGO = GameObject.Instantiate(
+                pieceGameObject,
+                spawnPos,
+                Utilities.setQuat(spawnRot)) as GameObject;
+            pGO.transform.localScale = transform.localScale;
+
+            Rigidbody2D prb2d = pGO.GetComponent<Rigidbody2D>();
+            prb2d.velocity = explodeVel;
+            prb2d.angularVelocity = explodeAngularVel;
+
+            OraclePiece op = pGO.GetComponent<OraclePiece>();
+            op.mercyFlashTime = receivesDamage.mercyInvincibilityTime;
+
+        }
+
+        rb2d.velocity.Set(0, 0);
+        _exploded = true;
+
+    }
+
     // taking damage
     void PreDamage(AttackInfo ai) { //(before damage is taken from health)
     }
     void OnDamage(AttackInfo ai) { //after damage is taken from health
-        
+
+        bool willDie = (receivesDamage.health <= 0);
+
         bool knockbackRight = ai.impactToRight();
-        if (receivesDamage.health <= 0) {
-            Debug.Log("death");
-        } else {
-            CameraControl.instance.hitPause(ai.damage * hitPauseDamageMultiplier);
-        }
+        CameraControl.instance.hitPause(ai.damage * hitPauseDamageMultiplier);
         if (knockbackRight) {
             flippedHoriz = true;
             rb2d.velocity = new Vector2(damageSpeed, 0);
@@ -532,16 +614,20 @@ public class Player : MonoBehaviour {
             flippedHoriz = false;
             rb2d.velocity = new Vector2(-damageSpeed, 0);
         }
-        HUD.instance.setHealth(receivesDamage.health);
-        damageTime = 0;
         animator.Play("oracle_damage");
         SoundManager.instance.playSFX(damageSound);
+        damageTime = 0;
+        state = State.DAMAGE;
+        HUD.instance.setHealth(receivesDamage.health);
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
         CameraControl.instance.shake();
-        state = State.DAMAGE;
-
         //end jump if jumping
         jumpTime = jumpMaxDuration + 1;
+
+        if (willDie) {
+            die();
+        }
+        
     }
 
 
@@ -596,6 +682,8 @@ public class Player : MonoBehaviour {
     float phaseFlashTime = 99999;
     float healthFlashTime = 99999;
     float stepSoundPlayTime = 99999;
+    float deadTime = 999999;
+    bool _exploded = false;
 
     // components
     Rigidbody2D _rb2d;

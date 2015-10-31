@@ -22,6 +22,7 @@ public class Vars {
 
         TimeUser.onUnloadLevel();
         VisionUser.onUnloadLevel();
+        Time.timeScale = 1;
 
         Application.LoadLevel(name);
     }

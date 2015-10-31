@@ -93,6 +93,7 @@ public class Pickup : MonoBehaviour {
         if (c2d.gameObject == null) return;
         Player plr = c2d.gameObject.GetComponent<Player>();
         if (plr == null) return;
+        if (plr.isDead || plr.health <= 0) return;
 
         switch (type) {
         case Type.HEALTH:
