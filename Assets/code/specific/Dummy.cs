@@ -25,7 +25,7 @@ public class Dummy : MonoBehaviour {
 	
 	void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
-        GameObject spriteObject = transform.Find("spriteObject").gameObject;
+        spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
         colFinder = GetComponent<ColFinder>();
@@ -123,6 +123,7 @@ public class Dummy : MonoBehaviour {
 	
 	// components
     Rigidbody2D rb2d;
+    GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;
     ColFinder colFinder;

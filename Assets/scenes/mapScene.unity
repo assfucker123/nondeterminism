@@ -885,78 +885,48 @@ EdgeCollider2D:
   m_Points:
   - {x: 16.41679, y: 15.5383863}
   - {x: 16.4143162, y: 3.00743032}
---- !u!1 &990731677
-GameObject:
+--- !u!1001 &967280656
+Prefab:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 990731680}
-  - 212: {fileID: 990731679}
-  - 95: {fileID: 990731678}
-  m_Layer: 0
-  m_Name: LarvaOracle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!95 &990731678
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 990731677}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 02b541d7f8e9d2f4e900020d32b4d608, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!212 &990731679
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 990731677}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_ReflectionProbeUsage: 0
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: fba73457356b0eb41aeb998dc0abd1cb, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!4 &990731680
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 990731677}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.8500004, y: -6.69999981, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 25.6000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -7.44000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 488414, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &996819637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fc3c04eb17ded4cbf5d0735545f3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackScreenGameObject: {fileID: 196802, guid: 9d591a4805680784c9aa270c65361019,
+    type: 2}
   healthHeartGameObject: {fileID: 113086, guid: 73675e0b383578940a5a84071386a8de,
     type: 2}
   phaseMeterGameObject: {fileID: 171160, guid: 751b2242187060e4f9b5fa2cfaaa9d53, type: 2}
@@ -1065,6 +1037,8 @@ MonoBehaviour:
     type: 2}
   pauseScreenGameObject: {fileID: 183126, guid: 33710a7a7b139ce41bc3429228c3bb39,
     type: 2}
+  speedLinesGameObject: {fileID: 120178, guid: e19e8b7391835bf43a80429adbb536a7, type: 2}
+  gameOverScreenObject: {fileID: 152978, guid: 6c9d6628f9f52be4ca605f9f33c323e8, type: 2}
 --- !u!1 &1041771688
 GameObject:
   m_ObjectHideFlags: 0

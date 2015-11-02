@@ -206,19 +206,23 @@ MonoBehaviour:
   damageDuration: .300000012
   mercyInvincibilityDuration: 1.10000002
   hitPauseDamageMultiplier: .0199999996
-  dieExplodeDelay: .0500000007
+  dieExplodeDelay: .00999999978
+  deathHitPause: .25
   pieceGameObjects:
   - {fileID: 136208, guid: 4228c0fed841c8540a85beffc526dcc1, type: 2}
   - {fileID: 113946, guid: 5ce6905b7d8a1544da7e353682b6765c, type: 2}
   - {fileID: 167922, guid: f08e004d4770a764f890f6d2e3e9f506, type: 2}
   - {fileID: 116554, guid: b93a49d7e9382f241a1068c28f2acc3e, type: 2}
   - {fileID: 128744, guid: 7e204c8f521ecd74da86403568e4bc56, type: 2}
+  deathLarvaGameObject: {fileID: 151070, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+  deathExplosionDuration: .200000003
   state: 0
   stepSound: {fileID: 8300000, guid: 9e2a7c604390ae74bbfc09b342021d3b, type: 3}
   jumpSound: {fileID: 8300000, guid: 639a64b5e89066b49b29e0b5a06120da, type: 3}
   bulletSound: {fileID: 8300000, guid: d53163181e2d92f4d99e07fa4a6fc04c, type: 3}
   gunDownSound: {fileID: 8300000, guid: f64723ece8c84094789d245628eae9a8, type: 3}
   damageSound: {fileID: 8300000, guid: bb47a802ae10f8c4a83cee2cc5592172, type: 3}
+  deathSound: {fileID: 8300000, guid: df53a3e077c732c4f901751e99b56d48, type: 3}
   flashbackBeginSound: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
   flashbackEndSound: {fileID: 8300000, guid: e2c9a6aa84ff08442b368b8e02b4cc4e, type: 3}
 --- !u!114 &11451260
@@ -437,7 +441,7 @@ Prefab:
       objectReference: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
     - target: {fileID: 0}
       propertyPath: maxHealth
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: pieceGameObjects.Array.data[0]
@@ -445,7 +449,31 @@ Prefab:
       objectReference: {fileID: 136208, guid: 4228c0fed841c8540a85beffc526dcc1, type: 2}
     - target: {fileID: 0}
       propertyPath: dieExplodeDelay
-      value: .100000001
+      value: .00999999978
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathLarvaGameObject
+      value: 
+      objectReference: {fileID: 151070, guid: 79a6f3e359cc0ad45bc7d2a5f440f502, type: 2}
+    - target: {fileID: 0}
+      propertyPath: deathHitPause
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathExplosionDensity
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathExplosionWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathExplosionHeight
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathExplosionDuration
+      value: .200000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

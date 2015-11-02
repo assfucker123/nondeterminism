@@ -54,8 +54,10 @@ public class CameraControl : MonoBehaviour {
     public bool shaking { get { return shakeTime < shakeDuration; } }
 
     public void hitPause(float duration = .034f) {
-        if (Time.timeScale == 0)
+        if (Time.timeScale == 0) {
+            hitPauseDuration = Mathf.Max(hitPauseDuration, duration);
             return;
+        }
         if (TimeUser.reverting)
             return;
         bool prevHitPaused = hitPaused;
@@ -181,6 +183,10 @@ public class CameraControl : MonoBehaviour {
         fi.floats["pTS"] = prevTimeScale;
     }
     void OnRevert(FrameInfo fi) {
+
+        bool prevHitPaused = hitPaused;
+        float prevPrevTimeScale = prevTimeScale;
+        
         transform.localPosition = new Vector3(fi.floats["x"], fi.floats["y"], transform.localPosition.z);
         shakeMagnitude = fi.floats["sM"];
         shakeTime = fi.floats["sT"];
@@ -190,6 +196,13 @@ public class CameraControl : MonoBehaviour {
         hitPauseTime = fi.floats["hPT"];
         hitPauseDuration = fi.floats["hPD"];
         prevTimeScale = fi.floats["pTS"];
+
+        
+        if (prevHitPaused && !hitPaused) {
+            Time.timeScale = prevPrevTimeScale;
+            Debug.Log(Time.timeScale);
+        }
+        
     }
 
     void OnDestroy() {

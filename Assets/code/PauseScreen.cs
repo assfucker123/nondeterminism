@@ -328,10 +328,10 @@ public class PauseScreen : MonoBehaviour {
         if (options.Count > 0) {
             if (Input.GetButtonDown("Down")) {
                 setSelection(selectionIndex + 1);
-                SoundManager.instance.playSFX(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             } else if (Input.GetButtonDown("Up")) {
                 setSelection(selectionIndex - 1);
-                SoundManager.instance.playSFX(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
         }
         // move selection image
@@ -445,7 +445,7 @@ public class PauseScreen : MonoBehaviour {
                     Vars.musicVolume = Mathf.Max(0, Vars.musicVolume - .2f);
                     o_setVolumeText(false);
                 }
-                SoundManager.instance.playSFX(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             } else if (Input.GetButtonDown("Right")) {
                 if (o_settingSFX) {
                     Vars.sfxVolume = Mathf.Min(1, Vars.sfxVolume + .2f);
@@ -454,7 +454,7 @@ public class PauseScreen : MonoBehaviour {
                     Vars.musicVolume = Mathf.Min(1, Vars.musicVolume + .2f);
                     o_setVolumeText(false);
                 }
-                SoundManager.instance.playSFX(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
             if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) {
                 // exit out of setting SFX/Music

@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: b4fc3c04eb17ded4cbf5d0735545f3a4
-timeCreated: 1445710427
+timeCreated: 1446423536
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
+  - blackScreenGameObject: {fileID: 196802, guid: 9d591a4805680784c9aa270c65361019,
+      type: 2}
   - healthHeartGameObject: {fileID: 113086, guid: 73675e0b383578940a5a84071386a8de,
       type: 2}
   - phaseMeterGameObject: {fileID: 171160, guid: 751b2242187060e4f9b5fa2cfaaa9d53,
@@ -12,6 +14,10 @@ MonoImporter:
   - countdownTimerGameObject: {fileID: 122168, guid: 7f23f0a082271dc49930542fb488ff24,
       type: 2}
   - pauseScreenGameObject: {fileID: 183126, guid: 33710a7a7b139ce41bc3429228c3bb39,
+      type: 2}
+  - speedLinesGameObject: {fileID: 120178, guid: e19e8b7391835bf43a80429adbb536a7,
+      type: 2}
+  - gameOverScreenObject: {fileID: 152978, guid: 6c9d6628f9f52be4ca605f9f33c323e8,
       type: 2}
   executionOrder: 0
   icon: {instanceID: 0}

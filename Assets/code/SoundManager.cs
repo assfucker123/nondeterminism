@@ -7,13 +7,22 @@ public class SoundManager : MonoBehaviour {
 
     public static SoundManager instance { get { return _instance; } }
 
+    public float volumeScale = 1; // only change this for getting a game over, etc.
+
     public void playSFX(AudioClip clip, float volume = 1.0f) {
-        playSFXF(clip, volume, 1);
+        playSFXIgnoreVolumeScale(clip, volume * volumeScale);
     }
     public void playSFXRandPitchBend(AudioClip clip, float pitchBendMagnitude = .05f, float volume = 1.0f) {
+        playSFXRandPitchBendIgnoreVolumeScale(clip, pitchBendMagnitude, volume * volumeScale);
+    }
+    public void playSFXIgnoreVolumeScale(AudioClip clip, float volume = 1.0f) {
+        playSFXF(clip, volume, 1);
+    }
+    public void playSFXRandPitchBendIgnoreVolumeScale(AudioClip clip, float pitchBendMagnitude = .05f, float volume = 1.0f) {
         float pitch = 1 + (Random.value * 2 - 1) * pitchBendMagnitude;
         playSFXF(clip, volume, pitch);
     }
+
     public void stopSFX(AudioClip clip) {
         if (clip == null) return;
         foreach (AudioSource audS in sfxSources) {

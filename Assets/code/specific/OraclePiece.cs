@@ -23,7 +23,6 @@ public class OraclePiece : MonoBehaviour {
     }
 
     void Awake() {
-        rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         timeUser = GetComponent<TimeUser>();
     }
@@ -70,7 +69,6 @@ public class OraclePiece : MonoBehaviour {
     Segment segment;
 
     // components
-    Rigidbody2D rb2d;
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;
 

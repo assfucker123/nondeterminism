@@ -60,5 +60,32 @@ public static class Utilities {
         return easeInOutQuad(t, b, c, d);
     }
 
-	
+    public static float easeInCubic(float t, float b, float c, float d) {
+        t /= d;
+	    return c*t*t*t + b;
+    }
+    public static float easeInCubicClamp(float t, float b, float c, float d) {
+        t = Mathf.Min(d, Mathf.Max(0, t));
+        return easeInCubic(t, b, c, d);
+    }
+    public static float easeOutCubic(float t, float b, float c, float d) {
+        t /= d;
+        t--;
+        return c*(t*t*t + 1) + b;
+    }
+    public static float easeOutCubicClamp(float t, float b, float c, float d) {
+        t = Mathf.Min(d, Mathf.Max(0, t));
+        return easeOutCubic(t, b, c, d);
+    }
+    public static float easeInOutCubic(float t, float b, float c, float d) {
+        t /= d/2;
+        if (t < 1) return c/2*t*t*t + b;
+        t -= 2;
+        return c/2*(t*t*t + 2) + b;
+    }
+    public static float easeInOutCubicClamp(float t, float b, float c, float d) {
+        t = Mathf.Min(d, Mathf.Max(0, t));
+        return easeInOutCubic(t, b, c, d);
+    }
+
 };

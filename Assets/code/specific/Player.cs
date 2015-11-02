@@ -40,7 +40,10 @@ public class Player : MonoBehaviour {
     public float mercyInvincibilityDuration = 1.0f;
     public float hitPauseDamageMultiplier = .02f;
     public float dieExplodeDelay = 0.3f;
+    public float deathHitPause = .4f;
     public GameObject[] pieceGameObjects;
+    public GameObject deathLarvaGameObject;
+    public float deathExplosionDuration = .3f;
     public State state = State.GROUND;
     public AudioClip stepSound;
     public AudioClip jumpSound;
@@ -251,6 +254,7 @@ public class Player : MonoBehaviour {
         fi.floats["deadTime"] = deadTime;
         fi.strings["color"] = TimeUser.colorToString(spriteRenderer.color);
         fi.bools["exploded"] = exploded;
+        fi.floats["det"] = deathExplosionTime;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -260,7 +264,12 @@ public class Player : MonoBehaviour {
         phaseFlashTime = fi.floats["pFTime"];
         deadTime = fi.floats["deadTime"];
         spriteRenderer.color = TimeUser.stringToColor(fi.strings["color"]);
+        bool prevExploded = exploded;
         _exploded = fi.bools["exploded"];
+        if (prevExploded && !exploded) {
+            gameObject.layer = LayerMask.NameToLayer("Players");
+        }
+        deathExplosionTime = fi.floats["det"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -297,12 +306,16 @@ public class Player : MonoBehaviour {
                 CameraControl.instance.disableEffects();
             }
         } else if (!PauseScreen.instance.paused) {
-            if (Input.GetButtonDown("Flash") && phase > 0) {
-                TimeUser.beginContinuousRevert(.5f);
-                SoundManager.instance.playSFX(flashbackBeginSound);
-                HUD.instance.phaseMeter.beginPulse();
-                revertTime = 0;
-                CameraControl.instance.enableEffects(0, 1);
+            if (Input.GetButtonDown("Flash")) {
+                if (phase > 0) {
+                    TimeUser.beginContinuousRevert(.5f);
+                    SoundManager.instance.playSFX(flashbackBeginSound);
+                    HUD.instance.phaseMeter.beginPulse();
+                    revertTime = 0;
+                    CameraControl.instance.enableEffects(0, 1);
+                } else {
+                    HUD.instance.phaseMeter.playPhaseEmptySound();
+                }
             }
         }
 
@@ -508,7 +521,10 @@ public class Player : MonoBehaviour {
     void stateDead() {
         deadTime += Time.deltaTime;
 
-        if (!exploded) {
+        if (exploded) {
+            rb2d.velocity = Vector2.zero;
+
+        } else {
 
             // apply friction like stateDamage()
             Vector2 v = rb2d.velocity;
@@ -523,6 +539,13 @@ public class Player : MonoBehaviour {
             if (deadTime >= dieExplodeDelay) {
                 explode();
             }
+        }
+
+        //spawn explosions
+        if (deadTime < deathExplosionDuration) {
+            deathExplosionTime += Time.deltaTime;
+
+            // make some explosions here
 
         }
 
@@ -556,7 +579,11 @@ public class Player : MonoBehaviour {
         if (state == State.DEAD)
             return;
 
+        CameraControl.instance.hitPause(deathHitPause);
+        HUD.instance.gameOverScreen.activate();
+
         deadTime = 0;
+        deathExplosionTime = 0;
         state = State.DEAD;
     }
 
@@ -564,15 +591,19 @@ public class Player : MonoBehaviour {
     void explode() {
         if (exploded) return;
 
+        Vector3 spawnPos;
+        Vector2 explodeVel;
+
+        // lauch different pieces of the suit
         foreach (GameObject pieceGameObject in pieceGameObjects) {
             OraclePiece pGOOP = pieceGameObject.GetComponent<OraclePiece>();
-            Vector3 spawnPos = new Vector3(pGOOP.spawnPos.x, pGOOP.spawnPos.y);
+            spawnPos = new Vector3(pGOOP.spawnPos.x, pGOOP.spawnPos.y);
             if (flippedHoriz) {
                 spawnPos.x *= -1;
             }
             spawnPos = transform.TransformPoint(spawnPos);
             float spawnRot = pGOOP.spawnRot;
-            Vector2 explodeVel = pGOOP.explodeVel;
+            explodeVel = pGOOP.explodeVel;
             float explodeAngularVel = pGOOP.explodeAngularVel;
             if (flippedHoriz) {
                 explodeVel.x *= -1;
@@ -593,7 +624,35 @@ public class Player : MonoBehaviour {
 
         }
 
+        // launch DeathLarva
+        DeathLarvaOracle dLO = deathLarvaGameObject.GetComponent<DeathLarvaOracle>();
+        spawnPos = new Vector3(dLO.spawnPos.x, dLO.spawnPos.y);
+        explodeVel = dLO.explodeVel;
+        if (flippedHoriz) {
+            spawnPos.x *= -1;
+            explodeVel.x *= -1;
+        }
+        spawnPos = transform.TransformPoint(spawnPos);
+        GameObject dLGO = GameObject.Instantiate(
+            deathLarvaGameObject,
+            spawnPos,
+            Quaternion.identity) as GameObject;
+
+        Rigidbody2D dlorb2d = dLGO.GetComponent<Rigidbody2D>();
+        dlorb2d.velocity = explodeVel;
+
+        dLO = dLGO.GetComponent<DeathLarvaOracle>();
+        dLO.mercyFlashTime = receivesDamage.mercyInvincibilityTime;
+        dLO.flippedHoriz = flippedHoriz;
+        
+        // stop Player from moving
         rb2d.velocity.Set(0, 0);
+
+        //change layer to disable collision
+        gameObject.layer = LayerMask.NameToLayer("HitNothing");
+
+        
+
         _exploded = true;
 
     }
@@ -602,6 +661,9 @@ public class Player : MonoBehaviour {
     void PreDamage(AttackInfo ai) { //(before damage is taken from health)
     }
     void OnDamage(AttackInfo ai) { //after damage is taken from health
+
+        if (isDead)
+            return;
 
         bool willDie = (receivesDamage.health <= 0);
 
@@ -621,6 +683,7 @@ public class Player : MonoBehaviour {
         HUD.instance.setHealth(receivesDamage.health);
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
         CameraControl.instance.shake();
+        HUD.instance.speedLines.flashRed();
         //end jump if jumping
         jumpTime = jumpMaxDuration + 1;
 
@@ -683,6 +746,7 @@ public class Player : MonoBehaviour {
     float healthFlashTime = 99999;
     float stepSoundPlayTime = 99999;
     float deadTime = 999999;
+    float deathExplosionTime = 0;
     bool _exploded = false;
 
     // components

@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11440080}
   - 212: {fileID: 21281554}
   - 114: {fileID: 11439488}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: OraclePiece_LegRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,6 +82,8 @@ MonoBehaviour:
   spawnRot: -70
   explodeVel: {x: 3, y: 4}
   explodeAngularVel: 200
+  mercyFlashTime: 0
+  mercyFlashDuration: .5
 --- !u!114 &11440080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,7 +118,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300006, guid: c3ddb15788397704e9f55fa642529af1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
@@ -133,6 +135,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: explodeVel.y
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

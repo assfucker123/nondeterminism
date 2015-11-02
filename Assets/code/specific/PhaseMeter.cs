@@ -58,6 +58,9 @@ public class PhaseMeter : MonoBehaviour {
             SoundManager.instance.playSFX(phaseEmptySound);
         }
     }
+    public void playPhaseEmptySound() {
+        SoundManager.instance.playSFX(phaseEmptySound);
+    }
 
     /* Increases phase by given amount, and goes through increase animation. */
     public float increasePhase(float phaseIncrease) {

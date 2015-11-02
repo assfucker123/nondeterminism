@@ -6,16 +6,22 @@ public class HUD : MonoBehaviour {
 
     public static HUD instance { get { return _instance; } }
 
+    public GameObject blackScreenGameObject;
     public GameObject healthHeartGameObject;
     public GameObject phaseMeterGameObject;
     public GameObject countdownTimerGameObject;
     public GameObject pauseScreenGameObject;
+    public GameObject speedLinesGameObject;
+    public GameObject gameOverScreenObject;
 
     public int health { get { return _health; } }
     public int maxHealth { get { return _maxHealth; } }
+    public UnityEngine.UI.Image blackScreen { get { return _blackScreen; } }
     public PhaseMeter phaseMeter { get { return _phaseMeter; } }
     public CountdownTimer countdownTimer { get { return _countdownTimer; } }
+    public SpeedLines speedLines { get { return _speedLines; } }
     public PauseScreen pauseScreen { get { return _pauseScreen; } }
+    public GameOverScreen gameOverScreen { get { return _gameOverScreen; } }
 
     public void setMaxHealth(int maxHealth){
         if (_maxHealth == maxHealth)
@@ -31,6 +37,7 @@ public class HUD : MonoBehaviour {
         while (healthHearts.Count < numHH) {
             GameObject hhGO = GameObject.Instantiate(healthHeartGameObject) as GameObject;
             hhGO.transform.SetParent(canvas.transform, false);
+            hhGO.transform.SetAsFirstSibling();
             HealthHeart hh = hhGO.GetComponent<HealthHeart>();
             int index = healthHearts.Count;
             healthHearts.Add(hh);
@@ -79,6 +86,12 @@ public class HUD : MonoBehaviour {
 	void Awake() {
         _instance = this;
         canvas = GetComponent<Canvas>();
+
+        //create Speed Lines
+        GameObject slGO = GameObject.Instantiate(speedLinesGameObject) as GameObject;
+        slGO.transform.SetParent(canvas.transform, false);
+        _speedLines = slGO.GetComponent<SpeedLines>();
+        _speedLines.setUp();
         //create Phase Meter
         GameObject pmGO = GameObject.Instantiate(phaseMeterGameObject) as GameObject;
         pmGO.transform.SetParent(canvas.transform, false);
@@ -89,17 +102,25 @@ public class HUD : MonoBehaviour {
         ctGO.transform.SetParent(canvas.transform, false);
         _countdownTimer = ctGO.GetComponent<CountdownTimer>();
         _countdownTimer.setUp();
-
+        //create Black Screen
+        GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
+        bsGO.transform.SetParent(canvas.transform, false);
+        _blackScreen = bsGO.GetComponent<UnityEngine.UI.Image>();
         //create Pause Screen
         GameObject psGO = GameObject.Instantiate(pauseScreenGameObject) as GameObject;
         psGO.transform.SetParent(canvas.transform, false);
         _pauseScreen = psGO.GetComponent<PauseScreen>();
         _pauseScreen.initialHide();
+        //create Game Over Screen
+        GameObject gosGO = GameObject.Instantiate(gameOverScreenObject) as GameObject;
+        gosGO.transform.SetParent(canvas.transform, false);
+        _gameOverScreen = gosGO.GetComponent<GameOverScreen>();
+        _gameOverScreen.initialHide();
         
 	}
 
     void Start() {
-        
+        blackScreen.color = Color.clear;
     }
 	
 	void Update() {
@@ -127,9 +148,12 @@ public class HUD : MonoBehaviour {
     private int _health = -1;
 
     private List<HealthHeart> healthHearts = new List<HealthHeart>();
+    private UnityEngine.UI.Image _blackScreen;
     private PhaseMeter _phaseMeter;
     private CountdownTimer _countdownTimer;
+    private SpeedLines _speedLines;
     private PauseScreen _pauseScreen;
+    private GameOverScreen _gameOverScreen;
 	
 	// components
     Canvas canvas;

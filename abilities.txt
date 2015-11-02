@@ -156,6 +156,7 @@ PAUSE (Start/Enter)
 	- Double-tap FLASHBACK to revert back to the beginning of the room.
 		- (restarts the level)
 	- Meant to be used in platforming sections for secrets, not during combat.
+	- Should require a lot of phase (so hard to redo boss fights)
 	- BAD IDEA: "save state" Flashback
 
 (D) - No Objections (requires Strip Suit)

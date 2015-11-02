@@ -315,6 +315,10 @@ Skills:
 - "Final challenge" portion where most of the 10 minutes is spent on a new linear level testing all the abilities?
 
 - Battletoads hoverbike reference
+	- Visions to see the flashing walls coming
+
+- Majora's Mask reference
+	- Screen will resize slightly smaller and smaller, similar to how the viewport gets smaller in Majora's Mask when the next day starts
 
 
 Sound Effects needed:

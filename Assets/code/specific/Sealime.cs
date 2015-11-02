@@ -122,7 +122,6 @@ public class Sealime : MonoBehaviour {
             }
             break;
         case State.HOPPING:
-            float gravity = rb2d.gravityScale * Physics2D.gravity.y;
             float dur = hopDuration;
             float height = hopHeight;
             if (doingBigHop) {
@@ -208,7 +207,7 @@ public class Sealime : MonoBehaviour {
 
                         // create vision
                         timeUser.addCurrentFrameInfo(); //lets vision have info of what to do next
-                        GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
+                        visionUser.createVision(VisionUser.VISION_DURATION);
                     }
 
                 }

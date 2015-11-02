@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11442952}
   - 212: {fileID: 21275056}
   - 114: {fileID: 11450972}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: OraclePiece_Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +94,8 @@ MonoBehaviour:
   spawnRot: -90
   explodeVel: {x: 1, y: 5}
   explodeAngularVel: 150
+  mercyFlashTime: 0
+  mercyFlashDuration: .5
 --- !u!212 &21275056
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -117,7 +119,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300004, guid: c3ddb15788397704e9f55fa642529af1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
@@ -134,6 +136,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: explodeVel.y
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

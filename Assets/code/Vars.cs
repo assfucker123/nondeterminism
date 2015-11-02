@@ -23,6 +23,7 @@ public class Vars {
         TimeUser.onUnloadLevel();
         VisionUser.onUnloadLevel();
         Time.timeScale = 1;
+        SoundManager.instance.volumeScale = 1;
 
         Application.LoadLevel(name);
     }

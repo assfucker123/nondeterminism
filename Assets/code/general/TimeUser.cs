@@ -340,7 +340,7 @@ public class TimeUser : MonoBehaviour {
 
         if (reverting && !continuousRevertAppliedThisFrame) {
             continuousRevertSpeed = Mathf.Max(0, continuousRevertSpeed);
-            TimeUser.revert(TimeUser.time - Time.deltaTime * (1 + continuousRevertSpeed));
+            TimeUser.revert(TimeUser.time - Time.unscaledDeltaTime * (1 + continuousRevertSpeed));
             _revertingTime += Time.deltaTime * (1 + continuousRevertSpeed);
             continuousRevertAppliedThisFrame = true;
         }
