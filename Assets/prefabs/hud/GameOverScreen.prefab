@@ -10,7 +10,6 @@ GameObject:
   - 224: {fileID: 22468870}
   - 222: {fileID: 22262782}
   - 114: {fileID: 11447598}
-  - 114: {fileID: 11476658}
   - 114: {fileID: 11481078}
   m_Layer: 5
   m_Name: GameOverScreen
@@ -30,38 +29,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11476658
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 8ab8ec59fe081604392cd69f1fc56f89, type: 3}
-    m_FontSize: 144
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: GAME OVER
 --- !u!114 &11481078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,13 +44,13 @@ MonoBehaviour:
   startX: 683
   startXRange: 500
   startAngleRange: 20
-  distMin: 120
-  distMax: 190
+  distMin: 100
+  distMax: 170
   angleMin: 40
   angleMax: 70
   timePerBranch: .600000024
-  startGradientColor: {r: .852941155, g: 0, b: .486000001, a: 1}
-  endGradientColor: {r: .634000003, g: 0, b: 0, a: 1}
+  startGradientColor: {r: .463235319, g: 0, b: .263948351, a: 1}
+  endGradientColor: {r: .286764681, g: 0, b: 0, a: 1}
   endGradientY: 0
   startLineWidth: 3
   endLineWidth: 1
@@ -91,6 +58,10 @@ MonoBehaviour:
   gameOverLineRendererGameObject: {fileID: 193944, guid: c2d2618bfc7ec1e46a0944c564c09bea,
     type: 2}
   crackSound: {fileID: 8300000, guid: fd4cb1c4616d72140a394657ef9df9e2, type: 3}
+  gameOverTextGameObject: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8,
+    type: 2}
+  textColor: {r: .95588237, g: 0, b: 0, a: 1}
+  textAppearDuration: .5
 --- !u!222 &22262782
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -135,11 +106,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: distMin
-      value: 120
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: distMax
-      value: 190
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: angleMin
@@ -159,7 +130,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startXRange
-      value: 500
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startAngleRange
@@ -167,11 +138,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startGradientColor.b
-      value: .486000001
+      value: .263948351
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startGradientColor.r
-      value: .852941155
+      value: .463235319
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startGradientColor.g
@@ -195,7 +166,7 @@ Prefab:
       objectReference: {fileID: 193944, guid: c2d2618bfc7ec1e46a0944c564c09bea, type: 2}
     - target: {fileID: 0}
       propertyPath: startX
-      value: 683
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: treeMaxDuration
@@ -203,12 +174,32 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: endGradientColor.r
-      value: .634000003
+      value: .286764681
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: crackSound
       value: 
       objectReference: {fileID: 8300000, guid: fd4cb1c4616d72140a394657ef9df9e2, type: 3}
+    - target: {fileID: 0}
+      propertyPath: textColor.r
+      value: .95588237
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 023d586fcfb21584d8207ab6e7b17648, type: 2}
+    - target: {fileID: 0}
+      propertyPath: gameOverTextGameObject
+      value: 
+      objectReference: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152978}

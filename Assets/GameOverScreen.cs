@@ -56,6 +56,9 @@ public class GameOverScreen : MonoBehaviour {
     public float treeMaxDuration = 3.0f;
     public GameObject gameOverLineRendererGameObject;
     public AudioClip crackSound;
+    public GameObject gameOverTextGameObject;
+    public Color textColor = new Color(.9f, 0, 0);
+    public float textAppearDuration = .5f;
 
     public bool activated { get { return _activated; } }
 
@@ -82,6 +85,9 @@ public class GameOverScreen : MonoBehaviour {
         while (lineRenderers.Count < numBranches) {
             GameObject lrGO = GameObject.Instantiate(gameOverLineRendererGameObject) as GameObject;
             lrGO.transform.SetParent(transform, false);
+            
+            UnityEngine.UI.Extensions.UILineRenderer uilr = lrGO.GetComponent<UnityEngine.UI.Extensions.UILineRenderer>();
+
             lineRenderers.Add(lrGO.GetComponent<UnityEngine.UI.Extensions.UILineRenderer>());
         }
         branchIndex = 0;
@@ -92,6 +98,10 @@ public class GameOverScreen : MonoBehaviour {
     
 
     public void initialHide() {
+        GameObject gotGO = GameObject.Instantiate(gameOverTextGameObject) as GameObject;
+        gotGO.transform.SetParent(HUD.instance.GetComponent<Canvas>().transform, false);
+        text = gotGO.GetComponent<UnityEngine.UI.Text>();
+        
         text.enabled = false;
     }
 
@@ -129,7 +139,7 @@ public class GameOverScreen : MonoBehaviour {
 	}
 
     void Start() {
-
+        
     }
 
     private void clearTree(GOSNode root) {
@@ -249,7 +259,6 @@ public class GameOverScreen : MonoBehaviour {
 
             // .06, .13, .22, .32, .47
 
-
             if (prevTime < treeMaxDuration * .01f && treeTime >= treeMaxDuration * .01f) {
                 SoundManager.instance.playSFXRandPitchBendIgnoreVolumeScale(crackSound, .05f, 1.0f);
             }
@@ -269,8 +278,13 @@ public class GameOverScreen : MonoBehaviour {
                 SoundManager.instance.playSFXRandPitchBendIgnoreVolumeScale(crackSound, .05f, .1f);
             }
 
-            makeTree(treeTime);
+            if (treeTime < treeMaxDuration) {
+                makeTree(treeTime);
+            }
             setBlackScreen();
+
+            
+
         }
         
         
@@ -301,6 +315,8 @@ public class GameOverScreen : MonoBehaviour {
         }
         lineRenderers.Clear();
         GOSNode.clearAllRecycledNodes();
+        GameObject.Destroy(text.gameObject);
+        text = null;
     }
 
     void setBlackScreen() {
@@ -309,6 +325,17 @@ public class GameOverScreen : MonoBehaviour {
         t = Utilities.easeOutCubicClamp(t, 0, 1, 1);
         HUD.instance.blackScreen.color = Color.Lerp(Color.clear, Color.white, t);
         SoundManager.instance.volumeScale = Mathf.Max(0, 1 - t);
+
+        if (treeTime >= treeMaxDuration) {
+            if (!text.enabled) {
+                text.enabled = true;
+                //play appear sound effect here
+            }
+            text.color = Color.Lerp(Color.clear, textColor, (treeTime - treeMaxDuration) / textAppearDuration);
+        } else {
+            if (text.enabled)
+                text.enabled = false;
+        }
     }
 
 
