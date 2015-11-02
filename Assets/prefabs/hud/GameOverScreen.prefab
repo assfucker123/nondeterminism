@@ -45,23 +45,23 @@ MonoBehaviour:
   startXRange: 600
   startXDeadRange: 300
   startAngleRange: 30
-  distMin: 100
-  distMax: 170
+  distMin: 110
+  distMax: 180
   angleMin: 40
   angleMax: 70
   timePerBranch: .600000024
   startGradientColor: {r: .463235319, g: 0, b: .263948351, a: 1}
   endGradientColor: {r: .286764681, g: 0, b: 0, a: 1}
   endGradientY: 100
-  startLineWidth: 3
-  endLineWidth: 1
+  startLineWidth: 4
+  endLineWidth: 2
   treeMaxDuration: 3.5
   gameOverLineRendererGameObject: {fileID: 193944, guid: c2d2618bfc7ec1e46a0944c564c09bea,
     type: 2}
   crackSound: {fileID: 8300000, guid: fd4cb1c4616d72140a394657ef9df9e2, type: 3}
   gameOverTextGameObject: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8,
     type: 2}
-  textColor: {r: .95588237, g: 0, b: 0, a: 1}
+  textColor: {r: 1, g: 0, b: 0, a: 1}
   textAppearDuration: .600000024
   uiAppearsDuration: 1.20000005
   uiSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
@@ -109,11 +109,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: distMin
-      value: 100
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: distMax
-      value: 170
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: angleMin
@@ -153,11 +153,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startLineWidth
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: endLineWidth
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: endGradientY
@@ -185,7 +185,7 @@ Prefab:
       objectReference: {fileID: 8300000, guid: fd4cb1c4616d72140a394657ef9df9e2, type: 3}
     - target: {fileID: 0}
       propertyPath: textColor.r
-      value: .95588237
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: textColor.b
@@ -218,6 +218,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: uiAppearsDuration
       value: 1.20000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textColor.g
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

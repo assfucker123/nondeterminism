@@ -100,9 +100,6 @@ public class GameOverScreen : MonoBehaviour {
         while (lineRenderers.Count < numBranches) {
             GameObject lrGO = GameObject.Instantiate(gameOverLineRendererGameObject) as GameObject;
             lrGO.transform.SetParent(transform, false);
-            
-            UnityEngine.UI.Extensions.UILineRenderer uilr = lrGO.GetComponent<UnityEngine.UI.Extensions.UILineRenderer>();
-
             lineRenderers.Add(lrGO.GetComponent<UnityEngine.UI.Extensions.UILineRenderer>());
         }
         branchIndex = 0;
