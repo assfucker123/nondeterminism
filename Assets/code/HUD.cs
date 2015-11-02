@@ -16,6 +16,14 @@ public class HUD : MonoBehaviour {
 
     public int health { get { return _health; } }
     public int maxHealth { get { return _maxHealth; } }
+    public bool canPause {
+        get {
+            return (
+                !PauseScreen.instance.paused &&
+                !TimeUser.reverting &&
+                !HUD.instance.gameOverScreen.activated);
+        }
+    }
     public UnityEngine.UI.Image blackScreen { get { return _blackScreen; } }
     public PhaseMeter phaseMeter { get { return _phaseMeter; } }
     public CountdownTimer countdownTimer { get { return _countdownTimer; } }
@@ -126,9 +134,7 @@ public class HUD : MonoBehaviour {
 	void Update() {
 
         // detect pausing the game
-        if (!PauseScreen.instance.paused &&
-            !TimeUser.reverting &&
-            Input.GetButtonDown("Pause")) {
+        if (canPause && Input.GetButtonDown("Pause")) {
             pauseScreen.pauseGame();
         }
 

@@ -42,8 +42,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startY: 850
   startX: 683
-  startXRange: 500
-  startAngleRange: 20
+  startXRange: 600
+  startXDeadRange: 300
+  startAngleRange: 30
   distMin: 100
   distMax: 170
   angleMin: 40
@@ -51,7 +52,7 @@ MonoBehaviour:
   timePerBranch: .600000024
   startGradientColor: {r: .463235319, g: 0, b: .263948351, a: 1}
   endGradientColor: {r: .286764681, g: 0, b: 0, a: 1}
-  endGradientY: 0
+  endGradientY: 100
   startLineWidth: 3
   endLineWidth: 1
   treeMaxDuration: 3.5
@@ -61,7 +62,9 @@ MonoBehaviour:
   gameOverTextGameObject: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8,
     type: 2}
   textColor: {r: .95588237, g: 0, b: 0, a: 1}
-  textAppearDuration: .5
+  textAppearDuration: .600000024
+  uiAppearsDuration: 1.20000005
+  uiSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
 --- !u!222 &22262782
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -130,11 +133,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startXRange
-      value: 200
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startAngleRange
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startGradientColor.b
@@ -158,7 +161,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: endGradientY
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: gameOverLineRendererGameObject
@@ -200,6 +203,22 @@ Prefab:
       propertyPath: gameOverTextGameObject
       value: 
       objectReference: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8, type: 2}
+    - target: {fileID: 0}
+      propertyPath: startXDeadRange
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uiSwitchSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+    - target: {fileID: 0}
+      propertyPath: textAppearDuration
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uiAppearsDuration
+      value: 1.20000005
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152978}

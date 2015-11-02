@@ -42,6 +42,7 @@ public class GameOverScreen : MonoBehaviour {
     public float startY = 12;
     public float startX = 0;
     public float startXRange = 5;
+    public float startXDeadRange = 1; // won't appear in this range in the middle
     public float startAngleRange = 30;
     public float distMin = .7f;
     public float distMax = 1.3f;
@@ -59,8 +60,14 @@ public class GameOverScreen : MonoBehaviour {
     public GameObject gameOverTextGameObject;
     public Color textColor = new Color(.9f, 0, 0);
     public float textAppearDuration = .5f;
+    public float uiAppearsDuration = .5f; //after text appears
+    public AudioClip uiSwitchSound;
 
     public bool activated { get { return _activated; } }
+    public bool cannotRevert { get {
+        if (!activated) return false;
+        return (treeTime >= treeMaxDuration);
+    } }
 
     public void makeTree(float time) {
         time = Utilities.easeOutCubicClamp(time, 0, treeMaxDuration, treeMaxDuration);
@@ -70,7 +77,15 @@ public class GameOverScreen : MonoBehaviour {
         rootNode = GOSNode.createNode();
         rootNode.y = startY;
         Random.seed = randSeed;
+
+        float deadRatio = startXDeadRange / startXRange;
         float randRange = Random.Range(-1.0f, 1.0f);
+        if (randRange > 0) {
+            randRange = Utilities.easeLinear(randRange, deadRatio, 1 - deadRatio, 1);
+        } else {
+            randRange = Utilities.easeLinear(-randRange, -deadRatio, -1 + deadRatio, 1);
+        }
+
         rootNode.x = startX + randRange * startXRange;
         rootNode.angle = 270 - randRange * startAngleRange;
         rootNode.oneBranch = true;
@@ -101,8 +116,14 @@ public class GameOverScreen : MonoBehaviour {
         GameObject gotGO = GameObject.Instantiate(gameOverTextGameObject) as GameObject;
         gotGO.transform.SetParent(HUD.instance.GetComponent<Canvas>().transform, false);
         text = gotGO.GetComponent<UnityEngine.UI.Text>();
+        selection = gotGO.transform.Find("Selection").GetComponent<UnityEngine.UI.Image>();
+        restartText = gotGO.transform.Find("RestartText").GetComponent<UnityEngine.UI.Text>();
+        quitText = gotGO.transform.Find("QuitText").GetComponent<UnityEngine.UI.Text>();
         
         text.enabled = false;
+        selection.enabled = false;
+        restartText.enabled = false;
+        quitText.enabled = false;
     }
 
     public void activate() {
@@ -278,12 +299,14 @@ public class GameOverScreen : MonoBehaviour {
                 SoundManager.instance.playSFXRandPitchBendIgnoreVolumeScale(crackSound, .05f, .1f);
             }
 
-            if (treeTime < treeMaxDuration) {
-                makeTree(treeTime);
+            if (callUIUpdate) {
+                uiUpdate();
+            } else {
+                if (treeTime < treeMaxDuration) {
+                    makeTree(treeTime);
+                }
+                setBlackScreen();
             }
-            setBlackScreen();
-
-            
 
         }
         
@@ -332,10 +355,80 @@ public class GameOverScreen : MonoBehaviour {
                 //play appear sound effect here
             }
             text.color = Color.Lerp(Color.clear, textColor, (treeTime - treeMaxDuration) / textAppearDuration);
+            if (treeTime >= treeMaxDuration + textAppearDuration + uiAppearsDuration) {
+                showUI();
+            }
         } else {
             if (text.enabled)
                 text.enabled = false;
         }
+    }
+
+    void showUI() {
+        if (callUIUpdate) return;
+        Time.timeScale = 0;
+
+        selection.enabled = true;
+        selectionIndex = 0;
+        restartText.enabled = true;
+        quitText.enabled = true;
+
+        // select restartText first
+        selection.rectTransform.localPosition = new Vector3(
+            restartText.rectTransform.localPosition.x + selectionImageOffset.x,
+            restartText.rectTransform.localPosition.y + selectionImageOffset.y);
+        restartText.color = PauseScreen.SELECTED_COLOR;
+        quitText.color = PauseScreen.DEFAULT_COLOR;
+
+        callUIUpdate = true;
+    }
+    void uiUpdate() {
+
+        if (Input.GetButtonDown("Down") || Input.GetButtonDown("Up")) {
+            //setSelection(selectionIndex + 1);
+            SoundManager.instance.playSFXIgnoreVolumeScale(uiSwitchSound);
+
+            UnityEngine.UI.Text textFrom;
+            UnityEngine.UI.Text textTo;
+            if (selectionIndex == 0) {
+                selectionIndex = 1;
+                textFrom = restartText;
+                textTo = quitText;
+            } else {
+                selectionIndex = 0;
+                textFrom = quitText;
+                textTo = restartText;
+            }
+            textFrom.color = PauseScreen.DEFAULT_COLOR;
+            textTo.color = PauseScreen.SELECTED_COLOR;
+            selectionPos0.Set(selection.rectTransform.localPosition.x, selection.rectTransform.localPosition.y);
+            selectionPos1 = new Vector2(textTo.rectTransform.localPosition.x, textTo.rectTransform.localPosition.y) +
+                selectionImageOffset;
+            selectionImageTime = 0;
+        }
+
+        float selectionTransDur = .1f;
+        if (selectionImageTime < selectionTransDur) {
+            selectionImageTime += Time.unscaledDeltaTime;
+            selection.rectTransform.localPosition = new Vector3(
+                Utilities.easeOutQuadClamp(selectionImageTime, selectionPos0.x, selectionPos1.x - selectionPos0.x, selectionTransDur),
+                Utilities.easeOutQuadClamp(selectionImageTime, selectionPos0.y, selectionPos1.y - selectionPos0.y, selectionTransDur)
+                );
+        }
+
+        if (Input.GetButtonDown("Jump")) {
+            if (selectionIndex == 0) { // restart
+                Vars.restartLevel();
+            } else if (selectionIndex == 1) { // quit game
+                // quit game (should quit to title screen)
+                #if UNITY_EDITOR
+                // set the PlayMode to stop
+                #else
+                Application.Quit();
+                #endif 
+            }
+        }
+
     }
 
 
@@ -343,13 +436,23 @@ public class GameOverScreen : MonoBehaviour {
     List<UnityEngine.UI.Extensions.UILineRenderer> lineRenderers = new List<UnityEngine.UI.Extensions.UILineRenderer>();
     int randSeed = 0;
     float treeTime = 0;
+    bool callUIUpdate = false;
 
     GOSNode rootNode = null;
     int numBranches = 0;
     int branchIndex = 0;
 
+    int selectionIndex = 0;
+    Vector2 selectionImageOffset = new Vector2(0, 2);
+    Vector2 selectionPos0 = new Vector2();
+    Vector2 selectionPos1 = new Vector2();
+    float selectionImageTime = 9999;
+
     // components
     UnityEngine.UI.Text text;
+    UnityEngine.UI.Image selection;
+    UnityEngine.UI.Text restartText;
+    UnityEngine.UI.Text quitText;
     TimeUser timeUser;
 	
 }

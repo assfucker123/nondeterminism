@@ -305,7 +305,7 @@ public class Player : MonoBehaviour {
                 HUD.instance.phaseMeter.endPulse();
                 CameraControl.instance.disableEffects();
             }
-        } else if (!PauseScreen.instance.paused) {
+        } else if (!PauseScreen.instance.paused && !HUD.instance.gameOverScreen.cannotRevert) {
             if (Input.GetButtonDown("Flash")) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
