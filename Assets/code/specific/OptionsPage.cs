@@ -14,7 +14,7 @@ public class OptionsPage : MonoBehaviour {
         bool madeSelection = false;
         Text option = null;
         if (settingSFX || settingMusic) {
-            if (Input.GetButtonDown("Left")) {
+            if (PauseScreen.instance.leftButtonDown) {
                 if (settingSFX) {
                     Vars.sfxVolume = Mathf.Max(0, Vars.sfxVolume - .2f);
                     setVolumeText(true);
@@ -23,7 +23,7 @@ public class OptionsPage : MonoBehaviour {
                     setVolumeText(false);
                 }
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (Input.GetButtonDown("Right")) {
+            } else if (PauseScreen.instance.rightButtonDown) {
                 if (settingSFX) {
                     Vars.sfxVolume = Mathf.Min(1, Vars.sfxVolume + .2f);
                     setVolumeText(true);
@@ -62,6 +62,9 @@ public class OptionsPage : MonoBehaviour {
                 // restart game
                 PauseScreen.instance.unpauseGame();
                 Vars.restartLevel();
+            } else if (option == fullscreenText) {
+                // toggle fullscreen
+                Screen.fullScreen = !Screen.fullScreen;
             } else if (option == sfxVolumeText) {
                 // toggle sfx volue
                 option.color = PauseScreen.DEFAULT_COLOR;
@@ -117,6 +120,7 @@ public class OptionsPage : MonoBehaviour {
         selection = transform.Find("Selection").GetComponent<Image>();
         resumeText = transform.Find("ResumeText").GetComponent<Text>();
         restartText = transform.Find("RestartText").GetComponent<Text>();
+        fullscreenText = transform.Find("FullscreenText").GetComponent<Text>();
         sfxVolumeText = transform.Find("sfxVolumeText").GetComponent<Text>();
         musicVolumeText = transform.Find("MusicVolumeText").GetComponent<Text>();
         volumeText = transform.Find("VolumeText").GetComponent<Text>();
@@ -135,6 +139,7 @@ public class OptionsPage : MonoBehaviour {
         selection.enabled = true;
         resumeText.enabled = true;
         restartText.enabled = true;
+        fullscreenText.enabled = true;
         sfxVolumeText.enabled = true;
         musicVolumeText.enabled = true;
         volumeText.enabled = false;
@@ -150,6 +155,7 @@ public class OptionsPage : MonoBehaviour {
         options.Clear();
         options.Add(resumeText);
         options.Add(restartText);
+        options.Add(fullscreenText);
         options.Add(sfxVolumeText);
         options.Add(musicVolumeText);
         options.Add(quitText);
@@ -160,6 +166,7 @@ public class OptionsPage : MonoBehaviour {
         selection.enabled = false;
         resumeText.enabled = false;
         restartText.enabled = false;
+        fullscreenText.enabled = false;
         sfxVolumeText.enabled = false;
         musicVolumeText.enabled = false;
         volumeText.enabled = false;
@@ -175,10 +182,10 @@ public class OptionsPage : MonoBehaviour {
     void optionsUpdate() {
         // button presses to navigate options
         if (options.Count > 0) {
-            if (Input.GetButtonDown("Down")) {
+            if (PauseScreen.instance.downButtonDown) {
                 setSelection(selectionIndex + 1);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (Input.GetButtonDown("Up")) {
+            } else if (PauseScreen.instance.upButtonDown) {
                 setSelection(selectionIndex - 1);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
@@ -255,7 +262,7 @@ public class OptionsPage : MonoBehaviour {
     Image selection;
     Text resumeText;
     Text restartText; // only use in Arcade
-
+    Text fullscreenText;
     Text sfxVolumeText;
     Text musicVolumeText;
     Text volumeText;

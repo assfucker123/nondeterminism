@@ -176,27 +176,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundAccel: 150
-  groundMaxSpeed: 18
-  groundFriction: 110
+  groundMaxSpeed: 19
+  groundFriction: 120
   airAccel: 100
-  airMaxSpeed: 15
+  airMaxSpeed: 16
   airFriction: 50
-  gravity: 90
+  gravity: 120
   terminalVelocity: 30
-  jumpSpeed: 20
-  jumpMinDuration: .0500000007
-  jumpMaxDuration: .200000003
+  jumpSpeed: 23
+  jumpMinDuration: .0399999991
+  jumpMaxDuration: .189999998
   idleGunDownDuration: .5
   bulletGameObject: {fileID: 194332, guid: 4baa8d8ac98d8174ca8add180251ef9a, type: 2}
   bulletMuzzleGameObject: {fileID: 114470, guid: 7208b24a79914e04d973ce54c733052c,
     type: 2}
   bulletSpawn: {x: 1, y: .5}
   bulletSpread: .5
-  bulletMinDuration: .140000001
+  bulletMinDuration: .159999996
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
-  maxHealth: 2
+  maxHealth: 4
   maxPhase: 80
   startPhase: .5
   phaseDecreaseSpeed: 0
@@ -222,7 +222,6 @@ MonoBehaviour:
   bulletSound: {fileID: 8300000, guid: d53163181e2d92f4d99e07fa4a6fc04c, type: 3}
   gunDownSound: {fileID: 8300000, guid: f64723ece8c84094789d245628eae9a8, type: 3}
   damageSound: {fileID: 8300000, guid: bb47a802ae10f8c4a83cee2cc5592172, type: 3}
-  deathSound: {fileID: 8300000, guid: df53a3e077c732c4f901751e99b56d48, type: 3}
   flashbackBeginSound: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
   flashbackEndSound: {fileID: 8300000, guid: e2c9a6aa84ff08442b368b8e02b4cc4e, type: 3}
 --- !u!114 &11451260
@@ -249,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomAngleThreshold: 35
   raycastDownDistance: 1.5
-  raycastDownGravity: 80
+  raycastDownGravity: 120
 --- !u!212 &21292040
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -293,11 +292,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundMaxSpeed
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundFriction
-      value: 110
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundAccel
@@ -305,7 +304,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: gravity
-      value: 90
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
@@ -313,7 +312,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: raycastDownGravity
-      value: 80
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: raycastDownDistance
@@ -321,19 +320,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpSpeed
-      value: 20
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpMinDuration
-      value: .0500000007
+      value: .0399999991
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpMaxDuration
-      value: .200000003
+      value: .189999998
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: airMaxSpeed
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: terminalVelocity
@@ -433,7 +432,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bulletMinDuration
-      value: .140000001
+      value: .159999996
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: flashbackBeginSound

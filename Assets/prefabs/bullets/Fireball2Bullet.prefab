@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca97bba936e80b4d8ea8b09430667d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 70
   damage: 2
   heading: 0
   radius: .5
@@ -159,6 +159,10 @@ Prefab:
       propertyPath: visionSound
       value: 
       objectReference: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 70
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 173338}

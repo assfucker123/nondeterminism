@@ -70,6 +70,12 @@ public class PauseScreen : MonoBehaviour {
         hide();
     }
 
+    // good for ui, since can't get buttonDown for axises
+    public bool leftButtonDown { get { return _leftButtonDown; } }
+    public bool rightButtonDown { get { return _rightButtonDown; } }
+    public bool upButtonDown { get { return _upButtonDown; } }
+    public bool downButtonDown { get { return _downButtonDown; } }
+
     /////////////
     // PRIVATE //
     /////////////
@@ -199,6 +205,26 @@ public class PauseScreen : MonoBehaviour {
         optionsPage = transform.Find("OptionsPage").GetComponent<OptionsPage>();
 
 	}
+
+    // controls
+    void Update() {
+
+        float horiz = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
+        bool prevLeftButton = leftButton;
+        leftButton = horiz < -.5f;
+        _leftButtonDown = !prevLeftButton && leftButton;
+        bool prevRightButton = rightButton;
+        rightButton = horiz > .5f;
+        _rightButtonDown = !prevRightButton && rightButton;
+        bool prevUpButton = upButton;
+        upButton = vert < -.5f;
+        _upButtonDown = !prevUpButton && upButton;
+        bool prevDownButton = downButton;
+        downButton = vert > .5f;
+        _downButtonDown = !prevDownButton && downButton;
+
+    }
 	
 	void LateUpdate() {
         if (!paused)
@@ -278,6 +304,15 @@ public class PauseScreen : MonoBehaviour {
     float pageSelectionImageTime = 9999;
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
+
+    bool _leftButtonDown = false;
+    bool leftButton = false;
+    bool _rightButtonDown = false;
+    bool rightButton = false;
+    bool _upButtonDown = false;
+    bool upButton = false;
+    bool _downButtonDown = false;
+    bool downButton = false;
 
     // main pause screen
     Image image;

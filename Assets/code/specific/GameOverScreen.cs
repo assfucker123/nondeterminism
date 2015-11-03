@@ -381,7 +381,7 @@ public class GameOverScreen : MonoBehaviour {
     }
     void uiUpdate() {
 
-        if (Input.GetButtonDown("Down") || Input.GetButtonDown("Up")) {
+        if (PauseScreen.instance.downButtonDown || PauseScreen.instance.upButtonDown) {
             //setSelection(selectionIndex + 1);
             SoundManager.instance.playSFXIgnoreVolumeScale(uiSwitchSound);
 
