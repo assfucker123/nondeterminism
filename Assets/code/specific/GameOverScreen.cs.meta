@@ -1,15 +1,16 @@
 fileFormatVersion: 2
 guid: 6b9bf4d9c7de50740933010f1180e500
-timeCreated: 1446441838
+timeCreated: 1446642596
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - gameOverLineRendererGameObject: {fileID: 193944, guid: c2d2618bfc7ec1e46a0944c564c09bea,
       type: 2}
-  - crackSound: {instanceID: 0}
+  - crackSound: {fileID: 8300000, guid: fd4cb1c4616d72140a394657ef9df9e2, type: 3}
   - gameOverTextGameObject: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8,
       type: 2}
+  - uiSwitchSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

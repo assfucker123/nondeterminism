@@ -161,8 +161,8 @@ MonoBehaviour:
   explodeVel: {x: -1, y: 12}
   mercyFlashTime: 0
   mercyFlashDuration: .5
-  rotateSpeed: 1200
-  rotateAccel: -500
+  rotateSpeed: 1300
+  rotateAccel: -720
   state: 0
 --- !u!212 &21229652
 SpriteRenderer:
@@ -219,11 +219,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rotateAccel
-      value: -500
+      value: -720
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rotateSpeed
-      value: 1200
+      value: 1300
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer

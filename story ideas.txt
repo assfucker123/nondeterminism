@@ -268,6 +268,7 @@ Gimmicks to "Vision" mechanic that actually make sense:
 		- Similar to sanity effects from Eternal Darkness.
 	- When doing a flashback during a conversation, some of the words on screen will change briefly.
 		- When a letter disappears (reverse of appearing), another letter will remain behind it.
+	- Hide a graphic (camera?  smile?) in the background of every room.
 - The Salesman
 	- Reference to the classic NP-Hard Traveling Salesman problem.
 	- Someone else is moving around the world, visiting specific areas at specific time intervals.

@@ -46,6 +46,10 @@ Premise:
 - A bomb has been set to explode in 60 minutes.  Deactivation codes and color keys are needed to disarm it, all of which are found in the villain's lair.
 	- In Majora's Mask, time limit is 18 minutes * 3 = 54 minutes.
 - Appears to be a miniature Metroid game at first.  Need to collect a number of color keys (physical) to get to the bomb room.
+	- Also collect glyphs (information) that seem to serve no purpose, until the true final door.
+	- Spell out a password when arranged in the progress menu?  Need to guess the password and type it out?
+		- Need to have a bare minimum of glyphs in order to guess.
+	- Similar to Gold Orbs from An Untitled Story
 - New skills can be found with "decryptors", which unlock new abilities for the player.  Decryptors are information, so they are remembered when flashing back.  Some decryptors are useless until the booster is obtained.
 - Health upgrades are physical.  This means that, when reverting to a previous time, all the health upgrades accumulated since then will be lost.
 - There is 1 physical upgrade called a "booster" which enables some decryptors.  This also physically changes the player's appearence.

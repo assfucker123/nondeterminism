@@ -63,7 +63,8 @@ MonoBehaviour:
     type: 2}
   textColor: {r: 1, g: 0, b: 0, a: 1}
   textAppearDuration: .600000024
-  uiAppearsDuration: 1.20000005
+  uiAppearsDuration: 1.5
+  humSound: {fileID: 8300000, guid: 5d600e4b31eaf614c82cc797e9f56000, type: 3}
   uiSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
 --- !u!222 &22262782
 CanvasRenderer:
@@ -217,12 +218,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: uiAppearsDuration
-      value: 1.20000005
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: textColor.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: humSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d600e4b31eaf614c82cc797e9f56000, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152978}

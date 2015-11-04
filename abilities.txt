@@ -100,6 +100,10 @@ PAUSE (Start/Enter)
 	- Auto-regenerates phase to a certain point(can't really get it any other way)
 	- Secret situational ability: Commandeer.
 		- Can crawl into another suit and use that.
+	- Scenario: early on in the game have a surprise scary room with a bunch of broken Oracle suits.
+		- But one of these suits can actually be Commandeered later.  Do this in order to unlock something.
+		- Needed to get out of the room with a heart upgrade obtained by stripping into larva form.
+		- Next to Quantum Guy's area?
 
 == OPTIONAL ==
 
@@ -143,6 +147,9 @@ PAUSE (Start/Enter)
 (D) - Native Vision
 	- Can foresee attacks even when phase is at zero.
 
+(D) - Concentration
+	- Hold UP while standing still for a while to recharge phase up to a certain point.
+	
 (D) - Multi Grenade (requires Energy Grenade)
 	- Press BOMB while fully charged to use up the charge by throwing multiple grenade at once.
 

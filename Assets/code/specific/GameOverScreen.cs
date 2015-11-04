@@ -61,6 +61,7 @@ public class GameOverScreen : MonoBehaviour {
     public Color textColor = new Color(.9f, 0, 0);
     public float textAppearDuration = .5f;
     public float uiAppearsDuration = .5f; //after text appears
+    public AudioClip humSound;
     public AudioClip uiSwitchSound;
 
     public bool activated { get { return _activated; } }
@@ -128,6 +129,9 @@ public class GameOverScreen : MonoBehaviour {
 
         randSeed = (int)(timeUser.randomValue() * int.MaxValue);
         treeTime = 0;
+        if (Vars.arcadeMode) {
+            text.text = "GAME OVER";
+        }
         _activated = true;
     }
 
@@ -182,7 +186,7 @@ public class GameOverScreen : MonoBehaviour {
         if (time < timePerBranch) {
             t = time / timePerBranch;
         }
-        t = Utilities.easeOutQuadClamp(t, 0, 1, .8f);
+        t = Utilities.easeOutQuadClamp(t, 0, 1, .9f);
 
 
         if (root.left != null) {
@@ -350,6 +354,7 @@ public class GameOverScreen : MonoBehaviour {
             if (!text.enabled) {
                 text.enabled = true;
                 //play appear sound effect here
+                SoundManager.instance.playSFXIgnoreVolumeScale(humSound);
             }
             text.color = Color.Lerp(Color.clear, textColor, (treeTime - treeMaxDuration) / textAppearDuration);
             if (treeTime >= treeMaxDuration + textAppearDuration + uiAppearsDuration) {

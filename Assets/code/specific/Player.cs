@@ -43,13 +43,15 @@ public class Player : MonoBehaviour {
     public float deathHitPause = .4f;
     public GameObject[] pieceGameObjects;
     public GameObject deathLarvaGameObject;
-    public float deathExplosionDuration = .3f;
+    public GameObject deathExplosionGameObject;
     public State state = State.GROUND;
     public AudioClip stepSound;
     public AudioClip jumpSound;
     public AudioClip bulletSound;
     public AudioClip gunDownSound;
     public AudioClip damageSound;
+    public AudioClip deathSound;
+    public AudioClip larvaScreamSound;
     public AudioClip flashbackBeginSound;
     public AudioClip flashbackEndSound;
 
@@ -521,9 +523,10 @@ public class Player : MonoBehaviour {
     void stateDead() {
         deadTime += Time.deltaTime;
 
-        if (exploded) {
-            rb2d.velocity = Vector2.zero;
+        rb2d.velocity = Vector2.zero;
 
+        if (exploded) {
+            
         } else {
 
             // apply friction like stateDamage()
@@ -539,14 +542,6 @@ public class Player : MonoBehaviour {
             if (deadTime >= dieExplodeDelay) {
                 explode();
             }
-        }
-
-        //spawn explosions
-        if (deadTime < deathExplosionDuration) {
-            deathExplosionTime += Time.deltaTime;
-
-            // make some explosions here
-
         }
 
     }
@@ -581,7 +576,8 @@ public class Player : MonoBehaviour {
 
         CameraControl.instance.hitPause(deathHitPause);
         HUD.instance.gameOverScreen.activate();
-
+        SoundManager.instance.playSFX(deathSound);
+        rb2d.velocity.Set(0, 0); // stop Player from moving
         deadTime = 0;
         deathExplosionTime = 0;
         state = State.DEAD;
@@ -593,6 +589,10 @@ public class Player : MonoBehaviour {
 
         Vector3 spawnPos;
         Vector2 explodeVel;
+
+        // spawn explosion
+        spawnPos = transform.TransformPoint(Vector3.zero);
+        GameObject.Instantiate(deathExplosionGameObject, spawnPos, Quaternion.identity);
 
         // lauch different pieces of the suit
         foreach (GameObject pieceGameObject in pieceGameObjects) {
@@ -651,7 +651,7 @@ public class Player : MonoBehaviour {
         //change layer to disable collision
         gameObject.layer = LayerMask.NameToLayer("HitNothing");
 
-        
+        SoundManager.instance.playSFX(larvaScreamSound);
 
         _exploded = true;
 
@@ -683,12 +683,14 @@ public class Player : MonoBehaviour {
         HUD.instance.setHealth(receivesDamage.health);
         receivesDamage.mercyInvincibility(mercyInvincibilityDuration);
         CameraControl.instance.shake();
-        HUD.instance.speedLines.flashRed();
         //end jump if jumping
         jumpTime = jumpMaxDuration + 1;
 
         if (willDie) {
+            HUD.instance.speedLines.flashHeavyRed();
             die();
+        } else {
+            HUD.instance.speedLines.flashRed();
         }
         
     }

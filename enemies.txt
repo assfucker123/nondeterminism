@@ -49,6 +49,8 @@ Enemy Attacks:
 	- Based on spheal
 	- Maw Goombers will occasionally do a really powerful bullet attack from the mouth.
 - All enemies have red eyes, controlled by Sonata
+- Continuous missile launcher: keeps launching a few missiles per second for a while.
+	- Creates vision of attack while also preforming another attack.
 
 Special Enemy Attacks:
 - Quantum Attacks
@@ -66,11 +68,34 @@ Special Enemy Attacks:
 		- Used mind control on enemies, which is why they're all hostile.
 	- When she speaks, there will be actual voice acting, instead of just the text scroll.
 		- Booming voice, does damage, even in cutscenes.
-		- Mouth appears to be sown shut most of the game.  Before the boss fight, she cuts it open with one of her note sickles.
+		- Mouth appears to be sown shut most of the game.  Early in boss fight, she cuts it open with one of her note sickles, then the real fight begins.
+	- 
 	- Secret: mute sound in options to make Sonata unable to deal sound-based damage, makes her angry.
-- A boss enemy that can also flashback.
+
+- Boss enemy whose weakness is told to you after you die (but before GAME OVER appears)
+	- Need to flashback just before dying for good to utilize the information.
+
+- Geiger boss fight
+	- Uses quantum attacks: produce many visions (e.g. of attack going in multiple directions), and selects one at random to actually be the true attack.
+	- If reverting back to before a vision was chosen, a different vision will be chosen.
+	- Only damaged by charge shots or energy grenades.
+	- Will teleport to one of several locations on a row.
+		- Trick is to charge up a shot and go to one side of the room, fire when he'll appear.  The shot will intersect all of the visions.
+		- Better idea: move to the center of the room so no matter what he won't be too far away.
+
+- Sonata boss fight
+	- Background looks like a musical staff.
+		- A vertical line periodically moves from left to right on the beat of the song.
+	- Rhythm attacks have audio tells.  Loud noises happens on certain beats.
+		- Tells are synced up to the background music and the vertical line in the background.
+		- Next measure the actual attack happens, with large columns of distortion effects happening on the same beats of the song.
+	- Pitch attacks have audio tells.  A long loud tone plays for the entire measure.
+		- Next measure the actual attack happens, with a large row of distortion that matches the pitch of the tone.
+		- Y coordinate matches where the corresponding note would be on the staff in the background.
+
+- The Salesman boss fight.
+	- Can also flashback.
 	- Uses a similar phase mechanic, need to drain their phase.
-	- "The Salesman"?
 
 Enemy Behavior:
 - Place static "Spots" all over the map.
