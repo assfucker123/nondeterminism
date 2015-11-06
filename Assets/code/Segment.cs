@@ -142,6 +142,8 @@ public class Segment {
         RIGHT
     }
 
+    public string name = ""; // will be set to the name of the GameObject in the inspector
+
     public Vector2 p0 = new Vector2();
     public Vector2 p1 = new Vector2();
     public Wall wall = Wall.NONE;

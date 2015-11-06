@@ -19,7 +19,13 @@ public class Portal : MonoBehaviour {
     public GameObject gameObjectToSpawn = null; // the GameObject to spawn
     public SpawnInfo spawnInfo = null; // optional info that is send to the GameObject through OnSpawn(SpawnInfo)
     public float visionTimeInFuture = 2.0f; // how far in advance the vision happens
-    public float visionDuration = 1.5f; // how long the vision last
+    public float visionDuration = 1.5f; // how long the vision lasts
+    [HideInInspector]
+    public WaveSpawner waveSpawnerRef = null; // reference to the WaveSpawner that spawned it.
+
+    /////////////
+    // PRIVATE //
+    /////////////
 
     private float enterDuration = 4 / 40.0f;
     private float idleDuration = 5 / 40.0f;
@@ -53,6 +59,8 @@ public class Portal : MonoBehaviour {
         }
         TimeUser sTU = sGO.GetComponent<TimeUser>();
         sTU.setRandSeed((int)(int.MaxValue * timeUser.randomValue()));
+        EnemyInfo eI = sGO.GetComponent<EnemyInfo>();
+        eI.waveSpanwerRef = waveSpawnerRef;
         spawnInfo.faceRight = false;
 
         sGO.SendMessage("OnSpawn", spawnInfo, SendMessageOptions.DontRequireReceiver);

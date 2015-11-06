@@ -1,0 +1,24 @@
+
+Each enemy has:
+	- name: string for the enemy name
+	- danger: how dangerous the enemy is.  More enemies of low danger = less enemies of high danger
+	- spawn_location: general position where it will spawn
+		- BOTTOM_SEGMENT (pick a random bottom segment that's not occupied)
+		- TOP_SEGMENT
+		- HORIZ_SEGMENT
+		- AREA
+	- spawn_dist: how far away (perpendicular) the object will spawn from the location
+		- (for example, will be how far above a bottom segemtn if location is BOTTOM_SEGMENT)
+	- 
+
+
+Wave:
+- list of enemies that will appear, in the order they will appear
+	- { enemy:Enemy1, location:"empty"} // spawn Enemy1 on any appropriate location that isn't taken
+	- { enemy:Enemy2, location:"any"} // spawn Enemy2 on any appropriate location
+	- { enemy:Enemy1, location:"empty", count:3} // spawns 3 Enemy1 on any appropriate locations that aren't taken
+	- { enemy:Enemy1, location:"mid_segment"} // spawn Enemy1 specifically on Enemy1
+- max amount of danager present at once.  Next enemy in list won't be added until the current danger gets low enough
+- dangerIncrease: how much the maxDanger increases over time (usually 0)
+
+

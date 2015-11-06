@@ -17,6 +17,7 @@ public class SegmentParser : MonoBehaviour {
                 continue;
             }
             Segment seg = new Segment();
+            seg.name = gameObject.name;
             seg.p0 = ec2d.points[0] + new Vector2(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y);
             seg.p1 = ec2d.points[1] + new Vector2(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y);
             seg.snapToWall();

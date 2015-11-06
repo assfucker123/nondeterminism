@@ -78,6 +78,10 @@ PAUSE (Start/Enter)
 	- Run for a while to drastically increase run speed until stopping.
 	- Secret ability: Super Speed Wall Run
 		- If entering a Wall Run while using Super Speed, will go up the wall very fast.
+	- Scenario: running away from something huge and fast down a corridor
+		- Also while the place is about to blow up?
+		- There's a wall at the end.  Run up the wall, and the thing will crash into the wall.
+		- Fire a charge shot at its back (weak point), as it attempts to get dislodged from the wall.
 
 *(D) - Energy Grenade Flashback Launcher (requires Energy Grenade)
 	- Choose where and when an energy grenade will explode by pressing BOMB during a flashback.
@@ -98,6 +102,10 @@ PAUSE (Start/Enter)
 	- Cannot save while in this form.
 	- No combat abilities.
 	- Auto-regenerates phase to a certain point(can't really get it any other way)
+	- Reveal scenario:
+		- Oracle is struggling against the virus enemies.  Wally figures out the suit is corrupted, and strips the suit automatically.
+		- Viruses go away, visions start to work normally again.
+	- Hit the attack button to yell?  Attract enemies?
 	- Secret situational ability: Commandeer.
 		- Can crawl into another suit and use that.
 	- Scenario: early on in the game have a surprise scary room with a bunch of broken Oracle suits.

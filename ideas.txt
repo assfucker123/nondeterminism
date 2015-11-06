@@ -168,6 +168,10 @@ Conversation mechanic:
 - Secret: Can hold FLASHBACK to go back in time during conversations.
 - Secret: Hold (...) to bring up a simple minigame to play while talking (like Snake, similar to the youtube easter egg)
 
+Enemy waves:
+- Sometimes a room will lock a section and unlock when player clears a room of enemies.
+- But sometimes player is able to find a secret way out of the room.
+
 Player:
 - Protagonist is robot, fights similar to megaman.
 - Can do a directional dodge to avoid damage.

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 7a77c207dae9b9945be0d47351afa29e
+timeCreated: 1446705549
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - portalGameObject: {fileID: 126370, guid: 04e5d845664ed724e86fcf6f7ad877ac, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -200,7 +200,6 @@ public class CameraControl : MonoBehaviour {
         
         if (prevHitPaused && !hitPaused) {
             Time.timeScale = prevPrevTimeScale;
-            Debug.Log(Time.timeScale);
         }
         
     }
