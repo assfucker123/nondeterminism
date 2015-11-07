@@ -4,11 +4,12 @@ using System.Collections;
 public class Sealime : MonoBehaviour {
 
 
+    public bool firesBullets = false;
+    public bool doesBigHop = false;
     public float idleDuration = 0.8f;
     public float hopDistance = 2.0f;
     public float hopDuration = 0.8f;
     public float hopHeight = 2.0f;
-    public bool doesBigHop = false;
     public int maxNormalHopStreak = 3;
     public float bigHopDuration = 1.5f;
     public float bigHopHeight = 3.0f;
@@ -106,7 +107,11 @@ public class Sealime : MonoBehaviour {
                 doingBigHop = doingBigHopNext;
 
                 if (doingBigHop) {
-                    animator.Play("opening");
+                    if (firesBullets) {
+                        animator.Play("opening");
+                    } else {
+                        animator.Play("jump");
+                    }
                     normalHopsInARow = 0;
                     bulletTime = 0;
                 } else {
@@ -146,49 +151,53 @@ public class Sealime : MonoBehaviour {
             // rotate and fire bullets
             if (doingBigHop) {
                 float rot = 0;
-                if (time < bulletInitialDelay) {
-                    rot = Utilities.easeInOutQuad(time, 0, bulletAngle1, bulletInitialDelay);
-                } else if (time - bulletInitialDelay < bulletDuration) {
-                    rot = Utilities.easeInOutQuad(time - bulletInitialDelay, bulletAngle1, bulletAngle2 - bulletAngle1, bulletDuration);
-                } else {
-                    rot = Utilities.easeInOutQuadClamp(time - bulletInitialDelay - bulletDuration, bulletAngle2, -bulletAngle2, dur - bulletInitialDelay - bulletDuration);
+                if (firesBullets) {
+                    if (time < bulletInitialDelay) {
+                        rot = Utilities.easeInOutQuad(time, 0, bulletAngle1, bulletInitialDelay);
+                    } else if (time - bulletInitialDelay < bulletDuration) {
+                        rot = Utilities.easeInOutQuad(time - bulletInitialDelay, bulletAngle1, bulletAngle2 - bulletAngle1, bulletDuration);
+                    } else {
+                        rot = Utilities.easeInOutQuadClamp(time - bulletInitialDelay - bulletDuration, bulletAngle2, -bulletAngle2, dur - bulletInitialDelay - bulletDuration);
+                    }
                 }
                 if (flippedHoriz)
                     rot *= -1;
                 spriteObject.transform.localRotation = Utilities.setQuat(rot);
 
-                if (time >= bulletInitialDelay && time - bulletInitialDelay < bulletDuration) {
-                    bulletTime += Time.deltaTime;
-                    if (bulletTime >= bulletPeriod) {
-                        // spawn bullet
-                        Vector2 relPos = bulletSpawn;
-                        float heading = rot;
-                        if (flippedHoriz) {
-                            relPos.x *= -1;
-                            heading = -(180 - heading);
-                        }
-                        relPos = Utilities.rotateAroundPoint(relPos, Vector2.zero, rot * Mathf.PI / 180);
-                        GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
-                            rb2d.position + relPos,
-                            Utilities.setQuat(heading)) as GameObject;
-                        Bullet bullet = bulletGO.GetComponent<Bullet>();
-                        if (flippedHoriz) {
-                            bullet.heading = heading;
-                        } else {
-                            bullet.heading = rot;
-                        }
-                        if (visionUser.isVision) { //make bullet a vision if this is also a vision
-                            VisionUser bvu = bullet.GetComponent<VisionUser>();
-                            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
-                        } else { // not a vision
-                            SoundManager.instance.playSFXRandPitchBend(bulletSound);
-                        }
+                if (firesBullets) {
+                    if (time >= bulletInitialDelay && time - bulletInitialDelay < bulletDuration) {
+                        bulletTime += Time.deltaTime;
+                        if (bulletTime >= bulletPeriod) {
+                            // spawn bullet
+                            Vector2 relPos = bulletSpawn;
+                            float heading = rot;
+                            if (flippedHoriz) {
+                                relPos.x *= -1;
+                                heading = -(180 - heading);
+                            }
+                            relPos = Utilities.rotateAroundPoint(relPos, Vector2.zero, rot * Mathf.PI / 180);
+                            GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
+                                rb2d.position + relPos,
+                                Utilities.setQuat(heading)) as GameObject;
+                            Bullet bullet = bulletGO.GetComponent<Bullet>();
+                            if (flippedHoriz) {
+                                bullet.heading = heading;
+                            } else {
+                                bullet.heading = rot;
+                            }
+                            if (visionUser.isVision) { //make bullet a vision if this is also a vision
+                                VisionUser bvu = bullet.GetComponent<VisionUser>();
+                                bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                            } else { // not a vision
+                                SoundManager.instance.playSFXRandPitchBend(bulletSound);
+                            }
 
-                        bulletTime -= bulletPeriod;
+                            bulletTime -= bulletPeriod;
+                        }
+                    } else if (time - bulletInitialDelay >= bulletDuration && prevTime - bulletInitialDelay < bulletDuration) {
+                        // just finished firing bullets, close mouth
+                        animator.Play("closing");
                     }
-                } else if (time - bulletInitialDelay >= bulletDuration && prevTime - bulletInitialDelay < bulletDuration) {
-                    // just finished firing bullets, close mouth
-                    animator.Play("closing");
                 }
             }
 
@@ -203,11 +212,17 @@ public class Sealime : MonoBehaviour {
                     }
 
                     if (doingBigHopNext) {
-                        hoppingFacingRightNext = (rb2d.position.x < Player.instance.rb2d.position.x);
+                        if (firesBullets) {
+                            hoppingFacingRightNext = (rb2d.position.x < Player.instance.rb2d.position.x);
+                        } else {
+                            hoppingFacingRightNext = hoppingRightNext;
+                        }
 
                         // create vision
-                        timeUser.addCurrentFrameInfo(); //lets vision have info of what to do next
-                        visionUser.createVision(VisionUser.VISION_DURATION);
+                        if (firesBullets) {
+                            timeUser.addCurrentFrameInfo(); //lets vision have info of what to do next
+                            visionUser.createVision(VisionUser.VISION_DURATION);
+                        }
                     }
 
                 }

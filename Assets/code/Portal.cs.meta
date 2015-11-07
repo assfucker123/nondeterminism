@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 7eb10705311a7934eb8e3109d77f220c
-timeCreated: 1445953697
+timeCreated: 1446829711
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gameObjectToSpawn: {instanceID: 0}
+  - portalSound: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
+  - waveSpawnerRef: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

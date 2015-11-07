@@ -146,6 +146,9 @@ PAUSE (Start/Enter)
 (D) - Dodge Duo (requires Dodge)
 	- Can dodge one more time before touching the ground.
 
+(D) - Piercing Shot (requires Charge)
+	- Charge shot will pierce through weaker enemies (lower health than amount of damage charge shot deals)
+
 (D) - Minigame
 	- Press BOMB while talking to start a minigame that can be played with the arrow keys/d-pad
 	

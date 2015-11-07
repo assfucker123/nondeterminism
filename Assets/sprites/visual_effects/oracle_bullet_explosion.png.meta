@@ -1,12 +1,13 @@
 fileFormatVersion: 2
 guid: b02e613368ac2d44d90d067324203009
-timeCreated: 1444761040
+timeCreated: 1446878139
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: oracle_bullet_explosion_0
     21300002: oracle_bullet_explosion_1
     21300004: oracle_bullet_explosion_2
+    21300006: oracle_bullet_explosion_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -77,6 +78,16 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_bullet_explosion_3
+      rect:
+        serializedVersion: 2
+        x: 48
         y: 0
         width: 16
         height: 16

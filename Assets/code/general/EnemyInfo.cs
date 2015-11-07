@@ -10,7 +10,8 @@ public class EnemyInfo : MonoBehaviour {
         NONE,
         DUMMY,
         PENGRUNT,
-        SEALIME
+        SEALIME,
+        SEALIME_PASSIVE
     }
 
     public enum SpawnLocation {

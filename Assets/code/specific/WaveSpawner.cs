@@ -69,6 +69,8 @@ public class WaveSpawner : MonoBehaviour {
 	
 	void Update() {
 
+        segmentsSpawnedOnThisFrame.Clear();
+
         if (timeUser.shouldNotUpdate)
             return;
 
@@ -80,7 +82,12 @@ public class WaveSpawner : MonoBehaviour {
 
             if (waveExhausted) {
                 // wave has no more enemies to spawn, so wait until all enemies die
-                Debug.Log("wait for enemies to die");
+                if (currentDanger < .0001f) {
+                    newWave(waveIndex + 1);
+                    if (finished) {
+                        Debug.Log("Wave spawner finished");
+                    }
+                }
                 break;
             }
 
@@ -155,6 +162,7 @@ public class WaveSpawner : MonoBehaviour {
 
                     // spawning with segment, find spawn position
                     if (seg != null) {
+                        segmentsSpawnedOnThisFrame.Add(seg);
                         spawnPos = seg.interpolate(timeUser.randomValue());
                         switch (seg.wall) {
                         case Segment.Wall.BOTTOM:
@@ -230,7 +238,9 @@ public class WaveSpawner : MonoBehaviour {
         }
 
         // gradually increase maxDanger
-        _currentMaxDanger += currentWave.dangerIncrease * Time.deltaTime;
+        if (!finished) {
+            _currentMaxDanger += currentWave.dangerIncrease * Time.deltaTime;
+        }
 
 	}
 
@@ -239,7 +249,9 @@ public class WaveSpawner : MonoBehaviour {
         _waveEnemyIndex = 0;
         _waveEnemyCountIndex = 0;
         currentDanger = 0;
-        _currentMaxDanger = currentWave.maxDanger;
+        if (currentWave != null) {
+            _currentMaxDanger = currentWave.maxDanger;
+        }
     }
 
     GameObject getGameObject(EnemyInfo.ID enemyID) {
@@ -258,6 +270,12 @@ public class WaveSpawner : MonoBehaviour {
             bool occupied = false;
             foreach (EnemyInfo ei in EnemyInfo.enemyInfos) {
                 if (isSegmentOccupiedByEnemy(seg, ei)) {
+                    occupied = true;
+                    break;
+                }
+            }
+            foreach (Segment segAlready in segmentsSpawnedOnThisFrame) {
+                if (seg == segAlready) {
                     occupied = true;
                     break;
                 }
@@ -281,12 +299,13 @@ public class WaveSpawner : MonoBehaviour {
             if (!eTU.exists)
                 return false;
         }
-        /* (uncomment this to make this funciton not detect visions)
+        /*
         VisionUser eVU = enemy.GetComponent<VisionUser>();
         if (eVU != null) {
             if (eVU.isVision)
                 return false;
-        }*/
+        }
+        */
 
         Vector2 enemyPos = new Vector2();
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();
@@ -353,6 +372,7 @@ public class WaveSpawner : MonoBehaviour {
     int _waveEnemyIndex = 0;
     int _waveEnemyCountIndex = 0;
     float _currentMaxDanger = 0;
+    List<Segment> segmentsSpawnedOnThisFrame = new List<Segment>();
 
     TimeUser timeUser;
 	

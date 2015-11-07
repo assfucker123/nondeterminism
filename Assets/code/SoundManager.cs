@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour {
         float pitch = 1 + (Random.value * 2 - 1) * pitchBendMagnitude;
         playSFXF(clip, volume, pitch);
     }
-
+    
     public void stopSFX(AudioClip clip) {
         if (clip == null) return;
         foreach (AudioSource audS in sfxSources) {
@@ -33,6 +33,20 @@ public class SoundManager : MonoBehaviour {
             }
         }
     }
+
+    public bool isSFXPlaying(AudioClip clip) {
+        if (clip == null) return false;
+        foreach (AudioSource audS in sfxSources) {
+            if (audS.clip == clip && audS.isPlaying) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /////////////
+    // PRIVATE //
+    /////////////
 
 	void Awake() {
         // make SoundManager a singleton

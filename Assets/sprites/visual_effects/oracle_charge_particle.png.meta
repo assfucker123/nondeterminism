@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 94f708620fe877f4188266ef3607c6ff
-timeCreated: 1446878503
+guid: 90e6279e056f2224b84fe8b347a70f10
+timeCreated: 1446877254
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy1_bullet_explosion_0
-    21300002: enemy1_bullet_explosion_1
-    21300004: enemy1_bullet_explosion_2
-    21300006: enemy1_bullet_explosion_3
+    21300000: oracle_charge_particle_0
+    21300002: oracle_charge_particle_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,43 +52,23 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: enemy1_bullet_explosion_0
+    - name: oracle_charge_particle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_charge_particle_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1_bullet_explosion_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1_bullet_explosion_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1_bullet_explosion_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
+        width: 7
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -17,6 +17,7 @@ public class Portal : MonoBehaviour {
     public Color color = new Color(255 / 255.0f, 141 / 255.0f, 141 / 255.0f); // color of the portal
 
     public GameObject gameObjectToSpawn = null; // the GameObject to spawn
+    public AudioClip portalSound = null;
     public SpawnInfo spawnInfo = null; // optional info that is send to the GameObject through OnSpawn(SpawnInfo)
     public float visionTimeInFuture = 2.0f; // how far in advance the vision happens
     public float visionDuration = 1.5f; // how long the vision lasts
@@ -116,6 +117,11 @@ public class Portal : MonoBehaviour {
             if (time >= visionTimeInFuture) {
                 frontSpriteRenderer.enabled = true;
                 frontSpriteAnimator.Play("enter");
+                if (!visionUser.isVision && portalSound != null) {
+                    if (!SoundManager.instance.isSFXPlaying(portalSound)) {
+                        SoundManager.instance.playSFX(portalSound);
+                    }
+                }
                 time = 0;
                 state = State.ENTER;
             }

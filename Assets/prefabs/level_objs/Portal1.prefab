@@ -148,8 +148,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: .551470578, b: .551470578, a: 1}
   gameObjectToSpawn: {fileID: 0}
+  portalSound: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
   visionTimeInFuture: 2
   visionDuration: 1.20000005
+  waveSpawnerRef: {fileID: 0}
 --- !u!114 &11431660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,6 +244,10 @@ Prefab:
       propertyPath: visionSound
       value: 
       objectReference: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
+    - target: {fileID: 0}
+      propertyPath: portalSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 126370}
