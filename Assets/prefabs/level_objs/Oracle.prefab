@@ -49,6 +49,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 430884}
+  - 114: {fileID: 11426192}
+  - 114: {fileID: 11462322}
   m_Layer: 8
   m_Name: chargeParticles
   m_TagString: Untagged
@@ -221,6 +223,9 @@ MonoBehaviour:
   bulletSpawn: {x: 1, y: .5}
   bulletSpread: .5
   bulletMinDuration: .159999996
+  chargeBulletGameObject: {fileID: 179616, guid: c8d0d6be73026d94492e7732bb1d9bdc,
+    type: 2}
+  chargeDuration: .800000012
   revertSpeed: 1
   revertEaseDuration: .699999988
   minRevertDuration: .100000001
@@ -255,6 +260,17 @@ MonoBehaviour:
   larvaScreamSound: {fileID: 8300000, guid: 3224a467f67bba54dad7893d4c77b9f0, type: 3}
   flashbackBeginSound: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
   flashbackEndSound: {fileID: 8300000, guid: e2c9a6aa84ff08442b368b8e02b4cc4e, type: 3}
+--- !u!114 &11426192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11451260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,6 +282,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11462322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c960426b9e07c07459861153539ae2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialDelay: .200000003
+  spawnRadius: 1.60000002
+  spawnPeriod: .119999997
+  speedInitial: 4
+  speedFinal: 18
+  simultaneousBullets: 3
+  spinSpeed: 450
+  chargeParticleGameObject: {fileID: 198902, guid: 0744033146161cd49a8794c2356ac02b,
+    type: 2}
 --- !u!114 &11478022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -521,6 +557,38 @@ Prefab:
       propertyPath: deathExplosionGameObject
       value: 
       objectReference: {fileID: 152100, guid: 42306149c126634469878d0c1d6ce5ea, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnRadius
+      value: 1.60000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speedInitial
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialDelay
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnPeriod
+      value: .119999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speedFinal
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spinSpeed
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: chargeBulletGameObject
+      value: 
+      objectReference: {fileID: 179616, guid: c8d0d6be73026d94492e7732bb1d9bdc, type: 2}
+    - target: {fileID: 0}
+      propertyPath: chargeDuration
+      value: .800000012
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102646}

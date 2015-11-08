@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 12
+  health: 10
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
 --- !u!114 &11473484
@@ -448,7 +448,7 @@ Prefab:
       objectReference: {fileID: 191378, guid: 0a4a7d3598a8768458bf49d3c18ff8f6, type: 2}
     - target: {fileID: 0}
       propertyPath: health
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: deathSound1

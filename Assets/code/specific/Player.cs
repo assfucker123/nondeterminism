@@ -26,6 +26,10 @@ public class Player : MonoBehaviour {
     public Vector2 bulletSpawn = new Vector2(1f, .4f);
     public float bulletSpread = 3.0f;
     public float bulletMinDuration = 0.3f; //prevents Player from shooting too fast
+
+    public GameObject chargeBulletGameObject;
+    public float chargeDuration = .6f;
+
     public float revertSpeed = 2.0f;
     public float revertEaseDuration = .4f;
     public float minRevertDuration = 1.0f;
@@ -126,8 +130,11 @@ public class Player : MonoBehaviour {
     void Awake() {
         _instance = this;
         _rb2d = GetComponent<Rigidbody2D>();
-        spriteObject = this.transform.Find("spriteObject").gameObject;
+        spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
+        chargeParticlesObject = transform.Find("chargeParticles").gameObject;
+        chargeParticlesObject.transform.SetAsFirstSibling();
+        chargeParticles = chargeParticlesObject.GetComponent<ChargeParticles>();
         animator = spriteObject.GetComponent<Animator>();
         colFinder = GetComponent<ColFinder>();
         timeUser = GetComponent<TimeUser>();
@@ -198,6 +205,25 @@ public class Player : MonoBehaviour {
         v.y = Mathf.Max(-terminalVelocity, v.y);
         rb2d.velocity = v;
 
+        // fire bullets
+        bulletTime += Time.deltaTime;
+        if (canFireBullet) {
+            if (Input.GetButtonDown("Fire1")) {
+                bulletPrePress = true;
+            }
+            if (bulletPrePress && bulletTime >= bulletMinDuration) {
+                fireBullet(false);
+                bulletTime = 0;
+                bulletPrePress = false;
+            }
+            if (chargeTime >= chargeDuration && Input.GetButtonUp("Fire1")) {
+                fireBullet(true);
+            }
+        }
+
+        // control charging
+        controlCharging();
+
         // color control
         if (exploded) {
             spriteRenderer.color = new Color(1, 1, 1, 0);
@@ -205,10 +231,10 @@ public class Player : MonoBehaviour {
             float mit = receivesDamage.mercyInvincibilityTime;
             float p = ReceivesDamage.MERCY_FLASH_PERIOD;
             float t = (mit - p * Mathf.Floor(mit / p)) / p; //t in [0, 1)
-            if (t < .5){
+            if (t < .5) {
                 spriteRenderer.color = Color.Lerp(ReceivesDamage.MERCY_FLASH_COLOR, Color.white, t * 2);
             } else {
-                spriteRenderer.color = Color.Lerp(Color.white, ReceivesDamage.MERCY_FLASH_COLOR, (t-.5f) * 2);
+                spriteRenderer.color = Color.Lerp(Color.white, ReceivesDamage.MERCY_FLASH_COLOR, (t - .5f) * 2);
             }
         } else if (healthFlashTime < Pickup.HEALTH_FLASH_DURATION) {
             healthFlashTime += Time.deltaTime;
@@ -226,22 +252,21 @@ public class Player : MonoBehaviour {
             } else {
                 spriteRenderer.color = Color.Lerp(Pickup.PHASE_FLASH_COLOR, Color.white, (t - .5f) * 2);
             }
+        } else if (chargeTime >= chargeDuration) {
+            chargeParticles.tiny = false;
+            chargeFlashTime += Time.deltaTime;
+            while (chargeFlashTime >= ChargeParticles.CHARGE_FLASH_DURATION) {
+                chargeFlashTime -= ChargeParticles.CHARGE_FLASH_DURATION;
+            }
+            float t = Mathf.Min(1, chargeFlashTime / ChargeParticles.CHARGE_FLASH_DURATION);
+            if (t < .5) {
+                spriteRenderer.color = Color.Lerp(Color.white, ChargeParticles.CHARGE_FLASH_COLOR, t * 2);
+            } else {
+                spriteRenderer.color = Color.Lerp(ChargeParticles.CHARGE_FLASH_COLOR, Color.white, (t - .5f) * 2);
+            }
         } else {
             if (spriteRenderer.color != Color.white) {
                 spriteRenderer.color = Color.white;
-            }
-        }
-
-        // fire bullets
-        bulletTime += Time.deltaTime;
-        if (canFireBullet) {
-            if (Input.GetButtonDown("Fire1")) {
-                bulletPrePress = true;
-            }
-            if (bulletPrePress && bulletTime >= bulletMinDuration) {
-                fireBullet();
-                bulletTime = 0;
-                bulletPrePress = false;
             }
         }
 
@@ -257,6 +282,8 @@ public class Player : MonoBehaviour {
         fi.strings["color"] = TimeUser.colorToString(spriteRenderer.color);
         fi.bools["exploded"] = exploded;
         fi.floats["det"] = deathExplosionTime;
+        fi.bools["charging"] = charging;
+        fi.floats["chargeTime"] = chargeTime;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -272,6 +299,8 @@ public class Player : MonoBehaviour {
             gameObject.layer = LayerMask.NameToLayer("Players");
         }
         deathExplosionTime = fi.floats["det"];
+        charging = fi.bools["charging"];
+        chargeTime = fi.floats["chargeTime"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -318,6 +347,29 @@ public class Player : MonoBehaviour {
                 } else {
                     HUD.instance.phaseMeter.playPhaseEmptySound();
                 }
+            }
+        }
+
+    }
+
+    // control charging (called each frame)
+    void controlCharging() {
+
+        if (charging) {
+            idleGunTime = 0;
+            chargeTime += Time.deltaTime;
+            if (!Input.GetButton("Fire1") || !canFireBullet) {
+                chargeParticles.stopSpawning();
+                chargeTime = 0;
+                charging = false;
+            }
+        } else { // not currently charging
+            if (Input.GetButton("Fire1") && canFireBullet) {
+                chargeParticles.startSpawning();
+                chargeParticles.tiny = true;
+                chargeTime = 0;
+                chargeFlashTime = 0;
+                charging = true;
             }
         }
 
@@ -520,6 +572,7 @@ public class Player : MonoBehaviour {
         rb2d.velocity = v;
     }
 
+    // dead state (called each frame)
     void stateDead() {
         deadTime += Time.deltaTime;
 
@@ -695,9 +748,8 @@ public class Player : MonoBehaviour {
         
     }
 
-
     // fire a bullet
-    void fireBullet() {
+    void fireBullet(bool charged) {
 
         //animation
         idleGunTime = 0;
@@ -705,7 +757,7 @@ public class Player : MonoBehaviour {
             animator.Play("oracle_gun");
         }
         SoundManager.instance.playSFXRandPitchBend(bulletSound);
-
+        
         //spawning bullet
         Vector2 relSpawnPosition = bulletSpawn;
         relSpawnPosition.x *= spriteRenderer.transform.localScale.x;
@@ -715,7 +767,11 @@ public class Player : MonoBehaviour {
             heading = 180;
         }
         heading += (Random.value * 2 - 1) * bulletSpread;
-        GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
+        GameObject theBulletGO = bulletGameObject;
+        if (charged) {
+            theBulletGO = chargeBulletGameObject;
+        }
+        GameObject bulletGO = GameObject.Instantiate(theBulletGO,
             rb2d.position + relSpawnPosition,
             Utilities.setQuat(heading)) as GameObject;
         Bullet bullet = bulletGO.GetComponent<Bullet>();
@@ -748,13 +804,18 @@ public class Player : MonoBehaviour {
     float healthFlashTime = 99999;
     float stepSoundPlayTime = 99999;
     float deadTime = 999999;
+    float chargeFlashTime = 99999;
     float deathExplosionTime = 0;
     bool _exploded = false;
+    bool charging = false;
+    float chargeTime = 0;
 
     // components
     Rigidbody2D _rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
+    GameObject chargeParticlesObject;
+    ChargeParticles chargeParticles;
     Animator animator;
     ColFinder colFinder;
     TimeUser timeUser;

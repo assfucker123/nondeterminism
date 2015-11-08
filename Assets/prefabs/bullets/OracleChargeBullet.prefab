@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 70
-  damage: 7
+  damage: 10
   heading: 0
   radius: .300000012
   maxDistance: -1
@@ -159,6 +159,10 @@ Prefab:
       propertyPath: bulletExplosionGameObject
       value: 
       objectReference: {fileID: 110428, guid: 9b452d2dde1113546a7030d6c09813c6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 179616}

@@ -1,11 +1,13 @@
 fileFormatVersion: 2
 guid: 90e6279e056f2224b84fe8b347a70f10
-timeCreated: 1446877254
+timeCreated: 1446961873
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: oracle_charge_particle_0
     21300002: oracle_charge_particle_1
+    21300004: oracle_charge_particle_2
+    21300006: oracle_charge_particle_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -56,13 +58,33 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
+        y: 15
         width: 7
         height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: oracle_charge_particle_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 10
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_charge_particle_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_charge_particle_3
       rect:
         serializedVersion: 2
         x: 0

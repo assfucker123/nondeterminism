@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 12
+  health: 14
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
 --- !u!114 &11474526
@@ -342,6 +342,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: pickupSize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
