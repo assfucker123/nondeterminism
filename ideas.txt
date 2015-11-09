@@ -371,6 +371,7 @@ o Pengrunt with rocket boots
 o Tank bear that fires bombs, some are fake/duds
 o Samurai with delayed causality attacks
 
-o Minimum phase used for any flashback?
+o Only some enemies spawn pickups
+	o Enhanced spawn info
 
 

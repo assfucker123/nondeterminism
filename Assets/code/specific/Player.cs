@@ -38,6 +38,9 @@ public class Player : MonoBehaviour {
     public float startPhase = .5f;
     public float phaseDecreaseSpeed = 2.5f;
     public float phaseRevertingDecreaseSpeed = 7.0f;
+
+    public float postRevertDuration = .5f; // still lose a tiny bit of phase after a revert for this duration
+
     public float damageSpeed = 10;
     public float damageFriction = 20;
     public float damageDuration = .5f;
@@ -163,6 +166,17 @@ public class Player : MonoBehaviour {
             if (TimeUser.reverting) {
                 HUD.instance.phaseMeter.setPhase(phase - phaseRevertingDecreaseSpeed * Time.deltaTime);
             } else {
+                // just after ending a revert, still lose a bit of phase
+                if (postRevertTime < postRevertDuration) {
+                    postRevertTime += Time.deltaTime;
+                    float postSpeed = Utilities.easeLinearClamp(postRevertTime, phaseRevertingDecreaseSpeed, -phaseRevertingDecreaseSpeed, postRevertDuration);
+                    HUD.instance.phaseMeter.setPhase(phase - postSpeed * Time.deltaTime);
+                    if (postRevertTime >= postRevertDuration) {
+                        HUD.instance.phaseMeter.endPulse();
+                    }
+                }
+
+                // gradually lose phase over time
                 HUD.instance.phaseMeter.setPhase(phase - phaseDecreaseSpeed * Time.deltaTime);
             }
         }
@@ -287,6 +301,7 @@ public class Player : MonoBehaviour {
         fi.floats["det"] = deathExplosionTime;
         fi.bools["charging"] = charging;
         fi.floats["chargeTime"] = chargeTime;
+        fi.floats["postRevertTime"] = postRevertTime;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -304,6 +319,7 @@ public class Player : MonoBehaviour {
         deathExplosionTime = fi.floats["det"];
         charging = fi.bools["charging"];
         chargeTime = fi.floats["chargeTime"];
+        postRevertTime = fi.floats["postRevertTime"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -336,8 +352,9 @@ public class Player : MonoBehaviour {
                 TimeUser.endContinuousRevert();
                 SoundManager.instance.stopSFX(flashbackBeginSound);
                 SoundManager.instance.playSFX(flashbackEndSound);
-                HUD.instance.phaseMeter.endPulse();
                 CameraControl.instance.disableEffects();
+                postRevertTime = 0;
+                // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
         } else if (!PauseScreen.instance.paused && !HUD.instance.gameOverScreen.cannotRevert) {
             if (Input.GetButtonDown("Flash")) {
@@ -346,6 +363,7 @@ public class Player : MonoBehaviour {
                     SoundManager.instance.playSFX(flashbackBeginSound);
                     HUD.instance.phaseMeter.beginPulse();
                     revertTime = 0;
+                    postRevertTime = 99999;
                     CameraControl.instance.enableEffects(0, 1);
                 } else {
                     HUD.instance.phaseMeter.playPhaseEmptySound();
@@ -811,6 +829,7 @@ public class Player : MonoBehaviour {
     float deadTime = 999999;
     float chargeFlashTime = 99999;
     float deathExplosionTime = 0;
+    float postRevertTime = 99999;
     bool _exploded = false;
     bool charging = false;
     float chargeTime = 0;
