@@ -328,6 +328,10 @@ Skills:
 - Majora's Mask reference
 	- Screen will resize slightly smaller and smaller, similar to how the viewport gets smaller in Majora's Mask when the next day starts
 
+- Blind section
+	- Screen is completely black, but you get dialogue from Wally (who can see).
+	- Use his guidance to get you through the darkness.
+	- Viruses area?
 
 Sound Effects needed:
 x step/land
@@ -358,11 +362,15 @@ o low health
 o portal
 
 Enemies needed (sorted by priority):
-o Goomseal, bounces back and forth with secret lazor attack
+x Sealime, bounces back and forth with secret lazor attack
+o Magoom, basic goomba that can occasionally teleport
 o Bomb puzzle enemy
 o Cloud lightning
 o Spider wall clinger with yo-yo attacks
 o Pengrunt with rocket boots
 o Tank bear that fires bombs, some are fake/duds
 o Samurai with delayed causality attacks
+
+o Minimum phase used for any flashback?
+
 

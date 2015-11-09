@@ -8,10 +8,12 @@ public class CountdownTimer : MonoBehaviour {
     public bool countUp = false;
     public Format format = Format.SECONDS;
     public Vector2 position = new Vector2(532, -49);
+    public int score = 0;
     
     public enum Format {
         SECONDS,
-        CENTISECONDS
+        CENTISECONDS,
+        SCORE
     }
 
     public bool visible {
@@ -29,7 +31,8 @@ public class CountdownTimer : MonoBehaviour {
         rt.anchorMax = new Vector2(.5f, 1);
         rt.anchoredPosition = position;
         if (Vars.arcadeMode) {
-            visible = false;
+            //visible = false;
+            format = Format.SCORE;
         }
     }
 
@@ -49,15 +52,51 @@ public class CountdownTimer : MonoBehaviour {
             time += Time.deltaTime;
         else
             time -= Time.deltaTime;
-        displayTime(time);
+        if (format == Format.SCORE) {
+            if (score > Vars.highScore) {
+                Vars.highScore = score;
+            }
+            displayScore(score, Vars.highScore);
+        } else {
+            displayTime(time);
+        }
 	}
 
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
+        fi.ints["score"] = score;
+        fi.ints["highScore"] = Vars.highScore;
     }
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
-        displayTime(time);
+        score = fi.ints["score"];
+        Vars.highScore = fi.ints["highScore"];
+        if (format == Format.SCORE) {
+            displayScore(score, Vars.highScore);
+        } else {
+            displayTime(time);
+        }
+    }
+
+    void displayScore(int score, int highScore) {
+        string str = scoreToStr(score, highScore);
+        text.text = str;
+        textDrop.text = str;
+    }
+
+    string scoreToStr(int score, int highScore = 0) {
+        string str = "" + score;
+        while (str.Length < 5) {
+            str = "0" + str;
+        }
+        str = "SCORE: " + str;
+        string str2 = "" + highScore;
+        while (str2.Length < 5) {
+            str2 = "0" + str2;
+        }
+        str2 = "HIGH: " + str2;
+
+        return str + "\n" + str2;
     }
 
     void displayTime(float time) {

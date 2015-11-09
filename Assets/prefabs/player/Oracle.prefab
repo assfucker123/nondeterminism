@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c960426b9e07c07459861153539ae2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDelay: .200000003
+  initialDelay: .150000006
   spawnRadius: 1.60000002
   spawnPeriod: .119999997
   speedInitial: 4
@@ -567,7 +567,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: initialDelay
-      value: .200000003
+      value: .150000006
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spawnPeriod

@@ -14,7 +14,7 @@ public class ChargeParticles : MonoBehaviour {
     public float spinSpeed = 350;
     public GameObject chargeParticleGameObject = null;
 
-    public static Color CHARGE_FLASH_COLOR = new Color(1, .65f, 1);
+    public static Color CHARGE_FLASH_COLOR = new Color(1f, .60f, 1f);
     public static float CHARGE_FLASH_DURATION = .2f;
 
     public bool spawningParticlesPastDelay { get { return started && time > initialDelay; } }

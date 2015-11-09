@@ -105,6 +105,7 @@ public class Sealime : MonoBehaviour {
                 hoppingRight = hoppingRightNext;
                 hoppingFacingRight = hoppingFacingRightNext;
                 doingBigHop = doingBigHopNext;
+                hitTopHeight = 9999999;
 
                 if (doingBigHop) {
                     if (firesBullets) {
@@ -127,6 +128,11 @@ public class Sealime : MonoBehaviour {
             }
             break;
         case State.HOPPING:
+
+            if (colFinder.hitTop) {
+                hitTopHeight = rb2d.position.y;
+            }
+
             float dur = hopDuration;
             float height = hopHeight;
             if (doingBigHop) {
@@ -146,6 +152,7 @@ public class Sealime : MonoBehaviour {
             } else {
                 pos.y = preHop.y + Utilities.easeInQuad(time - dur / 2, height, -height, dur / 2);
             }
+            pos.y = Mathf.Min(hitTopHeight, pos.y);
             rb2d.MovePosition(pos);
 
             // rotate and fire bullets
@@ -317,6 +324,7 @@ public class Sealime : MonoBehaviour {
         fi.floats["phx"] = preHop.x;
         fi.floats["phy"] = preHop.y;
         fi.floats["bt"] = bulletTime;
+        fi.floats["hth"] = hitTopHeight;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
@@ -332,6 +340,7 @@ public class Sealime : MonoBehaviour {
         doingBigHopNext = fi.bools["dbhn"];
         preHop.Set(fi.floats["phx"], fi.floats["phy"]);
         bulletTime = fi.floats["bt"];
+        hitTopHeight = fi.floats["hth"];
     }
 
     float time;
@@ -345,6 +354,7 @@ public class Sealime : MonoBehaviour {
     bool hoppingFacingRightNext = false;
     bool doingBigHopNext = false;
     float bulletTime = 0;
+    float hitTopHeight = 999999;
 
     // components
     Rigidbody2D rb2d;

@@ -49,6 +49,7 @@ public class EnemyInfo : MonoBehaviour {
     public float danger = 5;
     public SpawnLocation spawnLocation = SpawnLocation.BOTTOM_SEGMENT;
     public float spawnDist = 0;
+    public int score = 0; //score gotten for killing the enemy (only applicable in arcade mode)
     [HideInInspector]
     public WaveSpawner waveSpanwerRef = null;
 

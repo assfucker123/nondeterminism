@@ -139,6 +139,9 @@ public class Player : MonoBehaviour {
         colFinder = GetComponent<ColFinder>();
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
+
+        //need to call this with a title screen
+        Vars.startGame();
     }
     void Start() {
         if (receivesDamage.health > maxHealth) receivesDamage.health = maxHealth;
@@ -766,7 +769,9 @@ public class Player : MonoBehaviour {
         if (flippedHoriz) {
             heading = 180;
         }
-        heading += (Random.value * 2 - 1) * bulletSpread;
+        if (!charged) {
+            heading += (Random.value * 2 - 1) * bulletSpread;
+        }
         GameObject theBulletGO = bulletGameObject;
         if (charged) {
             theBulletGO = chargeBulletGameObject;

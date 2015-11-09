@@ -293,6 +293,7 @@ MonoBehaviour:
   danger: 5
   spawnLocation: 0
   spawnDist: 1
+  score: 80
   waveSpanwerRef: {fileID: 0}
 --- !u!114 &11499518
 MonoBehaviour:
@@ -346,6 +347,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: health
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: score
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

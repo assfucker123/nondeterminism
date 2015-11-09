@@ -233,7 +233,10 @@ public class WaveSpawner : MonoBehaviour {
                     _waveEnemyIndex++;
                 }
                 // if waveEnemyIndex >= currentWave.enemies.Count, then waveExhausted will be true and wait until enemies are dead before starting new wave
-                
+
+            } else {
+                // currentDanger would go too high
+                break;
             }
         }
 

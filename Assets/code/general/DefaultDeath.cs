@@ -63,6 +63,16 @@ public class DefaultDeath : MonoBehaviour {
             SoundManager.instance.playSFXRandPitchBend(deathSound2);
         }
 
+        // update score (arcade mode only)
+        if (Vars.arcadeMode) {
+            int score = 0;
+            EnemyInfo ei = GetComponent<EnemyInfo>();
+            if (ei != null) {
+                score = ei.score;
+            }
+            HUD.instance.countdownTimer.score += score;
+        }
+
         _activated = true;
     }
 

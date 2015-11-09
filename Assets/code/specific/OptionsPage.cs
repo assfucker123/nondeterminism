@@ -176,6 +176,9 @@ public class OptionsPage : MonoBehaviour {
         quitSureYesText.enabled = false;
         quitSureNoText.color = PauseScreen.DEFAULT_COLOR;
         quitSureNoText.enabled = false;
+
+        // save options
+        Vars.saveSettings();
     }
 
     // call this during update to move the selection around

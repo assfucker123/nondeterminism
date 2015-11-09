@@ -100,14 +100,15 @@ Special Enemy Attacks:
 - Final boss fight
 	- Fight takes place in gigantic scary cave with several heart-shaped orbs.
 		- Similar to Master Core.
-		- There are 10 orbs, labeled 0...9
+		- There are 4 orbs, labeled 0...3.
+		- The same orbs as the keys needed to enter this area?
 	- Uses time travel: resembles saving and loading save states in an emulator.
 		- The boss is easy to hit and deal damage to, but it'll just reload a save state from earlier.
-	- When loading a save state, will say "STATE # LOADED" in the corner, and "STATE # SAVED" for saving, where # is in [0, 9].
+	- When loading a save state, will say "STATE # LOADED" in the corner, and "STATE # SAVED" for saving, where # is in [0, 3].
 		- Similar to Omega Flowey.
 	- The states are saved in the orbs around the cave.  When an orb is destroyed, a state can't be saved to it.
 	- Once all the orbs are destroyed, save states can't be used, and the boss is finally vulnerable.
-	- Custom health bar also shows the status of the 10 orbs.
+	- Custom health bar also shows the status of the 4 orbs.
 		- For each orb, shows if a state has been saved to it, and shows if the orb was destroyed or not.
 	- Getting to each orb is a review of a skill obtained during the game.
 
