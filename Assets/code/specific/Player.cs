@@ -54,7 +54,10 @@ public class Player : MonoBehaviour {
     public State state = State.GROUND;
     public AudioClip stepSound;
     public AudioClip jumpSound;
+    public AudioClip chargingStartSound;
+    public AudioClip chargingLoopSound;
     public AudioClip bulletSound;
+    public AudioClip chargeBulletSound;
     public AudioClip gunDownSound;
     public AudioClip damageSound;
     public AudioClip deathSound;
@@ -301,6 +304,7 @@ public class Player : MonoBehaviour {
         fi.floats["det"] = deathExplosionTime;
         fi.bools["charging"] = charging;
         fi.floats["chargeTime"] = chargeTime;
+        fi.floats["chargeSoundTime"] = chargeSoundTime;
         fi.floats["postRevertTime"] = postRevertTime;
     }
     void OnRevert(FrameInfo fi) {
@@ -319,6 +323,7 @@ public class Player : MonoBehaviour {
         deathExplosionTime = fi.floats["det"];
         charging = fi.bools["charging"];
         chargeTime = fi.floats["chargeTime"];
+        chargeSoundTime = fi.floats["chargeSoundTime"];
         postRevertTime = fi.floats["postRevertTime"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
@@ -379,17 +384,30 @@ public class Player : MonoBehaviour {
         if (charging) {
             idleGunTime = 0;
             chargeTime += Time.deltaTime;
+            if (chargeTime > chargeDuration) {
+                // play charged loop sound
+                chargeSoundTime += Time.deltaTime;
+                if (chargeSoundTime > chargingLoopSound.length) {
+                    SoundManager.instance.playSFX(chargingLoopSound);
+                    chargeSoundTime = 0;
+                }
+            }
             if (!Input.GetButton("Fire1") || !canFireBullet) {
                 chargeParticles.stopSpawning();
                 chargeTime = 0;
                 charging = false;
+                SoundManager.instance.stopSFX(chargingStartSound);
+                SoundManager.instance.stopSFX(chargingLoopSound);
             }
+            
         } else { // not currently charging
             if (Input.GetButton("Fire1") && canFireBullet) {
                 chargeParticles.startSpawning();
                 chargeParticles.tiny = true;
                 chargeTime = 0;
                 chargeFlashTime = 0;
+                chargeSoundTime = 99999;
+                SoundManager.instance.playSFX(chargingStartSound);
                 charging = true;
             }
         }
@@ -777,7 +795,11 @@ public class Player : MonoBehaviour {
         if (isAnimatorCurrentState("oracle_gun_to_idle") || isAnimatorCurrentState("oracle_idle")) {
             animator.Play("oracle_gun");
         }
-        SoundManager.instance.playSFXRandPitchBend(bulletSound);
+        if (charged) {
+            SoundManager.instance.playSFXRandPitchBend(chargeBulletSound);
+        } else {
+            SoundManager.instance.playSFXRandPitchBend(bulletSound);
+        }
         
         //spawning bullet
         Vector2 relSpawnPosition = bulletSpawn;
@@ -828,6 +850,7 @@ public class Player : MonoBehaviour {
     float stepSoundPlayTime = 99999;
     float deadTime = 999999;
     float chargeFlashTime = 99999;
+    float chargeSoundTime = 99999;
     float deathExplosionTime = 0;
     float postRevertTime = 99999;
     bool _exploded = false;
@@ -854,7 +877,7 @@ public class Player : MonoBehaviour {
 
     //collision stuff
     private float SLOPE_RUN_MODIFIER = 1f;
-    private float SLOPE_STILL_MODIFIER = 1.9f;
+    private float SLOPE_STILL_MODIFIER = 1.0f;
     
 
 }

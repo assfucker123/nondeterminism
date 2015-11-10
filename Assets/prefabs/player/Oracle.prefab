@@ -254,7 +254,10 @@ MonoBehaviour:
   state: 0
   stepSound: {fileID: 8300000, guid: 9e2a7c604390ae74bbfc09b342021d3b, type: 3}
   jumpSound: {fileID: 8300000, guid: 639a64b5e89066b49b29e0b5a06120da, type: 3}
+  chargingStartSound: {fileID: 8300000, guid: bab86b91bba2145429bf66d2d048b981, type: 3}
+  chargingLoopSound: {fileID: 8300000, guid: 8f112e001b17e844b870dc8dd4c94a8a, type: 3}
   bulletSound: {fileID: 8300000, guid: d53163181e2d92f4d99e07fa4a6fc04c, type: 3}
+  chargeBulletSound: {fileID: 8300000, guid: 2861165edeb8efa46abcfee782e3135a, type: 3}
   gunDownSound: {fileID: 8300000, guid: f64723ece8c84094789d245628eae9a8, type: 3}
   damageSound: {fileID: 8300000, guid: bb47a802ae10f8c4a83cee2cc5592172, type: 3}
   deathSound: {fileID: 8300000, guid: df53a3e077c732c4f901751e99b56d48, type: 3}
@@ -590,6 +593,18 @@ Prefab:
       propertyPath: chargeDuration
       value: .800000012
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: chargeBulletSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2861165edeb8efa46abcfee782e3135a, type: 3}
+    - target: {fileID: 0}
+      propertyPath: chargingStartSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bab86b91bba2145429bf66d2d048b981, type: 3}
+    - target: {fileID: 0}
+      propertyPath: chargingLoopSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f112e001b17e844b870dc8dd4c94a8a, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102646}

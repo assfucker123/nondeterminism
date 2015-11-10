@@ -219,6 +219,8 @@ MonoBehaviour:
   walkDurationMin: 1.5
   walkDurationMax: 4.5
   teleportHalfDuration: .200000003
+  magicSound: {fileID: 8300000, guid: eecff0db342b59444ab9c5ede5ab9cfc, type: 3}
+  teleportSound: {fileID: 8300000, guid: f287012d244c6a14eb54f90aac32f182, type: 3}
   state: 0
   magicAction: 0
 --- !u!114 &11472628
@@ -390,6 +392,14 @@ Prefab:
       propertyPath: danger
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f287012d244c6a14eb54f90aac32f182, type: 3}
+    - target: {fileID: 0}
+      propertyPath: magicSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eecff0db342b59444ab9c5ede5ab9cfc, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189600}

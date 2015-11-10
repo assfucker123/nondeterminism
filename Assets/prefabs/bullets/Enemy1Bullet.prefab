@@ -109,7 +109,7 @@ MonoBehaviour:
   bulletFadeGameObject: {fileID: 177068, guid: 51a6b998cec1ad64fb634ccbdb0106d5, type: 2}
   bulletExplosionGameObject: {fileID: 103524, guid: 96df7dcfea7b82544a6f5b0b172dd8a9,
     type: 2}
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: bf3b6aa334a936047b8e63895b192da0, type: 3}
 --- !u!212 &21209582
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -150,7 +150,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: hitSound
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: bf3b6aa334a936047b8e63895b192da0, type: 3}
     - target: {fileID: 0}
       propertyPath: visionSound
       value: 

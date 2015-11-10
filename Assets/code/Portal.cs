@@ -50,11 +50,6 @@ public class Portal : MonoBehaviour {
             gameObjectToSpawn,
             transform.localPosition,
             Quaternion.identity) as GameObject;
-        if (visionUser.isVision) {
-            VisionUser sV = sGO.GetComponent<VisionUser>();
-            sV.becomeVisionNow(visionDuration, visionUser);
-        }
-
         if (spawnInfo == null) {
             spawnInfo = new SpawnInfo();
         }
@@ -62,9 +57,13 @@ public class Portal : MonoBehaviour {
         sTU.setRandSeed((int)(int.MaxValue * timeUser.randomValue()));
         EnemyInfo eI = sGO.GetComponent<EnemyInfo>();
         eI.waveSpanwerRef = waveSpawnerRef;
-        spawnInfo.faceRight = false;
-
+        
         sGO.SendMessage("OnSpawn", spawnInfo, SendMessageOptions.DontRequireReceiver);
+
+        if (visionUser.isVision) {
+            VisionUser sV = sGO.GetComponent<VisionUser>();
+            sV.becomeVisionNow(visionDuration, visionUser);
+        }
     }
 	
 	void Awake() {
@@ -107,7 +106,9 @@ public class Portal : MonoBehaviour {
         case State.PRE_VISION:
             if (time > Time.deltaTime) { // create vision once exists for a frame
                 Debug.Assert(!visionUser.isVision);
-                visionUser.createVision(visionTimeInFuture, visionDuration);
+                GameObject vGO = visionUser.createVision(visionTimeInFuture, visionDuration);
+                Portal vPortal = vGO.GetComponent<Portal>();
+                vPortal.spawnInfo = spawnInfo;
                 // move on to actual state
                 time = 0;
                 state = State.VISION;

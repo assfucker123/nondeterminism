@@ -218,6 +218,7 @@ public class WaveSpawner : MonoBehaviour {
                         spawnInfo.faceRight = (timeUser.randomValue() < .5f);
                         break;
                     }
+                    
                     spawnInfo.spawnPickups = ewp.spawnPickups;
                     
                     // spawn with a portal

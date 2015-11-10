@@ -11,6 +11,8 @@ public class Magoom : MonoBehaviour {
     public float walkDurationMin = 1.5f;
     public float walkDurationMax = 4.5f;
     public float teleportHalfDuration = .3f;
+    public AudioClip magicSound;
+    public AudioClip teleportSound;
 
     public State state = State.IDLE;
     public MagicAction magicAction = MagicAction.TELEPORT;
@@ -159,6 +161,9 @@ public class Magoom : MonoBehaviour {
 
                 animator.Play("sparkle_begin");
                 time = 0;
+                if (!visionUser.isVision) {
+                    SoundManager.instance.playSFX(magicSound);
+                }
                 state = State.MAGIC;
             }
 
@@ -176,6 +181,9 @@ public class Magoom : MonoBehaviour {
                 switch (magicAction) {
                 case MagicAction.TELEPORT:
                 default:
+                    if (!visionUser.isVision) {
+                        SoundManager.instance.playSFX(teleportSound);
+                    }
                     time = 0;
                     state = State.TELEPORT_BEGIN;
                     break;
@@ -188,7 +196,6 @@ public class Magoom : MonoBehaviour {
             if (time >= teleportHalfDuration) {
                 // change location (do teleport)
                 rb2d.position = teleportPos;
-                animator.Play("idle");
                 time = 0;
                 state = State.TELEPORT_END;
             } else {
@@ -233,9 +240,17 @@ public class Magoom : MonoBehaviour {
             //offset v.x to match gravity so object doesn't slide down when still
             v.x += g * SLOPE_STILL_MODIFIER * Mathf.Atan(a);
 
+            if (state == State.WALK && isAnimatorCurrentState("falling")) {
+                animator.Play("walk");
+            }
+
         } else { //not touching ground
             //attempt to snap back to the ground
-            colFinder.raycastDownCorrection();
+            if (!colFinder.raycastDownCorrection()) {
+                if (state == State.WALK && !isAnimatorCurrentState("falling")) {
+                    animator.Play("falling");
+                }
+            }
         }
 
         rb2d.velocity = v;
@@ -312,6 +327,11 @@ public class Magoom : MonoBehaviour {
         teleportPos.Set(fi.floats["tpx"], fi.floats["tpy"]);
     }
 
+    // helper function
+    bool isAnimatorCurrentState(string stateString) {
+        return animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(stateString);
+    }
+
     float time;
     float duration = 1.0f;
     Segment segment;
@@ -333,6 +353,6 @@ public class Magoom : MonoBehaviour {
 
     //collision stuff
     private float SLOPE_RUN_MODIFIER = 1f;
-    private float SLOPE_STILL_MODIFIER = 1.9f;
+    private float SLOPE_STILL_MODIFIER = 1.2f;
 
 }

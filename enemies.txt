@@ -51,6 +51,8 @@ Enemy Attacks:
 - All enemies have red eyes, controlled by Sonata
 - Continuous missile launcher: keeps launching a few missiles per second for a while.
 	- Creates vision of attack while also preforming another attack.
+- Moving vines beneath a bridge, surge up at random.  Use vision to tell when they're coming
+	- Tutorial area
 
 Special Enemy Attacks:
 - Quantum Attacks

@@ -98,7 +98,7 @@ MonoBehaviour:
   bulletFadeGameObject: {fileID: 137602, guid: ab18b2ff34abb374c8755a1c93ceda28, type: 2}
   bulletExplosionGameObject: {fileID: 110428, guid: 9b452d2dde1113546a7030d6c09813c6,
     type: 2}
-  hitSound: {fileID: 8300000, guid: bf3b6aa334a936047b8e63895b192da0, type: 3}
+  hitSound: {fileID: 8300000, guid: 1e32131bccc812045acfb2cc079ccee0, type: 3}
 --- !u!114 &11480468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,6 +163,10 @@ Prefab:
       propertyPath: damage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e32131bccc812045acfb2cc079ccee0, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 179616}

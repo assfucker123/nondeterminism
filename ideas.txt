@@ -333,6 +333,9 @@ Skills:
 	- Use his guidance to get you through the darkness.
 	- Viruses area?
 
+- Oracle can optionally taunt after defeating a wave of enemies?
+	- To activate, just don't press anything and be idle as the last enemy dies
+
 Sound Effects needed:
 x step/land
 x jump
@@ -363,7 +366,7 @@ o portal
 
 Enemies needed (sorted by priority):
 x Sealime, bounces back and forth with secret lazor attack
-o Magoom, basic goomba that can occasionally teleport
+/ Magoom, basic goomba that can occasionally teleport
 o Bomb puzzle enemy
 o Cloud lightning
 o Spider wall clinger with yo-yo attacks
