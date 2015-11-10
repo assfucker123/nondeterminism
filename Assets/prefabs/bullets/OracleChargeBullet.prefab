@@ -28,7 +28,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.86269, y: -3.88425279, z: 0}
+  m_LocalPosition: {x: -23.0499992, y: -13.0299997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   speed: 70
   damage: 10
   heading: 0
-  radius: .300000012
+  radius: .200000003
   maxDistance: -1
   bulletFadeGameObject: {fileID: 137602, guid: ab18b2ff34abb374c8755a1c93ceda28, type: 2}
   bulletExplosionGameObject: {fileID: 110428, guid: 9b452d2dde1113546a7030d6c09813c6,

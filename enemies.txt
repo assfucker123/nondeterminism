@@ -84,6 +84,7 @@ Special Enemy Attacks:
 		- Better idea: move to the center of the room so no matter what he won't be too far away.
 
 - Sonata boss fight
+	- Sonata's design based off a moth?
 	- Background looks like a musical staff.
 		- A vertical line periodically moves from left to right on the beat of the song.
 	- Rhythm attacks have audio tells.  Loud noises happens on certain beats.

@@ -112,7 +112,9 @@ public class PhaseMeter : MonoBehaviour {
                 // low sound
                 if (displayPhase < lowSoundStart) {
                     float volume = Utilities.easeLinearClamp(displayPhase, 1, -1, lowSoundStart);
-                    SoundManager.instance.playSFX(phaseLowSound, volume);
+                    if (TimeUser.reverting) {
+                        SoundManager.instance.playSFX(phaseLowSound, volume);
+                    }
                 }
             }
 

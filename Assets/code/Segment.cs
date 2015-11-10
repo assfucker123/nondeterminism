@@ -100,6 +100,12 @@ public class Segment {
         return segments[segments.Count-1];
     }
 
+    public static void sortOnY(List<Segment> segments) {
+        segments.Sort(delegate(Segment seg1, Segment seg2) {
+            return (int)((seg1.p0.y + seg1.p1.y) / 2 - (seg2.p0.y + seg2.p1.y) / 2);
+        });
+    }
+
     /* Attempts to add segment to one of the above lists.
      * Prereq: apply snapToWall() beforehand. */
     public static bool addSegment(Segment seg) {

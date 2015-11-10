@@ -117,7 +117,8 @@ public class TimeUser : MonoBehaviour {
      * do anything during Update() and similar functions. */
     public bool shouldNotUpdate {
         get {
-            return TimeUser.reverting || !exists || PauseScreen.instance.paused;
+            return TimeUser.reverting || !exists || 
+                (PauseScreen.instance != null && PauseScreen.instance.paused);
         }
     }
     public float timeCreated { get { return _timeCreated; } }
@@ -351,7 +352,7 @@ public class TimeUser : MonoBehaviour {
 
         continuousRevertAppliedThisFrame = false;
 
-        if (PauseScreen.instance.paused)
+        if (PauseScreen.instance != null && PauseScreen.instance.paused)
             return;
 
         addCurrentFrameInfo();

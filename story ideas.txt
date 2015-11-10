@@ -269,6 +269,9 @@ Gimmicks to "Vision" mechanic that actually make sense:
 	- When doing a flashback during a conversation, some of the words on screen will change briefly.
 		- When a letter disappears (reverse of appearing), another letter will remain behind it.
 	- Hide a graphic (camera?  smile?) in the background of every room.
+	- "Out of bounds" rooms, don't get drawn to the map.
+		- Time freezes here
+		- Find hidden stuff.
 - The Salesman
 	- Reference to the classic NP-Hard Traveling Salesman problem.
 	- Someone else is moving around the world, visiting specific areas at specific time intervals.

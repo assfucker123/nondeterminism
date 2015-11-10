@@ -207,7 +207,19 @@ public class WaveSpawner : MonoBehaviour {
                 if (spawnWithPortal) {
                     // create SpawnInfo for the portal
                     SpawnInfo spawnInfo = new SpawnInfo();
-                    spawnInfo.faceRight = (timeUser.randomValue() < .5f);
+                    switch (ewp.faceDirection) {
+                    case EnemyWave.FaceDirection.LEFT:
+                        spawnInfo.faceRight = false;
+                        break;
+                    case EnemyWave.FaceDirection.RIGHT:
+                        spawnInfo.faceRight = true;
+                        break;
+                    case EnemyWave.FaceDirection.RANDOM:
+                        spawnInfo.faceRight = (timeUser.randomValue() < .5f);
+                        break;
+                    }
+                    spawnInfo.spawnPickups = ewp.spawnPickups;
+                    
                     // spawn with a portal
                     GameObject pGO = GameObject.Instantiate(
                         portalGameObject,

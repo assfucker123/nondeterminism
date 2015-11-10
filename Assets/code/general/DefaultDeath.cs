@@ -136,6 +136,12 @@ public class DefaultDeath : MonoBehaviour {
 
 	}
 
+    void OnSpawn(SpawnInfo si) {
+        if (!si.spawnPickups) {
+            pickupSize = PickupSpawner.BurstSize.NONE;
+        }
+    }
+
     void setColorF() {
         if (spriteRenderer == null) return;
         if (activated) {

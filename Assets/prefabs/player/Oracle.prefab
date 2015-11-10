@@ -211,11 +211,11 @@ MonoBehaviour:
   airAccel: 100
   airMaxSpeed: 16
   airFriction: 50
-  gravity: 120
+  gravity: 110
   terminalVelocity: 30
-  jumpSpeed: 23
+  jumpSpeed: 20
   jumpMinDuration: .0399999991
-  jumpMaxDuration: .189999998
+  jumpMaxDuration: .219999999
   idleGunDownDuration: .5
   bulletGameObject: {fileID: 194332, guid: 4baa8d8ac98d8174ca8add180251ef9a, type: 2}
   bulletMuzzleGameObject: {fileID: 114470, guid: 7208b24a79914e04d973ce54c733052c,
@@ -233,7 +233,8 @@ MonoBehaviour:
   maxPhase: 80
   startPhase: .5
   phaseDecreaseSpeed: 0
-  phaseRevertingDecreaseSpeed: 8
+  phaseRevertingDecreaseSpeed: 11
+  postRevertDuration: .5
   damageSpeed: 14
   damageFriction: 40
   damageDuration: .300000012
@@ -371,7 +372,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: gravity
-      value: 120
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
@@ -387,7 +388,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpSpeed
-      value: 23
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpMinDuration
@@ -395,7 +396,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpMaxDuration
-      value: .189999998
+      value: .219999999
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: airMaxSpeed
@@ -491,7 +492,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseRevertingDecreaseSpeed
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseDecreaseSpeed

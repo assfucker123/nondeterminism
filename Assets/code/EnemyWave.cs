@@ -13,12 +13,22 @@ public class EnemyWave {
         ABSOLUTE_POINT // picks a specific point, written out in EnemyWavePart.location
     }
 
+    public enum FaceDirection {
+        RANDOM,
+        RIGHT,
+        LEFT,
+        UP,
+        DOWN
+    }
+
     [System.Serializable]
     public class EnemyWavePart {
 
         public EnemyInfo.ID enemy = EnemyInfo.ID.NONE;
         public SpawnMethod spawnMethod = SpawnMethod.ANY;
         public string location = "";
+        public bool spawnPickups = true;
+        public FaceDirection faceDirection = FaceDirection.RANDOM;
         public int count = 1;
 
     }

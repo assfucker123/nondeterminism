@@ -33,6 +33,7 @@ public class Dummy : MonoBehaviour {
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
         defaultDeath = GetComponent<DefaultDeath>();
+        enemyInfo = GetComponent<EnemyInfo>();
 	}
 
     void Start() {
@@ -131,5 +132,6 @@ public class Dummy : MonoBehaviour {
     ReceivesDamage receivesDamage;
     VisionUser visionUser;
     DefaultDeath defaultDeath;
+    EnemyInfo enemyInfo;
 
 }
