@@ -1051,6 +1051,111 @@ MonoBehaviour:
       spawnPickups: 0
       faceDirection: 0
       count: 1
+  - maxDanger: 13
+    dangerIncrease: .100000001
+    enemies:
+    - enemy: 5
+      spawnMethod: 1
+      location: snow_segment
+      spawnPickups: 0
+      faceDirection: 0
+      count: 1
+    - enemy: 2
+      spawnMethod: 1
+      location: 
+      spawnPickups: 1
+      faceDirection: 0
+      count: 1
+    - enemy: 4
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 1
+    - enemy: 2
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 2
+    - enemy: 3
+      spawnMethod: 1
+      location: 
+      spawnPickups: 1
+      faceDirection: 0
+      count: 2
+  - maxDanger: 24
+    dangerIncrease: .100000001
+    enemies:
+    - enemy: 2
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 2
+    - enemy: 3
+      spawnMethod: 1
+      location: 
+      spawnPickups: 1
+      faceDirection: 0
+      count: 2
+    - enemy: 5
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 3
+    - enemy: 2
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 3
+    - enemy: 3
+      spawnMethod: 1
+      location: 
+      spawnPickups: 1
+      faceDirection: 0
+      count: 3
+  - maxDanger: 30
+    dangerIncrease: .100000001
+    enemies:
+    - enemy: 5
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 4
+    - enemy: 3
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 4
+    - enemy: 2
+      spawnMethod: 1
+      location: 
+      spawnPickups: 1
+      faceDirection: 0
+      count: 4
+    - enemy: 5
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 4
+    - enemy: 3
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 4
+    - enemy: 2
+      spawnMethod: 1
+      location: 
+      spawnPickups: 0
+      faceDirection: 0
+      count: 4
   currentDanger: 0
 --- !u!4 &1489027764
 Transform:

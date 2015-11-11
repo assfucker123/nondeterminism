@@ -336,6 +336,9 @@ Skills:
 - Oracle can optionally taunt after defeating a wave of enemies?
 	- To activate, just don't press anything and be idle as the last enemy dies
 
+- Players shouldn't feel pressured for time while exploring, if they use chamber flashbacks correctly.
+	- Time is an issue only when collecting the physical keys
+
 Sound Effects needed:
 x step/land
 x jump
@@ -343,7 +346,7 @@ x shoot
 x gun put down
 x hit1
 x oracle damage
-o oracle death
+x oracle death
 / vision
 	- Gets annoying?
 x flashback begin
@@ -362,12 +365,15 @@ x health pickup
 x low phase (ticking sound during flashback)
 x empty phase (off tune loud tick sound)
 o low health
-o portal
+x portal
 
 Enemies needed (sorted by priority):
 x Sealime, bounces back and forth with secret lazor attack
 / Magoom, basic goomba that can occasionally teleport
 o Bomb puzzle enemy
+	- Time bomb coated with colored wires.  Shooting a wire will cause it to be easily defeated or rocket towards the player in a huge explosion
+	- Sways in wide sin wave (more horizontal movement than vertical movement)
+	o Version of enemy that can be figured out before needing a flashback
 o Cloud lightning
 o Spider wall clinger with yo-yo attacks
 o Pengrunt with rocket boots

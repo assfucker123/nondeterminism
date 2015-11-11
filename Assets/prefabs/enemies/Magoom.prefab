@@ -313,7 +313,7 @@ MonoBehaviour:
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
   pickupSize: 1
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
-  deathSound2: {fileID: 0}
+  deathSound2: {fileID: 8300000, guid: 3f30ea0c3f30b0e4d99468176135ce02, type: 3}
 --- !u!114 &11495066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -400,6 +400,10 @@ Prefab:
       propertyPath: magicSound
       value: 
       objectReference: {fileID: 8300000, guid: eecff0db342b59444ab9c5ede5ab9cfc, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: 3f30ea0c3f30b0e4d99468176135ce02, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189600}

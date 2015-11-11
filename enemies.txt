@@ -99,6 +99,9 @@ Special Enemy Attacks:
 - The Salesman boss fight.
 	- Can also flashback.
 	- Uses a similar phase mechanic, need to drain their phase.
+	- Attacks by throwing needles, needles attached to string
+	- Looks like Greninja (smash bros) if it was a poison dart frog (with literal darts)
+		- Also has bright spots/stripes on the back (similar to larva Oracle)
 
 - Final boss fight
 	- Fight takes place in gigantic scary cave with several heart-shaped orbs.

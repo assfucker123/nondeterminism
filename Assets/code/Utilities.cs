@@ -7,6 +7,10 @@ public static class Utilities {
 	/* 
 	 * Range: [0, 360) */
 	public static float get2DRot(Quaternion quaternion){
+        // weird problem.  when setting quaternion to 180 degrees, changes y instead of z?  not sure what's going on
+        if (Mathf.Abs(quaternion.eulerAngles.z) < .001f && Mathf.Abs(quaternion.eulerAngles.y) > .0001f) {
+            return quaternion.eulerAngles.y;
+        }
 		return quaternion.eulerAngles.z;
 	}
 	public static Quaternion setQuat(float rotation2D){

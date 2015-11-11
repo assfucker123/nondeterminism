@@ -93,8 +93,10 @@ public class Bullet : MonoBehaviour {
         }
 
         // leaving map
+        bool leftMap = false;
         Rect rect = CameraControl.getMapBounds();
         if (!rect.Contains(rb2d.position)) {
+            leftMap = true;
             destroyBullet = true;
             destroyPoint = rb2d.position;
         }
@@ -102,7 +104,7 @@ public class Bullet : MonoBehaviour {
         if (destroyBullet) {
 
             //create bulletFade at point of hit
-            bool createBulletFade = aliveTime > 0;
+            bool createBulletFade = aliveTime > 0 && !leftMap;
             if (bulletFadeGameObject != null && createBulletFade) {
                 GameObject bF = GameObject.Instantiate(bulletFadeGameObject,
                     destroyPoint,
@@ -112,7 +114,7 @@ public class Bullet : MonoBehaviour {
                 }
             }
 
-            if (!visionUser.isVision) {
+            if (!visionUser.isVision && !leftMap) {
                 //create bulletExplosion at point of hit
                 if (bulletExplosionGameObject != null) {
                     GameObject bE = GameObject.Instantiate(bulletExplosionGameObject,

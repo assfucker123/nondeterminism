@@ -199,19 +199,18 @@ public class TimeUser : MonoBehaviour {
             rb2d.rotation = fiRevert.rotation;
             rb2d.angularVelocity = fiRevert.angularVelocity;
         }
-        if (spriteRenderer != null) {
+        if (transformSelf || spriteRenderer == null) {
+            transform.localScale = new Vector3(
+                fiRevert.spriteRendererLocalScaleX,
+                fiRevert.spriteRendererLocalScaleY,
+                transform.localScale.z);
+            transform.localRotation = Utilities.setQuat(fiRevert.spriteRendererLocalRotation);
+        } else {
             spriteRenderer.transform.localScale = new Vector3(
                 fiRevert.spriteRendererLocalScaleX,
                 fiRevert.spriteRendererLocalScaleY,
                 spriteRenderer.transform.localScale.z);
-            Quaternion quat = Quaternion.identity;
-            quat.SetFromToRotation(
-                Vector3.right,
-                new Vector3(
-                    Mathf.Cos(fiRevert.spriteRendererLocalRotation * Mathf.PI / 180),
-                    Mathf.Sin(fiRevert.spriteRendererLocalRotation * Mathf.PI / 180))
-                );
-            spriteRenderer.transform.localRotation = quat;
+            spriteRenderer.transform.localRotation = Utilities.setQuat(fiRevert.spriteRendererLocalRotation);
         }
         if (animator != null) {
             animator.Play(
@@ -248,10 +247,14 @@ public class TimeUser : MonoBehaviour {
             fi.rotation = rb2d.rotation;
             fi.angularVelocity = rb2d.angularVelocity;
         }
-        if (spriteRenderer != null) {
+        if (transformSelf || spriteRenderer == null) {
+            fi.spriteRendererLocalScaleX = transform.localScale.x;
+            fi.spriteRendererLocalScaleY = transform.localScale.y;
+            fi.spriteRendererLocalRotation = Utilities.get2DRot(transform.localRotation);
+        } else {
             fi.spriteRendererLocalScaleX = spriteRenderer.transform.localScale.x;
             fi.spriteRendererLocalScaleY = spriteRenderer.transform.localScale.y;
-            fi.spriteRendererLocalRotation = spriteRenderer.transform.localRotation.eulerAngles.z;
+            fi.spriteRendererLocalRotation = Utilities.get2DRot(spriteRenderer.transform.localRotation);
         }
         if (animator != null) {
             fi.animatorFullPathHash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
@@ -318,9 +321,11 @@ public class TimeUser : MonoBehaviour {
         Transform sot = this.transform.Find("spriteObject");
         if (sot == null){
             spriteRenderer = this.GetComponent<SpriteRenderer>();
+            transformSelf = true;
             animator = this.GetComponent<Animator>();
         } else {
             spriteRenderer = sot.gameObject.GetComponent<SpriteRenderer>();
+            transformSelf = false;
             animator = sot.gameObject.GetComponent<Animator>();
         }
         setRandSeed((int)(int.MaxValue * Random.value));
@@ -380,6 +385,7 @@ public class TimeUser : MonoBehaviour {
 
     private Rigidbody2D rb2d;
     private SpriteRenderer spriteRenderer;
+    private bool transformSelf = false; // if true, data is from gameObject.transform.  false is from spriteRenderer.transform
     private Animator animator;
     private bool _exists = true;
     private float _timeCreated = 0;
