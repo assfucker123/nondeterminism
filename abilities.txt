@@ -80,8 +80,12 @@ PAUSE (Start/Enter)
 		- If entering a Wall Run while using Super Speed, will go up the wall very fast.
 	- Scenario: running away from something huge and fast down a corridor
 		- Also while the place is about to blow up?
+			- Corridor is filled with gas
+		- Visions will show spikes coming, battletoads-hoverbike style
 		- There's a wall at the end.  Run up the wall, and the thing will crash into the wall.
-		- Fire a charge shot at its back (weak point), as it attempts to get dislodged from the wall.
+			- Wall running while in super speed is possible, but not shown yet.  Level design will condition player into making big jumps near the end.  This is needed to trigger the wall run.
+		- OPTION 1: Fire a charge shot at its back (weak point), as it attempts to get dislodged from the wall.
+		- OPTION 2: Continue running up the wall through a vertical "sewer pipe" to escape the explosion just in time.
 
 *(D) - Energy Grenade Flashback Launcher (requires Energy Grenade)
 	- Choose where and when an energy grenade will explode by pressing BOMB during a flashback.

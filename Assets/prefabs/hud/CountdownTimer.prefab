@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - 224: {fileID: 22452878}
   - 222: {fileID: 22252092}
-  - 114: {fileID: 11432896}
   - 114: {fileID: 11418156}
+  - 114: {fileID: 11432896}
   m_Layer: 5
   m_Name: CountdownTimer
   m_TagString: Untagged
@@ -111,7 +111,7 @@ MonoBehaviour:
   time: 0
   countUp: 1
   format: 0
-  position: {x: 532, y: -38}
+  position: {x: 532, y: -47}
   score: 0
 --- !u!114 &11451828
 MonoBehaviour:
@@ -181,7 +181,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: 532, y: -49}
+  m_AnchoredPosition: {x: 532, y: -65}
   m_SizeDelta: {x: 220, y: 42}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22454714
@@ -243,7 +243,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: position.y
-      value: -38
+      value: -47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

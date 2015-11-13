@@ -9,8 +9,8 @@ public class PauseScreen : MonoBehaviour {
 
     public AudioClip switchSound;
 
-    public static Color DEFAULT_COLOR = new Color(203 / 255f, 136 / 255f, 177 / 255f);
-    public static Color SELECTED_COLOR = new Color(45 / 255f, 0 / 255f, 27 / 255f);
+    public static Color DEFAULT_COLOR = new Color(203 / 255f, 136 / 255f, 177 / 255f); // CB88B1
+    public static Color SELECTED_COLOR = new Color(45 / 255f, 0 / 255f, 27 / 255f); // 2D001B
 
     public enum Page {
         NONE, //meaning entire pause screen is hidden

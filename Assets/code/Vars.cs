@@ -57,11 +57,20 @@ public class Vars {
         string path = Application.persistentDataPath + "/settings.ini";
 
         byte[] bArr = Utilities.stringToBytes(saveSettingsToString());
+
+        #if !UNITY_WEBPLAYER
         File.WriteAllBytes(path, bArr);
+        #endif
     }
 
     /* Load settings from a file */
     public static void loadSettings() {
+        #if UNITY_WEBPLAYER
+        loadDefaultSettings();
+        return;
+        #endif
+
+        #if !UNITY_WEBPLAYER
 
         string path = Application.persistentDataPath + "/settings.ini";
 
@@ -71,6 +80,8 @@ public class Vars {
         }
         byte[] bArr = File.ReadAllBytes(path);
         loadSettingsFromString(Utilities.bytesToString(bArr));
+
+        #endif
     }
 
     /////////////

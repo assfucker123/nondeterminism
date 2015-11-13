@@ -110,7 +110,7 @@ public class ChargeParticles : MonoBehaviour {
 
     void syncParticles() {
         while (particles.Count < particleLocations.Count) {
-            GameObject partGO = makeParticle();
+            makeParticle();
         }
         while (particles.Count > particleLocations.Count) {
             destroyParticle(particles[particles.Count - 1]);

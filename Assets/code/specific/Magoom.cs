@@ -56,7 +56,6 @@ public class Magoom : MonoBehaviour {
     }
 
     void Start() {
-        prevPos = rb2d.position;
         // attach to Segment
         /* segment = Segment.findBottom(rb2d.position); */
     }
@@ -157,7 +156,7 @@ public class Magoom : MonoBehaviour {
 
                 // spawn vision
                 timeUser.addCurrentFrameInfo();
-                GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
+                visionUser.createVision(VisionUser.VISION_DURATION);
 
                 animator.Play("sparkle_begin");
                 time = 0;
@@ -279,8 +278,6 @@ public class Magoom : MonoBehaviour {
         }
         */
 
-        prevPos = rb2d.position;
-
     }
 
     /* called when this becomes a vision */
@@ -335,7 +332,6 @@ public class Magoom : MonoBehaviour {
     float time;
     float duration = 1.0f;
     Segment segment;
-    Vector2 prevPos = new Vector2();
     float timeSinceFlip = 0;
     Vector2 teleportPos = new Vector2();
 
