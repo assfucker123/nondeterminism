@@ -53,6 +53,7 @@ Enemy Attacks:
 	- Creates vision of attack while also preforming another attack.
 - Moving vines beneath a bridge, surge up at random.  Use vision to tell when they're coming
 	- Tutorial area
+- Destroy fan somewhere to disable steam obstacles elsewhere.
 
 Special Enemy Attacks:
 - Quantum Attacks

@@ -52,6 +52,19 @@ public class Vars {
         loadLevel(Application.loadedLevelName);
     }
 
+    public static void goToTitleScreen() {
+        loadLevel("title_scene");
+    }
+
+    public static void quitGame() {
+        #if UNITY_EDITOR
+        // set the PlayMode to stop
+        Debug.Log("quit game");
+        #else
+        Application.Quit();
+        #endif
+    }
+
     /* Save settings to a file */
     public static void saveSettings() {
         string path = Application.persistentDataPath + "/settings.ini";

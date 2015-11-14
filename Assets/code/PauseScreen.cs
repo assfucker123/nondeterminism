@@ -29,7 +29,7 @@ public class PauseScreen : MonoBehaviour {
             return;
         if (page == Page.NONE)
             return;
-
+        
         // stop time
         prevTimeScale = Time.timeScale;
         prevEffectsEnabled = CameraControl.instance.effectsEnabled;
@@ -69,12 +69,6 @@ public class PauseScreen : MonoBehaviour {
         optionsPage.hide();
         hide();
     }
-
-    // good for ui, since can't get buttonDown for axises
-    public bool leftButtonDown { get { return _leftButtonDown; } }
-    public bool rightButtonDown { get { return _rightButtonDown; } }
-    public bool upButtonDown { get { return _upButtonDown; } }
-    public bool downButtonDown { get { return _downButtonDown; } }
 
     /////////////
     // PRIVATE //
@@ -206,23 +200,7 @@ public class PauseScreen : MonoBehaviour {
 
 	}
 
-    // controls
     void Update() {
-
-        float horiz = Input.GetAxisRaw("Horizontal");
-        float vert = Input.GetAxisRaw("Vertical");
-        bool prevLeftButton = leftButton;
-        leftButton = horiz < -.5f;
-        _leftButtonDown = !prevLeftButton && leftButton;
-        bool prevRightButton = rightButton;
-        rightButton = horiz > .5f;
-        _rightButtonDown = !prevRightButton && rightButton;
-        bool prevUpButton = upButton;
-        upButton = vert < -.5f;
-        _upButtonDown = !prevUpButton && upButton;
-        bool prevDownButton = downButton;
-        downButton = vert > .5f;
-        _downButtonDown = !prevDownButton && downButton;
 
     }
 	
@@ -235,7 +213,7 @@ public class PauseScreen : MonoBehaviour {
 
         // detect switching page
         if (!Vars.arcadeMode) { // can only be on options page in arcade mode
-            if (Input.GetButtonDown("PageLeft")) {
+            if (Keys.instance.pageLeftPressed) {
                 Page pageTo = page;
                 bool immediately = false;
                 switch (page) {
@@ -249,7 +227,7 @@ public class PauseScreen : MonoBehaviour {
                 case Page.OPTIONS: pageTo = Page.PROGRESS; break;
                 }
                 switchPage(pageTo, immediately);
-            } else if (Input.GetButtonDown("PageRight")) {
+            } else if (Keys.instance.pageRightPressed) {
                 Page pageTo = page;
                 bool immediately = false;
                 switch (page) {
@@ -283,7 +261,7 @@ public class PauseScreen : MonoBehaviour {
         }
         
         // unpausing game
-        if (timePaused > .1f && Input.GetButtonDown("Pause")) {
+        if (timePaused > .1f && Keys.instance.startPressed) {
             unpauseGame();
         }
 
@@ -304,15 +282,6 @@ public class PauseScreen : MonoBehaviour {
     float pageSelectionImageTime = 9999;
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
-
-    bool _leftButtonDown = false;
-    bool leftButton = false;
-    bool _rightButtonDown = false;
-    bool rightButton = false;
-    bool _upButtonDown = false;
-    bool upButton = false;
-    bool _downButtonDown = false;
-    bool downButton = false;
 
     // main pause screen
     Image image;

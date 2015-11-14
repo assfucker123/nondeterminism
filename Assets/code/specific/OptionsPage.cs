@@ -14,7 +14,7 @@ public class OptionsPage : MonoBehaviour {
         bool madeSelection = false;
         Text option = null;
         if (settingSFX || settingMusic) {
-            if (PauseScreen.instance.leftButtonDown) {
+            if (Keys.instance.leftPressed) {
                 if (settingSFX) {
                     Vars.sfxVolume = Mathf.Max(0, Vars.sfxVolume - .2f);
                     setVolumeText(true);
@@ -23,7 +23,7 @@ public class OptionsPage : MonoBehaviour {
                     setVolumeText(false);
                 }
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (PauseScreen.instance.rightButtonDown) {
+            } else if (Keys.instance.rightPressed) {
                 if (settingSFX) {
                     Vars.sfxVolume = Mathf.Min(1, Vars.sfxVolume + .2f);
                     setVolumeText(true);
@@ -33,7 +33,7 @@ public class OptionsPage : MonoBehaviour {
                 }
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
-            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) {
+            if (Keys.instance.confirmPressed || Keys.instance.backPressed) {
                 // exit out of setting SFX/Music
                 bool temp = settingSFX;
                 show();
@@ -43,11 +43,11 @@ public class OptionsPage : MonoBehaviour {
                     setSelection(options.IndexOf(musicVolumeText), true);
             }
         } else {
-            if (Input.GetButtonDown("Jump")) {
+            if (Keys.instance.confirmPressed) {
                 madeSelection = true;
                 option = options[selectionIndex];
             }
-            if (Input.GetButtonDown("Fire1")) {
+            if (Keys.instance.backPressed) {
                 if (quitSureNoText.enabled) {
                     madeSelection = true;
                     option = quitSureNoText;
@@ -105,11 +105,7 @@ public class OptionsPage : MonoBehaviour {
                 setSelection(options.IndexOf(quitText), true);
             } else {
                 // quit game (should quit to title screen)
-                #if UNITY_EDITOR
-                // set the PlayMode to stop
-                #else
-                Application.Quit();
-                #endif
+                Vars.goToTitleScreen();
             }
 
         }
@@ -185,10 +181,10 @@ public class OptionsPage : MonoBehaviour {
     void optionsUpdate() {
         // button presses to navigate options
         if (options.Count > 0) {
-            if (PauseScreen.instance.downButtonDown) {
+            if (Keys.instance.downPressed) {
                 setSelection(selectionIndex + 1);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (PauseScreen.instance.upButtonDown) {
+            } else if (Keys.instance.upPressed) {
                 setSelection(selectionIndex - 1);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }

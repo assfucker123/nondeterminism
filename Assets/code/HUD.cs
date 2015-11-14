@@ -134,7 +134,8 @@ public class HUD : MonoBehaviour {
 	void Update() {
 
         // detect pausing the game
-        if (canPause && Input.GetButtonDown("Pause")) {
+        if (canPause &&
+            (Keys.instance.startPressed || Keys.instance.escapePressed)) {
             pauseScreen.pauseGame();
         }
 

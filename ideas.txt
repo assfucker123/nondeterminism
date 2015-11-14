@@ -339,6 +339,8 @@ Skills:
 - Players shouldn't feel pressured for time while exploring, if they use chamber flashbacks correctly.
 	- Time is an issue only when collecting the physical keys
 
+- Hold a button (shoulder button?  Right stick) to quickly bring up the map (pausing the game), and release the button to get rid of the map (resuming the game).
+
 Sound Effects needed:
 x step/land
 x jump
@@ -382,3 +384,4 @@ o Samurai with delayed causality attacks
 
 o Heart pickups -> half hearts
 o Have visions during flashbacks
+o More knockback on enemies

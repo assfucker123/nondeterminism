@@ -386,7 +386,7 @@ public class GameOverScreen : MonoBehaviour {
     }
     void uiUpdate() {
 
-        if (PauseScreen.instance.downButtonDown || PauseScreen.instance.upButtonDown) {
+        if (Keys.instance.downPressed || Keys.instance.upPressed) {
             //setSelection(selectionIndex + 1);
             SoundManager.instance.playSFXIgnoreVolumeScale(uiSwitchSound);
 
@@ -418,16 +418,11 @@ public class GameOverScreen : MonoBehaviour {
                 );
         }
 
-        if (Input.GetButtonDown("Jump")) {
+        if (Keys.instance.confirmPressed || Keys.instance.startPressed) {
             if (selectionIndex == 0) { // restart
                 Vars.restartLevel();
             } else if (selectionIndex == 1) { // quit game
-                // quit game (should quit to title screen)
-                #if UNITY_EDITOR
-                // set the PlayMode to stop
-                #else
-                Application.Quit();
-                #endif 
+                Vars.goToTitleScreen();
             }
         }
 
