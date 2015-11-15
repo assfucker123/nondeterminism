@@ -192,11 +192,14 @@ public class Player : MonoBehaviour {
         }
 
         //set button vars
-        horiz = Input.GetAxis("Horizontal");
-        leftHeld = (horiz < 0);
-        rightHeld = (horiz > 0);
-        jumpPressed = Input.GetButtonDown("Jump");
-        jumpHeld = Input.GetButton("Jump");
+        leftHeld = Keys.instance.leftHeld;
+        rightHeld = Keys.instance.rightHeld;
+        if (leftHeld == rightHeld) {
+            leftHeld = false;
+            rightHeld = false;
+        }
+        jumpPressed = Keys.instance.jumpPressed;
+        jumpHeld = Keys.instance.jumpHeld;
 
         //control reverting
         timeReverting();
@@ -228,7 +231,7 @@ public class Player : MonoBehaviour {
         // fire bullets
         bulletTime += Time.deltaTime;
         if (canFireBullet) {
-            if (Input.GetButtonDown("Fire1")) {
+            if (Keys.instance.shootPressed) {
                 bulletPrePress = true;
             }
             if (bulletPrePress && bulletTime >= bulletMinDuration) {
@@ -236,7 +239,7 @@ public class Player : MonoBehaviour {
                 bulletTime = 0;
                 bulletPrePress = false;
             }
-            if (chargeTime >= chargeDuration && Input.GetButtonUp("Fire1")) {
+            if (chargeTime >= chargeDuration && Keys.instance.shootReleased) {
                 fireBullet(true);
             }
         }
@@ -347,7 +350,7 @@ public class Player : MonoBehaviour {
                 Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration));
 
             //conditions for reverting
-            bool stopReverting = !Input.GetButton("Flash");
+            bool stopReverting = !Keys.instance.flashbackHeld;
             if (phase <= 0 || TimeUser.time <= 0.0001f)
                 stopReverting = true;
             if (revertTime < minRevertDuration)
@@ -362,7 +365,7 @@ public class Player : MonoBehaviour {
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
         } else if (!PauseScreen.instance.paused && !HUD.instance.gameOverScreen.cannotRevert) {
-            if (Input.GetButtonDown("Flash")) {
+            if (Keys.instance.flashbackHeld) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
                     SoundManager.instance.playSFX(flashbackBeginSound);
@@ -392,7 +395,7 @@ public class Player : MonoBehaviour {
                     chargeSoundTime = 0;
                 }
             }
-            if (!Input.GetButton("Fire1") || !canFireBullet) {
+            if (!Keys.instance.shootHeld || !canFireBullet) {
                 chargeParticles.stopSpawning();
                 chargeTime = 0;
                 charging = false;
@@ -401,7 +404,7 @@ public class Player : MonoBehaviour {
             }
             
         } else { // not currently charging
-            if (Input.GetButton("Fire1") && canFireBullet) {
+            if (Keys.instance.shootHeld && canFireBullet) {
                 chargeParticles.startSpawning();
                 chargeParticles.tiny = true;
                 chargeTime = 0;

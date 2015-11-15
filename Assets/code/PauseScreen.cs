@@ -159,7 +159,7 @@ public class PauseScreen : MonoBehaviour {
             break;
         case Page.OPTIONS:
             option = optionsPageText;
-            optionsPage.show();
+            optionsPage.show(false);
             break;
         }
         if (option != null) {

@@ -5,7 +5,9 @@ using System.Collections.Generic;
 
 public class TitleScreen : MonoBehaviour {
 
+    public Vector2 optionsPageOffset = new Vector2(0, -10);
     public AudioClip switchSound;
+    public GameObject optionsPageGameObject;
 	
 	void Awake() {
         clockText = transform.Find("ClockText").GetComponent<Text>();
@@ -13,11 +15,22 @@ public class TitleScreen : MonoBehaviour {
         playGameText = transform.Find("PlayGameText").GetComponent<Text>();
         optionsText = transform.Find("OptionsText").GetComponent<Text>();
         quitText = transform.Find("QuitText").GetComponent<Text>();
+        controlsText = transform.Find("ControlsText").GetComponent<Text>();
+        flashbackText = transform.Find("FlashbackText").GetComponent<Text>();
+
+        GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
+        optionsPageGO.transform.SetParent(transform, false);
+        optionsPageGO.GetComponent<RectTransform>().localPosition = optionsPageGO.GetComponent<RectTransform>().localPosition +
+            new Vector3(optionsPageOffset.x, optionsPageOffset.y);
+        optionsPage = optionsPageGO.GetComponent<OptionsPage>();
+        optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
 	}
 
     void Start() {
         // start game
         Vars.startGame();
+
+        optionsPage.hide();
 
         // set options
         options.Add(playGameText);
@@ -32,6 +45,15 @@ public class TitleScreen : MonoBehaviour {
 	}
 
     void menuUpdate() {
+
+        if (optionsPageShown) {
+            if ((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
+                (optionsPage.selectingBack() && Keys.instance.confirmPressed)) {
+                optionsBack();
+            }
+            optionsPage.update();
+            return;
+        }
 
         int prevSelectionIndex = selectionIndex;
         bool newSelection = false;
@@ -83,11 +105,44 @@ public class TitleScreen : MonoBehaviour {
     }
 
     void optionsSelected() {
-
+        if (optionsPageShown) return;
+        optionsPage.show(true);
+        hideOptions();
+        optionsPageShown = true;
+    }
+    void optionsBack() {
+        if (!optionsPageShown) return;
+        optionsPage.hide();
+        showOptions(options.IndexOf(optionsText));
+        optionsPageShown = false;
     }
 
     void quitGameSelected() {
         Vars.quitGame();
+    }
+
+    void hideOptions() {
+        selection.enabled = false;
+        playGameText.enabled = false;
+        optionsText.enabled = false;
+        quitText.enabled = false;
+
+        controlsText.enabled = false;
+        flashbackText.enabled = false;
+    }
+    void showOptions(int selectionIndex) {
+        this.selectionIndex = selectionIndex;
+        selection.rectTransform.localPosition = options[this.selectionIndex].rectTransform.localPosition +
+            new Vector3(selectionOffset.x, selectionOffset.y, 0);
+        selectionTime = 9999;
+
+        selection.enabled = true;
+        playGameText.enabled = true;
+        optionsText.enabled = true;
+        quitText.enabled = true;
+
+        controlsText.enabled = true;
+        flashbackText.enabled = true;
     }
 
     int selectionIndex = 0;
@@ -95,6 +150,7 @@ public class TitleScreen : MonoBehaviour {
     Vector2 selectionPos0 = new Vector2();
     Vector2 selectionPos1 = new Vector2();
     List<Text> options = new List<Text>();
+    bool optionsPageShown = false;
 
     Text clockText;
     Image selection;
@@ -102,5 +158,10 @@ public class TitleScreen : MonoBehaviour {
     Text playGameText;
     Text optionsText;
     Text quitText;
+    OptionsPage optionsPage;
+
+    // get rid of?
+    Text controlsText;
+    Text flashbackText;
 
 }

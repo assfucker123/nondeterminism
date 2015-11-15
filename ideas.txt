@@ -340,6 +340,7 @@ Skills:
 	- Time is an issue only when collecting the physical keys
 
 - Hold a button (shoulder button?  Right stick) to quickly bring up the map (pausing the game), and release the button to get rid of the map (resuming the game).
+	- Right stick: direction held is the direction the map comes in from.
 
 Sound Effects needed:
 x step/land

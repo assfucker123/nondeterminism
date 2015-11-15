@@ -36,7 +36,7 @@ public class OptionsPage : MonoBehaviour {
             if (Keys.instance.confirmPressed || Keys.instance.backPressed) {
                 // exit out of setting SFX/Music
                 bool temp = settingSFX;
-                show();
+                show(titleMode);
                 if (temp)
                     setSelection(options.IndexOf(sfxVolumeText), true);
                 else
@@ -84,24 +84,28 @@ public class OptionsPage : MonoBehaviour {
                 settingMusic = true;
 
             } else if (option == quitText) {
-                // go to quit sure mode
-                // get rid of other options
-                option.color = PauseScreen.DEFAULT_COLOR;
-                hide();
-                selection.enabled = true;
-                quitSureYesText.rectTransform.localPosition = options[1].rectTransform.localPosition;
-                quitSureNoText.rectTransform.localPosition = options[2].rectTransform.localPosition;
-                options.Clear();
-                // set new options
-                quitSureText.enabled = true;
-                quitSureYesText.enabled = true;
-                quitSureNoText.enabled = true;
-                options.Add(quitSureYesText);
-                options.Add(quitSureNoText);
-                setSelection(1, true);
+                if (titleMode) { // when quitText actually says BACK
+                    // do nothing.  TitleScreen will detect backing out of the options page
+                } else {
+                    // go to quit sure mode
+                    // get rid of other options
+                    option.color = PauseScreen.DEFAULT_COLOR;
+                    hide();
+                    selection.enabled = true;
+                    quitSureYesText.rectTransform.localPosition = options[1].rectTransform.localPosition;
+                    quitSureNoText.rectTransform.localPosition = options[2].rectTransform.localPosition;
+                    options.Clear();
+                    // set new options
+                    quitSureText.enabled = true;
+                    quitSureYesText.enabled = true;
+                    quitSureNoText.enabled = true;
+                    options.Add(quitSureYesText);
+                    options.Add(quitSureNoText);
+                    setSelection(1, true);
+                }
             } else if (option == quitSureNoText) {
                 // cancel quitting
-                show();
+                show(titleMode);
                 setSelection(options.IndexOf(quitText), true);
             } else {
                 // quit game (should quit to title screen)
@@ -130,11 +134,21 @@ public class OptionsPage : MonoBehaviour {
 		
 	}
 
+    public bool selectingBack() {
+        if (!titleMode) return false;
+        if (!onTopMenu()) return false;
+        if (options.IndexOf(quitText) == -1) return false;
+        return selectionIndex == options.IndexOf(quitText);
+    }
+    public bool onTopMenu() {
+        return quitText.enabled;
+    }
 
-    public void show() {
+    public void show(bool titleMode) {
+        this.titleMode = titleMode;
         selection.enabled = true;
-        resumeText.enabled = true;
-        restartText.enabled = true;
+        resumeText.enabled = !titleMode;
+        restartText.enabled = !titleMode;
         fullscreenText.enabled = true;
         sfxVolumeText.enabled = true;
         musicVolumeText.enabled = true;
@@ -149,8 +163,13 @@ public class OptionsPage : MonoBehaviour {
         selectionImage = selection;
         selectionImageOffset.Set(0, 2);
         options.Clear();
-        options.Add(resumeText);
-        options.Add(restartText);
+        if (titleMode) {
+            quitText.text = "BACK";
+        } else {
+            quitText.text = "QUIT";
+            options.Add(resumeText);
+            options.Add(restartText);
+        }
         options.Add(fullscreenText);
         options.Add(sfxVolumeText);
         options.Add(musicVolumeText);
@@ -255,6 +274,7 @@ public class OptionsPage : MonoBehaviour {
         selectionImageFinalPos = selectionImageOffset + new Vector2(option.rectTransform.localPosition.x, option.rectTransform.localPosition.y);
         if (immediately) {
             selectionImageInitialPos = selectionImageFinalPos;
+            selectionImage.rectTransform.localPosition = new Vector3(selectionImageFinalPos.x, selectionImageFinalPos.y);
         }
     }
 
@@ -266,11 +286,12 @@ public class OptionsPage : MonoBehaviour {
     Text musicVolumeText;
     Text volumeText;
 
-    Text quitText;
+    Text quitText; // renamed to BACK when in title mode
     Text quitSureText;
     Text quitSureYesText;
     Text quitSureNoText;
     bool settingSFX = false;
     bool settingMusic = false;
+    bool titleMode = false;
 
 }
