@@ -1,0 +1,5 @@
+ANSI D: 22 x 34 inches
+	- For plotters, document width should be 34 inches or less.
+resolution: 600dpi
+print on vcp7100 (paper)?
+

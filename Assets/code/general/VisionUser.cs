@@ -60,8 +60,11 @@ public class VisionUser : MonoBehaviour {
     // PUBLIC //
     ////////////
 
+    public float flickerPeriod = .2f;
+    public float flickerAlpha = .6f;
     public bool isVision { get { return _isVision; } }
     private float fadeInDuration = .35f; //how long for the vision to fade in
+    private float flashbackAlpha = .15f; // alpha of a vision during a flashback (used to be 0)
     public float time { get { return _time; } } //how long this visionUser has been a vision
     public float duration { get { return _duration; } } //how long this visionUser will be a vision for
     public bool createdWhenAbilityDeactivated { get { return _createdWhenAbilityDeactivated; } }
@@ -165,7 +168,6 @@ public class VisionUser : MonoBehaviour {
         }
         Debug.Assert(spriteRenderer != null);
         timeUser = GetComponent<TimeUser>();
-        Debug.Assert(timeUser != null);
 	}
 	
 	void Update() {
@@ -219,7 +221,7 @@ public class VisionUser : MonoBehaviour {
             a = 0;
         } else if (TimeUser.reverting) {
             //should be invisible while reverting
-            a = Utilities.easeLinearClamp(TimeUser.revertingTime, 1, -1, fadeInDuration);
+            a = Utilities.easeLinearClamp(TimeUser.revertingTime, 1, flashbackAlpha - 1, fadeInDuration);
         } else {
             //normally should be visible, except when fading in at the start and end
             if (duration - time < fadeInDuration) {
@@ -228,6 +230,10 @@ public class VisionUser : MonoBehaviour {
                 a = Utilities.easeLinearClamp(time, 0, 1, fadeInDuration);
             }
         }
+
+        float flickerT = time - flickerPeriod * Mathf.Floor(time / flickerPeriod);
+        a *= Utilities.easeOutQuad(flickerT, flickerAlpha, 1 - flickerAlpha, flickerPeriod);
+
         spriteRenderer.color = new Color(1, 1, 1, a);
     }
 

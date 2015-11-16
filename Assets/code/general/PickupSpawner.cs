@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class PickupSpawner : MonoBehaviour {
 
+    public GameObject healthSmallPickupGameObject;
     public GameObject healthPickupGameObject;
     public GameObject healthBigPickupGameObject;
     public GameObject phasePickupGameObject;
@@ -65,14 +66,25 @@ public class PickupSpawner : MonoBehaviour {
         case BurstSize.LARGE: totalPickups = SIZE_LARGE; break;
         }
         
-        int numHealth = Mathf.RoundToInt(totalPickups * percentHealth);
-        int numPhase = totalPickups - numHealth;
+        int numSmallHealth = Mathf.RoundToInt(totalPickups * percentHealth);
+        int numPhase = totalPickups - numSmallHealth;
 
         //convert some pickups to their bigger versions
+        int numHealth = 0;
         int numBigHealth = 0;
         int numBigPhase = 0;
+        int healthRatio = Mathf.RoundToInt(
+            healthPickupGameObject.GetComponent<Pickup>().amount / healthSmallPickupGameObject.GetComponent<Pickup>().amount);
         int bigHealthRatio = Mathf.RoundToInt(
             healthBigPickupGameObject.GetComponent<Pickup>().amount / healthPickupGameObject.GetComponent<Pickup>().amount);
+        if (numSmallHealth >= healthRatio) {
+            if (timeUser == null) {
+                numHealth = Mathf.RoundToInt(Random.value * (numSmallHealth / healthRatio));
+            } else {
+                numHealth = Mathf.RoundToInt(timeUser.randomValue() * (numSmallHealth / healthRatio));
+            }
+            numSmallHealth -= numHealth * healthRatio;
+        }
         if (numHealth >= bigHealthRatio) {
             if (timeUser == null) {
                 numBigHealth = Mathf.RoundToInt(Random.value * (numHealth / bigHealthRatio));
@@ -96,6 +108,14 @@ public class PickupSpawner : MonoBehaviour {
         List<Pickup> pickups = new List<Pickup>();
         int i = 0;
         GameObject gO;
+        for (i = 0; i < numSmallHealth; i++) {
+            gO = GameObject.Instantiate(healthSmallPickupGameObject, new Vector3(position.x, position.y), Quaternion.identity) as GameObject;
+            if (Player.instance != null &&
+                Player.instance.health % 2 == 1) {
+                gO.transform.localScale = new Vector3(-gO.transform.localScale.x, gO.transform.localScale.y, gO.transform.localScale.z);
+            }
+            pickups.Add(gO.GetComponent<Pickup>());
+        }
         for (i = 0; i < numHealth; i++) {
             gO = GameObject.Instantiate(healthPickupGameObject, new Vector3(position.x, position.y), Quaternion.identity) as GameObject;
             pickups.Add(gO.GetComponent<Pickup>());

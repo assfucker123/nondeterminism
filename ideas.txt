@@ -383,6 +383,6 @@ o Pengrunt with rocket boots
 o Tank bear that fires bombs, some are fake/duds
 o Samurai with delayed causality attacks
 
-o Heart pickups -> half hearts
-o Have visions during flashbacks
+x Heart pickups -> half hearts
+x Have visions during flashbacks
 o More knockback on enemies

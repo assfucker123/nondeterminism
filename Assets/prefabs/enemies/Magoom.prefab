@@ -257,6 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b485bea4fbb79f7448f7e73aa5b1d13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSmallPickupGameObject: {fileID: 195806, guid: eb641e6c04f6fa04a9c6e0818f6305d3,
+    type: 2}
   healthPickupGameObject: {fileID: 172112, guid: 4dbac7f2d16bce84ea6da5eeed76724c,
     type: 2}
   healthBigPickupGameObject: {fileID: 122504, guid: 71149b1913979a6469b34a0d486f4692,
@@ -404,6 +406,10 @@ Prefab:
       propertyPath: deathSound2
       value: 
       objectReference: {fileID: 8300000, guid: 3f30ea0c3f30b0e4d99468176135ce02, type: 3}
+    - target: {fileID: 0}
+      propertyPath: healthSmallPickupGameObject
+      value: 
+      objectReference: {fileID: 195806, guid: eb641e6c04f6fa04a9c6e0818f6305d3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189600}

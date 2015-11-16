@@ -341,7 +341,7 @@ public class TimeUser : MonoBehaviour {
 
     void Update() {
 
-        if (PauseScreen.instance.paused)
+        if (PauseScreen.instance != null && PauseScreen.instance.paused)
             return;
 
         if (reverting && !continuousRevertAppliedThisFrame) {

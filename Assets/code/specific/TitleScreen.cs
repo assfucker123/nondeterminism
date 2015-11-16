@@ -8,7 +8,58 @@ public class TitleScreen : MonoBehaviour {
     public Vector2 optionsPageOffset = new Vector2(0, -10);
     public AudioClip switchSound;
     public GameObject optionsPageGameObject;
-	
+    public GameObject thingGameObject;
+    public Color[] thingColors;
+    public Sprite[] thingSprites;
+    [Header("Things")]
+    public float thingLoopSpan = 1000; // how far things will travel before looping
+    public float thingYSpread = 600;
+    public float thingMinSpeed = 100;
+    public float thingMaxSpeed = 200;
+    public float thingMinAmplitude = 100;
+    public float thingMaxAmplitude = 200;
+    public float thingMinPeriod = .3f;
+    public float thingMaxPeriod = .5f;
+    public int numThings = 20;
+
+
+    class ThingThing {
+        public GameObject gameObject;
+        public float speed = 100;
+        public float xOffset = 0;
+        public float initialY = 0;
+        public float loopSpan = 1000;
+        public float amplitude = 100;
+        public float period = .3f;
+        public float periodOffset = 0;
+        public float time = 0;
+        public void updatePosition() {
+            float x = speed * time + xOffset;
+            int loops = Mathf.FloorToInt(x / loopSpan);
+            x -= loops * loopSpan;
+            float y = initialY + Mathf.Sin((time + periodOffset) * Mathf.PI * 2 / period) * amplitude;
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(x, y);
+        }
+    }
+    List<ThingThing> things = new List<ThingThing>();
+    void makeThing() {
+        ThingThing tt = new ThingThing();
+        tt.gameObject = GameObject.Instantiate(thingGameObject) as GameObject;
+        Image image = tt.gameObject.GetComponent<Image>();
+        image.sprite = thingSprites[Random.Range(0, thingSprites.Length)];
+        image.color = thingColors[Random.Range(0, thingColors.Length)];
+        tt.gameObject.transform.SetParent(thingsGO.transform);
+        tt.speed = Random.Range(thingMinSpeed, thingMaxSpeed);
+        tt.loopSpan = thingLoopSpan;
+        tt.xOffset = Random.Range(0, tt.loopSpan);
+        tt.initialY = Random.Range(-thingYSpread / 2, thingYSpread / 2);
+        tt.amplitude = Random.Range(thingMinAmplitude, thingMaxAmplitude);
+        tt.period = Random.Range(thingMinPeriod, thingMaxPeriod);
+        tt.periodOffset = Random.Range(0, tt.period);
+        tt.updatePosition();
+        things.Add(tt);
+    }
+
 	void Awake() {
         clockText = transform.Find("ClockText").GetComponent<Text>();
         selection = transform.Find("Selection").GetComponent<Image>();
@@ -17,6 +68,7 @@ public class TitleScreen : MonoBehaviour {
         quitText = transform.Find("QuitText").GetComponent<Text>();
         controlsText = transform.Find("ControlsText").GetComponent<Text>();
         flashbackText = transform.Find("FlashbackText").GetComponent<Text>();
+        thingsGO = transform.Find("Things").gameObject;
 
         GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
         optionsPageGO.transform.SetParent(transform, false);
@@ -31,6 +83,11 @@ public class TitleScreen : MonoBehaviour {
         Vars.startGame();
 
         optionsPage.hide();
+        Time.timeScale = 1;
+
+        for (int i = 0; i < numThings; i++) {
+            makeThing();
+        }
 
         // set options
         options.Add(playGameText);
@@ -41,6 +98,29 @@ public class TitleScreen : MonoBehaviour {
 	void Update() {
 
         menuUpdate();
+
+        // timeUser stuff
+        if (reverting) {
+            revertingDiff += Time.unscaledDeltaTime * 2;
+            if (!Keys.instance.flashbackHeld) {
+                reverting = false;
+            }
+        } else {
+            if (Keys.instance.flashbackHeld) {
+                reverting = true;
+            }
+        }
+
+        foreach (ThingThing tt in things) {
+            if (reverting) {
+                tt.time -= Time.unscaledDeltaTime;
+            } else {
+                tt.time += Time.unscaledDeltaTime;
+            }
+            tt.updatePosition();
+        }
+
+        updateClock(revertingDiff);
 
 	}
 
@@ -98,6 +178,12 @@ public class TitleScreen : MonoBehaviour {
 
         }
 
+    }
+
+    void updateClock(float timeDiff) {
+        System.DateTime clock = System.DateTime.Now;
+        clock = clock.AddMilliseconds((double)(timeDiff * -1000));
+        clockText.text = clock.ToString("HH:mm:ss");
     }
 
     void playGameSelected() {
@@ -159,6 +245,10 @@ public class TitleScreen : MonoBehaviour {
     Text optionsText;
     Text quitText;
     OptionsPage optionsPage;
+    GameObject thingsGO;
+
+    bool reverting = false;
+    float revertingDiff = 0;
 
     // get rid of?
     Text controlsText;

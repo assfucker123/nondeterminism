@@ -93,7 +93,7 @@ MonoBehaviour:
   speed: 70
   damage: 10
   heading: 0
-  radius: .200000003
+  radius: .25
   maxDistance: -1
   bulletFadeGameObject: {fileID: 137602, guid: ab18b2ff34abb374c8755a1c93ceda28, type: 2}
   bulletExplosionGameObject: {fileID: 110428, guid: 9b452d2dde1113546a7030d6c09813c6,
@@ -145,7 +145,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: radius
-      value: .300000012
+      value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed

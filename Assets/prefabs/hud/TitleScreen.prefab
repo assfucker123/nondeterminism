@@ -102,6 +102,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &142594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22404370}
+  - 222: {fileID: 22214746}
+  m_Layer: 5
+  m_Name: Things
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &148304
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +362,24 @@ MonoBehaviour:
   switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
   optionsPageGameObject: {fileID: 181668, guid: ba5e26123b1562c4cb8d57d0cc5d6ca3,
     type: 2}
+  thingGameObject: {fileID: 174572, guid: 242d5a01bbe64764eb08eeba4e48296e, type: 2}
+  thingColors:
+  - {r: .102941155, g: .00302768382, b: .0629758015, a: 1}
+  - {r: .0648788959, g: .00259515899, b: .0882353187, a: 1}
+  - {r: .018685136, g: .00259515899, b: .0294117928, a: 1}
+  thingSprites:
+  - {fileID: 21300000, guid: d508ec28d128d664cb5a5b3e4c3a28e8, type: 3}
+  - {fileID: 21300002, guid: d508ec28d128d664cb5a5b3e4c3a28e8, type: 3}
+  - {fileID: 21300004, guid: d508ec28d128d664cb5a5b3e4c3a28e8, type: 3}
+  thingLoopSpan: 1500
+  thingYSpread: 800
+  thingMinSpeed: 70
+  thingMaxSpeed: 300
+  thingMinAmplitude: 50
+  thingMaxAmplitude: 100
+  thingMinPeriod: 3.5
+  thingMaxPeriod: 4
+  numThings: 6
 --- !u!114 &11465608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -418,7 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .0549019612, g: .00392156886, b: .0862745121, a: 1}
+  m_Color: {r: .0422639661, g: .00340614142, b: .0661764741, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -581,6 +615,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121390}
+--- !u!222 &22214746
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142594}
 --- !u!222 &22221520
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -640,11 +680,28 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 1.90734863e-05, y: 315}
   m_SizeDelta: {x: 1366, y: 85}
+  m_Pivot: {x: .5, y: .5}
+--- !u!224 &22404370
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22410808}
+  m_RootOrder: 2
+  m_AnchorMin: {x: 0, y: .5}
+  m_AnchorMax: {x: 0, y: .5}
+  m_AnchoredPosition: {x: -54, y: 0}
+  m_SizeDelta: {x: 55, y: 768}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22404612
 RectTransform:
@@ -657,7 +714,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 19, y: 295}
@@ -675,6 +732,7 @@ RectTransform:
   m_Children:
   - {fileID: 22447078}
   - {fileID: 22463416}
+  - {fileID: 22404370}
   - {fileID: 22496736}
   - {fileID: 22418706}
   - {fileID: 22404036}
@@ -702,7 +760,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
   m_AnchoredPosition: {x: -286, y: -35}
@@ -719,10 +777,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -359, y: 24}
+  m_AnchoredPosition: {x: -477, y: 24}
   m_SizeDelta: {x: 150, y: 24}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22440648
@@ -736,10 +794,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -359, y: -40}
+  m_AnchoredPosition: {x: -477, y: -40}
   m_SizeDelta: {x: 150, y: 24}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22441198
@@ -753,10 +811,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -359, y: -8}
+  m_AnchoredPosition: {x: -477, y: -8}
   m_SizeDelta: {x: 150, y: 24}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22447078
@@ -787,10 +845,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -359, y: 26}
+  m_AnchoredPosition: {x: -477, y: 26}
   m_SizeDelta: {x: 208, y: 32}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22457072
@@ -804,7 +862,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 264}
@@ -824,8 +882,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -490, y: 69}
-  m_SizeDelta: {x: 926, y: 241}
+  m_AnchoredPosition: {x: -654, y: 69}
+  m_SizeDelta: {x: 1255, y: 241}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22496736
 RectTransform:
@@ -838,7 +896,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22410808}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
   m_AnchoredPosition: {x: -286, y: 2}
@@ -850,7 +908,67 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: numThings
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingLoopSpan
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingMinSpeed
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingMaxSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingMinPeriod
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingMaxPeriod
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[0].r
+      value: .16911763
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[0].g
+      value: .00497405278
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[0].b
+      value: .10346026
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[1].r
+      value: .113228403
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[1].g
+      value: .00340614584
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[1].b
+      value: .154411793
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[2].r
+      value: .0555363409
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[2].g
+      value: .00648789201
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thingColors.Array.data[2].b
+      value: .0882353187
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189052}

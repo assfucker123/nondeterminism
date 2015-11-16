@@ -365,7 +365,7 @@ public class Player : MonoBehaviour {
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
         } else if (!PauseScreen.instance.paused && !HUD.instance.gameOverScreen.cannotRevert) {
-            if (Keys.instance.flashbackHeld) {
+            if (Keys.instance.flashbackPressed) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
                     SoundManager.instance.playSFX(flashbackBeginSound);

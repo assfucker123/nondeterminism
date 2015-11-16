@@ -107,6 +107,9 @@ public class Pickup : MonoBehaviour {
         }
 
         if (pickUpSound != null) {
+            if (SoundManager.instance.isSFXPlaying(pickUpSound)) {
+                SoundManager.instance.stopSFX(pickUpSound);
+            }
             SoundManager.instance.playSFX(pickUpSound);
         }
         _pickedUp = true;

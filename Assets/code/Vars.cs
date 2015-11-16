@@ -17,6 +17,7 @@ public class Vars {
             _musicVolume = value;
         }
     }
+    
     public static void loadDefaultSettings() {
         sfxVolume = 1;
         musicVolume = 1;
