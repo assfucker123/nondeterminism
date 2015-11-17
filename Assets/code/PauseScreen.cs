@@ -36,12 +36,14 @@ public class PauseScreen : MonoBehaviour {
         prevBloomIntensity = CameraControl.instance.bloomIntensity;
         prevColorCorrectionSaturation = CameraControl.instance.colorCorrectionSaturation;
         Time.timeScale = 0;
-        CameraControl.instance.enableEffects(0, 0); //grayscale camera
-
+        
         // show pause screen
-        show(page);
-        timePaused = 0;
+        if (!Vars.screenshotMode) {
+            CameraControl.instance.enableEffects(0, 0); //grayscale camera
+            show(page);
+        }
 
+        timePaused = 0;
         _paused = true;
     }
     public void unpauseGame() {
@@ -210,6 +212,14 @@ public class PauseScreen : MonoBehaviour {
 
         // use Time.unscaledDeltaTime;
         timePaused += Time.unscaledDeltaTime;
+
+        if (Vars.screenshotMode) {
+            // unpausing game
+            if (timePaused > .1f && Keys.instance.startPressed) {
+                unpauseGame();
+            }
+            return;
+        }
 
         // detect switching page
         if (!Vars.arcadeMode) { // can only be on options page in arcade mode

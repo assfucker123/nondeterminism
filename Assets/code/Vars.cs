@@ -8,6 +8,7 @@ public class Vars {
 
     public static bool arcadeMode = true;
     public static int highScore = 0;
+    public static bool screenshotMode = false;
 
     // SETTINGS
 
@@ -96,6 +97,15 @@ public class Vars {
         loadSettingsFromString(Utilities.bytesToString(bArr));
 
         #endif
+    }
+
+    /* Take a screenshot */
+    public static void takeScreenshot() {
+        System.DateTime dateTime = System.DateTime.Now;
+        string str = "screenie_";
+        str += dateTime.ToString("MM-dd_HH-mm-ss");
+        str += ".png";
+        Application.CaptureScreenshot(str);
     }
 
     /////////////

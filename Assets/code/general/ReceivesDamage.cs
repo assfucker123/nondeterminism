@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ReceivesDamage : MonoBehaviour {
 
-    public static float HIT_FLASH_DURATION = .06f;
+    public static float HIT_FLASH_DURATION = .11f;
     public static Color HIT_FLASH_COLOR = new Color(.89f, 0, 0);
 
     public static float MERCY_FLASH_PERIOD = .2f;

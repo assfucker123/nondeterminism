@@ -133,6 +133,13 @@ public class HUD : MonoBehaviour {
 	
 	void Update() {
 
+        // detect screenshots
+        if (Vars.screenshotMode) {
+            if (Input.GetKeyDown(KeyCode.F8)) {
+                Vars.takeScreenshot();
+            }
+        }
+
         // detect pausing the game
         if (canPause &&
             (Keys.instance.startPressed || Keys.instance.escapePressed)) {

@@ -1000,27 +1000,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
---- !u!1 &1182848879 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 102646, guid: 631edb7ab5bbfb64aa498e5077521ed2, type: 2}
-  m_PrefabInternal: {fileID: 730355410}
---- !u!114 &1182848880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1182848879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70a4a6a10849cdd49886d3522ba2d72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteTrailGameObject: {fileID: 116068, guid: f2bb6cb0d37d6784085ea3d8b0827975,
-    type: 2}
-  trailDuration: .150000006
-  period: .0340000018
-  trailFadeOut: 1
-  startActivated: 0
 --- !u!1001 &1217266634
 Prefab:
   m_ObjectHideFlags: 0

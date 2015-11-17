@@ -264,6 +264,9 @@ Special Skill: Vision
 - Can place bombs or mines in preparation for enemies appearing.
 - Have enemies that appear or warp out of nowhere.
 
+- Scenario: need to race to something.  There are multiple paths there, with one path seemingly the best.
+	- But on the way there, an obstacle moves (e.g. falls) that makes another path the best.  Need to flashback to the the beginning and pick the right path.
+- Scenario: one window of opportunity for something.  Need to jump through at the precise window, and use flashback to adjust for the window.
 
 Skills:
 - Dash ability
@@ -372,7 +375,7 @@ x portal
 
 Enemies needed (sorted by priority):
 x Sealime, bounces back and forth with secret lazor attack
-/ Magoom, basic goomba that can occasionally teleport
+x Magoom, basic goomba that can occasionally teleport
 o Bomb puzzle enemy
 	- Time bomb coated with colored wires.  Shooting a wire will cause it to be easily defeated or rocket towards the player in a huge explosion
 	- Sways in wide sin wave (more horizontal movement than vertical movement)
@@ -383,6 +386,14 @@ o Pengrunt with rocket boots
 o Tank bear that fires bombs, some are fake/duds
 o Samurai with delayed causality attacks
 
-x Heart pickups -> half hearts
-x Have visions during flashbacks
+o Toucan bomb enemy:
+	- First version: has 3 bubbles and 1 grenade circle him.  If he gets shot, a bubble gets shot, or if he waits too long, then he fires all the projectiles at the player.
+		- Waiting too long will result in a vision of the attack.  Vision only shows the grenade, not the bubbles
+		- There are some frames where the projectiles freeze before being launched.  The pin falls out of the grenade here.
+	- Bubbles don't damage or affect the player at all, but the grenades deal damage and create a huge lethal explosion.
+	- Shooting the grenade while it's circling the enemy will cause it to detonate and kill the enemy right there (otherwise he takes a lot of damage)
+	- Second version: same as first, but the bubbles and grenade are hidden in fruit.  Need to figure out which fruit holds the grenade.
+		- Idea is to figure out which one it is using Flashback.
+		- Fruit facade is revealed during the pause in the first version.
+
 o More knockback on enemies
