@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof (TimeUser))]
-public class VisualEffect : MonoBehaviour {
+public class GrenadePin : MonoBehaviour {
 
-    public float duration = .1f;
-    public bool fadeOut = false;
+    public Vector2 spawnPos = new Vector2(0, 0);
+    public float spawnRot = 0;
+    public float duration = .5f;
 
     void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         timeUser = GetComponent<TimeUser>();
+    }
+
+    void Start() {
+
     }
 
     void Update() {
@@ -18,27 +22,26 @@ public class VisualEffect : MonoBehaviour {
             return;
 
         time += Time.deltaTime;
-        if (fadeOut) {
-            if (spriteRenderer != null) {
-                Color c = spriteRenderer.color;
-                c.a = Utilities.easeLinearClamp(time, 1, -1, duration);
-                spriteRenderer.color = c;
-            }
-        }
+
         if (time >= duration) {
             timeUser.timeDestroy();
         }
+
     }
 
+    /* called at the end of a frame to record information */
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
     }
+    /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
     }
 
+    float time = 0;
+
+    // components
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;
-    float time = 0;
 
 }
