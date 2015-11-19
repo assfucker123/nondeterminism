@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace InControl
 {
+
 	public class InControlManager : MonoBehaviour
 	{
 		public bool logDebugInfo = false;
@@ -16,9 +17,25 @@ namespace InControl
 		public bool dontDestroyOnLoad = false;
 		public List<string> customProfiles = new List<string>();
 
+        //private static InControlManager instance = null;
 
 		void OnEnable()
 		{
+            /*
+            if (instance != null) {
+                Destroy(gameObject);
+                return;
+            } else {
+
+                
+                instance = this;
+            }*/
+
+            if (dontDestroyOnLoad) {
+                DontDestroyOnLoad(this);
+            }
+
+
 			if (logDebugInfo)
 			{
 				Debug.Log( "InControl (version " + InputManager.Version + ")" );
@@ -43,10 +60,8 @@ namespace InControl
 				}
 			}
 
-			if (dontDestroyOnLoad)
-			{
-				DontDestroyOnLoad( this );
-			}
+            
+
 		}
 
 

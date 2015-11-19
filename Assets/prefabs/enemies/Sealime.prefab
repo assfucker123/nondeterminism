@@ -188,6 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flickerPeriod: .200000003
+  flickerAlpha: .600000024
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11417490
@@ -202,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 3
+  variations: 04000000
   danger: 5
   spawnLocation: 0
   spawnDist: 1
@@ -343,6 +346,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: variations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: deathSound2
       value: 
       objectReference: {fileID: 8300000, guid: 647897ec52927c54daefa080e1eab76e, type: 3}
@@ -402,6 +409,10 @@ Prefab:
       propertyPath: healthSmallPickupGameObject
       value: 
       objectReference: {fileID: 195806, guid: eb641e6c04f6fa04a9c6e0818f6305d3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: variations.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 197806}

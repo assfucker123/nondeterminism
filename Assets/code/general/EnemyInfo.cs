@@ -12,7 +12,8 @@ public class EnemyInfo : MonoBehaviour {
         PENGRUNT,
         SEALIME,
         SEALIME_PASSIVE,
-        MAGOOM
+        MAGOOM,
+        TOUCADE
     }
 
     public enum SpawnLocation {
@@ -47,6 +48,7 @@ public class EnemyInfo : MonoBehaviour {
     }
 
     public ID id = ID.NONE;
+    public ID[] variations = { };
     public float danger = 5;
     public SpawnLocation spawnLocation = SpawnLocation.BOTTOM_SEGMENT;
     public float spawnDist = 0;

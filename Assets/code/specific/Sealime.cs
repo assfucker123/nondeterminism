@@ -63,6 +63,11 @@ public class Sealime : MonoBehaviour {
     void OnSpawn(SpawnInfo si) {
         flippedHoriz = !si.faceRight;
 
+        // set variation
+        if (si.variation == EnemyInfo.ID.SEALIME_PASSIVE) {
+            firesBullets = false;
+        }
+
         // attach to Segment
         segment = Segment.findBottom(rb2d.position);
 

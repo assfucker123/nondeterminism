@@ -58,6 +58,9 @@ public class WaveSpawner : MonoBehaviour {
             EnemyInfo ei = gO.GetComponent<EnemyInfo>();
             Debug.Assert(ei != null);
             enemyMapping[ei.id] = gO;
+            for (int i = 0; i < ei.variations.Length; i++) {
+                enemyMapping[ei.variations[i]] = gO;
+            }
         }
 	}
 
@@ -220,6 +223,7 @@ public class WaveSpawner : MonoBehaviour {
                     }
                     
                     spawnInfo.spawnPickups = ewp.spawnPickups;
+                    spawnInfo.variation = ewp.enemy;
                     
                     // spawn with a portal
                     GameObject pGO = GameObject.Instantiate(
