@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.2299995, y: -7, z: 0}
+  m_LocalPosition: {x: -3.3900001, y: -2.93000007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465590}
@@ -232,7 +232,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acb8aea1b17d384f9cf6a873e185102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fruitFacade: 0
+  flyWidth: 6
+  flyHeight: 1
+  flyHorizPeriod: 7
+  flyVertPeriod: 10
+  projectileRadiusW: 2.5
+  projectileRadiusH: 1.5
+  projectileRevolveSpeed: 80
+  projectileWaitDuration: .200000003
+  projectileGrowDuration: .600000024
+  waitUntilAutoThrow: 3.5
+  throwInitialInterval: .5
+  throwInterval: .200000003
+  throwSpeed: 35
+  postThrowIdleDuration: .300000012
+  startFlyRight: 0
+  startFlyUp: 0
+  spinClockwise: 0
   state: 0
+  projectileState: 0
+  bubbleGameObject: {fileID: 129092, guid: 89991dc5a04576c4d96d01280889b175, type: 2}
+  grenadeGameObject: {fileID: 101714, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
 --- !u!114 &11457944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,6 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 6
+  variations: 
   danger: 5
   spawnLocation: 3
   spawnDist: 1
@@ -282,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 14
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
 --- !u!114 &11481632
@@ -343,7 +365,59 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: health
-      value: 10
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bubbleGameObject
+      value: 
+      objectReference: {fileID: 129092, guid: 89991dc5a04576c4d96d01280889b175, type: 2}
+    - target: {fileID: 0}
+      propertyPath: grenadeGameObject
+      value: 
+      objectReference: {fileID: 101714, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
+    - target: {fileID: 0}
+      propertyPath: projectileRadiusW
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: projectileRadiusH
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: projectileRevolveSpeed
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: throwSpeed
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: projectileGrowDuration
+      value: .600000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: projectileWaitDuration
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: throwInitialInterval
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: throwInterval
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: postThrowIdleDuration
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: waitUntilAutoThrow
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flyHorizPeriod
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

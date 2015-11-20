@@ -77,6 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flickerPeriod: .200000003
+  flickerAlpha: .600000024
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11441118
@@ -91,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 70
-  damage: 10
+  damage: 8
   heading: 0
   radius: .25
   maxDistance: -1
@@ -161,7 +163,7 @@ Prefab:
       objectReference: {fileID: 110428, guid: 9b452d2dde1113546a7030d6c09813c6, type: 2}
     - target: {fileID: 0}
       propertyPath: damage
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hitSound

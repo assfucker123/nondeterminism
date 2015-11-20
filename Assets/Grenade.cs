@@ -13,12 +13,28 @@ public class Grenade : MonoBehaviour {
     public GameObject grenadePinGameObject;
     public AudioClip pinSound;
     public AudioClip explodeSound;
-
+    
     public enum State {
         STABLE,
         WARNING,
         EXPLODED
     }
+
+    public bool explodeOnContact {
+        get {
+            return _explodeOnContact;
+        }
+        set {
+            if (value == explodeOnContact) return;
+            _explodeOnContact = value;
+            if (explodeOnContact) {
+                gameObject.layer = LayerMask.NameToLayer("EnemyAttacks");
+            } else {
+                gameObject.layer = LayerMask.NameToLayer("Enemies");
+            }
+        }
+    }
+    
 
     public void throwGrenade(Vector2 velocity) {
         rb2d.velocity = velocity;
@@ -103,7 +119,6 @@ public class Grenade : MonoBehaviour {
             }
             break;
         }
-
         // exploding
         if (explodeOnFrameEnd) {
             // create explosion
@@ -141,6 +156,7 @@ public class Grenade : MonoBehaviour {
         fi.floats["time"] = time;
         fi.bools["eofe"] = explodeOnFrameEnd;
         fi.bools["pp"] = pinPopped;
+        fi.bools["eoc"] = explodeOnContact;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
@@ -148,11 +164,19 @@ public class Grenade : MonoBehaviour {
         time = fi.floats["time"];
         explodeOnFrameEnd = fi.bools["eofe"];
         pinPopped = fi.bools["pp"];
+        explodeOnContact = fi.bools["eoc"];
+    }
+
+    void OnCollisionEnter2D(Collision2D c2d) {
+        if (explodeOnContact) {
+            explode();
+        }
     }
 
     float time;
     bool explodeOnFrameEnd = false;
     bool pinPopped = false;
+    bool _explodeOnContact = false;
 
     // components
     Rigidbody2D rb2d;

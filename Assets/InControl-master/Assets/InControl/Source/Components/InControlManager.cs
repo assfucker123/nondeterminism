@@ -17,20 +17,10 @@ namespace InControl
 		public bool dontDestroyOnLoad = false;
 		public List<string> customProfiles = new List<string>();
 
-        //private static InControlManager instance = null;
-
+        
 		void OnEnable()
 		{
-            /*
-            if (instance != null) {
-                Destroy(gameObject);
-                return;
-            } else {
-
-                
-                instance = this;
-            }*/
-
+            
             if (dontDestroyOnLoad) {
                 DontDestroyOnLoad(this);
             }

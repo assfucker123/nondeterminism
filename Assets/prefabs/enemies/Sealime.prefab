@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 14
+  health: 12
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
 --- !u!114 &11469514
@@ -399,7 +399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: health
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score

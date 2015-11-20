@@ -42,6 +42,7 @@
 
 * Unlock door by inputting the password.
 	- Wally is surprised she knows it, Oracle explains she had a vision of finding the room with the password.
+	- Password: fruit related.  Make it a theme?  Match Toucade?
 
 * Simple puzzle involving charge shot.
 	- Wally surprised again.  Oracle explains decryptor code.
@@ -286,6 +287,47 @@ Gimmicks to "Vision" mechanic that actually make sense:
 	- Can meet at certain points during the adventure.  Sells special phase crystals that permanently increase your phase meter in exchange for a health upgrade.
 		- In UI, a health upgrade traded for a crystal is represented by drawing a crystal over where the heart would be.
 		- The trades affect Salesman's own abilities for the bossfight later.
+
+==========================================
+Ending ideas:
+
+- Main villain behind everything is Tom, who is Wally's dad (and only other human in the game)
+	- Wally is here too, in the same room as Oracle and Tom.
+	- How did he get there?  Kidnapped at some point?
+	- Needs to provide more personal argument.
+- Wanted to use the tremendous energy from The Meltdown in order to power a time machine.
+	- Needs to fix a problem
+	- ?? WHAT PROBLEM ??
+- Despite Oracle's wishes, Wally starts to side with Tom at the end because he trusts his dad's intentions
+	- With the time machine, Tom will be able to go back to before The Meltdown ever happened, and fix it.
+	- Oracle reasons that this plan doesn't work, because The Meltdown is still happening.
+	- Wally rebuttals that Oracle was destined to kill Tom before the time machine can be used, and she needs to let Tom live in order to use the time machine to change history.
+	- Wally notes that Oracle told him about he was willing to die to let Oracle survive The Meltdown in another vision (which led to Oracle killing The Salesman and figuring out how to obtain the 4th key/orb).  Now it's Oracle's turn to make a sacrifice by trusting Wally.
+- After being defeated, Tom specifically mentions the problem ??? he was trying to solve.
+	- Oracle suddenly gets very interested in how he intended to solve the problem.
+	- She even kills Wally in front of Tom for extra motivation.
+	- After Tom explains his solution, Oracle shoots him anyway for her own amusement.
+	- Oracle starts laughing suspiciously, implies she might be going down the same route as The Salesman.
+- Game ends right here, roll credits.  Big WTF moment.
+- But if high completion percentage, bonus cutscene explains this.
+	- Oracle then reverts way back to before the game even started, and fixes the problem.  Tells Grygor the solution?
+	- Oracle is with Grygor here, as a larva in an early half-complete version of her suit.  Hasn't been sent to Wally yet.
+	- Different, more realistic visual style here?  Shows this is real, not a vision, and that everything else that happened in the game was a vision until this point.
+	
+The "problem":
+- Putting a shield around the planet's core was plan B.  This was plan A:
+- Dig a hole into the planet and drop gigantic phase crystals embedded in some room down it.  Their presence will cool down the core and stop the combustions.
+- This plan was thought to not work because they didn't think the crystals were big or potent enough.  It was also dangerous to dig a hole into the planet when it's on the verge of exploding.
+- But further research (led by Tom) suggested that the crystals were actually much more powerful than previously thought.  So plan A would indeed work.
+- It was too late though.  By the time Tom determined plan A could work, plan B had already been completed with the shield across the mantle.
+- Oracle learns this from Tom at the end of the game, then reverts to before the beginning to tell Grygor.  He then gets plan A approved, so the crystals are dumped into the mantle, calming the core and saving the planet.
+- Grygor has heard of Tom, but Tom kept his work a secret.
+- Controversial for Oracle (and The Salesman) since these important crystals are also tied to their future sensing abilities.  When they're destroyed they won't be able to sense the future anymore.
+- Tom was doing research on the gigantic crystals as he was building his time machine.  Although he ended up using the planet's core as a power source instead, this explains why he knows about them and was able to explain it to Oracle.
+
+Phase Crystals and Oracle/The Salesman:
+- Represent "focus", which allows them to concentrate hard enough to predict the future.
+
 
 ==========================================
 

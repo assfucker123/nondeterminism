@@ -6,6 +6,21 @@ public class Bubble : MonoBehaviour {
     public GameObject popGameObject;
     public AudioClip popSound;
 
+    public bool popOnContact {
+        get {
+            return _popOnContact;
+        }
+        set {
+            if (value == popOnContact) return;
+            _popOnContact = value;
+            if (popOnContact) {
+                gameObject.layer = LayerMask.NameToLayer("EnemyAttacks");
+            } else {
+                gameObject.layer = LayerMask.NameToLayer("Enemies");
+            }
+        }
+    }
+
     public void pop() {
         popOnFrameEnd = true;
     }
@@ -94,19 +109,28 @@ public class Bubble : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter2D(Collision2D c2d) {
+        if (popOnContact) {
+            pop();
+        }
+    }
+
     /* called at the end of a frame to record information */
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["time"] = time;
         fi.bools["pofe"] = popOnFrameEnd;
+        fi.bools["poc"] = popOnContact;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
         time = fi.floats["time"];
         popOnFrameEnd = fi.bools["pofe"];
+        popOnContact = fi.bools["poc"];
     }
 
     float time;
     bool popOnFrameEnd = false;
+    bool _popOnContact = false;
 
     // components
     Rigidbody2D rb2d;

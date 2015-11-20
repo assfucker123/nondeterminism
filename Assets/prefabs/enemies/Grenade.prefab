@@ -79,7 +79,7 @@ Rigidbody2D:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &5820862
 CircleCollider2D:
@@ -138,7 +138,7 @@ MonoBehaviour:
   state: 0
   grenadePinVelocity: {x: -1.5, y: 5}
   grenadePinAngularVelocity: 300
-  warningDuration: 1
+  warningDuration: 3
   thrownAngularVelocity: 250
   explosionGameObject: {fileID: 189924, guid: 2765738eff7a5034fb692e17d4068ee5, type: 2}
   grenadePinGameObject: {fileID: 113288, guid: 75174383b80068e449e58fb8f825defb, type: 2}
@@ -281,7 +281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: warningDuration
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Material
@@ -299,6 +299,18 @@ Prefab:
       propertyPath: explodeSound
       value: 
       objectReference: {fileID: 8300000, guid: 3f18d89feeab8ca47836c4a1631d4bbd, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 101714}

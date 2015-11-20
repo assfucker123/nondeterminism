@@ -233,7 +233,7 @@ MonoBehaviour:
   maxPhase: 80
   startPhase: .5
   phaseDecreaseSpeed: 0
-  phaseRevertingDecreaseSpeed: 9
+  phaseRevertingDecreaseSpeed: 7
   postRevertDuration: .5
   damageSpeed: 14
   damageFriction: 40
@@ -495,7 +495,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseRevertingDecreaseSpeed
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseDecreaseSpeed

@@ -23,6 +23,7 @@ public class FrameInfo {
     public Dictionary<string, float> floats = new Dictionary<string, float>();
     public Dictionary<string, bool> bools = new Dictionary<string, bool>();
     public Dictionary<string, string> strings = new Dictionary<string, string>();
+    public Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
 
     public bool thisFrameInfoDestroyed { get { return _thisFrameInfoDestroyed; } }
     
@@ -44,6 +45,7 @@ public class FrameInfo {
         fi.floats.Clear();
         fi.bools.Clear();
         fi.strings.Clear();
+        fi.gameObjects.Clear();
         fi._thisFrameInfoDestroyed = false;
     }
     public static FrameInfo create() {

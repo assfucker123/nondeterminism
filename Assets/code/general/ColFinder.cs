@@ -28,6 +28,9 @@ public class ColFinder : MonoBehaviour {
 	public float raycastDownGravity = 70f;
 
 	//getters
+    public bool hit {
+        get { return hitBottom || hitTop || hitLeft || hitRight; }
+    }
 	public bool hitBottom {
 		get { return _hitBottom; }
 	}
