@@ -232,7 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acb8aea1b17d384f9cf6a873e185102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitFacade: 0
+  spawnNoProjectiles: 0
+  fruitFacade: 1
   flyWidth: 6
   flyHeight: 1
   flyHorizPeriod: 5
@@ -294,10 +295,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 6
-  variations: 
+  variations: 0700000008000000
   danger: 5
   spawnLocation: 3
-  spawnDist: 1.5
+  spawnDist: 2.5
   score: 10
   waveSpanwerRef: {fileID: 0}
 --- !u!114 &11475776
@@ -371,6 +372,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: variations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: health
       value: 22
       objectReference: {fileID: 0}
@@ -436,7 +441,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spawnDist
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startFlyUp
@@ -462,6 +467,22 @@ Prefab:
       propertyPath: fruitStrawberryGameObject
       value: 
       objectReference: {fileID: 120936, guid: a0e6cbcd033a663458f5e1231ed27b31, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnNoProjectiles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fruitFacade
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: variations.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: variations.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 148940}

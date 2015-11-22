@@ -57,6 +57,8 @@ Enemy Attacks:
 - Enemies with shields
 - "Pole" enemy that moves up and down on a growing and shrinking pole.
 	- After moving to a certain height, launches projectiles -> visions
+- Not really an enemy, but a platform that breaks immediately after standing on it.
+	- Reference to those breakable tiles from Metroid, but this time you can flashback to before it happens.
 
 Special Enemy Attacks:
 - Quantum Attacks

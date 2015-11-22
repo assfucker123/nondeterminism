@@ -88,8 +88,8 @@ public class Area {
     /* value is in [0, 1).
      * padding is borders to not consider */
     public Vector2 randPoint(float value, float padding = 0) {
-        float padW = Mathf.Max(0, width - padding * 2);
-        float padH = Mathf.Max(0, height - padding * 2);
+        float padW = Mathf.Max(0, width/2 - padding);
+        float padH = Mathf.Max(0, height/2 - padding);
 
         Random.seed = (int)(value * int.MaxValue);
         float value2 = Random.value;

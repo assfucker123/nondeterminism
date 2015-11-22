@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Toucade : MonoBehaviour {
 
+    public bool spawnNoProjectiles = true;
     public bool fruitFacade = false;
 
     public float flyWidth = 14;
@@ -128,20 +129,39 @@ public class Toucade : MonoBehaviour {
     }
 
     void Start() {
+        // if vision of portaling in, Start it.
+        // but if vision of projectiles being thrown, variables are already set
+        if (visionUser.isVision && projectileState != ProjectileState.NOT_CREATED)
+            return;
+        
         // attach to Area
-        if (!visionUser.isVision) {
-            startPos = rb2d.position;
-        }
+        startPos = rb2d.position;
+
         area = Area.findArea(rb2d.position);
         if (area != null) {
             startFlyRight = (rb2d.position.x < area.center.x);
             startFlyUp = (rb2d.position.y < area.center.y);
         }
+        
     }
 
     /* Called when being spawned from a Portal */
     void OnSpawn(SpawnInfo si) {
         flippedHoriz = !si.faceRight;
+        switch (si.variation) {
+        case EnemyInfo.ID.TOUCADE_PASSIVE:
+            spawnNoProjectiles = true;
+            fruitFacade = false;
+            break;
+        case EnemyInfo.ID.TOUCADE_NO_FRUIT:
+            spawnNoProjectiles = false;
+            fruitFacade = false;
+            break;
+        default:
+            spawnNoProjectiles = false;
+            fruitFacade = true;
+            break;
+        }
     }
 
     void Update() {
@@ -168,7 +188,8 @@ public class Toucade : MonoBehaviour {
 
         switch (projectileState) {
         case ProjectileState.NOT_CREATED:
-            if (projectileTime >= projectileWaitDuration) {
+            if (!spawnNoProjectiles &&
+                projectileTime >= projectileWaitDuration) {
                 // create projectiles
                 projectileAngle = timeUser.randomValue() * 90;
                 grenadeIndex = Mathf.FloorToInt(timeUser.randomValue() * 4);
@@ -182,6 +203,9 @@ public class Toucade : MonoBehaviour {
                         GOToClone,
                         transform.localPosition,
                         Quaternion.identity) as GameObject;
+                    if (visionUser.isVision) {
+                        GO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+                    }
                     projectiles.Add(GO);
                     if (i == grenadeIndex) {
                         Grenade grenade = GO.GetComponent<Grenade>();
@@ -200,6 +224,9 @@ public class Toucade : MonoBehaviour {
                             GOToClone,
                             GO.transform.localPosition,
                             Quaternion.identity) as GameObject;
+                        if (visionUser.isVision) {
+                            fGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+                        }
 
                         projectileFruits.Add(fGO);
 
@@ -263,7 +290,10 @@ public class Toucade : MonoBehaviour {
                 Toucade vT = vGO.GetComponent<Toucade>();
 
                 // update vision position
+                vT.area = area;
                 vT.startPos = startPos;
+                vT.startFlyRight = startFlyRight;
+                vT.startFlyUp = startFlyUp;
                 
                 // clone projectiles for the vision
                 vT.projectiles.Clear();
@@ -483,8 +513,8 @@ public class Toucade : MonoBehaviour {
     void TimeSkip(float timeInFuture) {
 
         // Start() hasn't been called yet
-        Start();
-        
+        //Start();
+
         // increment time
         time += timeInFuture;
         projectileTime += timeInFuture;

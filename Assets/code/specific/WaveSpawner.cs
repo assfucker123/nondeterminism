@@ -73,6 +73,7 @@ public class WaveSpawner : MonoBehaviour {
 	void Update() {
 
         segmentsSpawnedOnThisFrame.Clear();
+        areasSpawnedOnThisFrame.Clear();
 
         if (timeUser.shouldNotUpdate)
             return;
@@ -106,6 +107,8 @@ public class WaveSpawner : MonoBehaviour {
                 Portal portal = null;
                 List<Segment> possibleSegments = null;
                 Segment seg = null;
+                List<Area> possibleAreas = null;
+                Area are = null;
 
                 // set spawnPos based on spawnMethod
                 switch (ewp.spawnMethod) {
@@ -136,7 +139,7 @@ public class WaveSpawner : MonoBehaviour {
                         }
                         break;
                     case EnemyInfo.SpawnLocation.AREA:
-                        Debug.Log("TODO: area spawning");
+                        possibleAreas = Area.areas;
                         break;
                     }
 
@@ -161,10 +164,31 @@ public class WaveSpawner : MonoBehaviour {
                             }
                             break;
                         }
+                    } else if (possibleAreas != null) {
+                        // pick one of the possible areas
+                        switch (ewp.spawnMethod) {
+                        case EnemyWave.SpawnMethod.ANY:
+                            are = Area.weightedRandom(possibleAreas, timeUser.randomValue());
+                            break;
+                        case EnemyWave.SpawnMethod.EMPTY:
+                            are = Area.weightedRandom(findUnoccupiedAreas(possibleAreas), timeUser.randomValue());
+                            break;
+                        case EnemyWave.SpawnMethod.NAMED:
+                            foreach (Area possibleAre in possibleAreas) {
+                                if (possibleAre.name == ewp.location) {
+                                    are = possibleAre;
+                                }
+                            }
+                            if (are == null) {
+                                Debug.Log("Area named " + ewp.location + " not found.");
+                                are = Area.weightedRandom(possibleAreas, timeUser.randomValue());
+                            }
+                            break;
+                        }
                     }
 
-                    // spawning with segment, find spawn position
                     if (seg != null) {
+                        // spawning with segment, find spawn position
                         segmentsSpawnedOnThisFrame.Add(seg);
                         spawnPos = seg.interpolate(timeUser.randomValue());
                         switch (seg.wall) {
@@ -181,6 +205,10 @@ public class WaveSpawner : MonoBehaviour {
                             spawnPos.x -= ei.spawnDist;
                             break;
                         }
+                    } else if (are != null) {
+                        // spawning with area, find spawn position
+                        areasSpawnedOnThisFrame.Add(are);
+                        spawnPos = are.randPoint(timeUser.randomValue(), ei.spawnDist);
                     }
                     break;
 
@@ -310,6 +338,34 @@ public class WaveSpawner : MonoBehaviour {
         return ret;
     }
 
+    /* Searches through a list of areas and returns only those that aren't occupied.
+     * HOWEVER: if all areas are occupied, then returns the same list again. */
+    List<Area> findUnoccupiedAreas(List<Area> areas) {
+        List<Area> ret = new List<Area>();
+        foreach (Area are in areas) {
+            bool occupied = false;
+            foreach (EnemyInfo ei in EnemyInfo.enemyInfos) {
+                if (isAreaOccupiedByEnemy(are, ei)) {
+                    occupied = true;
+                    break;
+                }
+            }
+            foreach (Area areAlready in areasSpawnedOnThisFrame) {
+                if (are == areAlready) {
+                    occupied = true;
+                    break;
+                }
+            }
+            if (!occupied) {
+                ret.Add(are);
+            }
+        }
+        if (ret.Count == 0) {
+            return areas;
+        }
+        return ret;
+    }
+
     /* This function isn't super reliable
      * */
     bool isSegmentOccupiedByEnemy(Segment segment, EnemyInfo enemy) {
@@ -372,6 +428,39 @@ public class WaveSpawner : MonoBehaviour {
         return false;
     }
 
+    /* This function isn't super reliable
+     * */
+    bool isAreaOccupiedByEnemy(Area area, EnemyInfo enemy) {
+
+        TimeUser eTU = enemy.GetComponent<TimeUser>();
+        if (eTU != null) {
+            if (!eTU.exists)
+                return false;
+        }
+        /*
+        VisionUser eVU = enemy.GetComponent<VisionUser>();
+        if (eVU != null) {
+            if (eVU.isVision)
+                return false;
+        }
+        */
+
+        Vector2 enemyPos = new Vector2();
+        Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();
+        if (rb2d == null) {
+            enemyPos.x = enemy.transform.localPosition.x;
+            enemyPos.y = enemy.transform.localPosition.y;
+        } else {
+            enemyPos = rb2d.position;
+        }
+        switch (enemy.spawnLocation) {
+        case EnemyInfo.SpawnLocation.AREA:
+            return area.contains(enemyPos);
+        default:
+            return false;
+        }
+    }
+
     void OnSaveFrame(FrameInfo fi) {
         fi.ints["wi"] = waveIndex;
         fi.ints["wei"] = waveEnemyIndex;
@@ -393,6 +482,7 @@ public class WaveSpawner : MonoBehaviour {
     int _waveEnemyCountIndex = 0;
     float _currentMaxDanger = 0;
     List<Segment> segmentsSpawnedOnThisFrame = new List<Segment>();
+    List<Area> areasSpawnedOnThisFrame = new List<Area>();
 
     TimeUser timeUser;
 	

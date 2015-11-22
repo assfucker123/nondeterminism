@@ -67,6 +67,7 @@ public class VisionUser : MonoBehaviour {
     private float flashbackAlpha = .15f; // alpha of a vision during a flashback (used to be 0)
     public float time { get { return _time; } } //how long this visionUser has been a vision
     public float duration { get { return _duration; } } //how long this visionUser will be a vision for
+    public float timeLeft { get { return duration - time; } } //how much longer until vision goes away
     public bool createdWhenAbilityDeactivated { get { return _createdWhenAbilityDeactivated; } }
     
     public Material material; //material for the vision's sprite.
