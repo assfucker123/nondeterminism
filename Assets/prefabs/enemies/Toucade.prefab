@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3900001, y: -2.93000007, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465590}
@@ -220,7 +220,7 @@ MonoBehaviour:
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
   pickupSize: 2
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
-  deathSound2: {fileID: 0}
+  deathSound2: {fileID: 8300000, guid: fde860cdc4a3ec84da2397b3b689ad88, type: 3}
 --- !u!114 &11456038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,16 +235,16 @@ MonoBehaviour:
   fruitFacade: 0
   flyWidth: 6
   flyHeight: 1
-  flyHorizPeriod: 7
+  flyHorizPeriod: 5
   flyVertPeriod: 10
   projectileRadiusW: 2.5
   projectileRadiusH: 1.5
   projectileRevolveSpeed: 80
   projectileWaitDuration: .200000003
   projectileGrowDuration: .600000024
-  waitUntilAutoThrow: 3.5
-  throwInitialInterval: .5
-  throwInterval: .200000003
+  waitUntilAutoThrow: 4.5
+  throwInitialInterval: .400000006
+  throwInterval: .150000006
   throwSpeed: 35
   postThrowIdleDuration: .300000012
   startFlyRight: 0
@@ -254,6 +254,13 @@ MonoBehaviour:
   projectileState: 0
   bubbleGameObject: {fileID: 129092, guid: 89991dc5a04576c4d96d01280889b175, type: 2}
   grenadeGameObject: {fileID: 101714, guid: 6f0a034fdbf6aba43a99ff3ddaca7300, type: 2}
+  fruitAppleGameObject: {fileID: 122706, guid: af0ea210d0872a44fba421ea22511655, type: 2}
+  fruitBananaGameObject: {fileID: 114534, guid: 656263216f3b6d041949d85011652ca9,
+    type: 2}
+  fruitOrangeGameObject: {fileID: 186572, guid: 826fd719d1e4da4419a843d2533e55a9,
+    type: 2}
+  fruitStrawberryGameObject: {fileID: 120936, guid: a0e6cbcd033a663458f5e1231ed27b31,
+    type: 2}
 --- !u!114 &11457944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,7 +297,7 @@ MonoBehaviour:
   variations: 
   danger: 5
   spawnLocation: 3
-  spawnDist: 1
+  spawnDist: 1.5
   score: 10
   waveSpanwerRef: {fileID: 0}
 --- !u!114 &11475776
@@ -304,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 14
+  health: 22
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
 --- !u!114 &11481632
@@ -365,7 +372,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: health
-      value: 14
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bubbleGameObject
@@ -401,11 +408,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: throwInitialInterval
-      value: .5
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: throwInterval
-      value: .200000003
+      value: .150000006
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: postThrowIdleDuration
@@ -413,12 +420,48 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: waitUntilAutoThrow
-      value: 3.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: flyHorizPeriod
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnDist
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startFlyUp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: fde860cdc4a3ec84da2397b3b689ad88, type: 3}
+    - target: {fileID: 0}
+      propertyPath: fruitAppleGameObject
+      value: 
+      objectReference: {fileID: 122706, guid: af0ea210d0872a44fba421ea22511655, type: 2}
+    - target: {fileID: 0}
+      propertyPath: fruitBananaGameObject
+      value: 
+      objectReference: {fileID: 114534, guid: 656263216f3b6d041949d85011652ca9, type: 2}
+    - target: {fileID: 0}
+      propertyPath: fruitOrangeGameObject
+      value: 
+      objectReference: {fileID: 186572, guid: 826fd719d1e4da4419a843d2533e55a9, type: 2}
+    - target: {fileID: 0}
+      propertyPath: fruitStrawberryGameObject
+      value: 
+      objectReference: {fileID: 120936, guid: a0e6cbcd033a663458f5e1231ed27b31, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 148940}

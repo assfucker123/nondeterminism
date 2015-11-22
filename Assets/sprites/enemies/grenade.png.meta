@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f944bf56eb05fae4a95554d8f9255714
-timeCreated: 1447802985
+timeCreated: 1448076719
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -58,28 +58,28 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 13
-        height: 13
+        width: 19
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: grenade_1
       rect:
         serializedVersion: 2
-        x: 13
+        x: 19
         y: 0
-        width: 13
-        height: 13
+        width: 19
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: grenade_2
       rect:
         serializedVersion: 2
-        x: 26
+        x: 38
         y: 0
-        width: 13
-        height: 13
+        width: 19
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

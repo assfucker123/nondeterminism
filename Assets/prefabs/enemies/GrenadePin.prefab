@@ -40,7 +40,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113288}
-  m_Mass: 1
+  m_Mass: .00999999978
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 3
@@ -62,12 +62,12 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -.124322414, y: .250101805}
-      - {x: -.124322891, y: -.136844635}
-      - {x: .00380182266, y: -.201451778}
-      - {x: .0963664055, y: -.131680012}
-      - {x: .0751686096, y: .00290465355}
-      - {x: -.0664968491, y: .0037753582}
+    - - {x: -.137192726, y: .320420265}
+      - {x: -.153515816, y: -.146264076}
+      - {x: -.0056180954, y: -.308608055}
+      - {x: .164073944, y: -.134292603}
+      - {x: .0538139343, y: .0209035873}
+      - {x: -.0896244049, y: .0440635681}
 --- !u!114 &11460362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,6 +160,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_GravityScale
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: .00999999978
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

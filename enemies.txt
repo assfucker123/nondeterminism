@@ -54,6 +54,9 @@ Enemy Attacks:
 - Moving vines beneath a bridge, surge up at random.  Use vision to tell when they're coming
 	- Tutorial area
 - Destroy fan somewhere to disable steam obstacles elsewhere.
+- Enemies with shields
+- "Pole" enemy that moves up and down on a growing and shrinking pole.
+	- After moving to a certain height, launches projectiles -> visions
 
 Special Enemy Attacks:
 - Quantum Attacks

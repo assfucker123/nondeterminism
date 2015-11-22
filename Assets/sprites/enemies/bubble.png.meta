@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3aa4ba57f4b0c6b4590b8d08b8d1360d
-timeCreated: 1447802832
+timeCreated: 1448076791
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -60,39 +60,39 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 15
-        width: 15
-        height: 15
+        y: 22
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: bubble_1
       rect:
         serializedVersion: 2
-        x: 15
-        y: 15
-        width: 15
-        height: 15
+        x: 22
+        y: 22
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: bubble_2
       rect:
         serializedVersion: 2
-        x: 30
-        y: 15
-        width: 15
-        height: 15
+        x: 44
+        y: 22
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: bubble_3
       rect:
         serializedVersion: 2
-        x: 45
-        y: 15
-        width: 15
-        height: 15
+        x: 66
+        y: 22
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -101,18 +101,18 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 15
-        height: 15
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: bubble_5
       rect:
         serializedVersion: 2
-        x: 15
+        x: 22
         y: 0
-        width: 15
-        height: 15
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

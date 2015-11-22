@@ -59,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.44000006, y: 3.22000003, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 425092}
@@ -72,7 +72,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101714}
-  m_Mass: 1
+  m_Mass: .00999999978
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -91,9 +91,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: d2aa576d357d2264bae1069bf8da8af0, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .109999999}
+  m_Offset: {x: 0, y: .159999996}
   serializedVersion: 2
-  m_Radius: .270000011
+  m_Radius: .400000006
 --- !u!58 &5872866
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -104,9 +104,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: d2aa576d357d2264bae1069bf8da8af0, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.109999999}
+  m_Offset: {x: 0, y: -.159999996}
   serializedVersion: 2
-  m_Radius: .270000011
+  m_Radius: .400000006
 --- !u!95 &9592592
 Animator:
   serializedVersion: 3
@@ -136,10 +136,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  grenadePinVelocity: {x: -1.5, y: 5}
+  grenadePinVelocity: {x: -1.5, y: 8.5}
   grenadePinAngularVelocity: 300
   warningDuration: 3
   thrownAngularVelocity: 250
+  sway: 0
+  swayPeriod: 1.5
+  swayAngle: 20
   explosionGameObject: {fileID: 189924, guid: 2765738eff7a5034fb692e17d4068ee5, type: 2}
   grenadePinGameObject: {fileID: 113288, guid: 75174383b80068e449e58fb8f825defb, type: 2}
   pinSound: {fileID: 8300000, guid: 57881d87aef1da44e98b00a9932de975, type: 3}
@@ -273,7 +276,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: grenadePinVelocity.y
-      value: 5
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: grenadePinAngularVelocity
@@ -310,6 +313,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_GravityScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: swayAngle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: swayPeriod
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: .00999999978
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

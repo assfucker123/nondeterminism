@@ -9,6 +9,9 @@ public class Grenade : MonoBehaviour {
     public float grenadePinAngularVelocity = 0;
     public float warningDuration = .6f; //how long in warning state before exploding
     public float thrownAngularVelocity = 0;
+    public bool sway = false; // can be set while running
+    public float swayPeriod = 1.0f;
+    public float swayAngle = 30;
     public GameObject explosionGameObject;
     public GameObject grenadePinGameObject;
     public AudioClip pinSound;
@@ -77,10 +80,22 @@ public class Grenade : MonoBehaviour {
         gpRB2D.velocity = Utilities.rotateAroundPoint(grenadePinVelocity, Vector2.zero, Utilities.get2DRot(transform.localRotation) * Mathf.PI / 180);
         gpRB2D.angularVelocity = grenadePinAngularVelocity;
 
-        SoundManager.instance.playSFX(pinSound);
+        if (visionUser.isVision) {
+            gpGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+        } else {
+            SoundManager.instance.playSFX(pinSound);
+        }
 
         pinPopped = true;
     }
+
+    public void setHidden(bool hidden) {
+        this.hidden = hidden;
+        if (timeUser.exists) {
+            spriteRenderer.enabled = !hidden;
+        }
+    }
+    bool hidden = false;
 
     void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
@@ -93,15 +108,7 @@ public class Grenade : MonoBehaviour {
         visionUser = GetComponent<VisionUser>();
     }
 
-    void Start() {
-        // attach to Segment
-        /* segment = Segment.findBottom(rb2d.position); */
-    }
-
-    /* Called when being spawned from a Portal */
-    void OnSpawn(SpawnInfo si) {
-
-    }
+    void Start() { }
 
     void Update() {
 
@@ -109,6 +116,11 @@ public class Grenade : MonoBehaviour {
             return;
 
         time += Time.deltaTime;
+
+        if (sway) {
+            swayTime += Time.deltaTime;
+            rb2d.rotation = Mathf.Sin(swayTime * Mathf.PI * 2 / swayPeriod) * swayAngle;
+        }
 
         switch (state) {
         case State.STABLE:
@@ -122,12 +134,22 @@ public class Grenade : MonoBehaviour {
         // exploding
         if (explodeOnFrameEnd) {
             // create explosion
-            GameObject.Instantiate(
+            GameObject eGO = GameObject.Instantiate(
                 explosionGameObject,
                 transform.localPosition,
-                Quaternion.identity);
-            SoundManager.instance.playSFX(explodeSound);
+                Quaternion.identity) as GameObject;
+            if (visionUser.isVision) {
+                eGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+            } else {
+                SoundManager.instance.playSFX(explodeSound);
+            }
             // destroy this
+            timeUser.timeDestroy();
+        }
+
+        // destroy if out of bounds
+        Rect rect = CameraControl.getMapBounds();
+        if (!rect.Contains(rb2d.position)) {
             timeUser.timeDestroy();
         }
 
@@ -141,6 +163,7 @@ public class Grenade : MonoBehaviour {
 
         // increment time
         time += timeInFuture;
+        swayTime += timeInFuture;
     }
 
     /* called when this takes damage */
@@ -157,6 +180,9 @@ public class Grenade : MonoBehaviour {
         fi.bools["eofe"] = explodeOnFrameEnd;
         fi.bools["pp"] = pinPopped;
         fi.bools["eoc"] = explodeOnContact;
+        fi.bools["sway"] = sway;
+        fi.floats["swayT"] = swayTime;
+        fi.bools["hidden"] = hidden;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
@@ -165,6 +191,10 @@ public class Grenade : MonoBehaviour {
         explodeOnFrameEnd = fi.bools["eofe"];
         pinPopped = fi.bools["pp"];
         explodeOnContact = fi.bools["eoc"];
+        sway = fi.bools["sway"];
+        swayTime = fi.floats["swayT"];
+        hidden = fi.bools["hidden"];
+        setHidden(hidden);
     }
 
     void OnCollisionEnter2D(Collision2D c2d) {
@@ -177,6 +207,7 @@ public class Grenade : MonoBehaviour {
     bool explodeOnFrameEnd = false;
     bool pinPopped = false;
     bool _explodeOnContact = false;
+    float swayTime = 0;
 
     // components
     Rigidbody2D rb2d;

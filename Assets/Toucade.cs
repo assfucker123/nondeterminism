@@ -35,6 +35,10 @@ public class Toucade : MonoBehaviour {
 
     public GameObject bubbleGameObject;
     public GameObject grenadeGameObject;
+    public GameObject fruitAppleGameObject;
+    public GameObject fruitBananaGameObject;
+    public GameObject fruitOrangeGameObject;
+    public GameObject fruitStrawberryGameObject;
 
 
 
@@ -81,8 +85,23 @@ public class Toucade : MonoBehaviour {
             if (!pGO.GetComponent<TimeUser>().exists) continue;
             Grenade pGrenade = pGO.GetComponent<Grenade>();
             if (pGrenade != null) {
+                pGrenade.setHidden(false);
+                pGrenade.sway = false;
                 pGrenade.toWarning();
                 pGrenade.GetComponent<ReceivesDamage>().mercyInvincibility(9999); // make grenade unable to be shot
+            }
+            Bubble pBubble = pGO.GetComponent<Bubble>();
+            if (pBubble != null) {
+                pBubble.setHidden(false);
+            }
+        }
+        if (fruitFacade) {
+            // explode all fruits
+            foreach (GameObject fGO in projectileFruits) {
+                if (fGO == null) continue;
+                if (!fGO.GetComponent<TimeUser>().exists) continue;
+                Fruit pFruit = fGO.GetComponent<Fruit>();
+                pFruit.explode();
             }
         }
 
@@ -110,7 +129,9 @@ public class Toucade : MonoBehaviour {
 
     void Start() {
         // attach to Area
-        startPos = rb2d.position;
+        if (!visionUser.isVision) {
+            startPos = rb2d.position;
+        }
         area = Area.findArea(rb2d.position);
         if (area != null) {
             startFlyRight = (rb2d.position.x < area.center.x);
@@ -162,8 +183,36 @@ public class Toucade : MonoBehaviour {
                         transform.localPosition,
                         Quaternion.identity) as GameObject;
                     projectiles.Add(GO);
+                    if (i == grenadeIndex) {
+                        Grenade grenade = GO.GetComponent<Grenade>();
+                        grenade.sway = true;
+                    }
                     if (fruitFacade) {
-                        Debug.Log("create fruit facades");
+                        // create fruit facades
+                        switch (i) {
+                        case 0: GOToClone = fruitAppleGameObject; break;
+                        case 1: GOToClone = fruitBananaGameObject; break;
+                        case 2: GOToClone = fruitOrangeGameObject; break;
+                        default: GOToClone = fruitStrawberryGameObject; break;
+                        }
+                        
+                        GameObject fGO = GameObject.Instantiate(
+                            GOToClone,
+                            GO.transform.localPosition,
+                            Quaternion.identity) as GameObject;
+
+                        projectileFruits.Add(fGO);
+
+                        // hide projectile behind fruit
+                        Grenade GOGrenade = GO.GetComponent<Grenade>();
+                        Bubble GOBubble = GO.GetComponent<Bubble>();
+                        if (GOGrenade != null) {
+                            GOGrenade.setHidden(true);
+                        }
+                        if (GOBubble != null) {
+                            GOBubble.setHidden(true);
+                        }
+
                     }
                 }
                 // go to grow state
@@ -181,6 +230,10 @@ public class Toucade : MonoBehaviour {
             if (projectileTime > projectileGrowDuration) {
                 projectileTime -= projectileGrowDuration;
                 projectileState = ProjectileState.SPINNING;
+            }
+            // blow up projectile if fruit guarding it was blown up
+            if (fruitFacade) {
+                blowUpProjectilesFromFruit();
             }
             // die if grenade was shot
             foreach (GameObject projGO in projectiles) {
@@ -202,11 +255,41 @@ public class Toucade : MonoBehaviour {
                 projectileAngle += projectileRevolveSpeed * Time.deltaTime;
             }
             positionProjectiles();
+            // create vision if is about to take too long
+            if (projectileTime + VisionUser.VISION_DURATION >= waitUntilAutoThrow &&
+                projectileTime - Time.deltaTime + VisionUser.VISION_DURATION < waitUntilAutoThrow) {
+
+                GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
+                Toucade vT = vGO.GetComponent<Toucade>();
+
+                // update vision position
+                vT.startPos = startPos;
+                
+                // clone projectiles for the vision
+                vT.projectiles.Clear();
+                for (int i = 0; i < projectiles.Count; i++) {
+                    GameObject projClone = GameObject.Instantiate(projectiles[i]);
+                    projClone.GetComponent<VisionUser>().becomeVisionNow(VisionUser.VISION_DURATION, visionUser);
+                    vT.projectiles.Add(projClone);
+                }
+                vT.projectileFruits.Clear();
+                for (int i = 0; i < projectileFruits.Count; i++) {
+                    GameObject projClone = GameObject.Instantiate(projectileFruits[i]);
+                    projClone.GetComponent<VisionUser>().becomeVisionNow(VisionUser.VISION_DURATION, visionUser);
+                    vT.projectileFruits.Add(projClone);
+                }
+
+
+            }
             if (projectileTime >= waitUntilAutoThrow ||
                 beginThrowFromGettingDamaged) {
                 // begin throw after taking too long or from taking damage
                 beginThrow();
             } else {
+                // blow up projectile if fruit guarding it was blown up
+                if (fruitFacade) {
+                    blowUpProjectilesFromFruit();
+                }
                 // begin throw after a projectile was destroyed
                 foreach (GameObject projGO in projectiles) {
                     TimeUser pTimeUser = projGO.GetComponent<TimeUser>();
@@ -217,6 +300,7 @@ public class Toucade : MonoBehaviour {
                             die();
                         }
                         beginThrow();
+                        visionUser.cutVisions();
                         break;
                     }
                 }
@@ -302,30 +386,27 @@ public class Toucade : MonoBehaviour {
 
         }
 
-        // travel across a segment:
-        /*
-        x = segment.travelClamp(rb2d.position.x, speed, Time.fixedDeltaTime);
-        rb2d.MovePosition(new Vector2(x, rb2d.position.y));
-        */
+    }
 
-        // create a vision:
-        /*
-        GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
-        */
-
-        // spawn a bullet:
-        /*
-        GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
-            rb2d.position + relSpawnPosition,
-            Utilities.setQuat(heading)) as GameObject;
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.heading = heading;
-        if (visionUser.isVision) { //make bullet a vision if this is also a vision
-            VisionUser bvu = bullet.GetComponent<VisionUser>();
-            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+    void blowUpProjectilesFromFruit() {
+        for (int i = 0; i < projectileFruits.Count; i++) {
+            GameObject fGO = projectileFruits[i];
+            if (fGO == null) continue;
+            TimeUser pTimeUser = fGO.GetComponent<TimeUser>();
+            if (!pTimeUser.exists) {
+                GameObject pGO = projectiles[i];
+                Grenade grenade = pGO.GetComponent<Grenade>();
+                Bubble bubble = pGO.GetComponent<Bubble>();
+                if (grenade != null) {
+                    grenade.setHidden(false);
+                    grenade.explode();
+                }
+                if (bubble != null) {
+                    bubble.setHidden(false);
+                    bubble.pop();
+                }
+            }
         }
-        */
-
     }
 
     void incrementThrowIndex() {
@@ -380,6 +461,20 @@ public class Toucade : MonoBehaviour {
             pos.x += x;
             pos.y += y;
             prb2d.MovePosition(pos);
+
+            if (fruitFacade) {
+                // move fruit facades
+                if (i < projectileFruits.Count) {
+                    GameObject fruitGO = projectileFruits[i];
+                    if (fruitGO != null) {
+                        if (fruitGO.GetComponent<TimeUser>().exists) {
+                            Rigidbody2D frb2d = fruitGO.GetComponent<Rigidbody2D>();
+                            frb2d.MovePosition(pos);
+                        }
+                    }
+
+                }
+            }
             
         }
     }
@@ -389,9 +484,10 @@ public class Toucade : MonoBehaviour {
 
         // Start() hasn't been called yet
         Start();
-
+        
         // increment time
         time += timeInFuture;
+        projectileTime += timeInFuture;
     }
 
     /* called when this takes damage */
@@ -416,8 +512,17 @@ public class Toucade : MonoBehaviour {
                 pBubble.pop();
             }
         }
+        foreach (GameObject projGO in projectileFruits) {
+            Fruit pFruit = projGO.GetComponent<Fruit>();
+            if (pFruit != null) {
+                if (projGO.GetComponent<TimeUser>().exists) {
+                    pFruit.explode();
+                }
+            }
+        }
         defaultDeath.activate(flippedHoriz);
         projectiles.Clear();
+        projectileFruits.Clear();
         state = State.DEAD;
     }
 
@@ -469,7 +574,7 @@ public class Toucade : MonoBehaviour {
             projectiles.Add(fi.gameObjects["p" + i]);
         }
         for (int i = 0; i < numProjectileFruits; i++) {
-            projectiles.Add(fi.gameObjects["pf" + i]);
+            projectileFruits.Add(fi.gameObjects["pf" + i]);
         }
 
     }

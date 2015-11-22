@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1c13d30a4555d8c4d9ec75256160ed1b
-timeCreated: 1447802933
+timeCreated: 1448144860
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -59,38 +59,38 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fruit_orange_1
       rect:
         serializedVersion: 2
-        x: 22
+        x: 33
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fruit_orange_2
       rect:
         serializedVersion: 2
-        x: 44
+        x: 66
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fruit_orange_3
       rect:
         serializedVersion: 2
-        x: 66
+        x: 99
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

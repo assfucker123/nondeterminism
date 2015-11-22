@@ -23,6 +23,7 @@ public class LethalExplosion : MonoBehaviour {
 
         time += Time.deltaTime;
 
+        // deal damage
         if (time < duration || time == Time.deltaTime) {
             float rad = startRadius;
             if (duration < .001f) {

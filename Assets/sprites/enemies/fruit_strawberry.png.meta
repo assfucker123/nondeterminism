@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4453840d05bdb0340b1693e9d33e9fd8
-timeCreated: 1447802955
+timeCreated: 1448144866
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -59,38 +59,38 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fruit_strawberry_1
       rect:
         serializedVersion: 2
-        x: 22
+        x: 33
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fruit_strawberry_2
       rect:
         serializedVersion: 2
-        x: 44
+        x: 66
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fruit_strawberry_3
       rect:
         serializedVersion: 2
-        x: 66
+        x: 99
         y: 0
-        width: 22
-        height: 22
+        width: 33
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
