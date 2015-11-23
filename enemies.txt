@@ -2,7 +2,7 @@
 Enemy Attacks:
 (Need to be really hard to predict normally, but reasonable with the vision ability)
 (If enemies were penguins they'd be easier to animate)
-(Evil penguins, seals, bears, dolphins, wolves, shrimp)
+(Evil penguins, seals, bears, dolphins, wolves, shrimp, jellyfish, seahorse, turtle, puffer fish)
 - Bullet tracers
 	- Heavy weapons: slow, high HP, fire gatling gun where each individual bullet can be dodged
 		- Bears with gatling guns on their backs.
@@ -59,6 +59,23 @@ Enemy Attacks:
 	- After moving to a certain height, launches projectiles -> visions
 - Not really an enemy, but a platform that breaks immediately after standing on it.
 	- Reference to those breakable tiles from Metroid, but this time you can flashback to before it happens.
+- Attacks with lasers
+- X-bomb from kid icarus / smash that spins really fast before activating, making the orientation practically random.
+	- Jellyfish with tentacles coming from 4 sides.  
+- Throws spikes that stick to walls.
+	- Spikes can be destroyed.
+	- Cactus-like monster
+- A fly that buzzes around the player really fast
+	- Hovers around, darting to a location fast is an attack (and creates a vision)
+		- Line tracer
+	- Multiple attacks, multiple visions
+- Double turtle?  A turtle with a shell but can use another shell as a shield?
+- Puffer fish: swells up when it takes damage, and explodes if takes too much too fast.
+	- Explosion releases spikes everywhere very fast
+		- Some stick to walls?  Like the cactus enemy's attack?
+- Bounce a beach ball up in the air with bullets, hit with a charge shot to send it fast in a direction and blow up whatever it touches (including walls)
+	- Very light and floaty, so easy to move around it.
+	- Takes advantage of shooting up.
 
 Special Enemy Attacks:
 - Quantum Attacks

@@ -347,6 +347,11 @@ Skills:
 
 - Level design idea: 2 paths through a room, one path has hard wave challenges, the other path doesn't.  The path that does is consistent through multiple passes through that room.
 
+- Collectible cards featuring all the enemies.
+	- Finding a card slightly increases the damage dealt to them.
+	- Card has an ID on them, so they can be remembered (information) after being found.
+	- But a special symbol will appear next to the card when looked it in the Progress menu if they still physically have it.
+
 Sound Effects needed:
 x step/land
 x jump

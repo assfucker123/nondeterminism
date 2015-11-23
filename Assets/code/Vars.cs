@@ -6,7 +6,7 @@ using System.IO;
 
 public class Vars {
 
-    public static bool arcadeMode = true;
+    public static bool arcadeMode = false;
     public static int highScore = 0;
     public static bool screenshotMode = false;
 
