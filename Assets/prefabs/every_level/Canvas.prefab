@@ -47,9 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fc3c04eb17ded4cbf5d0735545f3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackScreenGameObject: {fileID: 0}
   healthHeartGameObject: {fileID: 113086, guid: 73675e0b383578940a5a84071386a8de,
     type: 2}
   phaseMeterGameObject: {fileID: 171160, guid: 751b2242187060e4f9b5fa2cfaaa9d53, type: 2}
+  countdownTimerGameObject: {fileID: 0}
+  pauseScreenGameObject: {fileID: 0}
+  speedLinesGameObject: {fileID: 0}
+  gameOverScreenObject: {fileID: 0}
 --- !u!114 &11424706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,7 +117,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 16
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1366, y: 768}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -183,7 +188,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 121002}

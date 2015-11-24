@@ -127,8 +127,9 @@ public class TitleScreen : MonoBehaviour {
     void menuUpdate() {
 
         if (optionsPageShown) {
-            if ((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
-                (optionsPage.selectingBack() && Keys.instance.confirmPressed)) {
+            if (!optionsPage.locked &&
+                ((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
+                (optionsPage.selectingBack() && Keys.instance.confirmPressed))) {
                 optionsBack();
             }
             optionsPage.update();

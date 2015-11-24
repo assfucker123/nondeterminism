@@ -134,11 +134,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22493442, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1366
+      value: 1280
       objectReference: {fileID: 0}
     - target: {fileID: 22493442, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 768
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 22493442, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
       propertyPath: m_AnchorMin.x
@@ -164,13 +164,13 @@ Prefab:
       propertyPath: m_Pivot.y
       value: .5
       objectReference: {fileID: 0}
-    - target: {fileID: 22427250, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
+    - target: {fileID: 22424948, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -329
       objectReference: {fileID: 0}
-    - target: {fileID: 22427250, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
+    - target: {fileID: 22424948, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -264
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33710a7a7b139ce41bc3429228c3bb39, type: 2}
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 16
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1366, y: 768}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -346,7 +346,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

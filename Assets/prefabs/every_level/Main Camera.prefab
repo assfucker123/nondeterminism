@@ -12,7 +12,6 @@ GameObject:
   - 92: {fileID: 9264864}
   - 124: {fileID: 12408448}
   - 81: {fileID: 8183970}
-  - 114: {fileID: 11463030}
   - 114: {fileID: 11465262}
   - 114: {fileID: 11425320}
   m_Layer: 0
@@ -54,7 +53,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -211,17 +210,6 @@ MonoBehaviour:
     type: 3}
   colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
     type: 3}
---- !u!114 &11463030
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 181512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49f79703eaafcd4eb78b2cee11e1113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11465262
 MonoBehaviour:
   m_ObjectHideFlags: 1

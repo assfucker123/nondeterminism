@@ -5,14 +5,16 @@ public class CameraControl : MonoBehaviour {
 
     public static CameraControl instance { get { return _instance; } }
 
-    public static float PIXEL_PER_UNIT = 32;
+    public static float PIXEL_PER_UNIT = 16;
     public static float PIXEL_PER_UNIT_SCALE = 2;
-    public static float ORTHOGRAPHIC_SIZE = 6; //screen height = 768
-    //screen size: 1366px x 768px
-    //half screen size: 683px x 384px
+    public static float ORTHOGRAPHIC_SIZE = 11.25f;
+    public static int SCREEN_WIDTH = 1280;
+    public static int SCREEN_HEIGHT = 720;
+    //screen size: 1280px x 720px
+    //half screen size: 640px x 360px
     //tile size: 16px x 16px
-    //room tile size: 44 x 25
-    //practical room tile size: 42 x 23 (edge tiles are obscured)
+    //room tile size: 41 x 23
+    //practical room tile size: 40 x 22 (edge tiles are obscured)
     //orthographic size = screen height / (pixel per unit * pixel per unit scale) / 2
 
     // Tiled map stuff
