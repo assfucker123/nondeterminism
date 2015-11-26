@@ -308,6 +308,7 @@ Ending ideas:
 	- She even kills Wally in front of Tom for extra motivation.
 	- After Tom explains his solution, Oracle shoots him anyway for her own amusement.
 	- Oracle starts laughing suspiciously, implies she might be going down the same route as The Salesman.
+		- Also implied by the "There can be only one" line she says after killing The Salesman.
 - Game ends right here, roll credits.  Big WTF moment.
 - But if high completion percentage, bonus cutscene explains this.
 	- Oracle then reverts way back to before the game even started, and fixes the problem.  Tells Grygor the solution?
@@ -362,7 +363,7 @@ Sonata Backstory:
 		- Enemies don't spawn, "they're hiding"
 	- Can also talk to Quantum Attacks guy during this duration.
 
-The Salesman Backstory:
+The Salesman Backstory: (BAD IDEA to flesh out backstory?  Leave ambiguous?)
 - Can sense the future, same as Oracle.
 	- Same species as Oracle?  Related?
 - In conversations Wally has with Oracle, they note that Oracle could theoretically do whatever she wanted without negative repercussions.  He notes that Oracle might halfway be there already, with how desensitized she is to killing enemies.  Oracle is bothered by this a little.  "Me acting only for myself... does not lead to a pleasant future."

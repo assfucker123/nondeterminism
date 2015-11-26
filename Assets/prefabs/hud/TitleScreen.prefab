@@ -360,7 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionsPageOffset: {x: 0, y: 50}
   switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
-  optionsPageGameObject: {fileID: 181668, guid: ba5e26123b1562c4cb8d57d0cc5d6ca3,
+  optionsPageGameObject: {fileID: 192394, guid: ba5e26123b1562c4cb8d57d0cc5d6ca3,
     type: 2}
   thingGameObject: {fileID: 174572, guid: 242d5a01bbe64764eb08eeba4e48296e, type: 2}
   thingColors:
@@ -763,7 +763,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -286, y: -37}
+  m_AnchoredPosition: {x: -286, y: -65}
   m_SizeDelta: {x: 532, y: 45}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22438086

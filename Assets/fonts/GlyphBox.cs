@@ -193,7 +193,7 @@ public class GlyphBox : MonoBehaviour {
 
         float lineWidth = 0;
         if (y < lines.Count)
-            lineWidth = lines[y].Length * glyphSprite.pixelWidth + (lines[y].Length - 1) * glyphSprite.horizSpacing;
+            lineWidth = getLineWidth(y, glyphSprite);
         float alignOffset = 0;
         switch (alignment) {
         case Alignment.LEFT: alignOffset = 0; break;
@@ -201,10 +201,25 @@ public class GlyphBox : MonoBehaviour {
         case Alignment.RIGHT: alignOffset = width - lineWidth; break;
         }
 
-        ret.x = alignOffset + x * glyphSprite.pixelWidth + Mathf.Max(0, x - 1) * glyphSprite.horizSpacing;
-        ret.y = y * glyphSprite.pixelHeight + Mathf.Max(0, y - 1) * glyphSprite.vertSpacing;
+        ret.x = alignOffset + (x + .5f) * glyphSprite.pixelWidth + Mathf.Max(0, x - 1) * glyphSprite.horizSpacing;
+        ret.y = (y + .5f) * glyphSprite.pixelHeight + Mathf.Max(0, y - 1) * glyphSprite.vertSpacing;
         ret.y *= -1;
         return ret;
+    }
+
+    /* gets width of all the text displayed in a line.
+     * if glyphSpriteReference is null, will use the glyphs in that line for calculations. */
+    public float getLineWidth(int line, GlyphSprite glyphSpriteReference = null) {
+        if (line < 0 || line >= lines.Count) return 0;
+        GlyphSprite gs = glyphSpriteReference;
+        if (gs == null) {
+            if (glyphs[line].Count < 0) {
+                return 0;
+            }
+            gs = glyphs[line][0];
+        }
+        if (gs == null) return 0;
+        return lines[line].Length * gs.pixelWidth + (lines[line].Length - 1) * gs.horizSpacing;
     }
     
     ////////////////////
@@ -226,10 +241,6 @@ public class GlyphBox : MonoBehaviour {
         }
         setPlainText(initialText);
         alignment = initialAlignment;
-
-        //test
-        insertSecretText("star key", 0, 2);
-        visibleSecretChars = 12;
     }
 
     void Update() {
@@ -239,10 +250,10 @@ public class GlyphBox : MonoBehaviour {
 
         //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            visibleChars--;
+            
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            visibleChars++;
+            
         }
 
     }
