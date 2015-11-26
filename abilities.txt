@@ -181,6 +181,9 @@ PAUSE (Start/Enter)
 	- Should require a lot of phase (so hard to redo boss fights)
 	- BAD IDEA: "save state" Flashback
 
+(D) - Jump Recovery (requires Double Jump and Wall Run)
+	- Player gets their double jump back after leaping out of a wall run.
+
 (D) - No Objections (requires Strip Suit)
 	- Can use Strip Suit without having to call up Wally.
 		- Input Up, Down, Up very quickly (reference to Samus->ZSS in Brawl)

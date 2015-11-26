@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class OptionsPage : MonoBehaviour {
 
     public AudioClip switchSound;
+    public TextAsset textAsset;
 
     public bool locked {
         get {
@@ -173,6 +174,19 @@ public class OptionsPage : MonoBehaviour {
         quitSureYesText = transform.Find("QuitSureYesText").GetComponent<Text>();
         quitSureNoText = transform.Find("QuitSureNoText").GetComponent<Text>();
 	}
+
+    void Start() {
+        Properties prop = new Properties(textAsset.text);
+        resumeText.text = prop.getString("resume");
+        restartText.text = prop.getString("restart");
+        fullscreenText.text = prop.getString("fullscreen");
+        sfxVolumeText.text = prop.getString("sfx_volume");
+        musicVolumeText.text = prop.getString("music_volume");
+        quitText.text = prop.getString("quit");
+        quitSureText.text = prop.getString("quit_sure");
+        quitSureYesText.text = prop.getString("quit_sure_yes");
+        quitSureNoText.text = prop.getString("quit_sure_no");
+    }
 	
 	void Update() {
 		

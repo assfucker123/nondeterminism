@@ -1,0 +1,9 @@
+resume: RESUME
+restart: RESTART
+fullscreen: FULLSCREEN
+sfx_volume: SFX VOL.
+music_volume: MUSIC VOL.
+quit: QUIT
+quit_sure: Are you sure you want to quit?
+quit_sure_yes: YES
+quit_sure_no: NO

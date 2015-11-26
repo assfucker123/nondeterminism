@@ -56,11 +56,13 @@ public class Fruit : MonoBehaviour {
 
     public void explode() {
         // create explosion
-        GameObject.Instantiate(
+        GameObject expGO = GameObject.Instantiate(
             explosionGameObject,
             transform.localPosition,
-            Quaternion.identity);
-        if (!visionUser.isVision) {
+            Quaternion.identity) as GameObject;
+        if (visionUser.isVision) {
+            expGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+        } else {
             if (!SoundManager.instance.isSFXPlaying(explodeSound)) {
                 SoundManager.instance.playSFX(explodeSound);
             }

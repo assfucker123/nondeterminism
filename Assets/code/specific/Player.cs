@@ -162,14 +162,6 @@ public class Player : MonoBehaviour {
         //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
 
-            if (QualitySettings.antiAliasing == 0) {
-                //QualitySettings.antiAliasing = 2;
-                QualitySettings.SetQualityLevel(6, true);
-            } else {
-                //QualitySettings.antiAliasing = 0;
-                QualitySettings.SetQualityLevel(3, true);
-            }
-
         }
 
         // decrease phase over time
