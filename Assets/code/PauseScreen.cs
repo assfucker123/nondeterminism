@@ -8,6 +8,8 @@ public class PauseScreen : MonoBehaviour {
     public static PauseScreen instance { get { return _instance; } }
 
     public AudioClip switchSound;
+    public GameObject optionsPageGameObject;
+    public TextAsset propAsset;
 
     public static Color DEFAULT_COLOR = new Color(203 / 255f, 136 / 255f, 177 / 255f); // CB88B1
     public static Color SELECTED_COLOR = new Color(45 / 255f, 0 / 255f, 27 / 255f); // 2D001B
@@ -35,11 +37,12 @@ public class PauseScreen : MonoBehaviour {
         prevEffectsEnabled = CameraControl.instance.effectsEnabled;
         prevBloomIntensity = CameraControl.instance.bloomIntensity;
         prevColorCorrectionSaturation = CameraControl.instance.colorCorrectionSaturation;
+        prevInversion = CameraControl.instance.inversion;
         Time.timeScale = 0;
         
         // show pause screen
         if (!Vars.screenshotMode) {
-            CameraControl.instance.enableEffects(0, 0); //grayscale camera
+            CameraControl.instance.enableEffects(0, 0, 0); //grayscale camera
             show(page);
         }
 
@@ -59,7 +62,7 @@ public class PauseScreen : MonoBehaviour {
         // resume time
         Time.timeScale = prevTimeScale;
         if (prevEffectsEnabled) {
-            CameraControl.instance.enableEffects(prevBloomIntensity, prevColorCorrectionSaturation);
+            CameraControl.instance.enableEffects(prevBloomIntensity, prevColorCorrectionSaturation, prevInversion);
         } else {
             CameraControl.instance.disableEffects();
         }
@@ -82,13 +85,13 @@ public class PauseScreen : MonoBehaviour {
     void show(Page page) {
         image.enabled = true;
         if (!Vars.arcadeMode) { // arcade mode only lets options window be shown
-            mapPageText.enabled = true;
-            timeTreePageText.enabled = true;
-            talkPageText.enabled = true;
-            progressPageText.enabled = true;
-            switchPagesText.enabled = true;
+            mapPageText.makeAllCharsVisible();
+            timeTreePageText.makeAllCharsVisible();
+            talkPageText.makeAllCharsVisible();
+            progressPageText.makeAllCharsVisible();
+            switchPagesText.makeAllCharsVisible();
         }
-        optionsPageText.enabled = true;
+        optionsPageText.makeAllCharsVisible();
         pageSelection.enabled = true;
         
         switchPage(page, true);
@@ -97,24 +100,24 @@ public class PauseScreen : MonoBehaviour {
         switchPage(Page.NONE, true);
 
         image.enabled = false;
-        mapPageText.color = DEFAULT_COLOR;
-        mapPageText.enabled = false;
-        timeTreePageText.color = DEFAULT_COLOR;
-        timeTreePageText.enabled = false;
-        talkPageText.color = DEFAULT_COLOR;
-        talkPageText.enabled = false;
-        progressPageText.color = DEFAULT_COLOR;
-        progressPageText.enabled = false;
-        optionsPageText.color = DEFAULT_COLOR;
-        optionsPageText.enabled = false;
+        mapPageText.setColor(DEFAULT_COLOR);
+        mapPageText.makeAllCharsInvisible();
+        timeTreePageText.setColor(DEFAULT_COLOR);
+        timeTreePageText.makeAllCharsInvisible();
+        talkPageText.setColor(DEFAULT_COLOR);
+        talkPageText.makeAllCharsInvisible();
+        progressPageText.setColor(DEFAULT_COLOR);
+        progressPageText.makeAllCharsInvisible();
+        optionsPageText.setColor(DEFAULT_COLOR);
+        optionsPageText.makeAllCharsInvisible();
         pageSelection.enabled = false;
-        switchPagesText.enabled = false;
+        switchPagesText.makeAllCharsInvisible();
     }
     void switchPage(Page pageTo, bool immediately=false) {
         if (page == pageTo) return;
 
         // hide original page
-        Text option = null;
+        GlyphBox option = null;
         switch (page) {
         case Page.MAP:
             option = mapPageText;
@@ -140,7 +143,7 @@ public class PauseScreen : MonoBehaviour {
         if (option == null) {
             immediately = true;
         } else {
-            option.color = DEFAULT_COLOR;
+            option.setColor(DEFAULT_COLOR);
         }
         _page = pageTo;
 
@@ -168,9 +171,9 @@ public class PauseScreen : MonoBehaviour {
             break;
         }
         if (option != null) {
-            option.color = SELECTED_COLOR;
+            option.setColor(SELECTED_COLOR);
             pageSelectionImageFinalPos.Set(option.rectTransform.localPosition.x, option.rectTransform.localPosition.y);
-            pageSelectionImageFinalPos += new Vector2(0, 2);
+            pageSelectionImageFinalPos += new Vector2(0, 0);
         }
         
         // move page selection
@@ -191,19 +194,33 @@ public class PauseScreen : MonoBehaviour {
 	
 	void Awake() {
         _instance = this;
+        prop = new Properties(propAsset.text);
         image = GetComponent<Image>();
-		mapPageText = transform.Find("MapPageText").GetComponent<Text>();
-        timeTreePageText = transform.Find("TimeTreePageText").GetComponent<Text>();
-        talkPageText = transform.Find("TalkPageText").GetComponent<Text>();
-        progressPageText = transform.Find("ProgressPageText").GetComponent<Text>();
-        optionsPageText = transform.Find("OptionsPageText").GetComponent<Text>();
+		mapPageText = transform.Find("MapPageText").GetComponent<GlyphBox>();
+        timeTreePageText = transform.Find("TimeTreePageText").GetComponent<GlyphBox>();
+        talkPageText = transform.Find("TalkPageText").GetComponent<GlyphBox>();
+        progressPageText = transform.Find("ProgressPageText").GetComponent<GlyphBox>();
+        optionsPageText = transform.Find("OptionsPageText").GetComponent<GlyphBox>();
         pageSelection = transform.Find("PageSelection").GetComponent<Image>();
-        switchPagesText = transform.Find("SwitchPagesText").GetComponent<Text>();
-
+        switchPagesText = transform.Find("SwitchPagesText").GetComponent<GlyphBox>();
+        
         // options page
-        optionsPage = transform.Find("OptionsPage").GetComponent<OptionsPage>();
+        GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
+        optionsPageGO.transform.SetParent(transform, false);
+        optionsPage = optionsPageGO.GetComponent<OptionsPage>();
+        optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
 
 	}
+
+    void Start() {
+        mapPageText.setPlainText(prop.getString("map"));
+        timeTreePageText.setPlainText(prop.getString("time_tree"));
+        talkPageText.setPlainText(prop.getString("talk"));
+        progressPageText.setPlainText(prop.getString("progress"));
+        optionsPageText.setPlainText(prop.getString("options"));
+        switchPagesText.setPlainText(prop.getString("switch_pages"));
+        hide();
+    }
 
     void Update() {
 
@@ -292,24 +309,25 @@ public class PauseScreen : MonoBehaviour {
     bool prevEffectsEnabled = false;
     float prevBloomIntensity = 0;
     float prevColorCorrectionSaturation = 1;
+    float prevInversion = 0;
     float pageSelectionImageTime = 9999;
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
 
     // main pause screen
     Image image;
-    Text mapPageText;
-    Text timeTreePageText;
-    Text talkPageText;
-    Text progressPageText;
-    Text optionsPageText;
+    GlyphBox mapPageText;
+    GlyphBox timeTreePageText;
+    GlyphBox talkPageText;
+    GlyphBox progressPageText;
+    GlyphBox optionsPageText;
     Image pageSelection;
-    Text switchPagesText;
+    GlyphBox switchPagesText;
+    Properties prop;
     
     // talk page
     /* Talking should be able to be visible while displaying the map or time tree (for tutorials, etc.)
      * Remember the talk page will have secrets:
-     *   - Holding FLASHBACK to rewind text
      *   - Tap __ to start a small minigame
      * */
     

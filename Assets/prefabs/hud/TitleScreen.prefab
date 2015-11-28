@@ -360,7 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionsPageOffset: {x: 0, y: 50}
   switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
-  optionsPageGameObject: {fileID: 192394, guid: ba5e26123b1562c4cb8d57d0cc5d6ca3,
+  optionsPageGameObject: {fileID: 104038, guid: 8c0654cd1387e704ba83d70d19cf8fdb,
     type: 2}
   thingGameObject: {fileID: 174572, guid: 242d5a01bbe64764eb08eeba4e48296e, type: 2}
   thingColors:
@@ -969,6 +969,10 @@ Prefab:
       propertyPath: thingColors.Array.data[2].b
       value: .0882353187
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: optionsPageGameObject
+      value: 
+      objectReference: {fileID: 104038, guid: 8c0654cd1387e704ba83d70d19cf8fdb, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189052}

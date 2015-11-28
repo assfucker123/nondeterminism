@@ -93,7 +93,8 @@ public class GlyphBox : MonoBehaviour {
         }
     }
 
-    Alignment _alignment = Alignment.LEFT;
+    public RectTransform rectTransform { get { return GetComponent<RectTransform>(); } }
+    
 
     ///////////////
     // FUNCTIONS //
@@ -108,20 +109,33 @@ public class GlyphBox : MonoBehaviour {
         }
     }
     public void setPlainText(string text, int visibleChars) {
+        Alignment temp = alignment;
+        alignment = Alignment.LEFT;
         List<string> lines = textToLines(text);
         for (int i = 0; i < this.lines.Count; i++) {
             if (i >= lines.Count)
                 this.lines[i] = "";
             else
                 this.lines[i] = lines[i];
-            if (i >= secretLines.Count)
-                this.secretLines[i] = "";
-            else
-                this.secretLines[i] = secretLines[i];
         }
         _visibleChars = visibleChars;
+        alignment = temp;
         updateGlyphs(false);
     }
+
+    /* Makes all characters in the text visible */
+    public void makeAllCharsVisible() {
+        _visibleChars = 0;
+        for (int i = 0; i < height; i++) {
+            _visibleChars += lines[i].Length;
+        }
+        updateGlyphs(false);
+    }
+    /* Makes all characters in the text invisible */
+    public void makeAllCharsInvisible() {
+        visibleChars = 0;
+    }
+    public bool hasVisibleChars { get { return visibleChars > 0; } }
 
     /* Adds secret text (revealed when visibleSecretChars > visibleChars) */
     public void insertSecretText(string text, int startLine, int startCharIndex) {
@@ -166,6 +180,26 @@ public class GlyphBox : MonoBehaviour {
         if (startCharIndex < 0 || startCharIndex >= width) return;
         for (int x = startCharIndex; x < Mathf.Min(endCharIndex, width); x++) {
             glyphStyles[lineIndex][x].setFromString(styleStr);
+        }
+        if (updateGlyphs)
+            this.updateGlyphs(true);
+    }
+    /* Sets the color for all the Glyphs */
+    public void setColor(Color color, bool updateGlyphs = true) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                glyphStyles[y][x].color = color;
+            }
+        }
+        if (updateGlyphs)
+            this.updateGlyphs(true);
+    }
+    /* Sets the color for some Glyphs */
+    public void setColor(Color color, int lineIndex, int startCharIndex, int endCharIndex, bool updateGlyphs = true) {
+        if (lineIndex < 0 || lineIndex >= height) return;
+        if (startCharIndex < 0 || startCharIndex >= width) return;
+        for (int x = startCharIndex; x < Mathf.Min(endCharIndex, width); x++) {
+            glyphStyles[lineIndex][x].color = color;
         }
         if (updateGlyphs)
             this.updateGlyphs(true);
@@ -227,11 +261,7 @@ public class GlyphBox : MonoBehaviour {
     ////////////////////
 
 	void Awake() {
-        rectTransform = GetComponent<RectTransform>();
-		timeUser = GetComponent<TimeUser>();
-	}
-
-    void Start() {
+        timeUser = GetComponent<TimeUser>();
         if (!validateFonts())
             return;
         createGlyphs(glyphGameObjects[0]);
@@ -241,6 +271,10 @@ public class GlyphBox : MonoBehaviour {
         }
         setPlainText(initialText);
         alignment = initialAlignment;
+	}
+
+    void Start() {
+        
     }
 
     void Update() {
@@ -263,6 +297,7 @@ public class GlyphBox : MonoBehaviour {
 
         fi.ints["vC"] = visibleChars;
         fi.ints["vSC"] = visibleSecretChars;
+        fi.ints["align"] = (int)alignment;
         // convert lines and secretLines into strings
         string linesStr = "";
         for (int i = 0; i < lines.Count; i++) {
@@ -285,6 +320,7 @@ public class GlyphBox : MonoBehaviour {
 
         _visibleChars = fi.ints["vC"];
         _visibleSecretChars = fi.ints["vSC"];
+        _alignment = (Alignment)fi.ints["align"];
         // parse lines and secretLines from strings
         char[] delims = { '\n' };
         string linesStr = fi.strings["lines"];
@@ -307,6 +343,10 @@ public class GlyphBox : MonoBehaviour {
         glyphStylesFromString(fi.strings["gStyles"]);
 
         updateGlyphs(true);
+    }
+
+    void OnDestroy() {
+        clearGlyphs();
     }
 
     ///////////////////////
@@ -363,6 +403,7 @@ public class GlyphBox : MonoBehaviour {
             for (int x = 0; x < width; x++) {
                 char character = ' ';
                 bool applySecretStyle = false;
+                bool visible = true;
                 if (x < line.Length) {
                     charCount++;
                     if (charCount <= visibleChars) {
@@ -370,6 +411,8 @@ public class GlyphBox : MonoBehaviour {
                     } else if (charCount <= visibleSecretChars && x < secretLine.Length) {
                         character = secretLine[x];
                         applySecretStyle = true;
+                    } else {
+                        visible = false;
                     }
                 }
                 glyphs[y][x].character = character;
@@ -378,6 +421,7 @@ public class GlyphBox : MonoBehaviour {
                 } else if (updateStyle || visibleChars < visibleSecretChars) {
                     glyphStyles[y][x].apply(glyphs[y][x]);
                 }
+                glyphs[y][x].visible = visible;
             }
         }
     }
@@ -405,6 +449,8 @@ public class GlyphBox : MonoBehaviour {
                     line = word;
                 } else {
                     // word fits on currnt line, so add it
+                    if (endOfStr && c == ' ' && line.Length + 1 + word.Length <= width)
+                        word = word + c;
                     if (line.Length == 0) {
                         line = word;
                     } else {
@@ -483,8 +529,8 @@ public class GlyphBox : MonoBehaviour {
     int _visibleSecretChars = 0;
     List<string> lines = new List<string>(); // hold text data
     List<string> secretLines = new List<string>(); // hold secret text data
+    Alignment _alignment = Alignment.LEFT;
 
-    RectTransform rectTransform;
     TimeUser timeUser;
 	
 }

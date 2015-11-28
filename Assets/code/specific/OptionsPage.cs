@@ -39,7 +39,7 @@ public class OptionsPage : MonoBehaviour {
         optionsUpdate();
 
         bool madeSelection = false;
-        Text option = null;
+        GlyphBox option = null;
         if (settingSFX || settingMusic) {
             if (Keys.instance.leftPressed) {
                 if (settingSFX) {
@@ -75,7 +75,7 @@ public class OptionsPage : MonoBehaviour {
                 option = options[selectionIndex];
             }
             if (Keys.instance.backPressed) {
-                if (quitSureNoText.enabled) {
+                if (quitSureNoText.hasVisibleChars) {
                     madeSelection = true;
                     option = quitSureNoText;
                 }
@@ -112,18 +112,18 @@ public class OptionsPage : MonoBehaviour {
                 
             } else if (option == sfxVolumeText) {
                 // toggle sfx volue
-                option.color = PauseScreen.DEFAULT_COLOR;
+                option.setColor(PauseScreen.DEFAULT_COLOR);
                 hide();
-                volumeText.enabled = true;
+                volumeText.makeAllCharsVisible();
                 setVolumeText(true);
                 options.Clear();
                 settingSFX = true;
 
             } else if (option == musicVolumeText) {
                 // toggle music volue
-                option.color = PauseScreen.DEFAULT_COLOR;
+                option.setColor(PauseScreen.DEFAULT_COLOR);
                 hide();
-                volumeText.enabled = true;
+                volumeText.makeAllCharsVisible();
                 setVolumeText(false);
                 options.Clear();
                 settingMusic = true;
@@ -134,16 +134,16 @@ public class OptionsPage : MonoBehaviour {
                 } else {
                     // go to quit sure mode
                     // get rid of other options
-                    option.color = PauseScreen.DEFAULT_COLOR;
+                    option.setColor(PauseScreen.DEFAULT_COLOR);
                     hide();
                     selection.enabled = true;
                     quitSureYesText.rectTransform.localPosition = options[1].rectTransform.localPosition;
                     quitSureNoText.rectTransform.localPosition = options[2].rectTransform.localPosition;
                     options.Clear();
                     // set new options
-                    quitSureText.enabled = true;
-                    quitSureYesText.enabled = true;
-                    quitSureNoText.enabled = true;
+                    quitSureText.makeAllCharsVisible();
+                    quitSureYesText.makeAllCharsVisible();
+                    quitSureNoText.makeAllCharsVisible();
                     options.Add(quitSureYesText);
                     options.Add(quitSureNoText);
                     setSelection(1, true);
@@ -163,29 +163,30 @@ public class OptionsPage : MonoBehaviour {
 	
 	void Awake() {
         selection = transform.Find("Selection").GetComponent<Image>();
-        resumeText = transform.Find("ResumeText").GetComponent<Text>();
-        restartText = transform.Find("RestartText").GetComponent<Text>();
-        fullscreenText = transform.Find("FullscreenText").GetComponent<Text>();
-        sfxVolumeText = transform.Find("sfxVolumeText").GetComponent<Text>();
-        musicVolumeText = transform.Find("MusicVolumeText").GetComponent<Text>();
-        volumeText = transform.Find("VolumeText").GetComponent<Text>();
-        quitText = transform.Find("QuitText").GetComponent<Text>();
-        quitSureText = transform.Find("QuitSureText").GetComponent<Text>();
-        quitSureYesText = transform.Find("QuitSureYesText").GetComponent<Text>();
-        quitSureNoText = transform.Find("QuitSureNoText").GetComponent<Text>();
+        resumeText = transform.Find("ResumeText").GetComponent<GlyphBox>();
+        restartText = transform.Find("RestartText").GetComponent<GlyphBox>();
+        fullscreenText = transform.Find("FullscreenText").GetComponent<GlyphBox>();
+        sfxVolumeText = transform.Find("sfxVolumeText").GetComponent<GlyphBox>();
+        musicVolumeText = transform.Find("MusicVolumeText").GetComponent<GlyphBox>();
+        volumeText = transform.Find("VolumeText").GetComponent<GlyphBox>();
+        quitText = transform.Find("QuitText").GetComponent<GlyphBox>();
+        quitSureText = transform.Find("QuitSureText").GetComponent<GlyphBox>();
+        quitSureYesText = transform.Find("QuitSureYesText").GetComponent<GlyphBox>();
+        quitSureNoText = transform.Find("QuitSureNoText").GetComponent<GlyphBox>();
+        propAsset = new Properties(textAsset.text);
 	}
 
     void Start() {
-        Properties prop = new Properties(textAsset.text);
-        resumeText.text = prop.getString("resume");
-        restartText.text = prop.getString("restart");
-        fullscreenText.text = prop.getString("fullscreen");
-        sfxVolumeText.text = prop.getString("sfx_volume");
-        musicVolumeText.text = prop.getString("music_volume");
-        quitText.text = prop.getString("quit");
-        quitSureText.text = prop.getString("quit_sure");
-        quitSureYesText.text = prop.getString("quit_sure_yes");
-        quitSureNoText.text = prop.getString("quit_sure_no");
+        resumeText.setPlainText(propAsset.getString("resume"));
+        restartText.setPlainText(propAsset.getString("restart"));
+        fullscreenText.setPlainText(propAsset.getString("fullscreen"));
+        sfxVolumeText.setPlainText(propAsset.getString("sfx_volume"));
+        musicVolumeText.setPlainText(propAsset.getString("music_volume"));
+        quitText.setPlainText(propAsset.getString("quit"));
+        quitSureText.setPlainText(propAsset.getString("quit_sure"));
+        quitSureYesText.setPlainText(propAsset.getString("quit_sure_yes"));
+        quitSureNoText.setPlainText(propAsset.getString("quit_sure_no"));
+        hide();
     }
 	
 	void Update() {
@@ -199,32 +200,37 @@ public class OptionsPage : MonoBehaviour {
         return selectionIndex == options.IndexOf(quitText);
     }
     public bool onTopMenu() {
-        return quitText.enabled;
+        return quitText.hasVisibleChars;
     }
 
     public void show(bool titleMode) {
         this.titleMode = titleMode;
         selection.enabled = true;
-        resumeText.enabled = !titleMode;
-        restartText.enabled = !titleMode;
-        fullscreenText.enabled = true;
-        sfxVolumeText.enabled = true;
-        musicVolumeText.enabled = true;
-        volumeText.enabled = false;
-        quitText.enabled = true;
-        quitSureText.enabled = false;
-        quitSureYesText.enabled = false;
-        quitSureNoText.enabled = false;
+        if (titleMode) {
+            resumeText.makeAllCharsInvisible();
+            restartText.makeAllCharsInvisible();
+        } else {
+            resumeText.makeAllCharsVisible();
+            restartText.makeAllCharsVisible();
+        }
+        fullscreenText.makeAllCharsVisible();
+        sfxVolumeText.makeAllCharsVisible();
+        musicVolumeText.makeAllCharsVisible();
+        volumeText.makeAllCharsInvisible();
+        quitText.makeAllCharsVisible();
+        quitSureText.makeAllCharsInvisible();
+        quitSureYesText.makeAllCharsInvisible();
+        quitSureNoText.makeAllCharsInvisible();
         settingSFX = false;
         settingMusic = false;
         // set options helper
         selectionImage = selection;
-        selectionImageOffset.Set(0, 2);
+        selectionImageOffset.Set(0, 0);
         options.Clear();
         if (titleMode) {
-            quitText.text = "BACK";
+            quitText.setPlainText(propAsset.getString("quit_back"));
         } else {
-            quitText.text = "QUIT";
+            quitText.setPlainText(propAsset.getString("quit"));
             options.Add(resumeText);
             options.Add(restartText);
         }
@@ -237,18 +243,18 @@ public class OptionsPage : MonoBehaviour {
 
     public void hide() {
         selection.enabled = false;
-        resumeText.enabled = false;
-        restartText.enabled = false;
-        fullscreenText.enabled = false;
-        sfxVolumeText.enabled = false;
-        musicVolumeText.enabled = false;
-        volumeText.enabled = false;
-        quitText.enabled = false;
-        quitSureText.enabled = false;
-        quitSureYesText.color = PauseScreen.DEFAULT_COLOR;
-        quitSureYesText.enabled = false;
-        quitSureNoText.color = PauseScreen.DEFAULT_COLOR;
-        quitSureNoText.enabled = false;
+        resumeText.makeAllCharsInvisible();
+        restartText.makeAllCharsInvisible();
+        fullscreenText.makeAllCharsInvisible();
+        sfxVolumeText.makeAllCharsInvisible();
+        musicVolumeText.makeAllCharsInvisible();
+        volumeText.makeAllCharsInvisible();
+        quitText.makeAllCharsInvisible();
+        quitSureText.makeAllCharsInvisible();
+        quitSureYesText.setColor(PauseScreen.DEFAULT_COLOR);
+        quitSureYesText.makeAllCharsInvisible();
+        quitSureNoText.setColor(PauseScreen.DEFAULT_COLOR);
+        quitSureNoText.makeAllCharsInvisible();
 
         // save options
         Vars.saveSettings();
@@ -290,15 +296,15 @@ public class OptionsPage : MonoBehaviour {
         val -= ones;
         str += "." + Mathf.FloorToInt(val * 10 + .01f);
         if (sfx) {
-            volumeText.text = "SFX Volume: " + left + " " + str + " " + right;
+            volumeText.setPlainText(propAsset.getString("sfx_volume_switch") + " " + left + " " + str + " " + right);
         } else {
-            volumeText.text = "Music Volume: " + left + " " + str + " " + right;
+            volumeText.setPlainText(propAsset.getString("music_volume_switch") + " " + left + " " + str + " " + right);
         }
     }
 
     // options helpers
     /* Set options, selectionImage, selectionImageOffset then call setSelection() */
-    List<Text> options = new List<Text>();
+    List<GlyphBox> options = new List<GlyphBox>();
     Image selectionImage = null;
     Vector2 selectionImageOffset = new Vector2();
     int selectionIndex = -1;
@@ -307,11 +313,11 @@ public class OptionsPage : MonoBehaviour {
     Vector2 selectionImageFinalPos = new Vector2();
     void setSelection(int index, bool immediately = false) {
 
-        Text option;
+        GlyphBox option;
         if (selectionIndex >= 0 && selectionIndex < options.Count) {
             // unselect
             option = options[selectionIndex];
-            option.color = PauseScreen.DEFAULT_COLOR;
+            option.setColor(PauseScreen.DEFAULT_COLOR);
         }
 
         // select
@@ -328,7 +334,7 @@ public class OptionsPage : MonoBehaviour {
         selectionImageTime = 0;
         selectionIndex = index;
         option = options[selectionIndex];
-        option.color = PauseScreen.SELECTED_COLOR;
+        option.setColor(PauseScreen.SELECTED_COLOR);
         selectionImageFinalPos = selectionImageOffset + new Vector2(option.rectTransform.localPosition.x, option.rectTransform.localPosition.y);
         if (immediately) {
             selectionImageInitialPos = selectionImageFinalPos;
@@ -336,18 +342,19 @@ public class OptionsPage : MonoBehaviour {
         }
     }
 
+    Properties propAsset;
     Image selection;
-    Text resumeText;
-    Text restartText; // only use in Arcade
-    Text fullscreenText;
-    Text sfxVolumeText;
-    Text musicVolumeText;
-    Text volumeText;
+    GlyphBox resumeText;
+    GlyphBox restartText; // only use in Arcade
+    GlyphBox fullscreenText;
+    GlyphBox sfxVolumeText;
+    GlyphBox musicVolumeText;
+    GlyphBox volumeText;
 
-    Text quitText; // renamed to BACK when in title mode
-    Text quitSureText;
-    Text quitSureYesText;
-    Text quitSureNoText;
+    GlyphBox quitText; // renamed to BACK when in title mode
+    GlyphBox quitSureText;
+    GlyphBox quitSureYesText;
+    GlyphBox quitSureNoText;
     bool settingSFX = false;
     bool settingMusic = false;
     bool titleMode = false;

@@ -288,6 +288,40 @@ Gimmicks to "Vision" mechanic that actually make sense:
 		- In UI, a health upgrade traded for a crystal is represented by drawing a crystal over where the heart would be.
 		- The trades affect Salesman's own abilities for the bossfight later.
 
+===========
+Defeating Oracle's virus:
+
+- After the boss battle, virus isn't dead at all, and Oracle's health drops to "0" (Oracle isn't dead yet, but very close)
+	- Cinematics: screen is being scratchy and almost fading to black, the death tree keeps appearing and disappearing.
+- But in the nick of time, Oracle's suit explodes, but Oracle is fine in her larva form.
+- Wally figured out that the suit had a virus causing Oracle to hallucinate.  He didn't know how to stop it, but he was able to quickly write a program that can strip Oracle's suit remotely.  Without the suit, Oracle no longer receives hallucinations.
+- After exploring, Oracle comes across a similar suit and jumps into it.  Wally detects the suit's code is functioning properly, with no viruses.  Aside from the virus, the firmwares are identical.
+- Wally uses a special program to "take the difference" between the two firmwares, which leaves behind only the virus.  Now isolated, Wally easily constructs a decryptor that quarantines the virus, and sends it to Oracle.
+- Now Oracle will never have viruses for the rest of the game, in any suit.
+
+===========
+The Salesman is evil reveal:
+
+- At first, The Salesman is introduced as a suave version of the Merchant from RE4.
+	- Sells permanent phase upgrades in exchange for permanent health upgrades.
+	- Gives Oracle a "card" of him (is one of those collectible cards) that explains where he'll be at what time.
+	- Speaks mysterious lines, seems to know what's coming.  Knows Oracle's name and ability.
+	- Mentions he can't sell upgrades to Oracle, since he fights with needles.
+- Sonata's death speech:
+	- She's the most powerful creature on the island, has the ability to control the will of anyone that listens to her voice.
+		- The effect still lasts even after being silenced.
+		- Oracle recalls this effect doesn't last forever.  A few minutes before The Meltdown, all the creatures on the island started hiding after being freed from Sonata.
+			- Shown in-game by enemies not appearing starting a few minutes before The Meltdown.
+	- Wally says Sonata isn't as powerful as she thinks.  Even before falling to Oracle, her mouth was stitched shut against her will.
+	- Sonata was knocked out by somebody, and her mouth was stitched together by the time she came to.
+	- Following conversation between Oracle and Wally foreshadows The Salesman.
+		- Wally: "Sonata was subdued, but not killed.  That makes it hard to say if this attacker was an enemy or not."
+		- Wally: "Who or what even has the ability to do this?  A whacked-out surgeon?"
+		- Oracle: "Or somebody good with needles..."
+		- Wally: "Hmm, do we know anybody around here that's really good at knitting?"
+- Reveal happens after Oracle's virus is defeated.
+	- 
+
 ==========================================
 Ending ideas:
 

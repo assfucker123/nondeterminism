@@ -105,11 +105,6 @@ public class HUD : MonoBehaviour {
         pmGO.transform.SetParent(canvas.transform, false);
         _phaseMeter = pmGO.GetComponent<PhaseMeter>();
         _phaseMeter.setUp();
-        //create Countdown Timer
-        GameObject ctGO = GameObject.Instantiate(countdownTimerGameObject) as GameObject;
-        ctGO.transform.SetParent(canvas.transform, false);
-        _countdownTimer = ctGO.GetComponent<CountdownTimer>();
-        _countdownTimer.setUp();
         //create Black Screen
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
         bsGO.transform.SetParent(canvas.transform, false);
@@ -119,6 +114,11 @@ public class HUD : MonoBehaviour {
         psGO.transform.SetParent(canvas.transform, false);
         _pauseScreen = psGO.GetComponent<PauseScreen>();
         _pauseScreen.initialHide();
+        //create Countdown Timer
+        GameObject ctGO = GameObject.Instantiate(countdownTimerGameObject) as GameObject;
+        ctGO.transform.SetParent(canvas.transform, false);
+        _countdownTimer = ctGO.GetComponent<CountdownTimer>();
+        _countdownTimer.setUp();
         //create Game Over Screen
         GameObject gosGO = GameObject.Instantiate(gameOverScreenObject) as GameObject;
         gosGO.transform.SetParent(canvas.transform, false);

@@ -75,7 +75,7 @@ public class CameraControl : MonoBehaviour {
     private float hitPauseDuration = 0;
     private float prevTimeScale = 1;
 
-    public void enableEffects(float bloomIntensity, float colorCorrectionSaturation) {
+    public void enableEffects(float bloomIntensity, float colorCorrectionSaturation, float inversion) {
         if (bloomOptimized != null) {
             if (!bloomOptimized.enabled)
                 bloomOptimized.enabled = true;
@@ -85,6 +85,16 @@ public class CameraControl : MonoBehaviour {
             if (!colorCorrectionCurves.enabled)
                 colorCorrectionCurves.enabled = true;
             colorCorrectionCurves.saturation = colorCorrectionSaturation;
+
+            // inverting colors
+            _inversion = inversion;
+            float v0 = Utilities.easeInCubicClamp(inversion, 0, 1, 1);
+            float v1 = Utilities.easeOutQuadClamp(inversion, 1, -1, 1);
+
+            colorCorrectionCurves.redChannel = AnimationCurve.Linear(0, v0, 1, v1);
+            colorCorrectionCurves.greenChannel = AnimationCurve.Linear(0, v0, 1, v1);
+            colorCorrectionCurves.blueChannel = AnimationCurve.Linear(0, v0, 1, v1);
+            colorCorrectionCurves.UpdateParameters();
         }
     }
     public void disableEffects() {
@@ -96,6 +106,14 @@ public class CameraControl : MonoBehaviour {
              * So always use colorCorrectionCurves. */
             colorCorrectionCurves.saturation = 1;
             //colorCorrectionCurves.enabled = false;
+
+            // undo inverting colors
+            _inversion = 0;
+            float t = 0;
+            colorCorrectionCurves.redChannel = AnimationCurve.Linear(0, 0, 1, 1);
+            colorCorrectionCurves.greenChannel = AnimationCurve.Linear(0, 0, 1, 1);
+            colorCorrectionCurves.blueChannel = AnimationCurve.Linear(0, 0, 1, 1);
+            colorCorrectionCurves.UpdateParameters();
         }
     }
     public bool effectsEnabled { get {
@@ -111,6 +129,7 @@ public class CameraControl : MonoBehaviour {
         if (colorCorrectionCurves == null) return 1;
         return colorCorrectionCurves.saturation;
     } }
+    public float inversion { get { return _inversion; } }
 
     /////////////
     // PRIVATE //
@@ -125,11 +144,6 @@ public class CameraControl : MonoBehaviour {
 	}
 
     void Update() {
-
-        //fullscreen
-        if (Input.GetKeyDown(KeyCode.F10)) {
-            Screen.fullScreen = !Screen.fullScreen;
-        }
 
         if (timeUser.shouldNotUpdate)
             return;
@@ -221,6 +235,7 @@ public class CameraControl : MonoBehaviour {
     private TimeUser timeUser;
     private UnityStandardAssets.ImageEffects.BloomOptimized bloomOptimized;
     private UnityStandardAssets.ImageEffects.ColorCorrectionCurves colorCorrectionCurves;
+    private float _inversion = 0;
 
 
 }

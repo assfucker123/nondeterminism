@@ -111,7 +111,7 @@ MonoBehaviour:
   time: 0
   countUp: 1
   format: 0
-  position: {x: 532, y: -47}
+  position: {x: 500, y: -40}
   score: 0
 --- !u!114 &11451828
 MonoBehaviour:
@@ -243,7 +243,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: position.y
-      value: -47
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: position.x
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

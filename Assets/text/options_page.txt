@@ -1,9 +1,12 @@
-resume: RESUME
-restart: RESTART
-fullscreen: FULLSCREEN
-sfx_volume: SFX VOL.
-music_volume: MUSIC VOL.
-quit: QUIT
+resume: Resume
+restart: Restart
+fullscreen: Fullscreen Mode
+sfx_volume: SFX Volume
+music_volume: Music Volume
+quit: Quit
+quit_back: Back
 quit_sure: Are you sure you want to quit?
-quit_sure_yes: YES
-quit_sure_no: NO
+quit_sure_yes: Yes
+quit_sure_no: No
+sfx_volume_switch: SFX Volume:
+music_volume_switch: Music Volume:

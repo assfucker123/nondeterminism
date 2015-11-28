@@ -339,15 +339,26 @@ public class Player : MonoBehaviour {
 
     // control time reverting (called each frame)
     void timeReverting() {
+
+        // inversion used when The Salesman reverts
+        bool useInversion = false;
         
         if (TimeUser.reverting) {
             revertTime += Time.deltaTime;
             
             TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
 
-            CameraControl.instance.enableEffects(
-                Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
-                Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration));
+            if (useInversion) {
+                CameraControl.instance.enableEffects(
+                    Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
+                    Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration),
+                    Utilities.easeOutQuadClamp(revertTime, 0, 1, revertEaseDuration));
+            } else {
+                CameraControl.instance.enableEffects(
+                    Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
+                    Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration),
+                    0);
+            }
 
             //conditions for reverting
             bool stopReverting = !Keys.instance.flashbackHeld;
@@ -372,7 +383,11 @@ public class Player : MonoBehaviour {
                     HUD.instance.phaseMeter.beginPulse();
                     revertTime = 0;
                     postRevertTime = 99999;
-                    CameraControl.instance.enableEffects(0, 1);
+                    if (useInversion) {
+                        CameraControl.instance.enableEffects(0, 1, 1);
+                    } else {
+                        CameraControl.instance.enableEffects(0, 1, 0);
+                    }
                 } else {
                     HUD.instance.phaseMeter.playPhaseEmptySound();
                 }
