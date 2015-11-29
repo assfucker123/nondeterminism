@@ -9,6 +9,9 @@ GameObject:
   m_Component:
   - 224: {fileID: 22457364}
   - 114: {fileID: 11474170}
+  - 222: {fileID: 22224688}
+  - 114: {fileID: 11454148}
+  - 114: {fileID: 11486074}
   m_Layer: 5
   m_Name: MapUI
   m_TagString: Untagged
@@ -50,6 +53,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &11454148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113364}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -98529514, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!114 &11457440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,7 +121,6 @@ MonoBehaviour:
   fillColor: {r: .141176477, g: 0, b: .20784314, a: 1}
   topOpenGapWidth: 3
   leftOpenGapHeight: 2
-  positionOffset: {x: -640, y: 250}
   iconChamberGameObject: {fileID: 113824, guid: 77485849fce57af48aba8c8b4af52e2c,
     type: 2}
   iconHealthUpgradeGameObject: {fileID: 142626, guid: ff845d00f6ac7d64090f2ef5e364a6be,
@@ -102,6 +130,17 @@ MonoBehaviour:
   iconOrb0GameObject: {fileID: 133244, guid: 0d581556523d90d46883eb883081d910, type: 2}
   playerPositionGameObject: {fileID: 158362, guid: aa66fdd5c1496e84db8df2ca17b2cc58,
     type: 2}
+--- !u!114 &11486074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -146154839, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11491144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,6 +173,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152302}
+--- !u!222 &22224688
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113364}
 --- !u!222 &22232038
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -154,9 +199,9 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -540, y: -300}
   m_SizeDelta: {x: 540, y: 300}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!224 &22457364
 RectTransform:
   m_ObjectHideFlags: 1
@@ -173,8 +218,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -640, y: 360}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 600}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22495096
 RectTransform:
@@ -190,9 +235,9 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -540, y: -300}
   m_SizeDelta: {x: 540, y: 300}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

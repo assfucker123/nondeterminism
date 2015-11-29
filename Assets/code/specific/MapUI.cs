@@ -5,6 +5,27 @@ using UnityEngine.UI;
 
 public class MapUI : MonoBehaviour {
 
+    /* Mask positioning:
+     * 
+     * Normal: (shows entire map, center of screen)
+     * UI: x=0, y=0, width=1080, height=600, scale=1
+     * textures: x=-540, y=-300, width=540, height=300
+     * 
+     * Only showing middle:
+     * UI: changed width to 400 and height to 200.
+     * textures: stayed the same
+     * 
+     * Moving the map on the HUD:
+     * UI: change x and y.  Don't need to change anything else
+     * 
+     * Only showing left center:
+     * UI: changed width to 400 and height to 200.  width0 = 1080, width1 = 400
+     * textures: changed x to -200.  x0 = -540, x1 = -200
+     * to make x', y' of the texture the center, position x = -x', y = -y'
+     * 
+     * 
+     * */
+
     // PUBLIC STATIC
 
     public static MapUI instance { get { return _instance; } }
@@ -74,7 +95,6 @@ public class MapUI : MonoBehaviour {
     public Color fillColor = Color.magenta;
     public int topOpenGapWidth = 3;
     public int leftOpenGapHeight = 2;
-    public Vector2 positionOffset = new Vector2(-640, 360);
     public GameObject iconChamberGameObject;
     public GameObject iconHealthUpgradeGameObject;
     public GameObject iconBoosterGameObject;
@@ -84,16 +104,47 @@ public class MapUI : MonoBehaviour {
     public bool mapShowing { get { return mapRawImage.enabled; } }
     public bool mapFillShowing { get { return mapFillRawImage.enabled; } }
 
-    // gets and sets the position of the center of the map relative to its parent
+    // gets and sets the position of the center of the map.  (0, 0) is center of the screen
     public Vector2 position {
         get {
-            return new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y)
-                - positionOffset + (new Vector2(GRID_WIDTH * CELL_WIDTH, GRID_HEIGHT * CELL_HEIGHT));
+            return new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y);
         }
         set {
-            rectTransform.localPosition = value + positionOffset - (new Vector2(GRID_WIDTH * CELL_WIDTH, GRID_HEIGHT * CELL_HEIGHT));
+            rectTransform.localPosition = value;
         }
     }
+
+    // gets and sets how big the mask is
+    public Vector2 maskSize {
+        get {
+            return rectTransform.sizeDelta;
+        }
+        set {
+            rectTransform.sizeDelta = value;
+        }
+    }
+    // sets the mask to show everything
+    public void fullMask() {
+        maskSize = new Vector2(GRID_WIDTH * CELL_WIDTH * 2, GRID_HEIGHT * CELL_HEIGHT * 2);
+    }
+
+    // sets which cell coordinates are at the center of the map
+    public void setMapCenter(int x, int y) {
+        Vector2 pos0 = mapRawImage.GetComponent<RectTransform>().localPosition;
+        Vector2 pos1 = new Vector2(x * -CELL_WIDTH * 2, y * -CELL_HEIGHT * 2);
+        Vector2 diff = pos1 - pos0;
+        Vector3 diff3 = new Vector3(diff.x, diff.y);
+
+        mapRawImage.GetComponent<RectTransform>().localPosition += diff3;
+        mapFillRawImage.GetComponent<RectTransform>().localPosition += diff3;
+        if (playerPosition != null)
+            playerPosition.GetComponent<RectTransform>().localPosition += diff3;
+        foreach (MapIcon icon in icons) {
+            icon.GetComponent<RectTransform>().localPosition += diff3;
+        }
+
+    }
+
 
     ///////////////
     // FUNCTIONS //
@@ -101,23 +152,22 @@ public class MapUI : MonoBehaviour {
 
     public void setPlayerPosition(int x, int y) {
         if (playerPosition == null) return;
-        playerPosition.transform.localPosition = new Vector2((x + .5f) * CELL_WIDTH * 2, (y + .5f - GRID_HEIGHT) * CELL_HEIGHT * 2);
+        playerPosition.transform.localPosition = 
+            (new Vector3((x + .5f) * CELL_WIDTH * 2, (y + .5f) * CELL_HEIGHT * 2)) +
+            mapRawImage.GetComponent<RectTransform>().localPosition;
     }
 
     public void showMap(bool showFill = true) {
         mapRawImage.enabled = true;
         mapFillRawImage.enabled = showFill;
-        foreach (MapIcon mapIcon in icons) {
-            mapIcon.GetComponent<Image>().enabled = true;
-        }
         playerPosition.GetComponent<Image>().enabled = true;
+        iconsFromString(iconsStr);
     }
     public void hideMap() {
         mapRawImage.enabled = false;
         mapFillRawImage.enabled = false;
-        foreach (MapIcon mapIcon in icons) {
-            mapIcon.GetComponent<Image>().enabled = false;
-        }
+        iconsStr = iconsToString();
+        clearIcons();
         playerPosition.GetComponent<Image>().enabled = false;
     }
 
@@ -217,6 +267,44 @@ public class MapUI : MonoBehaviour {
         mapFillTexture.Apply();
     }
 
+    public string iconsToString() {
+        string str = "";
+        for (int i = 0; i < icons.Count; i++) {
+            MapIcon icon = icons[i];
+            str += icon.toString();
+            if (i != icons.Count - 1)
+                str += ",";
+        }
+        return str;
+    }
+    public void iconsFromString(string str) {
+        clearIcons();
+        char[] delims = { ',' };
+        string[] iconStrs = str.Split(delims);
+        for (int i = 0; i < iconStrs.Length; i++) {
+            string iStr = iconStrs[i];
+            int index0 = iStr.IndexOf("i") + 1;
+            int index1 = iStr.IndexOf("x");
+            Icon iconID = (Icon)(int.Parse(iStr.Substring(index0, index1 - index0)));
+            index0 = iStr.IndexOf("x") + 1;
+            index1 = iStr.IndexOf("y");
+            int x = int.Parse(iStr.Substring(index0, index1 - index0));
+            index0 = iStr.IndexOf("y") + 1;
+            index1 = iStr.IndexOf("f");
+            int y = int.Parse(iStr.Substring(index0, index1 - index0));
+            index0 = iStr.IndexOf("f") + 1;
+            int f = int.Parse(iStr.Substring(index0));
+            addIcon(iconID, x, y, (f == 1));
+        }
+        
+    }
+    public void clearIcons() {
+        foreach (MapIcon icon in icons) {
+            Destroy(icon.gameObject);
+        }
+        icons.Clear();
+    }
+
     public void gridAddRoom(
         int x,
         int y,
@@ -312,15 +400,20 @@ public class MapUI : MonoBehaviour {
             return mapIcon;
         }
         mapIcon.transform.SetParent(transform, false);
+        mapIcon.transform.SetAsLastSibling();
         if (playerPosition != null) {
             playerPosition.transform.SetAsLastSibling();
         }
         mapIcon.x = x;
         mapIcon.y = y;
         if (mapIcon.wideSprite) {
-            mapIcon.transform.localPosition = new Vector2((x + 1) * CELL_WIDTH * 2, (y + 1 - GRID_HEIGHT) * CELL_HEIGHT * 2);
+            mapIcon.transform.localPosition = 
+                (new Vector3((x + 1) * CELL_WIDTH * 2, (y + 1) * CELL_HEIGHT * 2)) +
+                mapRawImage.GetComponent<RectTransform>().localPosition;
         } else {
-            mapIcon.transform.localPosition = new Vector2((x + .5f) * CELL_WIDTH * 2, (y + .5f - GRID_HEIGHT) * CELL_HEIGHT * 2);
+            mapIcon.transform.localPosition =
+                (new Vector3((x + .5f) * CELL_WIDTH * 2, (y + .5f) * CELL_HEIGHT * 2)) +
+                mapRawImage.GetComponent<RectTransform>().localPosition;
         }
         mapIcon.found = found;
         mapIcon.GetComponent<Image>().enabled = mapShowing;
@@ -401,15 +494,18 @@ public class MapUI : MonoBehaviour {
             new bool[] { false, false },
             new bool[] { false, false, false });
 
-        gridAddRoom(59, 49, 1, 1,
+        gridAddRoom(0, 0, 1, 1,
             new int[,] { { makeCell(Edge.WALL, Edge.WALL, Edge.WALL, Edge.WALL) } });
+        gridAddRoom(59, 49, 1, 1,
+            new int[,] { { makeCell(Edge.OPEN, Edge.OPEN, Edge.OPEN, Edge.OPEN) } });
 
         addIcon(Icon.CHAMBER, 10, 10);
         addIcon(Icon.BOOSTER, 30, 30, true);
 
         setPlayerPosition(11, 10);
 
-        position = new Vector2(640, 360);
+        // saves icon locations in iconsStr
+        hideMap();
 
     }
 	
@@ -435,5 +531,6 @@ public class MapUI : MonoBehaviour {
 
     int[,] grid = new int[GRID_HEIGHT, GRID_WIDTH];
     List<MapIcon> icons = new List<MapIcon>();
+    string iconsStr = "";
 
 }

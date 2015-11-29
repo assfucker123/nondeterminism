@@ -26,6 +26,12 @@ public class MapIcon : MonoBehaviour {
         }
     }
 
+    public string toString() {
+        string foundStr = "0";
+        if (found) foundStr = "1";
+        return "i" + ((int)icon) + "x" + x + "y" + y + "f" + foundStr;
+    }
+
 	void Awake() {
         image = GetComponent<Image>();
 	}
