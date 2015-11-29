@@ -8,6 +8,7 @@ public class PauseScreen : MonoBehaviour {
     public static PauseScreen instance { get { return _instance; } }
 
     public AudioClip switchSound;
+    public GameObject mapPageGameObject;
     public GameObject optionsPageGameObject;
     public TextAsset propAsset;
 
@@ -121,7 +122,7 @@ public class PauseScreen : MonoBehaviour {
         switch (page) {
         case Page.MAP:
             option = mapPageText;
-            //mapPage.hide();
+            mapPage.hide();
             break;
         case Page.TIME_TREE:
             option = timeTreePageText;
@@ -151,7 +152,7 @@ public class PauseScreen : MonoBehaviour {
         switch (page) {
         case Page.MAP:
             option = mapPageText;
-            //mapPage.show();
+            mapPage.show();
             break;
         case Page.TIME_TREE:
             option = timeTreePageText;
@@ -203,7 +204,13 @@ public class PauseScreen : MonoBehaviour {
         optionsPageText = transform.Find("OptionsPageText").GetComponent<GlyphBox>();
         pageSelection = transform.Find("PageSelection").GetComponent<Image>();
         switchPagesText = transform.Find("SwitchPagesText").GetComponent<GlyphBox>();
-        
+
+        // map page
+        GameObject mapPageGO = GameObject.Instantiate(mapPageGameObject);
+        mapPageGO.transform.SetParent(transform, false);
+        mapPage = mapPageGO.GetComponent<MapPage>();
+        mapPage.GetComponent<RectTransform>().localScale = Vector3.one;
+
         // options page
         GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
         optionsPageGO.transform.SetParent(transform, false);
@@ -285,6 +292,18 @@ public class PauseScreen : MonoBehaviour {
 
         // page update functions
         switch (page) {
+        case Page.MAP:
+            mapPage.update();
+            break;
+        case Page.TIME_TREE:
+            //timeTreePage.update();
+            break;
+        case Page.TALK:
+            //talkPage.update();
+            break;
+        case Page.PROGRESS:
+            //progressPage.update();
+            break;
         case Page.OPTIONS:
             optionsPage.update();
             break;
@@ -332,7 +351,7 @@ public class PauseScreen : MonoBehaviour {
      * */
     
     // pages
-    //MapPage mapPage;
+    MapPage mapPage;
     //TimeTreePage timeTreePage
     //TalkPage talkPage;
     //ProgressPage progressPage;

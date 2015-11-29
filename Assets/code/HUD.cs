@@ -11,6 +11,7 @@ public class HUD : MonoBehaviour {
     public GameObject phaseMeterGameObject;
     public GameObject countdownTimerGameObject;
     public GameObject pauseScreenGameObject;
+    public GameObject mapUIGameObject;
     public GameObject speedLinesGameObject;
     public GameObject gameOverScreenObject;
 
@@ -29,6 +30,7 @@ public class HUD : MonoBehaviour {
     public CountdownTimer countdownTimer { get { return _countdownTimer; } }
     public SpeedLines speedLines { get { return _speedLines; } }
     public PauseScreen pauseScreen { get { return _pauseScreen; } }
+    public MapUI mapUI { get { return _mapUI; } }
     public GameOverScreen gameOverScreen { get { return _gameOverScreen; } }
 
     public void setMaxHealth(int maxHealth){
@@ -114,6 +116,11 @@ public class HUD : MonoBehaviour {
         psGO.transform.SetParent(canvas.transform, false);
         _pauseScreen = psGO.GetComponent<PauseScreen>();
         _pauseScreen.initialHide();
+        //create Map UI
+        GameObject muGO = GameObject.Instantiate(mapUIGameObject) as GameObject;
+        muGO.transform.SetParent(canvas.transform, false);
+        _mapUI = muGO.GetComponent<MapUI>();
+        _mapUI.hideMap();
         //create Countdown Timer
         GameObject ctGO = GameObject.Instantiate(countdownTimerGameObject) as GameObject;
         ctGO.transform.SetParent(canvas.transform, false);
@@ -167,6 +174,7 @@ public class HUD : MonoBehaviour {
     private CountdownTimer _countdownTimer;
     private SpeedLines _speedLines;
     private PauseScreen _pauseScreen;
+    private MapUI _mapUI;
     private GameOverScreen _gameOverScreen;
 	
 	// components

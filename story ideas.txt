@@ -325,6 +325,15 @@ The Salesman is evil reveal:
 ==========================================
 Ending ideas:
 
+- Tom tasked The Salesman with causing The Meltdown.  "Selling the world"
+	- In exchange, The Salesman was given a detailed map of the island.  The map contained key locations of very valuable phase crystals, which were free for The Salesman to take and sell as he wished.
+		- Oracle can optionally find this map later on.  While the crystals obviously aren't there any more, the map still lays out most of the land.  Finding the map fills in your own map a lot (but doesn't include many secret areas).
+	- The crystals were guaranteed to be there because the island is too dangerous for anyone else to visit.  The brainwashed creatures and Sonata herself were enough to prevent tourists.
+	- But this was no problem for The Salesman with his vision abilities.  The first thing he did on the island was subduing Sonata by stitching her mouth shut.
+	- The Salesman infiltrated the base of operations for the internal planetary shield, and sabotaged it.
+		- ***NOTE*** for this to work, the planetary shield must have been installed here before Sonata gained control of the island's creatures.
+	- 
+
 - Main villain behind everything is Tom, who is Wally's dad (and only other human in the game)
 	- Wally is here too, in the same room as Oracle and Tom.
 	- How did he get there?  Kidnapped at some point?
