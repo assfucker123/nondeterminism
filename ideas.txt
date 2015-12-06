@@ -352,6 +352,8 @@ Skills:
 	- Card has an ID on them, so they can be remembered (information) after being found.
 	- But a special symbol will appear next to the card when looked it in the Progress menu if they still physically have it.
 
+- Players should be solving puzzles, not finding where to go next.
+
 Sound Effects needed:
 x step/land
 x jump

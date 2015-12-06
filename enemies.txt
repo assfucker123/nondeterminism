@@ -76,6 +76,9 @@ Enemy Attacks:
 - Bounce a beach ball up in the air with bullets, hit with a charge shot to send it fast in a direction and blow up whatever it touches (including walls)
 	- Very light and floaty, so easy to move around it.
 	- Takes advantage of shooting up.
+- Lasers
+	- Can use i-frames from the dodge move to go past them.
+	- Hinted at with a subtle picture of a framed I in the background? (obviously an easter egg, not how the game introduces this feature to the player)
 
 Special Enemy Attacks:
 - Quantum Attacks

@@ -1,3 +1,27 @@
+Tentative opening:
+
+- Wally and Oracle flying to the island.
+- Oracle senses an ambush while flying.  Climbs from the inside to the outside of their ship.
+	- Requires player to jump, shoot out door to outside.
+- Meets the ice bird enemy.  Comic relief, mentions Sonata.
+- Oracle explains how the fight is going to go down.
+	- "You will attempt to hit me with various ice-related attacks, most of which will miss.  Then you will fire a projectile that is so hilariously off-course that it will circle back and hit you in the face, ending our battle."
+- Fights ice bird as tutorial boss.  Introduction to visions (ice ball attacks, ice beam attacks)
+- One attack has ice bird fire a projectile in a curvy pattern.
+- Cutscene interrupt fight near the end.
+	- "Ha ha ha, but watch this!  Your tricks won't be able to work, now that my eyes are closed!"
+	- "That is not how it works--"
+	- "You won't be able to see my moves coming when I can't even see them coming!  Prepare to die punk!"
+- Ice bird fires projectiles in random directions, but visions of them still appear.
+- One of these projectiles curve around and accidentally hit the ice bird, defeating it.
+	- Has a funny sprite when defeated.  Doesn't die, but flies off the edge of the screen.  Will probably be a future boss.
+	- "WAAAAAAAAHHHHHHHHHHHH"
+
+
+
+
+
+
 
 * Basic jumping and shooting controls.
 
@@ -323,6 +347,12 @@ The Salesman is evil reveal:
 	- 
 
 ==========================================
+During Oracle's final search to collect all the orbs, she's visited by The Salesman one last time.
+- The Salesman knows she's able to defeat him, so isn't looking for a conflict.
+- 4th wall breaking: Player is in a hurry to collect the orbs before The Meltdown, so The Salesman brings up the pause menu to continue the conversation (time is stopped when talking in the pause menu, but continues when talking in-game).
+- Just warns Oracle that collecting the orbs is a bad idea.
+
+
 Ending ideas:
 
 - Tom tasked The Salesman with causing The Meltdown.  "Selling the world"
@@ -332,7 +362,8 @@ Ending ideas:
 	- But this was no problem for The Salesman with his vision abilities.  The first thing he did on the island was subduing Sonata by stitching her mouth shut.
 	- The Salesman infiltrated the base of operations for the internal planetary shield, and sabotaged it.
 		- ***NOTE*** for this to work, the planetary shield must have been installed here before Sonata gained control of the island's creatures.
-	- 
+	- Tom also asked The Salesman to collect the 4 orbs and give them to him, but The Salesman knew that if he did, Tom would have the ability to time travel.
+	- Orbs in reality aren't needed to fix the internal shield, they're needed to create a beacon to the center of the planet, where the singularity required for time travel will be made.  Tom hoped The Salesman would collect the orbs for him in order to do this.
 
 - Main villain behind everything is Tom, who is Wally's dad (and only other human in the game)
 	- Wally is here too, in the same room as Oracle and Tom.
