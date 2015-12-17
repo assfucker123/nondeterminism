@@ -5,19 +5,31 @@ Tentative opening:
 	- Requires player to jump, shoot out door to outside.
 - Meets the ice bird enemy.  Comic relief, mentions Sonata.
 - Oracle explains how the fight is going to go down.
-	- "You will attempt to hit me with various ice-related attacks, most of which will miss.  Then you will fire a projectile that is so hilariously off-course that it will circle back and hit you in the face, ending our battle."
+	- Oracle: "Sherivice, I know we are not permitted to be here.  But it is of utmost importance we arrive at a facility located on this island, with or without Sonata's approval."
+	- Sherivice: "Stop there!  Nobody leaves nor leaves this island without the blessing of Empress Sonata!  I, the admirable Sherivice, will personally great all violators with brutal force!"
+	- S: "...Hey, you knew my name already!  Where'd you hear it?"
+	- O: "You told me when I foresaw that rehearsed monologue of yours."
+	- S: "...?"
+	- O: I can see the future.  And every living creature on this planet is going to perish unless we--"
+	- S: "So what, you're psychic or something?  ReALly?  Do you know results from crossing me?"
+	- O: "Well after ignoring everything I say, you unwisely challenge me to a fight.  You then attempt to hit me with various ice-related attacks, most of which miss.  Finally you fire a projectile that is so hilariously off-course that it will circle back and hit you in the face, granting me a pitifully easy victory."
+	- S: "NyyeEHHH?  Do you take me for some kind of senseless weakling?  I'll crush your stupid metallic face in for that!"
+	- (battle starts)
 - Fights ice bird as tutorial boss.  Introduction to visions (ice ball attacks, ice beam attacks)
 - One attack has ice bird fire a projectile in a curvy pattern.
 - Cutscene interrupt fight near the end.
-	- "Ha ha ha, but watch this!  Your tricks won't be able to work, now that my eyes are closed!"
-	- "That is not how it works--"
-	- "You won't be able to see my moves coming when I can't even see them coming!  Prepare to die punk!"
+	- S: "Whew... j-just let me hit you already!  You're dodging all my ice shards before I even throw them... I suppose you really can see the future..."
+	- S: "Heh heh heh, but watch this!" (puts one wing over eyes) "You won't be able to see my moves coming when even I can't see them coming!"
+	- O: "How did you even arrive at that conclusion.  That is not how it works--"
+	- S: "Clever huh?  Your tricks won't work now!  Prepare to die punk!"
 - Ice bird fires projectiles in random directions, but visions of them still appear.
 - One of these projectiles curve around and accidentally hit the ice bird, defeating it.
 	- Has a funny sprite when defeated.  Doesn't die, but flies off the edge of the screen.  Will probably be a future boss.
 	- "WAAAAAAAAHHHHHHHHHHHH"
 
-
+- Mystery guy that was sending Oracle, her suit, the ship, etc. is referred to as "NPC" before his real name Grygor is revealed.
+	- Player will think NPC stands for non-playable character.
+	- NPC actually stands for NP-Complete, which describes problems that can be verified in polynomial time.
 
 
 
@@ -207,6 +219,55 @@ Opening conversation; Oracle spoiling the game?  BETTER IDEA: Have this conversa
 	- However, Oracle does not mention anything involving her glitches (the world being blown up early, glitch bosses, The Salesman, etc.), because she doesn't know about them yet.
 	- Wally will be annoyed, and will remember this choice.
 
+- Oracle's mind (is like a computer) (and Oracle has a bad memory) (and some character development):
+	- Wally: This has been bothering me for a while, and I'd just like to apologize.  
+	- Oracle: For what?
+	- Wally: When I first received you from NPC, I just saw you as a research specimen.  It wasn't until your suit came and we could communicate that I started treating you like a person.  Or rather, a friend.
+	- Oracle: It is understandable.  Even as a larva my future sensing abilities were most likely very prominent and interesting.  So  naturally you were curious about me and wanted to learn more.  Oddly I somewhat enjoy the attention received by being placed under a microscope.
+	- Wally: Er... I meant all the other ways I experimented with your larva form.  Thinking about it in retrospect makes me a little sick.
+	- Oracle: What?  Do not hide information from me Wally.
+	- Wally: Hiding?  But you know already.  You were there!
+	- Oracle: From what you have said, yes.
+	- Wally: From what I...?  You don't remember what happened, do you?
+	- Oracle: Well I remember important events that happen to me very clearly, so obviously what you did in the past must not have been as significant as you think!
+	- Wally: Oh man, no fooling?  You have a bad memory, don't you?
+	- Oracle: ...go back to talking about your guilt-ridden examinations, please.
+	- Wally: Nah.  Besides, you said yourself they weren't significant.
+	- Oracle: ...
+	- Wally: A bad memory, huh?  You know, your mind structure was pretty irregular.  Maybe this has something to do with it.
+	- Oracle: Pardon?
+	- Wally: I couldn't figure out much from my examinations, but I learned some very interesting things about how your mind works.  You're more extraordinary than you might think, Oracle.
+	- Wally: For humans, and most creatures I imagine, information is contained in a neural network within their brain.  But your mind's equivalent to a human brain's medial temporal lobe is actually a vast array of semi-conductive materials.  Astonishingly, the living tissue in your mind has more in common with a computer than the brains of most other life forms on this planet.
+	- Oracle: Swell.  Is this actually useful to know?
+	- Wally: Hey, this structure is probably the reason you're "compatible" with the suit you use.  It's all very cool.
+	- Oracle: Haha, I agree!
+	- Oracle: And to be clear, my memory is not inadequate.  Data I collect from visions of the future are prioritized over data from memories of the past.  Thus I "remember" future events as easily as ordinary creatures remember past events.
+	- Oracle: Memories for me are like... dreams for humans.  Not that important, and easily forgotten to make space for more vital information.
+	- Wally: Memories aren't vital?  What about learning from your mistakes?
+	- Oracle: Ha ha ha ha.  I do not make mistakes Wally.  I foresee all possible problems and prevent them from becoming reality.
+	- Wally: Sheesh, how humble.  And I don't think visions should be prioritized over memories as much as you think they should.
+	- Oracle: What makes you say that?
+	- Wally: Well first of all, your visions are never 100 percent true, aren't they?  Your actions in a vision are different than what actually happens, since you react to what you perceived.
+	- Wally: Meanwhile, memories of the past are set in stone.  There's no going back in time to change things.  While there are many possible outcomes the future can take, there's only one past.
+	- Wally: And hey, wouldn't it be great to have to have memories of things and people you like or dislike?  Maybe it'll let you have more of a personality, and you'll act less like a robot.
+	- Oracle: You underestimate the benefits of clairvoyance, but those are good points.  Also... I am not a robot.
+	- Wally: Sorry, that last part was a little rude.
+	- Oracle: Hmm.
+	
+- Foreshadowing final boss against Tom, Wally's dad.
+	- Final boss is essentially fighting against someone using an emulator and abusing save states.
+	- Foreshadow by saying dad really enjoyed playing retro games, although his methods of acquiring them were somewhat immoral (implying ROMs on emulators).
+
+- Grygor (pre-boss fight): "It will take more than that to blow my mind"
+- Oracle: "How about a charge blast to the head?  That ought to blow your mind."
+
+- Oracle: "Well, why would you want to save the planet?"
+- Wally: "Because I'm one of the idiots who live here?  A lot of good people call this place home!"
+- Wally: "And considering neither of us know where you're from, that includes you too!"
+- Oracle: "Ha ha, sounds reasonable.  Favors or compensation from all these 'good people' once this is all over sounds reasonable too, no?"
+- Wally: "Heh, sure.  But try to take this more seriously."
+
+
 ========================================
 
 Character-building conversations:
@@ -278,6 +339,9 @@ Conversation about no enemies showing up 5 minutes before world ends.
 	- Oracle: "... haha."
 
 =========================================
+
+It's not revealed Sonata's mouth is shut until later?  End of the demo?
+
 	
 Story arcs take place on different paths to different parts of the map.
 	
@@ -307,6 +371,7 @@ Gimmicks to "Vision" mechanic that actually make sense:
 		- Find hidden stuff.
 - The Salesman
 	- Reference to the classic NP-Hard Traveling Salesman problem.
+	- Looks like a salamander that walks upright.  Wears a trenchcoat similar to the merchant from RE4, tries too hard too look cool.
 	- Someone else is moving around the world, visiting specific areas at specific time intervals.
 	- Can meet at certain points during the adventure.  Sells special phase crystals that permanently increase your phase meter in exchange for a health upgrade.
 		- In UI, a health upgrade traded for a crystal is represented by drawing a crystal over where the heart would be.
@@ -330,7 +395,11 @@ The Salesman is evil reveal:
 	- Sells permanent phase upgrades in exchange for permanent health upgrades.
 	- Gives Oracle a "card" of him (is one of those collectible cards) that explains where he'll be at what time.
 	- Speaks mysterious lines, seems to know what's coming.  Knows Oracle's name and ability.
-	- Mentions he can't sell upgrades to Oracle, since he fights with needles.
+	- Mentions he can't sell upgrades to Oracle, since he fights with needles (BAD IDEA; too obvious).
+	- Wally asks to call him "Sale-mander".  He declines.
+	- The Salesman has a bad memory too
+		- "What's your real name?" "Actually... I don't know.  But you're the first one I've met that cared about it more than me."
+		- Foreshadows not only his future sensing powers (and consequences), but also that he's lived with them longer than Oracle.  Oracle has a bad memory, but she still knows her own name.
 - Sonata's death speech:
 	- She's the most powerful creature on the island, has the ability to control the will of anyone that listens to her voice.
 		- The effect still lasts even after being silenced.
@@ -384,6 +453,8 @@ Ending ideas:
 	- Oracle starts laughing suspiciously, implies she might be going down the same route as The Salesman.
 		- Also implied by the "There can be only one" line she says after killing The Salesman.
 - Game ends right here, roll credits.  Big WTF moment.
+	- Appears to completely betray the game's theme of trust at the last moment.  But is not actually the case.
+	- Secret text in dialogue between Wally and Oracle reveal that deep down they still trusted each other.
 - But if high completion percentage, bonus cutscene explains this.
 	- Oracle then reverts way back to before the game even started, and fixes the problem.  Tells Grygor the solution?
 	- Oracle is with Grygor here, as a larva in an early half-complete version of her suit.  Hasn't been sent to Wally yet.
@@ -421,6 +492,7 @@ World ending moment:
 - Everything on the surface burns to death.  Everything in the air beneath the clouds suffocates from the noxious gases in the atmosphere.
 - One safe spot: Mount Apogee, a mountain whose peak rests above the clouds.
 	- Player and other characters can survive the apocalypse by being on Mount Apogee when the barrier breaks.
+- Most of the peak of Mount Apogee can't be explored until The Meltdown happens.  There is a giant ice pillar blocking entrance that can't be destroyed, but it melts once The Meltdown happens.
 
 Quantum Attacks Guy Backstory:
 - A brilliant scientist (creature)
@@ -453,6 +525,16 @@ Final Boss Backstory:
 
 Oracle Backstory:
 - Suit originally created for Oracle to become a weapon?
+
+Credits Epilogue:
+(Happens after massive revert to the true present, where larva oracle tells Grygor about using the gigantic phase crystals in Plan A to prevent the planet's destruction instead of building the inner planetary shield in Plan B)
+- Oracle and Wally go to the island just as Sonata initially arrived.
+- Before becoming empress, Sonata was a scared child that just wanted friends.  She was going to use her vocal brainwashing powers to convince the creatures to hang with her.
+	- But before long, Sonata would begin to abuse her immense power, and become corrupted by it.  This is how she became an evil empress by the time the game starts.
+- Oracle explains all this to Sonata, who is unsure of what to do.
+- The Salesman is here too, as a good guy.  Because why not.
+	- Implied Oracle previously found and talked to The Salesman in a way similar to Sonata.
+
 
 BAD IDEAS:
 - Events being different than how they were envisioned

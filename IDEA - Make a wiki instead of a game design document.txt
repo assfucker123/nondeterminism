@@ -1,0 +1,10 @@
+http://www.gamasutra.com/view/feature/132483/learning_the_ways_of_the_game_.php?page=2
+
+http://www.clickonf5.org/7599/10-free-opensource-wiki-software-engine/
+
+DokuWiki seems like the best
+https://www.dokuwiki.org/dokuwiki
+
+Easy install instructions:
+https://www.dokuwiki.org/install
+

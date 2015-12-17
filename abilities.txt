@@ -96,8 +96,9 @@ PAUSE (Start/Enter)
 *(D) - Glide (requires Booster)
 	- Hold JUMP while falling to greatly reduce falling speed for a duration.
 
-*(D) - Double Jump (requires Booster)
-	- Press JUMP while in mid-air to jump again.
+*(D) - Hyper Charge Shot (requires Booster)
+	- Charge twice as long to create a very powerful shot.
+	- Shoot this downward to get a boost in mid-air.  Functions as a double-jump.
 	
 *(D) - Strip Suit
 	- Reduces Oracle to her larval form, allowing her to travel through tight corridors.
@@ -135,7 +136,7 @@ PAUSE (Start/Enter)
 (D) - Dodge Slide (requires Dodge)
 	- Slide across the ground when using Dodge downwards at an angle into the ground.
 
-(D) - Spread Shot
+(D) - Multi Shot
 	- Fires 3 bullets instead of one.
 
 (D) - Resistance
@@ -161,6 +162,9 @@ PAUSE (Start/Enter)
 
 (D) - Native Vision
 	- Can foresee attacks even when phase is at zero.
+
+(D) - Focus Energy (requires Energy Grenade)
+	- Can use Energy Grenades even when they're in cooldown, but this will use up Phase.
 
 (D) - Concentration
 	- Hold UP while standing still for a while to recharge phase up to a certain point.

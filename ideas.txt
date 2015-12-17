@@ -395,7 +395,7 @@ o Pengrunt with rocket boots
 o Tank bear that fires bombs, some are fake/duds
 o Samurai with delayed causality attacks
 
-o Toucan bomb enemy:
+x Toucan bomb enemy:
 	- First version: has 3 bubbles and 1 grenade circle him.  If he gets shot, a bubble gets shot, or if he waits too long, then he fires all the projectiles at the player.
 		- Waiting too long will result in a vision of the attack.  Vision only shows the grenade, not the bubbles
 		- There are some frames where the projectiles freeze before being launched.  The pin falls out of the grenade here.
@@ -404,5 +404,7 @@ o Toucan bomb enemy:
 	- Second version: same as first, but the bubbles and grenade are hidden in fruit.  Need to figure out which fruit holds the grenade.
 		- Idea is to figure out which one it is using Flashback.
 		- Fruit facade is revealed during the pause in the first version.
+
+o Oracle needs a redesign.  Make face more appealing.
 
 o More knockback on enemies
