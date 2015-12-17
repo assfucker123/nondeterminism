@@ -52,7 +52,22 @@ public class Keys : MonoBehaviour {
 
     void setUp() {
 
-        activeDevice = InControl.InputManager.ActiveDevice;
+        if (setUpCalled) return;
+
+        setActiveDevice(InControl.InputManager.ActiveDevice);
+        
+        // handing controllers being attached
+        InControl.InputManager.OnDeviceAttached += InputManager_OnDeviceAttached;
+        InControl.InputManager.OnDeviceDetached += InputManager_OnDeviceDetached;
+
+        setUpCalled = true;
+        
+    }
+
+    void setActiveDevice(InControl.InputDevice inputDevice) {
+        activeDevice = inputDevice;
+
+        startControls.Clear();
         InControl.InputControl[] controls = activeDevice.Controls;
         for (int i = 0; i < controls.Length; i++) {
             if (controls[i] != null) {
@@ -69,7 +84,14 @@ public class Keys : MonoBehaviour {
                 }
             }
         }
-        
+    }
+
+    // handling controllers being attached
+    void InputManager_OnDeviceAttached(InControl.InputDevice inputDevice) {
+        setActiveDevice(inputDevice);
+    }
+    void InputManager_OnDeviceDetached(InControl.InputDevice inputDevice) {
+        // device detached
     }
 
     public static float DEAD_ZONE = 0;
@@ -328,6 +350,7 @@ public class Keys : MonoBehaviour {
     
 
     private static Keys _instance = null;
+    private bool setUpCalled = false;
 
     InControl.InputDevice activeDevice = null;
     List<InControl.InputControl> startControls = new List<InControl.InputControl>();
