@@ -221,6 +221,8 @@ MonoBehaviour:
   bulletMuzzleGameObject: {fileID: 114470, guid: 7208b24a79914e04d973ce54c733052c,
     type: 2}
   bulletSpawn: {x: 1, y: .5}
+  bulletSpawnUp: {x: .200000003, y: 1.35000002}
+  bulletSpawnDown: {x: .200000003, y: -.600000024}
   bulletSpread: .5
   bulletMinDuration: .159999996
   chargeBulletGameObject: {fileID: 179616, guid: c8d0d6be73026d94492e7732bb1d9bdc,
@@ -605,6 +607,22 @@ Prefab:
       propertyPath: chargingLoopSound
       value: 
       objectReference: {fileID: 8300000, guid: 8f112e001b17e844b870dc8dd4c94a8a, type: 3}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawnUp.x
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawnUp.y
+      value: 1.35000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawnDown.x
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawnDown.y
+      value: -.600000024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102646}

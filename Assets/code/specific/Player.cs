@@ -24,11 +24,14 @@ public class Player : MonoBehaviour {
     public GameObject bulletGameObject;
     public GameObject bulletMuzzleGameObject;
     public Vector2 bulletSpawn = new Vector2(1f, .4f);
+    public Vector2 bulletSpawnUp = new Vector2();
+    public Vector2 bulletSpawnDown = new Vector2();
     public float bulletSpread = 3.0f;
     public float bulletMinDuration = 0.3f; //prevents Player from shooting too fast
 
     public GameObject chargeBulletGameObject;
     public float chargeDuration = .6f;
+    public float chargeDownJumpSpeed = 10f;
 
     public float revertSpeed = 2.0f;
     public float revertEaseDuration = .4f;
@@ -95,12 +98,86 @@ public class Player : MonoBehaviour {
     public bool exploded { get { return _exploded; } }
     public int health { get { return receivesDamage.health; } }
     public float phase { get { return HUD.instance.phaseMeter.phase; } }
+    public AimDirection aimDirection {
+        get {
+            return _aimDirection;
+        }
+        set {
+            if (aimDirection == value) return;
+
+            _aimDirection = value;
+
+            // change animation
+            float normalizedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            bool idleState = isAnimatorCurrentState("gun_to_idle") || isAnimatorCurrentState("idle") ||
+                isAnimatorCurrentState("gun") || isAnimatorCurrentState("gun_up") || isAnimatorCurrentState("gun_down");
+            bool runState = isAnimatorCurrentState("run") || isAnimatorCurrentState("run_up") || isAnimatorCurrentState("run_down");
+            bool idleToRisingState = isAnimatorCurrentState("idle_to_rising") || isAnimatorCurrentState("idle_to_rising_up") || isAnimatorCurrentState("idle_to_rising_down");
+            bool risingState = isAnimatorCurrentState("rising") || isAnimatorCurrentState("rising_up") || isAnimatorCurrentState("rising_down");
+            bool risingToFallingState = isAnimatorCurrentState("rising_to_falling") || isAnimatorCurrentState("rising_to_falling_up") || isAnimatorCurrentState("rising_to_falling_down");
+            bool fallingState = isAnimatorCurrentState("falling") || isAnimatorCurrentState("falling_up") || isAnimatorCurrentState("falling_down");
+
+            switch (aimDirection) {
+            case AimDirection.FORWARD:
+                if (idleState) {
+                    animator.Play("gun");
+                    idleGunTime = 0;
+                } else if (runState)
+                    animator.Play("run", 0, normalizedTime);
+                else if (idleToRisingState)
+                    animator.Play("idle_to_rising", 0, normalizedTime);
+                else if (risingState)
+                    animator.Play("rising", 0, normalizedTime);
+                else if (risingToFallingState)
+                    animator.Play("rising_to_falling", 0, normalizedTime);
+                else if (fallingState)
+                    animator.Play("falling", 0, normalizedTime);
+                break;
+            case AimDirection.UP:
+                if (idleState)
+                    animator.Play("gun_up");
+                else if (runState)
+                    animator.Play("run_up", 0, normalizedTime);
+                else if (idleToRisingState)
+                    animator.Play("idle_to_rising_up", 0, normalizedTime);
+                else if (risingState)
+                    animator.Play("rising_up", 0, normalizedTime);
+                else if (risingToFallingState)
+                    animator.Play("rising_to_falling_up", 0, normalizedTime);
+                else if (fallingState)
+                    animator.Play("falling_up", 0, normalizedTime);
+                break;
+            case AimDirection.DOWN:
+                if (idleState)
+                    animator.Play("gun_down");
+                else if (runState)
+                    animator.Play("run_down", 0, normalizedTime);
+                else if (idleToRisingState)
+                    animator.Play("idle_to_rising_down", 0, normalizedTime);
+                else if (risingState)
+                    animator.Play("rising_down", 0, normalizedTime);
+                else if (risingToFallingState)
+                    animator.Play("rising_to_falling_down", 0, normalizedTime);
+                else if (fallingState)
+                    animator.Play("falling_down", 0, normalizedTime);
+                break;
+            }
+
+
+        }
+    }
 
     public enum State:int {
         GROUND,
         AIR,
         DAMAGE,
         DEAD
+    }
+
+    public enum AimDirection:int {
+        FORWARD,
+        UP,
+        DOWN
     }
 
     //////////////////////
@@ -207,6 +284,20 @@ public class Player : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
         
+        //aiming
+        switch (state) {
+        case State.GROUND:
+        case State.AIR:
+            if (Keys.instance.upHeld) {
+                aimDirection = AimDirection.UP;
+            } else if (Keys.instance.downHeld) {
+                aimDirection = AimDirection.DOWN;
+            } else {
+                aimDirection = AimDirection.FORWARD;
+            }
+            break;
+        }
+
         switch (state) {
         case State.GROUND:
             stateGround();
@@ -235,12 +326,12 @@ public class Player : MonoBehaviour {
                 bulletPrePress = true;
             }
             if (bulletPrePress && bulletTime >= bulletMinDuration) {
-                fireBullet(false);
+                fireBullet(false, aimDirection);
                 bulletTime = 0;
                 bulletPrePress = false;
             }
             if (chargeTime >= chargeDuration && Keys.instance.shootReleased) {
-                fireBullet(true);
+                fireBullet(true, aimDirection);
             }
         }
 
@@ -309,6 +400,7 @@ public class Player : MonoBehaviour {
         fi.floats["chargeTime"] = chargeTime;
         fi.floats["chargeSoundTime"] = chargeSoundTime;
         fi.floats["postRevertTime"] = postRevertTime;
+        fi.ints["aimDirection"] = (int)aimDirection;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -328,6 +420,7 @@ public class Player : MonoBehaviour {
         chargeTime = fi.floats["chargeTime"];
         chargeSoundTime = fi.floats["chargeSoundTime"];
         postRevertTime = fi.floats["postRevertTime"];
+        aimDirection = (AimDirection)fi.ints["aimDirection"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -436,7 +529,7 @@ public class Player : MonoBehaviour {
     void stateGround() {
         Vector2 v = rb2d.velocity;
         bool stillAnim = false;
-
+        
         if (leftHeld) {
 
             //movement
@@ -449,8 +542,8 @@ public class Player : MonoBehaviour {
             //animation
             flippedHoriz = true;
             if (v.x < 0) { //actually moving left
-                if (!isAnimatorCurrentState("oracle_run")) {
-                    animator.Play("oracle_run");
+                if (!isAnimatorCurrentState("run" + aimSuffix)) {
+                    animator.Play("run" + aimSuffix);
                 }
             } else { //still moving right (sliding)
                 stillAnim = true;
@@ -468,8 +561,8 @@ public class Player : MonoBehaviour {
             //animation
             flippedHoriz = false;
             if (v.x > 0) { //actually moving right
-                if (!isAnimatorCurrentState("oracle_run")) {
-                    animator.Play("oracle_run");
+                if (!isAnimatorCurrentState("run" + aimSuffix)) {
+                    animator.Play("run" + aimSuffix);
                 }
             } else { //still moving left (sliding)
                 stillAnim = true;
@@ -487,16 +580,18 @@ public class Player : MonoBehaviour {
         }
 
         if (stillAnim) {
-            if (isAnimatorCurrentState("oracle_gun")) {
+            if (isAnimatorCurrentState("gun")) {
                 idleGunTime += Time.deltaTime;
                 if (idleGunTime > idleGunDownDuration) {
-                    animator.Play("oracle_gun_to_idle");
+                    animator.Play("gun_to_idle");
                     SoundManager.instance.playSFXRandPitchBend(gunDownSound);
                 }
-            } else if (!isAnimatorCurrentState("oracle_gun_to_idle") &&
-                !isAnimatorCurrentState("oracle_idle")) {
-                animator.Play("oracle_gun");
-                idleGunTime = 0;
+            } else {
+                if (!isAnimatorCurrentState("gun_to_idle" + aimSuffix) &&
+                !isAnimatorCurrentState("idle" + aimSuffix)) {
+                    animator.Play("gun" + aimSuffix);
+                    idleGunTime = 0;
+                }
             }
         }
 
@@ -527,7 +622,7 @@ public class Player : MonoBehaviour {
         }
 
         // step sounds
-        if (state == State.GROUND && isAnimatorCurrentState("oracle_run")) {
+        if (state == State.GROUND && isAnimatorCurrentState("run" + aimSuffix)) {
             stepSoundPlayTime += Time.deltaTime;
             if (stepSoundPlayTime > .25f){
                 SoundManager.instance.playSFXRandPitchBend(stepSound);
@@ -596,10 +691,9 @@ public class Player : MonoBehaviour {
 
         if (state == State.AIR) {
             //animation
-            
-            if ((isAnimatorCurrentState("oracle_idle_to_rising") || isAnimatorCurrentState("oracle_rising")) &&
+            if ((isAnimatorCurrentState("idle_to_rising" + aimSuffix) || isAnimatorCurrentState("rising" + aimSuffix)) &&
                 v.y < 0) {
-                animator.Play("oracle_rising_to_falling");
+                animator.Play("rising_to_falling" + aimSuffix);
             }
         }
 
@@ -660,9 +754,9 @@ public class Player : MonoBehaviour {
     void toGroundState() {
         state = State.GROUND;
         if (leftHeld || rightHeld) {
-            animator.Play("oracle_run");
+            animator.Play("run" + aimSuffix);
         } else {
-            animator.Play("oracle_gun");
+            animator.Play("gun" + aimSuffix);
             idleGunTime = 0;
         }
         SoundManager.instance.playSFXRandPitchBend(stepSound);
@@ -673,9 +767,9 @@ public class Player : MonoBehaviour {
     void toAirState(bool rising) {
         state = State.AIR;
         if (rising) {
-            animator.Play("oracle_idle_to_rising");
+            animator.Play("idle_to_rising" + aimSuffix);
         } else {
-            animator.Play("oracle_falling");
+            animator.Play("falling" + aimSuffix);
         }
     }
 
@@ -786,7 +880,7 @@ public class Player : MonoBehaviour {
             flippedHoriz = false;
             rb2d.velocity = new Vector2(-damageSpeed, 0);
         }
-        animator.Play("oracle_damage");
+        animator.Play("damage");
         SoundManager.instance.playSFX(damageSound);
         damageTime = 0;
         state = State.DAMAGE;
@@ -806,12 +900,12 @@ public class Player : MonoBehaviour {
     }
 
     // fire a bullet
-    void fireBullet(bool charged) {
+    void fireBullet(bool charged, AimDirection direction) {
 
         //animation
         idleGunTime = 0;
-        if (isAnimatorCurrentState("oracle_gun_to_idle") || isAnimatorCurrentState("oracle_idle")) {
-            animator.Play("oracle_gun");
+        if (isAnimatorCurrentState("gun_to_idle") || isAnimatorCurrentState("idle")) {
+            animator.Play("gun");
         }
         if (charged) {
             SoundManager.instance.playSFXRandPitchBend(chargeBulletSound);
@@ -821,12 +915,28 @@ public class Player : MonoBehaviour {
         
         //spawning bullet
         Vector2 relSpawnPosition = bulletSpawn;
+        float heading = 0;
+        switch (direction) {
+        case AimDirection.FORWARD:
+            relSpawnPosition = bulletSpawn;
+            if (flippedHoriz) {
+                heading = 180;
+            } else {
+                heading = 0;
+            }
+            break;
+        case AimDirection.UP:
+            relSpawnPosition = bulletSpawnUp;
+            heading = 90;
+            break;
+        case AimDirection.DOWN:
+            relSpawnPosition = bulletSpawnDown;
+            heading = -90;
+            break;
+        }
         relSpawnPosition.x *= spriteRenderer.transform.localScale.x;
         relSpawnPosition.y *= spriteRenderer.transform.localScale.y;
-        float heading = 0;
-        if (flippedHoriz) {
-            heading = 180;
-        }
+
         if (!charged) {
             heading += (Random.value * 2 - 1) * bulletSpread;
         }
@@ -845,11 +955,32 @@ public class Player : MonoBehaviour {
             rb2d.position + relSpawnPosition,
             bullet.transform.localRotation);
 
+        // jump effect when firing a charged shot down and in the air
+        if (state == State.AIR && charged && direction == AimDirection.DOWN) {
+            Vector2 v = rb2d.velocity;
+            // can't go higher than jump speed (prevents abuse)
+            v.y = Mathf.Max(chargeDownJumpSpeed, Mathf.Min(jumpSpeed, v.y + chargeDownJumpSpeed));
+            rb2d.velocity = v;
+            // end jump if jumping (to prevent too much abuse)
+            jumpTime = jumpMaxDuration + 1;
+        }
     }
 
     // helper function
     bool isAnimatorCurrentState(string stateString) {
         return animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(stateString);
+    }
+    string aimSuffix {
+        get {
+            switch (aimDirection) {
+            case AimDirection.UP:
+                return "_up";
+            case AimDirection.DOWN:
+                return "_down";
+            default:
+                return "";
+            }
+        }
     }
 
     // PRIVATE
@@ -874,6 +1005,7 @@ public class Player : MonoBehaviour {
     bool _exploded = false;
     bool charging = false;
     float chargeTime = 0;
+    AimDirection _aimDirection = AimDirection.FORWARD;
 
     // components
     Rigidbody2D _rb2d;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 776a90524ce3ed347b8118f9107bd9e1
-timeCreated: 1444849033
+timeCreated: 1450373116
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -37,6 +37,49 @@ TextureImporter:
     21300060: oracle_30
     21300062: oracle_31
     21300064: oracle_32
+    21300066: oracle_33
+    21300068: oracle_34
+    21300070: oracle_35
+    21300072: oracle_36
+    21300074: oracle_37
+    21300076: oracle_38
+    21300078: oracle_39
+    21300080: oracle_40
+    21300082: oracle_41
+    21300084: oracle_42
+    21300086: oracle_43
+    21300088: oracle_44
+    21300090: oracle_45
+    21300092: oracle_46
+    21300094: oracle_47
+    21300096: oracle_48
+    21300098: oracle_49
+    21300100: oracle_50
+    21300102: oracle_51
+    21300104: oracle_52
+    21300106: oracle_53
+    21300108: oracle_54
+    21300110: oracle_55
+    21300112: oracle_56
+    21300114: oracle_57
+    21300116: oracle_58
+    21300118: oracle_59
+    21300120: oracle_60
+    21300122: oracle_61
+    21300124: oracle_62
+    21300126: oracle_63
+    21300128: oracle_64
+    21300130: oracle_65
+    21300132: oracle_66
+    21300134: oracle_67
+    21300136: oracle_68
+    21300138: oracle_69
+    21300140: oracle_70
+    21300142: oracle_71
+    21300144: oracle_72
+    21300146: oracle_73
+    21300148: oracle_74
+    21300150: oracle_75
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -408,6 +451,436 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_33
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_34
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_35
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_36
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_37
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_38
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_39
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_41
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_42
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_43
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_44
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_45
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_46
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_47
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_49
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_50
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_51
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_52
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_53
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_54
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_55
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_57
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_58
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_59
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_60
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_61
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_62
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_63
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_65
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_66
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_67
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_68
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_69
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_70
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_71
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 40
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_73
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_74
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: oracle_75
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
         width: 36
         height: 40
       alignment: 0
