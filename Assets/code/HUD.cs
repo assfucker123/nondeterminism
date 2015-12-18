@@ -20,7 +20,7 @@ public class HUD : MonoBehaviour {
     public bool canPause {
         get {
             return (
-                !PauseScreen.instance.paused &&
+                !PauseScreen.paused &&
                 !TimeUser.reverting &&
                 !HUD.instance.gameOverScreen.activated);
         }
@@ -111,11 +111,9 @@ public class HUD : MonoBehaviour {
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
         bsGO.transform.SetParent(canvas.transform, false);
         _blackScreen = bsGO.GetComponent<UnityEngine.UI.Image>();
-        //create Pause Screen
-        GameObject psGO = GameObject.Instantiate(pauseScreenGameObject) as GameObject;
-        psGO.transform.SetParent(canvas.transform, false);
-        _pauseScreen = psGO.GetComponent<PauseScreen>();
-        _pauseScreen.initialHide();
+
+        // (not creating pause screen until needed, too much bottleneck)
+
         //create Map UI
         GameObject muGO = GameObject.Instantiate(mapUIGameObject) as GameObject;
         muGO.transform.SetParent(canvas.transform, false);
@@ -137,6 +135,20 @@ public class HUD : MonoBehaviour {
     void Start() {
         blackScreen.color = Color.clear;
     }
+
+    void createPauseScreen() {
+        if (PauseScreen.instance != null) return;
+        GameObject psGO = GameObject.Instantiate(pauseScreenGameObject) as GameObject;
+        psGO.transform.SetParent(canvas.transform, false);
+        psGO.transform.SetSiblingIndex(_mapUI.transform.GetSiblingIndex()); // put pause screen behind mapUI
+        _pauseScreen = psGO.GetComponent<PauseScreen>();
+        _pauseScreen.initialHide();
+    }
+
+    void destroyPauseScreen() {
+        GameObject.Destroy(_pauseScreen.gameObject);
+        _pauseScreen = null;
+    }
 	
 	void Update() {
 
@@ -150,10 +162,18 @@ public class HUD : MonoBehaviour {
         // detect pausing the game
         if (canPause &&
             (Keys.instance.startPressed || Keys.instance.escapePressed)) {
-            pauseScreen.pauseGame();
+            createPauseScreen();
+            pauseScreen.pauseGame(PauseScreen.lastPageOpened);
         }
+        
 
 	}
+
+    void LateUpdate() {
+
+        
+
+    }
 
     void OnDestroy() {
         _instance = null;

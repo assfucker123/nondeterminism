@@ -6,11 +6,19 @@ using System.Collections.Generic;
 public class PauseScreen : MonoBehaviour {
 
     public static PauseScreen instance { get { return _instance; } }
+    public static bool paused {
+        get {
+            if (instance == null) return false;
+            return instance._paused;
+        }
+    }
+    public static Page lastPageOpened = Page.OPTIONS;
 
     public AudioClip switchSound;
     public GameObject mapPageGameObject;
     public GameObject optionsPageGameObject;
     public TextAsset propAsset;
+    float openAnimationDuration = .00001f; //can't be 0
 
     public static Color DEFAULT_COLOR = new Color(203 / 255f, 136 / 255f, 177 / 255f); // CB88B1
     public static Color SELECTED_COLOR = new Color(45 / 255f, 0 / 255f, 27 / 255f); // 2D001B
@@ -25,31 +33,24 @@ public class PauseScreen : MonoBehaviour {
     }
 
     public Page page { get { return _page; } }
-    public bool paused { get { return _paused; } }
 
+    // pauses the game, doing an animation before the player can choose stuff
     public void pauseGame(Page page = Page.OPTIONS) {
-        if (paused)
-            return;
-        if (page == Page.NONE)
-            return;
-        
-        // stop time
-        prevTimeScale = Time.timeScale;
-        prevEffectsEnabled = CameraControl.instance.effectsEnabled;
-        prevBloomIntensity = CameraControl.instance.bloomIntensity;
-        prevColorCorrectionSaturation = CameraControl.instance.colorCorrectionSaturation;
-        prevInversion = CameraControl.instance.inversion;
-        Time.timeScale = 0;
-        
-        // show pause screen
+        if (paused) return;
+        if (page == Page.NONE) return;
+
+        stopTime();
         if (!Vars.screenshotMode) {
             CameraControl.instance.enableEffects(0, 0, 0); //grayscale camera
-            show(page);
         }
 
-        timePaused = 0;
+        // do open animation first
+        lastPageOpened = page;
+        openAnimationTime = 0;
+
         _paused = true;
     }
+    public bool doingOpenAnimation { get { return paused && openAnimationTime < openAnimationDuration; } }
     public void unpauseGame() {
         if (!paused)
             return;
@@ -57,21 +58,15 @@ public class PauseScreen : MonoBehaviour {
             optionsPage.locked)
             return;
 
-        // hide pause screen
         hide();
-
-        // resume time
-        Time.timeScale = prevTimeScale;
-        if (prevEffectsEnabled) {
-            CameraControl.instance.enableEffects(prevBloomIntensity, prevColorCorrectionSaturation, prevInversion);
-        } else {
-            CameraControl.instance.disableEffects();
-        }
-
+        resumeTime();
         _paused = false;
+
+        // destroy the pause screen
+        GameObject.Destroy(gameObject);
     }
     public void initialHide() {
-        //mapPage.hide();
+        mapPage.hide();
         //timeTreePage.hide();
         //talkPage.hide();
         //progressPage.hide();
@@ -79,9 +74,27 @@ public class PauseScreen : MonoBehaviour {
         hide();
     }
 
+
     /////////////
     // PRIVATE //
     /////////////
+
+    void stopTime() {
+        prevTimeScale = Time.timeScale;
+        prevEffectsEnabled = CameraControl.instance.effectsEnabled;
+        prevBloomIntensity = CameraControl.instance.bloomIntensity;
+        prevColorCorrectionSaturation = CameraControl.instance.colorCorrectionSaturation;
+        prevInversion = CameraControl.instance.inversion;
+        Time.timeScale = 0;
+    }
+    void resumeTime() {
+        Time.timeScale = prevTimeScale;
+        if (prevEffectsEnabled) {
+            CameraControl.instance.enableEffects(prevBloomIntensity, prevColorCorrectionSaturation, prevInversion);
+        } else {
+            CameraControl.instance.disableEffects();
+        }
+    }
 
     void show(Page page) {
         image.enabled = true;
@@ -115,8 +128,9 @@ public class PauseScreen : MonoBehaviour {
         switchPagesText.makeAllCharsInvisible();
     }
     void switchPage(Page pageTo, bool immediately=false) {
+        if (doingOpenAnimation) return;
         if (page == pageTo) return;
-
+        
         // hide original page
         GlyphBox option = null;
         switch (page) {
@@ -147,6 +161,8 @@ public class PauseScreen : MonoBehaviour {
             option.setColor(DEFAULT_COLOR);
         }
         _page = pageTo;
+        if (_page != Page.NONE)
+            lastPageOpened = _page;
 
         //show new page
         switch (page) {
@@ -216,26 +232,45 @@ public class PauseScreen : MonoBehaviour {
         optionsPageGO.transform.SetParent(transform, false);
         optionsPage = optionsPageGO.GetComponent<OptionsPage>();
         optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
-
+        
 	}
 
     void Start() {
-        mapPageText.setPlainText(prop.getString("map"));
-        timeTreePageText.setPlainText(prop.getString("time_tree"));
-        talkPageText.setPlainText(prop.getString("talk"));
-        progressPageText.setPlainText(prop.getString("progress"));
-        optionsPageText.setPlainText(prop.getString("options"));
-        switchPagesText.setPlainText(prop.getString("switch_pages"));
         hide();
     }
 
     void Update() {
+        if (doingOpenAnimation) {
+            openAnimationTime += Time.unscaledDeltaTime;
+            if (openAnimationTime >= openAnimationDuration) {
 
+                // creating the pause screen
+
+                // display stuff
+                mapPageText.setPlainText(prop.getString("map"));
+                timeTreePageText.setPlainText(prop.getString("time_tree"));
+                talkPageText.setPlainText(prop.getString("talk"));
+                progressPageText.setPlainText(prop.getString("progress"));
+                optionsPageText.setPlainText(prop.getString("options"));
+                switchPagesText.setPlainText(prop.getString("switch_pages"));
+                image.enabled = true;
+
+                // display more stuff
+                if (!Vars.screenshotMode) {
+                    show(lastPageOpened);
+                }
+                timePaused = 0;
+
+            }
+        }
     }
-	
-	void LateUpdate() {
+    
+    void LateUpdate() {
         if (!paused)
             return;
+        if (doingOpenAnimation)
+            return;
+
 
         // use Time.unscaledDeltaTime;
         timePaused += Time.unscaledDeltaTime;
@@ -317,6 +352,7 @@ public class PauseScreen : MonoBehaviour {
 	}
 
     void OnDestroy() {
+        hide();
         _instance = null;
     }
 
@@ -332,6 +368,8 @@ public class PauseScreen : MonoBehaviour {
     float pageSelectionImageTime = 9999;
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
+    float openAnimationTime = 999999;
+    
 
     // main pause screen
     Image image;

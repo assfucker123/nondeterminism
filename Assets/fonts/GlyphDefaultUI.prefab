@@ -30,7 +30,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a6ea78b487fb68c4f8a7d3cc97411398, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -55,7 +55,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300004, guid: a78d7832b2747fb4da72304c7e81425e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a78d7832b2747fb4da72304c7e81425e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -80,7 +80,6 @@ MonoBehaviour:
   pixelHeight: 16
   horizSpacing: 0
   vertSpacing: 0
-  defaultColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!222 &22281296
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -139,6 +138,19 @@ Prefab:
       propertyPath: defaultColor.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a78d7832b2747fb4da72304c7e81425e,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 198674}

@@ -164,6 +164,7 @@ public class MapUI : MonoBehaviour {
         iconsFromString(iconsStr);
     }
     public void hideMap() {
+        if (!mapRawImage.enabled) return;
         mapRawImage.enabled = false;
         mapFillRawImage.enabled = false;
         iconsStr = iconsToString();
@@ -279,6 +280,7 @@ public class MapUI : MonoBehaviour {
     }
     public void iconsFromString(string str) {
         clearIcons();
+        if (str.IndexOf(',') == -1) return;
         char[] delims = { ',' };
         string[] iconStrs = str.Split(delims);
         for (int i = 0; i < iconStrs.Length; i++) {

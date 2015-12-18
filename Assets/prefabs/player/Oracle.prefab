@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundAccel: 150
-  groundMaxSpeed: 19
+  groundMaxSpeed: 16
   groundFriction: 120
   airAccel: 100
-  airMaxSpeed: 16
+  airMaxSpeed: 14
   airFriction: 50
   gravity: 110
   terminalVelocity: 30
@@ -366,7 +366,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundMaxSpeed
-      value: 19
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundFriction
@@ -406,7 +406,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: airMaxSpeed
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: terminalVelocity
