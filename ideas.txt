@@ -408,3 +408,23 @@ x Toucan bomb enemy:
 o Oracle needs a redesign.  Make face more appealing.
 
 o More knockback on enemies
+
+o Intro sequence: mission briefing:
+	- To Wally.
+	- I hope you are enjoying my gifts!
+	- I have a favor to ask of you.
+	- Endoplanetary Shield
+	- Seudar Isle
+	- Signed, NPC
+
+How I made a new level:
+- made new Scene, saved in scenes/levels
+- swapped camera with Main Camera prefeab
+- put prefab from Tiled2Unity into the level, then did these (to object in inspector, DO NOT DIRECTLY CHANGE THE PREFAB)
+	- set Tag to Map
+	- set SortingLayer of bg to Platforms, OrderInLayer to 0
+	- set SortingLayer of tile_layer_1 to Platforms, OrderInLayer to 1
+	- in Collision of tile_layer_1:
+		- added PlatformEffector2D, UseOneWay unchecked
+		- in PolygonCollider2D, check UsedByEffector
+- add Level prefab, set appropriate properties

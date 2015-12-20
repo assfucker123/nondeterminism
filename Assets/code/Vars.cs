@@ -55,6 +55,12 @@ public class Vars {
     }
 
     public static void goToTitleScreen() {
+        // destroy canvas if leaving main game
+        GameObject canvasGO = GameObject.FindGameObjectWithTag("Canvas");
+        if (canvasGO != null) {
+            GameObject.Destroy(canvasGO);
+        }
+
         loadLevel("title_scene");
     }
 

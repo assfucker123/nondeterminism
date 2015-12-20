@@ -95,6 +95,10 @@ public class Bullet : MonoBehaviour {
         // leaving map
         bool leftMap = false;
         Rect rect = CameraControl.getMapBounds();
+        rect.xMin -= 10;
+        rect.xMax += 10;
+        rect.yMin -= 10;
+        rect.yMax += 10;
         if (!rect.Contains(rb2d.position)) {
             leftMap = true;
             destroyBullet = true;

@@ -671,6 +671,14 @@ public class Player : MonoBehaviour {
             }
         }
 
+        // cancel horiz speed if would be rubbing against a slanted wall
+        if (colFinder.hitLeft) {
+            v.x = Mathf.Max(v.x, .1f);
+        }
+        if (colFinder.hitRight) {
+            v.x = Mathf.Min(v.x, -.1f);
+        }
+
         if (jumping) {
             jumpTime += Time.deltaTime;
             v.y = jumpSpeed;
@@ -937,7 +945,9 @@ public class Player : MonoBehaviour {
         relSpawnPosition.x *= spriteRenderer.transform.localScale.x;
         relSpawnPosition.y *= spriteRenderer.transform.localScale.y;
 
-        if (!charged) {
+        // oracle stabilizes gun while running, so perfect aim.
+        bool runState = isAnimatorCurrentState("run") || isAnimatorCurrentState("run_up") || isAnimatorCurrentState("run_down");
+        if (!charged && !runState) {
             heading += (Random.value * 2 - 1) * bulletSpread;
         }
         GameObject theBulletGO = bulletGameObject;

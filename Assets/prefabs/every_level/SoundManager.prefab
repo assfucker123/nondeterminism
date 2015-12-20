@@ -20,7 +20,7 @@ GameObject:
   - 114: {fileID: 11497188}
   m_Layer: 0
   m_Name: SoundManager
-  m_TagString: Untagged
+  m_TagString: SoundManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -678,13 +678,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ac3caaf6581a24f87eb8d6008a1beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeScale: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: SoundManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 108768}
