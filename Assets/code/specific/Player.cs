@@ -281,8 +281,10 @@ public class Player : MonoBehaviour {
         //control reverting
         timeReverting();
 
-        if (timeUser.shouldNotUpdate)
+        if (timeUser.shouldNotUpdate) {
             return;
+        }
+        
         
         //aiming
         switch (state) {
@@ -384,7 +386,17 @@ public class Player : MonoBehaviour {
             }
         }
 
+        // update camera position
+        setCameraPosition();
+
 	}
+
+    void LateUpdate() {
+
+        if (timeUser.shouldNotUpdate)
+            return;
+
+    }
     
     void OnSaveFrame(FrameInfo fi) {
         fi.state = (int) state;
@@ -424,6 +436,8 @@ public class Player : MonoBehaviour {
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
+
+        setCameraPosition();
     }
 
     void OnDestroy() {
@@ -974,6 +988,18 @@ public class Player : MonoBehaviour {
             // end jump if jumping (to prevent too much abuse)
             jumpTime = jumpMaxDuration + 1;
         }
+    }
+
+    // setting camera position
+    void setCameraPosition() {
+        CameraControl cameraControl = CameraControl.instance;
+        if (cameraControl == null) return;
+
+        Vector2 pos = rb2d.position;
+        if (TimeUser.reverting) {
+            pos += rb2d.velocity * Time.deltaTime;
+        }
+        cameraControl.moveToPosition(pos);
     }
 
     // helper function

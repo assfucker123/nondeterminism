@@ -60,6 +60,11 @@ public class Vars {
         if (canvasGO != null) {
             GameObject.Destroy(canvasGO);
         }
+        // destroy player if leaving main game
+        GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+        if (playerGO != null) {
+            GameObject.Destroy(playerGO);
+        }
 
         loadLevel("title_scene");
     }

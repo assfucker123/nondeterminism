@@ -47,6 +47,20 @@ public class Level : MonoBehaviour {
         }
 
 	}
+
+    void Start() {
+
+        // set bounds of camera to the entire level
+        Rect mapBounds = CameraControl.getMapBounds();
+        Vector2 trueSize = new Vector2(mapWidth * CameraControl.ROOM_UNIT_WIDTH, mapHeight * CameraControl.ROOM_UNIT_HEIGHT);
+        Vector2 diff = mapBounds.size - trueSize;
+        mapBounds.xMin += diff.x / 2;
+        mapBounds.xMax -= diff.x / 2;
+        mapBounds.yMin += diff.y / 2;
+        mapBounds.yMax -= diff.y / 2;
+        CameraControl.instance.enableBounds(mapBounds);
+
+    }
 	
 	void Update() {
 		

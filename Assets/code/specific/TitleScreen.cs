@@ -188,7 +188,8 @@ public class TitleScreen : MonoBehaviour {
     }
 
     void playGameSelected() {
-        Vars.loadLevel("mapScene");
+        Vars.loadLevel("calm_tundra_1");
+        //Vars.loadLevel("mapScene");
     }
 
     void optionsSelected() {

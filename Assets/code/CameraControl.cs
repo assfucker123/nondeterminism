@@ -10,6 +10,8 @@ public class CameraControl : MonoBehaviour {
     public static float ORTHOGRAPHIC_SIZE = 11.25f;
     public static int SCREEN_WIDTH = 1280;
     public static int SCREEN_HEIGHT = 720;
+    public static float ROOM_UNIT_WIDTH { get { return SCREEN_WIDTH / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE; } }
+    public static float ROOM_UNIT_HEIGHT { get { return SCREEN_HEIGHT / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE; } }
     //screen size: 1280px x 720px
     //half screen size: 640px x 360px
     //tile size: 16px x 16px
@@ -35,6 +37,34 @@ public class CameraControl : MonoBehaviour {
     // PUBLIC FUNCTIONS //
     //////////////////////
 
+    /* Moves the camera to the target position.  Stays within the bounds if bounds are enabled.
+     * Set duration to 0 to move there immediately. */
+    public void moveToPosition(Vector2 targetPosition, float duration = 0) {
+        movePos0 = position;
+        movePos1 = targetPosition;
+        if (duration < .0001f) {
+            if (boundsEnabled) {
+                position = fitPositionInBounds(movePos1, bounds, ROOM_UNIT_WIDTH / 2, ROOM_UNIT_HEIGHT / 2);
+            } else {
+                position = movePos1;
+            }
+            movePosTime = 0;
+            movePosDuration = 0;
+        } else {
+            movePosTime = 0;
+            movePosDuration = duration;
+        }
+    }
+    public bool movingToPosition { get { return movePosTime < movePosDuration; } }
+    /* The position chosen to move the camera to can be changed while moving there. */
+    public Vector2 targetPosition {
+        get { return movePos1; }
+        set {
+            movePos1 = value;
+        }
+    }
+    
+    /* Sets camera position directly, ignoring bounds etc. */
     public Vector2 position {
         get {
             Vector2 ret = new Vector2(transform.localPosition.x, transform.localPosition.y);
@@ -47,6 +77,26 @@ public class CameraControl : MonoBehaviour {
             transform.localPosition = transPos;
         }
     }
+
+    public void enableBounds() {
+        if (boundsEnabled) return;
+        _boundsEnabled = true;
+        position = fitPositionInBounds(position, bounds, ROOM_UNIT_WIDTH / 2, ROOM_UNIT_HEIGHT / 2);
+    }
+    public void enableBounds(Rect bounds) {
+        _bounds.xMin = bounds.xMin;
+        _bounds.xMax = bounds.xMax;
+        _bounds.yMin = bounds.yMin;
+        _bounds.yMax = bounds.yMax;
+        enableBounds();
+    }
+    public void disableBounds() {
+        if (!boundsEnabled) return;
+        _boundsEnabled = false;
+    }
+
+    public Rect bounds { get { return _bounds; } }
+    public bool boundsEnabled { get { return _boundsEnabled; } }
 
     public void shake(float magnitude = .5f, float duration = .5f) {
         shakeMagnitude = magnitude;
@@ -71,9 +121,7 @@ public class CameraControl : MonoBehaviour {
         Time.timeScale = 0;
     }
     public bool hitPaused { get { return hitPauseTime < hitPauseDuration; } }
-    private float hitPauseTime = 0;
-    private float hitPauseDuration = 0;
-    private float prevTimeScale = 1;
+    
 
     public void enableEffects(float bloomIntensity, float colorCorrectionSaturation, float inversion) {
         if (bloomOptimized != null) {
@@ -131,6 +179,22 @@ public class CameraControl : MonoBehaviour {
     } }
     public float inversion { get { return _inversion; } }
 
+    //////////////////////
+    // HELPER FUNCTIONS //
+    //////////////////////
+
+    public Rect viewport {
+        get {
+            return new Rect(position.x - ROOM_UNIT_WIDTH / 2, position.y - ROOM_UNIT_HEIGHT / 2, ROOM_UNIT_WIDTH, ROOM_UNIT_HEIGHT);
+        }
+    }
+    public Vector2 fitPositionInBounds(Vector2 position, Rect bounds, float roomHalfWidth, float roomHalfHeight) {
+        Vector2 pos = position;
+        pos.x = Mathf.Clamp(pos.x, bounds.xMin + roomHalfWidth, bounds.xMax - roomHalfWidth);
+        pos.y = Mathf.Clamp(pos.y, bounds.yMin + roomHalfHeight, bounds.yMax - roomHalfHeight);
+        return pos;
+    }
+
     /////////////
     // PRIVATE //
     /////////////
@@ -163,7 +227,20 @@ public class CameraControl : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
 
-        //handle shaking
+        // move position
+        if (movingToPosition) {
+            movePosTime += Time.deltaTime;
+            Vector2 pos = new Vector2(
+                Utilities.easeInOutQuadClamp(movePosTime, movePos0.x, movePos1.x - movePos0.x, movePosDuration),
+                Utilities.easeInOutQuadClamp(movePosTime, movePos0.y, movePos1.y - movePos0.y, movePosDuration));
+            if (boundsEnabled) {
+                position = fitPositionInBounds(pos, bounds, ROOM_UNIT_WIDTH / 2, ROOM_UNIT_HEIGHT / 2);
+            } else {
+                position = pos;
+            }
+        }
+
+        // handle shaking
         transform.localPosition -= new Vector3(shakePos.x, shakePos.y, 0);
         if (shaking) {
             shakeTime += Time.deltaTime;
@@ -197,6 +274,19 @@ public class CameraControl : MonoBehaviour {
         fi.floats["hPT"] = hitPauseTime;
         fi.floats["hPD"] = hitPauseDuration;
         fi.floats["pTS"] = prevTimeScale;
+
+        fi.floats["bX"] = bounds.x;
+        fi.floats["bW"] = bounds.width;
+        fi.floats["bY"] = bounds.y;
+        fi.floats["bH"] = bounds.height;
+        fi.bools["bEnabled"] = boundsEnabled;
+
+        fi.floats["mP0x"] = movePos0.x;
+        fi.floats["mP0y"] = movePos0.y;
+        fi.floats["mP1x"] = movePos1.x;
+        fi.floats["mP1y"] = movePos1.y;
+        fi.floats["mPt"] = movePosTime;
+        fi.floats["mPd"] = movePosDuration;
     }
     void OnRevert(FrameInfo fi) {
 
@@ -212,12 +302,18 @@ public class CameraControl : MonoBehaviour {
         hitPauseTime = fi.floats["hPT"];
         hitPauseDuration = fi.floats["hPD"];
         prevTimeScale = fi.floats["pTS"];
-
-        
         if (prevHitPaused && !hitPaused) {
             Time.timeScale = prevPrevTimeScale;
         }
-        
+        if (fi.bools["bEnabled"]) {
+            enableBounds(new Rect(fi.floats["bX"], fi.floats["bY"], fi.floats["bW"], fi.floats["bH"]));
+        } else {
+            disableBounds();
+        }
+        movePos0.Set(fi.floats["mP0x"], fi.floats["mP0y"]);
+        movePos1.Set(fi.floats["mP1x"], fi.floats["mP1y"]);
+        movePosTime = fi.floats["mPt"];
+        movePosDuration = fi.floats["mPd"];
     }
 
     void OnDestroy() {
@@ -230,6 +326,17 @@ public class CameraControl : MonoBehaviour {
     private float shakeTime = 9999;
     private float shakeDuration = 0;
     private Vector2 shakePos = new Vector2(); //true position = position + shakePos
+
+    private float hitPauseTime = 0;
+    private float hitPauseDuration = 0;
+    private float prevTimeScale = 1;
+
+    private Rect _bounds = new Rect();
+    private bool _boundsEnabled = false;
+    private Vector2 movePos0 = new Vector2();
+    private Vector2 movePos1 = new Vector2();
+    private float movePosTime = 0;
+    private float movePosDuration = 0;
 
     private Camera cameraComponent;
     private TimeUser timeUser;
