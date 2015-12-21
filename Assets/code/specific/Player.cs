@@ -476,6 +476,7 @@ public class Player : MonoBehaviour {
 
             if (stopReverting) {
                 TimeUser.endContinuousRevert();
+                HUD.instance.flashbackArtifacts.stop();
                 SoundManager.instance.stopSFX(flashbackBeginSound);
                 SoundManager.instance.playSFX(flashbackEndSound);
                 CameraControl.instance.disableEffects();
@@ -486,6 +487,7 @@ public class Player : MonoBehaviour {
             if (Keys.instance.flashbackPressed) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
+                    HUD.instance.flashbackArtifacts.begin();
                     SoundManager.instance.playSFX(flashbackBeginSound);
                     HUD.instance.phaseMeter.beginPulse();
                     revertTime = 0;

@@ -79,6 +79,8 @@ MonoBehaviour:
   mapUIGameObject: {fileID: 113364, guid: 44b073f0001a02a478fa559e18639917, type: 2}
   speedLinesGameObject: {fileID: 120178, guid: e19e8b7391835bf43a80429adbb536a7, type: 2}
   gameOverScreenObject: {fileID: 152978, guid: 6c9d6628f9f52be4ca605f9f33c323e8, type: 2}
+  flashbackArtifactsGameObject: {fileID: 145208, guid: 498d1c9c90a16c440b2d66f4b223b40a,
+    type: 2}
 --- !u!223 &22332152
 Canvas:
   m_ObjectHideFlags: 1
@@ -160,6 +162,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .410930008
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashbackArtifactsGameObject
+      value: 
+      objectReference: {fileID: 145208, guid: 498d1c9c90a16c440b2d66f4b223b40a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162694}

@@ -14,6 +14,7 @@ public class HUD : MonoBehaviour {
     public GameObject mapUIGameObject;
     public GameObject speedLinesGameObject;
     public GameObject gameOverScreenObject;
+    public GameObject flashbackArtifactsGameObject;
 
     public int health { get { return _health; } }
     public int maxHealth { get { return _maxHealth; } }
@@ -32,6 +33,7 @@ public class HUD : MonoBehaviour {
     public PauseScreen pauseScreen { get { return _pauseScreen; } }
     public MapUI mapUI { get { return _mapUI; } }
     public GameOverScreen gameOverScreen { get { return _gameOverScreen; } }
+    public FlashbackArtifacts flashbackArtifacts { get { return _flashbackArtifacts; } }
 
     public void setMaxHealth(int maxHealth){
         if (_maxHealth == maxHealth)
@@ -102,6 +104,13 @@ public class HUD : MonoBehaviour {
         slGO.transform.SetParent(canvas.transform, false);
         _speedLines = slGO.GetComponent<SpeedLines>();
         _speedLines.setUp();
+
+        //create Flashback Artifacts
+        GameObject faGO = GameObject.Instantiate(flashbackArtifactsGameObject) as GameObject;
+        faGO.transform.SetParent(canvas.transform, false);
+        _flashbackArtifacts = faGO.GetComponent<FlashbackArtifacts>();
+        _flashbackArtifacts.setUp();
+
         //create Phase Meter
         GameObject pmGO = GameObject.Instantiate(phaseMeterGameObject) as GameObject;
         pmGO.transform.SetParent(canvas.transform, false);
@@ -196,6 +205,7 @@ public class HUD : MonoBehaviour {
     private PauseScreen _pauseScreen;
     private MapUI _mapUI;
     private GameOverScreen _gameOverScreen;
+    private FlashbackArtifacts _flashbackArtifacts;
 	
 	// components
     Canvas canvas;
