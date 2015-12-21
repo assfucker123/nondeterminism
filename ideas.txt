@@ -428,3 +428,5 @@ How I made a new level:
 		- added PlatformEffector2D, UseOneWay unchecked
 		- in PolygonCollider2D, check UsedByEffector
 - add Level prefab, set appropriate properties
+
+Testing git works with new computer
