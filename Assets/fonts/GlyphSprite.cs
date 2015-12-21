@@ -25,7 +25,6 @@ using System.Collections;
 
 public class GlyphSprite : MonoBehaviour {
 
-    public string name = "";
     public int numChars = 128;
     public int pixelWidth = 9;
     public int pixelHeight = 16;

@@ -1,6 +1,7 @@
-﻿/// Credit Melang
+﻿
+using System;
+/// Credit Melang
 /// Sourced from - http://forum.unity3d.com/members/melang.593409/
-
 using System.Collections.Generic;
 namespace UnityEngine.UI.Extensions
 {
@@ -178,13 +179,19 @@ namespace UnityEngine.UI.Extensions
                 helper.FillMesh(mesh);
             }
         }
+        public override void ModifyMesh(VertexHelper vh)
+        {
+            throw new NotImplementedException();
+        }
 
 #if UNITY_EDITOR
-		protected override void OnValidate ()
+        protected override void OnValidate ()
 		{
 			this.effectDistance = this.m_EffectDistance;
 			base.OnValidate ();
 		}
+
+        
 #endif
-	}
+    }
 }

@@ -40,7 +40,8 @@ namespace UnityEngine.UI.Extensions {
         public bool useColorDown;
 //        [HideUnless("useColorDown")]
         public Color32 colorDown = Color.green;
- 
+
+        [System.Obsolete]
         protected override void OnPopulateMesh(Mesh m) {
             var rect = rectTransform.rect;
             var rectNew = rect;

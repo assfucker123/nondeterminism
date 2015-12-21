@@ -65,6 +65,7 @@ namespace UnityEngine.UI.Extensions
             }
         }
 
+        [System.Obsolete]
         protected override void OnPopulateMesh(Mesh toFill)
         {
             // requires sets of quads

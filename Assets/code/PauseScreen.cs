@@ -54,10 +54,7 @@ public class PauseScreen : MonoBehaviour {
     public void unpauseGame() {
         if (!paused)
             return;
-        if (page == Page.OPTIONS &&
-            optionsPage.locked)
-            return;
-
+        
         hide();
         resumeTime();
         _paused = false;

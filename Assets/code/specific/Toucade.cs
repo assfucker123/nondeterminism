@@ -362,7 +362,8 @@ public class Toucade : MonoBehaviour {
                         }
                         dir.Normalize();
                         dir = dir * throwSpeed;
-                        pRB2D.MovePosition(pRB2D.position + dir * Time.fixedDeltaTime);
+                        //pRB2D.MovePosition(pRB2D.position + dir * Time.fixedDeltaTime);
+                        pRB2D.velocity = dir;
                         Grenade pGrenade = projGO.GetComponent<Grenade>();
                         Bubble pBubble = projGO.GetComponent<Bubble>();
                         if (pGrenade != null) {

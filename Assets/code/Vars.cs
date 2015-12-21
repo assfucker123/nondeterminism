@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class Vars {
 
@@ -45,13 +46,12 @@ public class Vars {
 
         // should be called at the title screen
         startGame();
-        
 
-        Application.LoadLevel(name);
+        SceneManager.LoadScene(name);
     }
 
     public static void restartLevel() {
-        loadLevel(Application.loadedLevelName);
+        loadLevel(SceneManager.GetActiveScene().name);
     }
 
     public static void goToTitleScreen() {

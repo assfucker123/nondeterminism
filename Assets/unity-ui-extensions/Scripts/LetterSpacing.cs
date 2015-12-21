@@ -1,6 +1,4 @@
-﻿/// Credit Deeperbeige
-/// Sourced from - http://forum.unity3d.com/threads/adjustable-character-spacing-free-script.288277/
-/*
+﻿/*
 
 Produces an simple tracking/letter-spacing effect on UI Text components.
 
@@ -41,6 +39,9 @@ break down entirely, but it doesn't really do what you'd want either.
 
 */
 
+using System;
+/// Credit Deeperbeige
+/// Sourced from - http://forum.unity3d.com/threads/adjustable-character-spacing-free-script.288277/
 using System.Collections.Generic;
 
 namespace UnityEngine.UI.Extensions
@@ -152,5 +153,10 @@ namespace UnityEngine.UI.Extensions
 			}
             mesh.vertices = verts;
         }
-	}
+
+        public override void ModifyMesh(VertexHelper vh)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

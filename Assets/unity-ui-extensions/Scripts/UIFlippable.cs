@@ -1,6 +1,7 @@
+
+using System;
 /// Credit ChoMPHi
 /// Sourced from - http://forum.unity3d.com/threads/script-flippable-for-ui-graphics.291711/
-
 using System.Collections.Generic;
 
 namespace UnityEngine.UI.Extensions
@@ -58,6 +59,11 @@ namespace UnityEngine.UI.Extensions
             }
 
             mesh.vertices = verts;
+        }
+
+        public void ModifyMesh(VertexHelper verts)
+        {
+            throw new NotImplementedException();
         }
     }
 }

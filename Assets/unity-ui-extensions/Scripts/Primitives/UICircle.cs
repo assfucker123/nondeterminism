@@ -65,8 +65,8 @@ namespace UnityEngine.UI.Extensions
             }
             return vbo;
         }
-     
-     
+
+        [System.Obsolete]
         protected override void OnPopulateMesh(Mesh toFill)
         {
             float outer = -rectTransform.pivot.x * rectTransform.rect.width;

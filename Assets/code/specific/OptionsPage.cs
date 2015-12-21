@@ -7,35 +7,9 @@ public class OptionsPage : MonoBehaviour {
 
     public AudioClip switchSound;
     public TextAsset textAsset;
-
-    public bool locked {
-        get {
-            return lockedTime < lockedDuration;
-        }
-    }
     
     public void update() {
-
-        if (locked) {
-            lockedTime += Time.unscaledDeltaTime;
-            if (!locked) {
-                if (setFullscreenWhenLockOver) {
-                    if (QualitySettings.antiAliasing == 0) {
-                        lockedTime -= Time.unscaledDeltaTime;
-                        return;
-                    }
-                    Screen.fullScreen = true;
-                    setFullscreenWhenLockOver = false;
-                }
-                if (setGoodQualityWhenLockOver) {
-                    QualitySettings.SetQualityLevel(3, true);
-                    setGoodQualityWhenLockOver = false;
-                    lockedTime = 0;
-                }
-            }
-            return;
-        }
-
+        
         optionsUpdate();
 
         bool madeSelection = false;
@@ -93,21 +67,9 @@ public class OptionsPage : MonoBehaviour {
                 // toggle fullscreen
 
                 if (Screen.fullScreen) {
-                    
-                    //Screen.fullScreen = false;
-                    lockedTime = 0;
-                    lockedDuration = 2;
-                    Screen.fullScreen = false;
-                    setGoodQualityWhenLockOver = true;
-
+                    Screen.SetResolution(CameraControl.SCREEN_WIDTH, CameraControl.SCREEN_HEIGHT, false);
                 } else {
-
-                    //Screen.fullScreen = true;
-                    lockedTime = 0;
-                    lockedDuration = .5f;
-                    QualitySettings.SetQualityLevel(6, true);
-                    setFullscreenWhenLockOver = true;
-
+                    Screen.SetResolution(10000, 10000, true);
                 }
                 
             } else if (option == sfxVolumeText) {
@@ -358,10 +320,5 @@ public class OptionsPage : MonoBehaviour {
     bool settingSFX = false;
     bool settingMusic = false;
     bool titleMode = false;
-
-    private float lockedTime = 0;
-    private float lockedDuration = 0;
-    private bool setFullscreenWhenLockOver = false;
-    private bool setGoodQualityWhenLockOver = false;
-
+    
 }

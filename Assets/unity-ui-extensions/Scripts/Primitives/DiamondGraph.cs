@@ -15,6 +15,7 @@ namespace UnityEngine.UI.Extensions
         public float c = 1;
         public float d = 1;
 
+        [Obsolete]
         protected override void OnPopulateMesh(Mesh m)
         {
             float wHalf = rectTransform.rect.width / 2;

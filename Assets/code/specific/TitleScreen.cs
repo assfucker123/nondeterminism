@@ -127,8 +127,7 @@ public class TitleScreen : MonoBehaviour {
     void menuUpdate() {
 
         if (optionsPageShown) {
-            if (!optionsPage.locked &&
-                ((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
+            if (((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
                 (optionsPage.selectingBack() && Keys.instance.confirmPressed))) {
                 optionsBack();
             }
@@ -188,8 +187,8 @@ public class TitleScreen : MonoBehaviour {
     }
 
     void playGameSelected() {
-        Vars.loadLevel("calm_tundra_1");
-        //Vars.loadLevel("mapScene");
+        //Vars.loadLevel("calm_tundra_1");
+        Vars.loadLevel("mapScene");
     }
 
     void optionsSelected() {

@@ -1,6 +1,7 @@
-﻿/// Credit Breyer
+﻿
+using System;
+/// Credit Breyer
 /// Sourced from - http://forum.unity3d.com/threads/scripts-useful-4-6-scripts-collection.264161/#post-1777407
-
 namespace UnityEngine.UI.Extensions
 {
     [RequireComponent(typeof(Text), typeof(RectTransform))]
@@ -59,6 +60,11 @@ namespace UnityEngine.UI.Extensions
             var tmpRect = curveForText[curveForText.length - 1];
             tmpRect.time = rectTrans.rect.width;
             curveForText.MoveKey(curveForText.length - 1, tmpRect);
+        }
+
+        public override void ModifyMesh(VertexHelper vh)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,7 @@
+
+using System;
 /// Credit Breyer
 /// Sourced from - http://forum.unity3d.com/threads/scripts-useful-4-6-scripts-collection.264161/#post-1780095
-
 using System.Collections.Generic;
 
 namespace UnityEngine.UI.Extensions
@@ -90,6 +91,11 @@ namespace UnityEngine.UI.Extensions
             if (Mathf.Abs(col1.r - col2.r) < 0.003f && Mathf.Abs(col1.g - col2.g) < 0.003f && Mathf.Abs(col1.b - col2.b) < 0.003f && Mathf.Abs(col1.a - col2.a) < 0.003f)
                 return true;
             return false;
+        }
+
+        public override void ModifyMesh(VertexHelper vh)
+        {
+            throw new NotImplementedException();
         }
     }
 

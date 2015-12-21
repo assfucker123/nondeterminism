@@ -253,6 +253,7 @@ namespace UnityEngine.UI.Extensions
         /// Update the UI renderer mesh.
         /// </summary>
 
+        [Obsolete]
         protected override void OnPopulateMesh(Mesh toFill)
         {
             List<UIVertex> vbo = new List<UIVertex>();
