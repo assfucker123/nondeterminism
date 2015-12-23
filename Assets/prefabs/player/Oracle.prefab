@@ -103,9 +103,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102646}
+  m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -119,12 +120,13 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102646}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: 307b08ad117e6274e81fcafd5be00abd, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .360000014}
+  m_Offset: {x: 0, y: 0.36}
   serializedVersion: 2
-  m_Radius: .400000006
+  m_Radius: 0.4
 --- !u!58 &5852972
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -132,12 +134,13 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102646}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: 307b08ad117e6274e81fcafd5be00abd, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.720000029}
+  m_Offset: {x: 0, y: -0.72}
   serializedVersion: 2
-  m_Radius: .400000006
+  m_Radius: 0.4
 --- !u!61 &6113470
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -145,12 +148,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102646}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: 307b08ad117e6274e81fcafd5be00abd, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.159999996}
+  m_Offset: {x: 0, y: -0.16}
   serializedVersion: 2
-  m_Size: {x: .75999999, y: 1.05999994}
+  m_Size: {x: 0.76, y: 1.06}
 --- !u!95 &9543868
 Animator:
   serializedVersion: 3
@@ -205,46 +209,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84940c19c6484d4db1f67de6c9706c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAccel: 150
-  groundMaxSpeed: 16
-  groundFriction: 120
+  groundAccel: 190
+  groundMaxSpeed: 17
+  groundFriction: 140
   airAccel: 100
-  airMaxSpeed: 14
-  airFriction: 50
+  airMaxSpeed: 15
+  airFriction: 70
   gravity: 110
   terminalVelocity: 30
   jumpSpeed: 19.5
-  jumpMinDuration: .0399999991
-  jumpMaxDuration: .219999999
-  idleGunDownDuration: .5
+  jumpMinDuration: 0.04
+  jumpMaxDuration: 0.22
+  idleGunDownDuration: 0.5
   bulletGameObject: {fileID: 194332, guid: 4baa8d8ac98d8174ca8add180251ef9a, type: 2}
   bulletMuzzleGameObject: {fileID: 114470, guid: 7208b24a79914e04d973ce54c733052c,
     type: 2}
-  bulletSpawn: {x: 1, y: .5}
-  bulletSpawnUp: {x: .200000003, y: 1.35000002}
-  bulletSpawnDown: {x: .200000003, y: -.600000024}
-  bulletSpread: .5
-  bulletMinDuration: .159999996
+  bulletSpawn: {x: 1, y: 0.5}
+  bulletSpawnUp: {x: 0.2, y: 1.35}
+  bulletSpawnDown: {x: 0.2, y: -0.6}
+  bulletSpread: 0.5
+  bulletMinDuration: 0.16
   chargeBulletGameObject: {fileID: 179616, guid: c8d0d6be73026d94492e7732bb1d9bdc,
     type: 2}
-  chargeDuration: .800000012
+  chargeDuration: 0.8
   chargeDownJumpSpeed: 15
   revertSpeed: 1
-  revertEaseDuration: .699999988
-  minRevertDuration: .100000001
+  revertEaseDuration: 0.7
+  minRevertDuration: 0.1
   maxHealth: 4
   maxPhase: 80
-  startPhase: .5
+  startPhase: 0.5
   phaseDecreaseSpeed: 0
   phaseRevertingDecreaseSpeed: 7
-  postRevertDuration: .5
+  postRevertDuration: 0.5
   damageSpeed: 14
   damageFriction: 40
-  damageDuration: .300000012
-  mercyInvincibilityDuration: 1.10000002
-  hitPauseDamageMultiplier: .0199999996
-  dieExplodeDelay: .0299999993
-  deathHitPause: .400000006
+  damageDuration: 0.3
+  mercyInvincibilityDuration: 1.1
+  hitPauseDamageMultiplier: 0.02
+  dieExplodeDelay: 0.03
+  deathHitPause: 0.4
   pieceGameObjects:
   - {fileID: 136208, guid: 4228c0fed841c8540a85beffc526dcc1, type: 2}
   - {fileID: 113946, guid: 5ce6905b7d8a1544da7e353682b6765c, type: 2}
@@ -300,9 +304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c960426b9e07c07459861153539ae2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDelay: .150000006
-  spawnRadius: 1.60000002
-  spawnPeriod: .119999997
+  initialDelay: 0.15
+  spawnRadius: 1.6
+  spawnPeriod: 0.12
   speedInitial: 4
   speedFinal: 18
   simultaneousBullets: 3
@@ -321,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomAngleThreshold: 35
-  raycastDownDistance: .899999976
+  raycastDownDistance: 0.9
   raycastDownGravity: 110
 --- !u!212 &21292040
 SpriteRenderer:
@@ -341,14 +345,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 776a90524ce3ed347b8118f9107bd9e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -366,15 +374,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundMaxSpeed
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundFriction
-      value: 120
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundAccel
-      value: 150
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: gravity
@@ -406,7 +414,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: airMaxSpeed
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: terminalVelocity
@@ -635,6 +643,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: airFriction
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

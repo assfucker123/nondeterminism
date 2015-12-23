@@ -224,8 +224,11 @@ public class CameraControl : MonoBehaviour {
 
     void LateUpdate() {
 
-        if (timeUser.shouldNotUpdate)
+        if (timeUser.shouldNotUpdate) {
+            updateParallaxObjects();
             return;
+        }
+        
 
         // move position
         if (movingToPosition) {
@@ -261,6 +264,16 @@ public class CameraControl : MonoBehaviour {
         }
         transform.localPosition += new Vector3(shakePos.x, shakePos.y, 0);
 
+        updateParallaxObjects();
+
+    }
+
+    void updateParallaxObjects() {
+        // affect parallax objects
+        Vector2 camDiff = new Vector2(transform.localPosition.x, transform.localPosition.y)-getMapBounds().center;
+        foreach (Parallax parallax in Parallax.parallaxs) {
+            parallax.updateTransform(camDiff);
+        }
     }
 
     void OnSaveFrame(FrameInfo fi) {

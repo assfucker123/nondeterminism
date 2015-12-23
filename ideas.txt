@@ -417,16 +417,22 @@ o Intro sequence: mission briefing:
 	- Seudar Isle
 	- Signed, NPC
 
-How I made a new level:
-- made new Scene, saved in scenes/levels
-- swapped camera with Main Camera prefeab
-- put prefab from Tiled2Unity into the level, then did these (to object in inspector, DO NOT DIRECTLY CHANGE THE PREFAB)
-	- set Tag to Map
-	- set SortingLayer of bg to Platforms, OrderInLayer to 0
-	- set SortingLayer of tile_layer_1 to Platforms, OrderInLayer to 1
-	- in Collision of tile_layer_1:
-		- added PlatformEffector2D, UseOneWay unchecked
-		- in PolygonCollider2D, check UsedByEffector
-- add Level prefab, set appropriate properties
+o Puzzle: spin windmill to move platforms in a loop.
+	o Shoot to spin, direction based on position the windmill is shot.
 
-Testing git works with new computer
+o Puzzle that can be solved by waiting until it's windy enough.
+	- Wind happens all over tundra areas at set times.
+	- BAD IDEA (too inconvenient) Makes Oracle move faster/slower while in the air?
+	- Can spin windmills my themselves
+	
+o Oracle getting the vision of the world ending does not happen abruptly at the 1 hour mark (would be annoying for the player)
+	- Walk into an ominous small room, but there's nothing there.
+	- Upon leaving back the way you came, you're now suddenly in a very ominous, glitchy-aesthetic room.
+	- Trapped here: Fall down a pit upon entering.
+	- Player hitting Pause (to try to Flashback out of the room) is what triggers the vision.
+	- First broken pause screen appears, glitches out, cuts to black.
+	- Then vision happens.  The Meltdown happens, but it's all in grayscale with no sound.
+	- Text appears in red saying "you saw this coming", "you could have stopped this", "please save us"
+	- Vision ends with Oracle freaking out in the ship at the beginning of the game.
+		- Afterwards Wally will direct Oracle down an obscure path to the left of the ship the player wouldn't likely figure out on their first try.
+	o This entire sequence is technically optional.  Just don't go into the ominous room.

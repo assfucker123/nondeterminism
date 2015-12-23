@@ -238,7 +238,7 @@ public class Player : MonoBehaviour {
 
         //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-
+            
         }
 
         // decrease phase over time
@@ -484,7 +484,8 @@ public class Player : MonoBehaviour {
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
         } else if (!PauseScreen.paused && !HUD.instance.gameOverScreen.cannotRevert) {
-            if (Keys.instance.flashbackPressed) {
+            if (Keys.instance.flashbackPressed &&
+                Time.timeSinceLevelLoad > .1f) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
                     HUD.instance.flashbackArtifacts.begin();
