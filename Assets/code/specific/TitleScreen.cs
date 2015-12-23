@@ -8,6 +8,7 @@ public class TitleScreen : MonoBehaviour {
     public Vector2 optionsPageOffset = new Vector2(0, -10);
     public AudioClip switchSound;
     public GameObject optionsPageGameObject;
+    public TextAsset decryptorInfoTextAsset;
     public GameObject thingGameObject;
     public Color[] thingColors;
     public Sprite[] thingSprites;
@@ -76,6 +77,10 @@ public class TitleScreen : MonoBehaviour {
             new Vector3(optionsPageOffset.x, optionsPageOffset.y);
         optionsPage = optionsPageGO.GetComponent<OptionsPage>();
         optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        if (!Decryptor.initialized) {
+            Decryptor.initialize(new Properties(decryptorInfoTextAsset.text));
+        }
 	}
 
     void Start() {
@@ -187,7 +192,10 @@ public class TitleScreen : MonoBehaviour {
     }
 
     void playGameSelected() {
-        Vars.loadLevel("calm_tundra_1");
+        Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData); // creating new node to save info to
+        Debug.Log(Vars.currentNodeData.level);
+        Vars.loadLevel(Vars.currentNodeData.level);
+        //Vars.loadLevel("calm_tundra_1");
         //Vars.loadLevel("mapScene");
     }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -11,6 +12,28 @@ public class Vars {
     public static int highScore = 0;
     public static bool screenshotMode = false;
 
+    // TIME-INDEPENDENT
+    public static int saveFileIndex = 0;
+    public static string username = "";
+    public static DateTime createdDate = new DateTime();
+    public static DateTime modifiedDate = new DateTime();
+    public static float playTime = 0; // this is NOT the same as currentNodeData.time
+    public static List<Decryptor.ID> decryptors = new List<Decryptor.ID>();
+    public static List<AdventureEvent.Info> infoEvents = new List<AdventureEvent.Info>();
+    public static bool eventHappened(AdventureEvent.Info eventID) {
+        return infoEvents.IndexOf(eventID) != -1;
+    }
+    public static void eventHappen(AdventureEvent.Info eventID) {
+        if (eventHappened(eventID)) return;
+        infoEvents.Add(eventID);
+    }
+
+    // TIME-DEPENDENT
+    /* Keeps changing based on what the player does.
+     * When resuming a game after saving or loading, make a new currentNodeData.
+     * If the player dies before getting to a save point, delete this currentNodeData first (and player can pick on time tree where to resume) */
+    public static NodeData currentNodeData = null;
+
     // SETTINGS
 
     public static float sfxVolume = 1;
@@ -19,10 +42,12 @@ public class Vars {
             _musicVolume = value;
         }
     }
+    public static int saveFileIndexLastUsed = 0;
     
     public static void loadDefaultSettings() {
         sfxVolume = 1;
         musicVolume = 1;
+        saveFileIndexLastUsed = 0;
     }
 
     ///////////////
@@ -32,6 +57,7 @@ public class Vars {
     public static void startGame() {
         if (startGameCalled) return;
         loadSettings();
+        loadData(saveFileIndexLastUsed);
 
         startGameCalled = true;
     }
@@ -78,6 +104,44 @@ public class Vars {
         #endif
     }
 
+    /* Save data to a file */
+    public static void saveData() {
+        string path = Application.persistentDataPath + "/data" + saveFileIndex + ".sav";
+
+        byte[] bArr = Utilities.stringToBytes(saveDataToString());
+
+        #if !UNITY_WEBPLAYER
+        File.WriteAllBytes(path, bArr);
+        #endif
+    }
+
+    /* Load data from a file */
+    public static void loadData(int saveFileIndex = 0) {
+
+        if (saveFileIndex != saveFileIndexLastUsed) {
+            saveFileIndexLastUsed = saveFileIndex;
+            saveSettings();
+        }
+
+        #if UNITY_WEBPLAYER
+        loadDefaultData(saveFileIndex);
+        return;
+        #endif
+
+        #if !UNITY_WEBPLAYER
+
+        string path = Application.persistentDataPath + "/data" + saveFileIndex + ".sav";
+
+        if (!File.Exists(path)) {
+            loadDefaultData(saveFileIndex);
+            return;
+        }
+        byte[] bArr = File.ReadAllBytes(path);
+        loadDataFromString(Utilities.bytesToString(bArr));
+
+        #endif
+    }
+
     /* Save settings to a file */
     public static void saveSettings() {
         string path = Application.persistentDataPath + "/settings.ini";
@@ -119,6 +183,21 @@ public class Vars {
         Application.CaptureScreenshot(str);
     }
 
+    /* Adds decrptor to the list, checking to see it wasn't added yet */
+    public static void collectDecryptor(Decryptor.ID decryptor) {
+        if (decryptors.IndexOf(decryptor) == -1)
+            decryptors.Add(decryptor);
+    }
+
+    /* Returns if the ability described by the given descryptor can currently be used. */
+    public static bool abilityKnown(Decryptor.ID decryptor) {
+        if (decryptors.IndexOf(decryptor) == -1) return false;
+        bool hasBooster = false;
+        if (currentNodeData != null)
+            hasBooster = currentNodeData.hasBooster;
+        return Decryptor.canUse(decryptor, hasBooster, decryptors);
+    }
+
     /////////////
     // PRIVATE //
     /////////////
@@ -126,13 +205,115 @@ public class Vars {
     private static bool startGameCalled = false;
     private static float _musicVolume = 1;
 
-    /* SAVING SETTINGS
-     * */
+    /* LOADING DEFAULT DATA */
+    static void loadDefaultData(int saveFileIndex = 0) {
+        // save file index
+        Vars.saveFileIndex = saveFileIndex;
+        // username
+        username = "";
+        // created date
+        createdDate = DateTime.Now;
+        // modified date
+        modifiedDate = DateTime.Now;
+        // play time
+        playTime = 0;
+        // all node data
+        NodeData.clearAllNodes();
+        // current node data
+        currentNodeData = NodeData.createNodeData();
+        currentNodeData.time = 0;
+        currentNodeData.level = "tut_ship_1";
+        currentNodeData.position.Set(-11, 2);
+        currentNodeData.orbs.Clear();
+        currentNodeData.hasBooster = false;
+        currentNodeData.healthUpgrades.Clear();
+        currentNodeData.phaseReplacements = 0;
+        currentNodeData.physicalEvents.Clear();
+        // decryptors
+        decryptors.Clear();
+        // info events
+        infoEvents.Clear();
+
+    }
+
+    /* LOADING DATA */
+    static void loadDataFromString(string str) {
+        char[] delims = {'\n' };
+        char[] delims2 = {','};
+        string[] strs = str.Split(delims);
+        // save file index
+        saveFileIndex = int.Parse(strs[0]);
+        // username
+        username = strs[1];
+        // created date
+        createdDate = DateTime.Parse(strs[2]);
+        // modified date
+        modifiedDate = DateTime.Parse(strs[3]);
+        // play time
+        playTime = float.Parse(strs[4]);
+        // all node data
+        NodeData.loadAllNodesFromString(strs[5]);
+        // current node data
+        currentNodeData = NodeData.nodeDataFromID(int.Parse(strs[6]));
+        // decryptors
+        decryptors.Clear();
+        string[] dStrs = strs[7].Split(delims2);
+        for (int i=0; i<dStrs.Length; i++) {
+            if (dStrs[i] == "") continue;
+            decryptors.Add((Decryptor.ID)int.Parse(dStrs[i]));
+        }
+        // info events
+        infoEvents.Clear();
+        string[] iStrs = strs[8].Split(delims2);
+        for (int i = 0; i < iStrs.Length; i++) {
+            if (iStrs[i] == "") continue;
+            infoEvents.Add((AdventureEvent.Info)int.Parse(iStrs[i]));
+        }
+
+    }
+
+    /* SAVING DATA */
+    static string saveDataToString() {
+        string ret = "";
+        // save file index (0)
+        ret += saveFileIndex + "\n";
+        // username (1)
+        ret += username + "\n";
+        // created date (2)
+        ret += createdDate.ToString() + "\n";
+        // modified date (3)
+        ret += modifiedDate.ToString() + "\n";
+        // play time (4)
+        ret += playTime + "\n";
+        // all node data (5)
+        ret += NodeData.saveAllNodesToString() + "\n";
+        // current node data (6)
+        if (currentNodeData == null) ret += "0\n";
+        else ret += currentNodeData.id + "\n";
+        // decryptors (7)
+        for (int i=0; i<decryptors.Count; i++) {
+            ret += decryptors[i];
+            if (i < decryptors.Count - 1)
+                ret += ",";
+        }
+        ret += "\n";
+        // info events (8)
+        for (int i = 0; i < infoEvents.Count; i++) {
+            ret += infoEvents[i];
+            if (i < infoEvents.Count - 1)
+                ret += ",";
+        }
+
+        return ret;
+    }
+
+    /* SAVING SETTINGS */
 
     static string saveSettingsToString() {
         string str = "";
         str += "sfx_volume = " + sfxVolume + "\n";
         str += "music_volume = " + musicVolume + "\n";
+        str += "save_file_last_used = " + saveFileIndexLastUsed + "\n";
         return str;
     }
     static void loadSettingsFromString(string str) {
@@ -148,6 +329,8 @@ public class Vars {
                 sfxVolume = float.Parse(value);
             } else if (name == "music_volume") {
                 musicVolume = float.Parse(value);
+            } else if (name == "save_file_last_used") {
+                saveFileIndexLastUsed = int.Parse(value);
             }
 
         }

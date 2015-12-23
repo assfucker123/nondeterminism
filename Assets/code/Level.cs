@@ -8,6 +8,7 @@ public class Level : MonoBehaviour {
     public int mapY = 0;
     public int mapWidth = 1;
     public int mapHeight = 1;
+    public Vector2 debugStartPosition = new Vector2(); // player starts here when just testing the level
 
     public GameObject keysGameObject;
     public GameObject soundManagerGameObject;
@@ -17,6 +18,12 @@ public class Level : MonoBehaviour {
 	void Awake() {
 
         // make sure level is ready to play
+
+        // If currentNodeData hasn't been created yet (it should be created if game started at the title screen), then create something
+        if (Vars.currentNodeData == null) {
+            Vars.currentNodeData = NodeData.createNodeData();
+            Vars.currentNodeData.position = debugStartPosition;
+        }
 
         // check if Keys has been set up yet (it should if being played from first_scene).  If not, do so.
         GameObject keysGO = GameObject.FindGameObjectWithTag("Keys");
@@ -41,7 +48,8 @@ public class Level : MonoBehaviour {
         // check if Player has been created.  If not, create it
         GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
         if (playerGO == null) {
-            playerGO = GameObject.Instantiate(playerGameObject);
+            Vector3 position = Vars.currentNodeData.position;
+            playerGO = GameObject.Instantiate(playerGameObject, position, Quaternion.identity) as GameObject;
             // prevent player from getting destroyed when loading new level
             GameObject.DontDestroyOnLoad(playerGO);
         }

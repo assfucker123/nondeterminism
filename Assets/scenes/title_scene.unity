@@ -215,7 +215,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1.52587891e-05
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -231,27 +231,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_AnchorMin.x
-      value: .5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_AnchorMin.y
-      value: .5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_AnchorMax.x
-      value: .5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_AnchorMax.y
-      value: .5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_Pivot.x
-      value: .5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22410808, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
       propertyPath: m_Pivot.y
-      value: .5
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 881c6e4b14345bf43890dda3db186575, type: 2}
@@ -295,7 +295,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11491158, guid: a20853c4723de9f4586649b342876706, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a20853c4723de9f4586649b342876706, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1657978791

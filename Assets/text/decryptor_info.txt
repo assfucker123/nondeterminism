@@ -1,0 +1,4 @@
+1name: Charge Shot
+1description: Hold down the shoot button and release to fire a powerful shot.  It can break certain barriers.
+2name: Charge Magnet
+2description: Holding down the shoot button will also attract nearby pickups.

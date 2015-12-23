@@ -216,6 +216,14 @@ Prefab:
       propertyPath: mapWidth
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
+      propertyPath: debugStartPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
+      propertyPath: debugStartPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: adcfa817722367346958dd11bda1ea91, type: 2}
   m_IsPrefabParent: 0
@@ -270,31 +278,14 @@ Prefab:
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2392632, guid: aaa572ca68f6daa42ba064f8fe80b994, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_SortingLayerID
+      value: 1772338085
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383900, guid: aaa572ca68f6daa42ba064f8fe80b994, type: 2}
       propertyPath: m_SortingLayerID
       value: 1772338085
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aaa572ca68f6daa42ba064f8fe80b994, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1100605813 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 149494, guid: aaa572ca68f6daa42ba064f8fe80b994, type: 2}
-  m_PrefabInternal: {fileID: 1100605812}
---- !u!251 &1100605814
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1100605813}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseOneWay: 0
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1

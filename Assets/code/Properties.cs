@@ -35,6 +35,9 @@ public class Properties {
         if (str.ToLower() == "0") return false;
         return true;
     }
+    public bool containsKey(string key) {
+        return dic.ContainsKey(key);
+    }
 
     /* Parses string of a file with properties on it.
      * Format:
