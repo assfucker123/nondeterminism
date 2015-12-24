@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     ///////////////////////
 
     public float groundAccel = 100;
+    public float groundStartSpeed = 6;
     public float groundMaxSpeed = 10;
     public float groundFriction = 50;
     public float airAccel = 100;
@@ -206,6 +207,22 @@ public class Player : MonoBehaviour {
         HUD.instance.phaseMeter.setPhase(this.phase - phase);
     }
 
+    /* lets Player know that it should be repositioned when starting a new level (called in OnLevelWasLoaded()).
+     * first function directly gives Player its new position in the next level.
+     * second function gives Player its position etc. in the current level, which will be used to determine where the new position should be. */
+    public void getReadyToReposition(Vector2 newPosition) {
+        repositionOnLevelLoad = true;
+        determineNewPositionFromLastLevel = false;
+        this.newPosition = newPosition;
+    }
+    public void getReadyToReposition(int lastLevelMapX, int lastLevelMapY, Vector2 lastLevelPosition) {
+        repositionOnLevelLoad = true;
+        determineNewPositionFromLastLevel = true;
+        this.lastLevelMapX = lastLevelMapX;
+        this.lastLevelMapY = lastLevelMapY;
+        this.lastLevelPosition = lastLevelPosition;
+    }
+
     /////////////////////
     // EVENT FUNCTIONS //
     /////////////////////
@@ -232,9 +249,29 @@ public class Player : MonoBehaviour {
         HUD.instance.setHealth(receivesDamage.health);
         HUD.instance.phaseMeter.setMaxPhase(maxPhase);
         HUD.instance.phaseMeter.setPhase(maxPhase*startPhase);
-	}
 
-	void Update() {
+	}
+    
+    void OnLevelWasLoaded(int level) {
+        
+        if (repositionOnLevelLoad) {
+            if (determineNewPositionFromLastLevel) {
+                Vector2 absPosition = lastLevelPosition;
+                absPosition.x += lastLevelMapX * CameraControl.ROOM_UNIT_WIDTH;
+                absPosition.y += lastLevelMapY * CameraControl.ROOM_UNIT_HEIGHT;
+                rb2d.position = new Vector2(
+                    absPosition.x - Level.currentLoadedLevel.mapX * CameraControl.ROOM_UNIT_WIDTH,
+                    absPosition.y - Level.currentLoadedLevel.mapY * CameraControl.ROOM_UNIT_HEIGHT);
+            } else {
+                rb2d.position = newPosition;
+            }
+
+            repositionOnLevelLoad = false;
+        }
+        
+    }
+
+    void Update() {
 
         //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -529,15 +566,19 @@ public class Player : MonoBehaviour {
             }
             
         } else { // not currently charging
-            if (Keys.instance.shootHeld && canFireBullet) {
-                chargeParticles.startSpawning();
-                chargeParticles.tiny = true;
-                chargeTime = 0;
-                chargeFlashTime = 0;
-                chargeSoundTime = 99999;
-                SoundManager.instance.playSFX(chargingStartSound);
-                charging = true;
+
+            if (Vars.abilityKnown(Decryptor.ID.CHARGE_SHOT)) {
+                if (Keys.instance.shootHeld && canFireBullet) {
+                    chargeParticles.startSpawning();
+                    chargeParticles.tiny = true;
+                    chargeTime = 0;
+                    chargeFlashTime = 0;
+                    chargeSoundTime = 99999;
+                    SoundManager.instance.playSFX(chargingStartSound);
+                    charging = true;
+                }
             }
+
         }
 
     }
@@ -550,8 +591,10 @@ public class Player : MonoBehaviour {
         if (leftHeld) {
 
             //movement
-            if (v.x > 0) { //currently going right
+            if (v.x > .01f) { //currently going right
                 v.x = Mathf.Max(0, v.x - groundFriction * Time.deltaTime); //apply friction
+            } else if (Keys.instance.leftPressed) {
+                v.x = Mathf.Max(v.x, -groundStartSpeed + groundAccel * Time.deltaTime); // apply start speed
             }
             v.x -= groundAccel * Time.deltaTime;
             v.x = Mathf.Max(-groundMaxSpeed, v.x); //apply max ground speed
@@ -569,8 +612,10 @@ public class Player : MonoBehaviour {
         } else if (rightHeld) {
 
             //movement
-            if (v.x < 0) { //currently going left
+            if (v.x < -.01f) { //currently going left
                 v.x = Mathf.Min(0, v.x + groundFriction * Time.deltaTime); //apply friction
+            } else if (Keys.instance.rightPressed) {
+                v.x = Mathf.Min(v.x, groundStartSpeed - groundAccel * Time.deltaTime); // apply start speed
             }
             v.x += groundAccel * Time.deltaTime;
             v.x = Mathf.Min(groundMaxSpeed, v.x); //apply max ground speed
@@ -1045,6 +1090,13 @@ public class Player : MonoBehaviour {
     bool charging = false;
     float chargeTime = 0;
     AimDirection _aimDirection = AimDirection.FORWARD;
+
+    bool repositionOnLevelLoad = false;
+    bool determineNewPositionFromLastLevel = false;
+    int lastLevelMapX = 0;
+    int lastLevelMapY = 0;
+    Vector2 lastLevelPosition = new Vector2();
+    Vector2 newPosition = new Vector2();
 
     // components
     Rigidbody2D _rb2d;

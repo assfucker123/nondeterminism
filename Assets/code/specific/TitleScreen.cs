@@ -193,7 +193,6 @@ public class TitleScreen : MonoBehaviour {
 
     void playGameSelected() {
         Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData); // creating new node to save info to
-        Debug.Log(Vars.currentNodeData.level);
         Vars.loadLevel(Vars.currentNodeData.level);
         //Vars.loadLevel("calm_tundra_1");
         //Vars.loadLevel("mapScene");

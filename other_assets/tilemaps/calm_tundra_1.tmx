@@ -2,6 +2,9 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="82" height="23" tilewidth="16" tileheight="16" backgroundcolor="#00007f" nextobjectid="1">
  <properties>
   <property name="unity:scale" value="0.0625"/>
+  <property name="unity:sortingLayerName" value="Platforms"/>
+  <property name="unity:sortingOrder" value="1"/>
+  <property name="unity:tag" value="Map"/>
  </properties>
  <tileset firstgid="1" name="scifi_fg" tilewidth="16" tileheight="16" tilecount="228">
   <image source="img/scifi_fg.png" width="192" height="304"/>

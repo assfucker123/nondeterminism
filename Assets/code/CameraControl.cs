@@ -10,8 +10,8 @@ public class CameraControl : MonoBehaviour {
     public static float ORTHOGRAPHIC_SIZE = 11.25f;
     public static int SCREEN_WIDTH = 1280;
     public static int SCREEN_HEIGHT = 720;
-    public static float ROOM_UNIT_WIDTH { get { return SCREEN_WIDTH / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE; } }
-    public static float ROOM_UNIT_HEIGHT { get { return SCREEN_HEIGHT / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE; } }
+    public static float ROOM_UNIT_WIDTH { get { return SCREEN_WIDTH / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE; } } // = 40
+    public static float ROOM_UNIT_HEIGHT { get { return SCREEN_HEIGHT / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE; } } // = 22.5
     //screen size: 1280px x 720px
     //half screen size: 640px x 360px
     //tile size: 16px x 16px
@@ -27,7 +27,7 @@ public class CameraControl : MonoBehaviour {
         Debug.Assert(tiledMap != null);
         return new Rect(
             map.transform.position.x,
-            -map.transform.position.y,
+            tiledMap.GetMapHeightInPixelsScaled() - map.transform.position.y,
             tiledMap.GetMapWidthInPixelsScaled(),
             tiledMap.GetMapHeightInPixelsScaled()
             );

@@ -71,7 +71,9 @@ public class Vars {
         SoundManager.instance.volumeScale = 1;
 
         // should be called at the title screen
-        startGame();
+        if (!startGameCalled) {
+            startGame();
+        }
 
         SceneManager.LoadScene(name);
     }
@@ -223,12 +225,15 @@ public class Vars {
         currentNodeData = NodeData.createNodeData();
         currentNodeData.time = 0;
         currentNodeData.level = "tut_ship_1";
-        currentNodeData.position.Set(-11, 2);
+        currentNodeData.levelMapX = 1;
+        currentNodeData.levelMapY = 0;
+        currentNodeData.position.Set(25, 14);
         currentNodeData.orbs.Clear();
         currentNodeData.hasBooster = false;
         currentNodeData.healthUpgrades.Clear();
         currentNodeData.phaseReplacements = 0;
         currentNodeData.physicalEvents.Clear();
+        currentNodeData.levelsAmbushesDefeated.Clear();
         // decryptors
         decryptors.Clear();
         // info events

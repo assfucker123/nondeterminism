@@ -9,11 +9,14 @@ public class Level : MonoBehaviour {
     public int mapWidth = 1;
     public int mapHeight = 1;
     public Vector2 debugStartPosition = new Vector2(); // player starts here when just testing the level
+    public bool showOnMap = true;
 
     public GameObject keysGameObject;
     public GameObject soundManagerGameObject;
     public GameObject canvasGameObject;
     public GameObject playerGameObject;
+
+    public static Level currentLoadedLevel {  get { return _currentLoadedLevel; } } // reference to the last Level created
 	
 	void Awake() {
 
@@ -54,6 +57,9 @@ public class Level : MonoBehaviour {
             GameObject.DontDestroyOnLoad(playerGO);
         }
 
+
+
+        _currentLoadedLevel = this;
 	}
 
     void Start() {
@@ -73,5 +79,7 @@ public class Level : MonoBehaviour {
 	void Update() {
 		
 	}
+
+    private static Level _currentLoadedLevel = null;
 	
 }

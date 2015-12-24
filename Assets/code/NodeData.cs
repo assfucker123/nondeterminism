@@ -11,6 +11,8 @@ public class NodeData {
 
     public float time = 0;
     public string level = "";
+    public int levelMapX = 0;
+    public int levelMapY = 0;
     public Vector2 position = new Vector2();
     public List<PhysicalUpgrade.Orb> orbs = new List<PhysicalUpgrade.Orb>();
     public bool hasBooster = false;
@@ -24,7 +26,15 @@ public class NodeData {
     public bool eventHappened(AdventureEvent.Physical eventID) {
         return physicalEvents.IndexOf(eventID) != -1;
     }
-    
+    public List<string> levelsAmbushesDefeated = new List<string>(); // rooms whose ambushes have been defeated
+    public void defeatAmbush(string levelName) {
+        if (ambushDefeated(levelName)) return;
+        levelsAmbushesDefeated.Add(levelName);
+    }
+    public bool ambushDefeated(string levelName) {
+        return levelsAmbushesDefeated.IndexOf(levelName) != -1;
+    }
+
     public int id = 1; // used to identify this NodeData.  Must be a positive integer
     public NodeData parent = null;
     public List<NodeData> children = new List<NodeData>();
@@ -33,6 +43,8 @@ public class NodeData {
     public void copyFrom(NodeData nodeData) {
         time = nodeData.time;
         level = nodeData.level;
+        levelMapX = nodeData.levelMapX;
+        levelMapY = nodeData.levelMapY;
         position = nodeData.position;
         orbs.Clear();
         orbs.AddRange(nodeData.orbs);
@@ -42,9 +54,51 @@ public class NodeData {
         phaseReplacements = nodeData.phaseReplacements;
         physicalEvents.Clear();
         physicalEvents.AddRange(nodeData.physicalEvents);
+        levelsAmbushesDefeated.Clear();
+        levelsAmbushesDefeated.AddRange(nodeData.levelsAmbushesDefeated);
         parent = nodeData.parent;
         children.Clear();
         children.AddRange(nodeData.children);
+    }
+
+    /* Gets if this and the given nodeData are exactly the same,
+     * except for id, time, and position.  Doesn't check for children but it should. */
+    public bool redundant(NodeData nodeData) {
+        if (level != nodeData.level) return false;
+        // this is a really inefficient implementation
+        foreach (PhysicalUpgrade.Orb orb in orbs) {
+            if (nodeData.orbs.IndexOf(orb) == -1) return false;
+        }
+        foreach (PhysicalUpgrade.Orb orb in nodeData.orbs) {
+            if (orbs.IndexOf(orb) == -1) return false;
+        }
+        // compare booster
+        if (hasBooster != nodeData.hasBooster) return false;
+        // compare health upgrades
+        foreach (PhysicalUpgrade.HealthUpgrade hu in healthUpgrades) {
+            if (nodeData.healthUpgrades.IndexOf(hu) == -1) return false;
+        }
+        foreach (PhysicalUpgrade.HealthUpgrade hu in nodeData.healthUpgrades) {
+            if (healthUpgrades.IndexOf(hu) == -1) return false;
+        }
+        // compare phase replacements
+        if (phaseReplacements != nodeData.phaseReplacements) return false;
+        // compare physical events
+        foreach (AdventureEvent.Physical pe in physicalEvents) {
+            if (nodeData.physicalEvents.IndexOf(pe) == -1) return false;
+        }
+        foreach (AdventureEvent.Physical pe in nodeData.physicalEvents) {
+            if (physicalEvents.IndexOf(pe) == -1) return false;
+        }
+        // compare ambushes defeated
+        foreach (string levelName in levelsAmbushesDefeated) {
+            if (nodeData.levelsAmbushesDefeated.IndexOf(levelName) == -1) return false;
+        }
+        foreach (string levelName in nodeData.levelsAmbushesDefeated) {
+            if (levelsAmbushesDefeated.IndexOf(levelName) == -1) return false;
+        }
+
+        return true;
     }
 
     public void loadFromString(string str) {
@@ -56,43 +110,53 @@ public class NodeData {
         loadIDFromString(str);
         // level
         level = strs[1];
+        // level map x
+        levelMapX = int.Parse(strs[2]);
+        // level map y
+        levelMapY = int.Parse(strs[3]);
         // position
-        position.Set(float.Parse(strs[2]), float.Parse(strs[3]));
+        position.Set(float.Parse(strs[4]), float.Parse(strs[5]));
         // time
-        time = float.Parse(strs[4]);
+        time = float.Parse(strs[6]);
         // orbs
         orbs.Clear();
-        string[] orbStrs = strs[5].Split(delims2);
+        string[] orbStrs = strs[7].Split(delims2);
         for (int i=0; i<orbStrs.Length; i++) {
             if (orbStrs[i] == "") continue;
             orbs.Add((PhysicalUpgrade.Orb)int.Parse(orbStrs[i]));
         }
         // booster
-        hasBooster = (strs[6] == "1");
+        hasBooster = (strs[8] == "1");
         // health upgrades
         healthUpgrades.Clear();
-        string[] healthStrs = strs[7].Split(delims2);
+        string[] healthStrs = strs[9].Split(delims2);
         for (int i = 0; i < healthStrs.Length; i++) {
             if (healthStrs[i] == "")continue;
             healthUpgrades.Add((PhysicalUpgrade.HealthUpgrade)int.Parse(healthStrs[i]));
         }
         // phase replacements
-        phaseReplacements = int.Parse(strs[8]);
+        phaseReplacements = int.Parse(strs[10]);
         // parent
-        int parentID = int.Parse(strs[9]);
+        int parentID = int.Parse(strs[11]);
         parent = nodeDataFromID(parentID);
         // children
         children.Clear();
-        string[] childrenStrs = strs[10].Split(delims2);
+        string[] childrenStrs = strs[12].Split(delims2);
         for (int i=0; i<childrenStrs.Length; i++) {
             if (childrenStrs[i] == "") continue;
             children.Add(nodeDataFromID(int.Parse(childrenStrs[i])));
         }
         // physical events
-        string[] physStrs = strs[11].Split(delims2);
+        string[] physStrs = strs[13].Split(delims2);
         for (int i = 0; i < physStrs.Length; i++) {
             if (physStrs[i] == "") continue;
             physicalEvents.Add((AdventureEvent.Physical)int.Parse(physStrs[i]));
+        }
+        // ambushes defeated
+        string[] ambushStrs = strs[14].Split(delims2);
+        for (int i = 0; i < ambushStrs.Length; i++) {
+            if (ambushStrs[i] == "") continue;
+            levelsAmbushesDefeated.Add(ambushStrs[i]);
         }
 
     }
@@ -103,40 +167,50 @@ public class NodeData {
         ret += id + ">";
         // level (1)
         ret += level + ">";
-        // position (2, 3)
+        // level map x (2)
+        ret += levelMapX + ">";
+        // level map y (3)
+        ret += levelMapY + ">";
+        // position (4, 5)
         ret += position.x + ">" + position.y + ">";
-        // time (4)
+        // time (6)
         ret += time + ">";
-        // orbs (5)
+        // orbs (7)
         for (int i=0; i<orbs.Count; i++) {
             ret += (int)orbs[i];
             if (i < orbs.Count - 1) ret += "?";
         }
         ret += ">";
-        // booster (6)
+        // booster (8)
         if (hasBooster) ret += "1>";
         else ret += "0>";
-        // health upgrades (7)
+        // health upgrades (9)
         for (int i = 0; i < healthUpgrades.Count; i++) {
             ret += (int)healthUpgrades[i];
             if (i < healthUpgrades.Count - 1) ret += "?";
         }
         ret += ">";
-        // phase replacements (8)
+        // phase replacements (10)
         ret += phaseReplacements + ">";
-        // parent (9)
+        // parent (11)
         if (parent == null) ret += "0>";
         else ret += parent.id + ">";
-        // children (10)
+        // children (12)
         for (int i = 0; i < children.Count; i++) {
             ret += children[i].id;
             if (i < children.Count - 1) ret += "?";
         }
         ret += ">";
-        // physical events (11)
+        // physical events (13)
         for (int i = 0; i < physicalEvents.Count; i++) {
             ret += (int)physicalEvents[i];
             if (i < physicalEvents.Count - 1) ret += "?";
+        }
+        ret += ">";
+        // ambushes defeated (14)
+        for (int i = 0; i < levelsAmbushesDefeated.Count; i++) {
+            ret += levelsAmbushesDefeated[i];
+            if (i < levelsAmbushesDefeated.Count - 1) ret += "?";
         }
 
         return ret;

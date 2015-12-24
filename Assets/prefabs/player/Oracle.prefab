@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84940c19c6484d4db1f67de6c9706c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAccel: 190
+  groundAccel: 300
   groundMaxSpeed: 17
   groundFriction: 140
   airAccel: 100
@@ -382,7 +382,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: groundAccel
-      value: 190
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: gravity
