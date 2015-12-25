@@ -145,6 +145,14 @@ public class HUD : MonoBehaviour {
         blackScreen.color = Color.clear;
     }
 
+    void OnLevelWasLoaded(int level) {
+
+        // fading out black screen once level is loaded
+        blackScreenFadeTime = 0;
+        blackScreen.color = Color.white;
+
+    }
+
     void createPauseScreen() {
         if (PauseScreen.instance != null) return;
         GameObject psGO = GameObject.Instantiate(pauseScreenGameObject) as GameObject;
@@ -160,6 +168,12 @@ public class HUD : MonoBehaviour {
     }
 	
 	void Update() {
+
+        // blackscreen fading
+        if (blackScreenFadeTime < blackScreenFadeDuration) {
+            blackScreenFadeTime += Time.unscaledDeltaTime;
+            blackScreen.color = new Color(1, 1, 1, Mathf.Max(0, 1 - blackScreenFadeTime / blackScreenFadeDuration));
+        }
 
         // detect screenshots
         if (Vars.screenshotMode) {
@@ -196,6 +210,9 @@ public class HUD : MonoBehaviour {
 
     private int _maxHealth = -1;
     private int _health = -1;
+
+    float blackScreenFadeTime = 9999;
+    float blackScreenFadeDuration = .5f;
 
     private List<HealthHeart> healthHearts = new List<HealthHeart>();
     private UnityEngine.UI.Image _blackScreen;

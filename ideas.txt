@@ -436,3 +436,5 @@ o Oracle getting the vision of the world ending does not happen abruptly at the 
 	- Vision ends with Oracle freaking out in the ship at the beginning of the game.
 		- Afterwards Wally will direct Oracle down an obscure path to the left of the ship the player wouldn't likely figure out on their first try.
 	o This entire sequence is technically optional.  Just don't go into the ominous room.
+	
+o Boss fight section: create obbs that will heal the boss.  Need to destroy the orbs before they get to the boss.

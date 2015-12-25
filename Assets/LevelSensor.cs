@@ -24,7 +24,8 @@ public class LevelSensor : MonoBehaviour {
     void LateUpdate() {
 
         if (TimeUser.reverting ||
-            Time.timeScale < .0001f)
+            Time.timeScale < .0001f ||
+            HUD.instance.gameOverScreen.activated)
             return;
 
         if (goToLevel) {

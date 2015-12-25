@@ -11,7 +11,7 @@ public class AdventureEvent {
 
     // physical events are time-dependent
     public enum Physical {
-        DEFEATED_GRYGOR
+        DESTROYED_TUTORIAL_WALL
     }
 
 

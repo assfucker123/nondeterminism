@@ -37,8 +37,6 @@ public class Bubble : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
-        animator = spriteObject.GetComponent<Animator>();
-        colFinder = GetComponent<ColFinder>();
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
@@ -121,8 +119,6 @@ public class Bubble : MonoBehaviour {
     Rigidbody2D rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
-    Animator animator;
-    ColFinder colFinder;
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;

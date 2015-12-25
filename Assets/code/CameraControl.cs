@@ -157,7 +157,6 @@ public class CameraControl : MonoBehaviour {
 
             // undo inverting colors
             _inversion = 0;
-            float t = 0;
             colorCorrectionCurves.redChannel = AnimationCurve.Linear(0, 0, 1, 1);
             colorCorrectionCurves.greenChannel = AnimationCurve.Linear(0, 0, 1, 1);
             colorCorrectionCurves.blueChannel = AnimationCurve.Linear(0, 0, 1, 1);
@@ -201,7 +200,6 @@ public class CameraControl : MonoBehaviour {
     
     void Awake() {
         _instance = this;
-        cameraComponent = GetComponent<Camera>();
         timeUser = GetComponent<TimeUser>();
         bloomOptimized = GetComponent<UnityStandardAssets.ImageEffects.BloomOptimized>();
         colorCorrectionCurves = GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>();
@@ -351,7 +349,6 @@ public class CameraControl : MonoBehaviour {
     private float movePosTime = 0;
     private float movePosDuration = 0;
 
-    private Camera cameraComponent;
     private TimeUser timeUser;
     private UnityStandardAssets.ImageEffects.BloomOptimized bloomOptimized;
     private UnityStandardAssets.ImageEffects.ColorCorrectionCurves colorCorrectionCurves;

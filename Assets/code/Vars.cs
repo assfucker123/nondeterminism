@@ -75,6 +75,11 @@ public class Vars {
             startGame();
         }
 
+        // have the black screen cover everything temporarily
+        if (HUD.instance != null && HUD.instance.blackScreen != null) {
+            HUD.instance.blackScreen.color = Color.white;
+        }
+
         SceneManager.LoadScene(name);
     }
 

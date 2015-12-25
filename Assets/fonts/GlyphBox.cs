@@ -219,10 +219,8 @@ public class GlyphBox : MonoBehaviour {
     public Vector2 getNormalPostion(GlyphSprite glyphSprite, int x, int y) {
         Vector2 ret = new Vector2();
         float width = 0;
-        float height = 0;
         if (uiMode) {
             width = rectTransform.rect.width;
-            height = rectTransform.rect.height;
         }
 
         float lineWidth = 0;

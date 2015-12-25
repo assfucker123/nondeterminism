@@ -92,7 +92,6 @@ public class Area {
         float padH = Mathf.Max(0, height/2 - padding);
 
         Random.seed = (int)(value * int.MaxValue);
-        float value2 = Random.value;
 
         Vector2 ret = new Vector2(padW * (value * 2 - 1), padH * (value * 2 - 1));
         return ret + center;
