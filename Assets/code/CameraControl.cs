@@ -68,12 +68,12 @@ public class CameraControl : MonoBehaviour {
     public Vector2 position {
         get {
             Vector2 ret = new Vector2(transform.localPosition.x, transform.localPosition.y);
-            return ret - shakePos;
+            return ret - shakePos - new Vector2(0, bobOffset);
         }
         set {
             Vector3 transPos = transform.localPosition;
             transPos.x = value.x + shakePos.x;
-            transPos.y = value.y + shakePos.y;
+            transPos.y = value.y + shakePos.y + bobOffset;
             transform.localPosition = transPos;
         }
     }
@@ -104,6 +104,17 @@ public class CameraControl : MonoBehaviour {
         shakeDuration = duration;
     }
     public bool shaking { get { return shakeTime < shakeDuration; } }
+
+    public bool bobbing { get { return _bobbing; }
+        set {
+            if (bobbing == value) return;
+            _bobbing = value;
+            if (bobbing)
+                bobTime = 0;
+        }
+    }
+    float BOB_MAGNITUDE = .3f;
+    float BOB_PERIOD = 3.0f;
 
     public void hitPause(float duration = .034f) {
         if (Time.timeScale == 0) {
@@ -262,6 +273,14 @@ public class CameraControl : MonoBehaviour {
         }
         transform.localPosition += new Vector3(shakePos.x, shakePos.y, 0);
 
+        // handle bobbing
+        transform.localPosition -= new Vector3(0, bobOffset, 0);
+        if (bobbing) {
+            bobTime += Time.deltaTime;
+            bobOffset = Mathf.Sin(bobTime / BOB_PERIOD * Mathf.PI * 2) * BOB_MAGNITUDE;
+        }
+        transform.localPosition += new Vector3(0, bobOffset, 0);
+
         updateParallaxObjects();
 
     }
@@ -282,6 +301,9 @@ public class CameraControl : MonoBehaviour {
         fi.floats["sD"] = shakeDuration;
         fi.floats["sPX"] = shakePos.x;
         fi.floats["sPY"] = shakePos.y;
+        fi.bools["b"] = bobbing;
+        fi.floats["bT"] = bobTime;
+        fi.floats["bO"] = bobOffset;
         fi.floats["hPT"] = hitPauseTime;
         fi.floats["hPD"] = hitPauseDuration;
         fi.floats["pTS"] = prevTimeScale;
@@ -310,6 +332,9 @@ public class CameraControl : MonoBehaviour {
         shakeDuration = fi.floats["sD"];
         shakePos.x = fi.floats["sPX"];
         shakePos.y = fi.floats["sPY"];
+        bobbing = fi.bools["b"];
+        bobTime = fi.floats["bT"];
+        bobOffset = fi.floats["bO"];
         hitPauseTime = fi.floats["hPT"];
         hitPauseDuration = fi.floats["hPD"];
         prevTimeScale = fi.floats["pTS"];
@@ -337,6 +362,10 @@ public class CameraControl : MonoBehaviour {
     private float shakeTime = 9999;
     private float shakeDuration = 0;
     private Vector2 shakePos = new Vector2(); //true position = position + shakePos
+
+    private bool _bobbing = false;
+    private float bobTime = 0;
+    private float bobOffset = 0; //true postion.y = position.y + bobOffset
 
     private float hitPauseTime = 0;
     private float hitPauseDuration = 0;

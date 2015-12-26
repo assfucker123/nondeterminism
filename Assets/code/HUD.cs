@@ -149,7 +149,7 @@ public class HUD : MonoBehaviour {
 
         // fading out black screen once level is loaded
         blackScreenFadeTime = 0;
-        blackScreen.color = Color.white;
+        blackScreen.color = new Color(0, 0, 0, 1);
 
     }
 
@@ -171,8 +171,8 @@ public class HUD : MonoBehaviour {
 
         // blackscreen fading
         if (blackScreenFadeTime < blackScreenFadeDuration) {
-            blackScreenFadeTime += Time.unscaledDeltaTime;
-            blackScreen.color = new Color(1, 1, 1, Mathf.Max(0, 1 - blackScreenFadeTime / blackScreenFadeDuration));
+            blackScreenFadeTime += Time.fixedDeltaTime;
+            blackScreen.color = new Color(0, 0, 0, Mathf.Max(0, 1 - blackScreenFadeTime / blackScreenFadeDuration));
         }
 
         // detect screenshots
@@ -212,7 +212,7 @@ public class HUD : MonoBehaviour {
     private int _health = -1;
 
     float blackScreenFadeTime = 9999;
-    float blackScreenFadeDuration = .5f;
+    float blackScreenFadeDuration = .3f;
 
     private List<HealthHeart> healthHearts = new List<HealthHeart>();
     private UnityEngine.UI.Image _blackScreen;

@@ -438,3 +438,5 @@ o Oracle getting the vision of the world ending does not happen abruptly at the 
 	o This entire sequence is technically optional.  Just don't go into the ominous room.
 	
 o Boss fight section: create obbs that will heal the boss.  Need to destroy the orbs before they get to the boss.
+
+o Advertise game as Majora's Mask time-rewind mechanic in a Metroidvania.

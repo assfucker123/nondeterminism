@@ -10,6 +10,7 @@ public class Level : MonoBehaviour {
     public int mapHeight = 1;
     public Vector2 debugStartPosition = new Vector2(); // player starts here when just testing the level
     public bool showOnMap = true;
+    public bool bobbingCamera = false;
 
     public GameObject keysGameObject;
     public GameObject soundManagerGameObject;
@@ -73,6 +74,11 @@ public class Level : MonoBehaviour {
         mapBounds.yMin += diff.y / 2;
         mapBounds.yMax -= diff.y / 2;
         CameraControl.instance.enableBounds(mapBounds);
+
+        // optional bobbing for camera
+        if (bobbingCamera) {
+            CameraControl.instance.bobbing = true;
+        }
 
     }
 	
