@@ -10,10 +10,17 @@ public class AttackObject : MonoBehaviour {
     public int damage = 1;
 
 	void Awake() {
-        rb2d = transform.parent.GetComponent<Rigidbody2D>();
-        timeUser = transform.parent.GetComponent<TimeUser>(); //it's okay if this is null
-        visionUser = transform.parent.GetComponent<VisionUser>(); //it's okay if this is null
-        defaultDeath = transform.parent.GetComponent<DefaultDeath>(); //it's okay if this is null
+        if (transform.parent == null) {
+            rb2d = GetComponent<Rigidbody2D>();
+            timeUser = GetComponent<TimeUser>(); //it's okay if this is null
+            visionUser = GetComponent<VisionUser>(); //it's okay if this is null
+            defaultDeath = GetComponent<DefaultDeath>(); //it's okay if this is null
+        } else {
+            rb2d = transform.parent.GetComponent<Rigidbody2D>();
+            timeUser = transform.parent.GetComponent<TimeUser>(); //it's okay if this is null
+            visionUser = transform.parent.GetComponent<VisionUser>(); //it's okay if this is null
+            defaultDeath = transform.parent.GetComponent<DefaultDeath>(); //it's okay if this is null
+        }
 	}
 	
 	void Update () {

@@ -18,15 +18,20 @@ public class VisualEffect : MonoBehaviour {
             return;
 
         time += Time.deltaTime;
+        updateFadeColor();
+        
+        if (time >= duration) {
+            timeUser.timeDestroy();
+        }
+    }
+
+    void updateFadeColor() {
         if (fadeOut) {
             if (spriteRenderer != null) {
                 Color c = spriteRenderer.color;
                 c.a = Utilities.easeLinearClamp(time, 1, -1, duration);
                 spriteRenderer.color = c;
             }
-        }
-        if (time >= duration) {
-            timeUser.timeDestroy();
         }
     }
 
@@ -35,6 +40,7 @@ public class VisualEffect : MonoBehaviour {
     }
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
+        updateFadeColor();
     }
 
     SpriteRenderer spriteRenderer;

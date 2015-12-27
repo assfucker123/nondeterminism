@@ -37,7 +37,7 @@ public class TimeUser : MonoBehaviour {
 
     /* Once a TimeUser has been time destroyed for this amount of time, 
      * it will get destroyed for real. */
-    public static float MAX_TIME_DESTROY_AGE = 7.0f;
+    public static float MAX_TIME_DESTROY_AGE = 12.0f;
 
     /* Begins a continuous revert.  The game will appear to go back in
      * time until endContinuousRevert() is called */
@@ -369,7 +369,9 @@ public class TimeUser : MonoBehaviour {
             }
         }
 
-	}
+        destroyEarlyFrameInfo();
+
+    }
 
     void OnDestroy() {
         //destroy all frame infos
@@ -381,6 +383,19 @@ public class TimeUser : MonoBehaviour {
         allTimeUsers.Remove(this);
     }
 
+    /* Destroys all frame info earlier than MAX_TIME_DESTROY_AGE */
+    void destroyEarlyFrameInfo() {
+        for (int i=0; i<fis.Count; i++) {
+            FrameInfo fi = fis[i];
+            if (fi.time < TimeUser.time - MAX_TIME_DESTROY_AGE) {
+                FrameInfo.destroy(fi);
+                fis.RemoveAt(i);
+                i--;
+            } else {
+                break;
+            }
+        }
+    }
     
 
     private Rigidbody2D rb2d;
