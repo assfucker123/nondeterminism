@@ -1040,14 +1040,17 @@ public class Player : MonoBehaviour {
 
     // setting camera position
     void setCameraPosition() {
+        /*
         CameraControl cameraControl = CameraControl.instance;
         if (cameraControl == null) return;
+        
 
         Vector2 pos = rb2d.position;
         if (TimeUser.reverting) {
             pos += rb2d.velocity * Time.deltaTime;
         }
         cameraControl.moveToPosition(pos);
+        */
     }
 
     // helper function

@@ -37,9 +37,20 @@ public class CameraControl : MonoBehaviour {
     // PUBLIC FUNCTIONS //
     //////////////////////
 
+    public enum PositionMode {
+        CUSTOM, // camera position will not be set by CameraControl except for keeping within bounds (if enabled)
+        SET_POSITION, // camera position will move to a target
+        FOLLOW_PLAYER // camera will follow the player (or move to the player).  If Player does not exist in the scene, mode is switched to CUSTOM.  This is the default mode.
+    }
+
+    public PositionMode positionMode {
+        get { return _positionMode; }
+    }
+
     /* Moves the camera to the target position.  Stays within the bounds if bounds are enabled.
      * Set duration to 0 to move there immediately. */
     public void moveToPosition(Vector2 targetPosition, float duration = 0) {
+        _positionMode = PositionMode.SET_POSITION;
         movePos0 = position;
         movePos1 = targetPosition;
         if (duration < .0001f) {
@@ -64,7 +75,31 @@ public class CameraControl : MonoBehaviour {
         }
     }
     
-    /* Sets camera position directly, ignoring bounds etc. */
+    /* Set camera to follow the player.
+     * duration is how long it takes for the camera to focus completely on the player. */
+    public void followPlayer(float duration = 0) {
+        if (Player.instance == null) {
+            _positionMode = PositionMode.CUSTOM;
+            return;
+        }
+        _positionMode = PositionMode.FOLLOW_PLAYER;
+        movePos0 = position;
+        if (duration < .0001f) {
+            movePosTime = 0;
+            movePosDuration = 0;
+        } else {
+            movePosTime = 0;
+            movePosDuration = duration;
+        }
+    }
+
+    /* Makes the positionMode CUSTOM, meaning position will not be influenced by CameraControl (except for keeping within bounds) */
+    public void customPositionMode() {
+        _positionMode = PositionMode.CUSTOM;
+    }
+
+
+    /* Sets camera position directly, ignoring positionMode, bounds, etc. */
     public Vector2 position {
         get {
             Vector2 ret = new Vector2(transform.localPosition.x, transform.localPosition.y);
@@ -98,12 +133,16 @@ public class CameraControl : MonoBehaviour {
     public Rect bounds { get { return _bounds; } }
     public bool boundsEnabled { get { return _boundsEnabled; } }
 
+    // SHAKING
+
     public void shake(float magnitude = .5f, float duration = .5f) {
         shakeMagnitude = magnitude;
         shakeTime = 0;
         shakeDuration = duration;
     }
     public bool shaking { get { return shakeTime < shakeDuration; } }
+
+    // BOBBING
 
     public bool bobbing { get { return _bobbing; }
         set {
@@ -115,6 +154,8 @@ public class CameraControl : MonoBehaviour {
     }
     float BOB_MAGNITUDE = .3f;
     float BOB_PERIOD = 3.0f;
+
+    // HIT PAUSE
 
     public void hitPause(float duration = .034f) {
         if (Time.timeScale == 0) {
@@ -133,6 +174,7 @@ public class CameraControl : MonoBehaviour {
     }
     public bool hitPaused { get { return hitPauseTime < hitPauseDuration; } }
     
+    // EFFECTS
 
     public void enableEffects(float bloomIntensity, float colorCorrectionSaturation, float inversion) {
         if (bloomOptimized != null) {
@@ -238,13 +280,27 @@ public class CameraControl : MonoBehaviour {
             return;
         }
         
-
-        // move position
-        if (movingToPosition) {
-            movePosTime += Time.deltaTime;
-            Vector2 pos = new Vector2(
-                Utilities.easeInOutQuadClamp(movePosTime, movePos0.x, movePos1.x - movePos0.x, movePosDuration),
-                Utilities.easeInOutQuadClamp(movePosTime, movePos0.y, movePos1.y - movePos0.y, movePosDuration));
+        // move camera
+        if (positionMode == PositionMode.FOLLOW_PLAYER) {
+            if (Player.instance == null)
+                customPositionMode();
+        }
+        if (positionMode != PositionMode.CUSTOM) {
+            Vector2 pos = position;
+            Vector2 targPos = position;
+            if (positionMode == PositionMode.FOLLOW_PLAYER) {
+                targPos = Player.instance.rb2d.position;
+            } else {
+                targPos = movePos1;
+            }
+            if (movingToPosition) {
+                movePosTime += Time.deltaTime;
+                pos = new Vector2(
+                    Utilities.easeInOutQuadClamp(movePosTime, movePos0.x, targPos.x - movePos0.x, movePosDuration),
+                    Utilities.easeInOutQuadClamp(movePosTime, movePos0.y, targPos.y - movePos0.y, movePosDuration));
+            } else {
+                pos = targPos;
+            }
             if (boundsEnabled) {
                 position = fitPositionInBounds(pos, bounds, ROOM_UNIT_WIDTH / 2, ROOM_UNIT_HEIGHT / 2);
             } else {
@@ -296,6 +352,7 @@ public class CameraControl : MonoBehaviour {
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["x"] = transform.localPosition.x;
         fi.floats["y"] = transform.localPosition.y;
+        fi.ints["pm"] = (int)positionMode;
         fi.floats["sM"] = shakeMagnitude;
         fi.floats["sT"] = shakeTime;
         fi.floats["sD"] = shakeDuration;
@@ -327,6 +384,7 @@ public class CameraControl : MonoBehaviour {
         float prevPrevTimeScale = prevTimeScale;
         
         transform.localPosition = new Vector3(fi.floats["x"], fi.floats["y"], transform.localPosition.z);
+        _positionMode = (PositionMode)fi.ints["pm"];
         shakeMagnitude = fi.floats["sM"];
         shakeTime = fi.floats["sT"];
         shakeDuration = fi.floats["sD"];
@@ -377,6 +435,7 @@ public class CameraControl : MonoBehaviour {
     private Vector2 movePos1 = new Vector2();
     private float movePosTime = 0;
     private float movePosDuration = 0;
+    private PositionMode _positionMode = PositionMode.FOLLOW_PLAYER;
 
     private TimeUser timeUser;
     private UnityStandardAssets.ImageEffects.BloomOptimized bloomOptimized;

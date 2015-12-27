@@ -40,12 +40,6 @@ public class LevelSensor : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D c2d) {
-        if (levelTo == "")
-            return;
-        goToLevel = true;
-    }
-
     bool goToLevel = false;
     BoxCollider2D bc2d;
 
