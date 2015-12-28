@@ -1055,7 +1055,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 159518, guid: 7cb6adf0d91da614fa3b4b6402e10850, type: 2}
       propertyPath: m_Name
-      value: CameraSensor (scenic) (1)
+      value: CameraSensor (scenic starting)
       objectReference: {fileID: 0}
     - target: {fileID: 11418768, guid: 7cb6adf0d91da614fa3b4b6402e10850, type: 2}
       propertyPath: duration
