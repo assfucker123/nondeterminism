@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 12/23/2015 9:30:45 PM-->
+<!--Last exported: 12/27/2015 11:07:48 PM-->
 <Tiled2Unity version="0.9.13.1">
-  <Prefab name="empty_1x2" numTilesWide="41" numTilesHigh="45" tileWidth="16" tileHeight="16" exportScale="1" mapWidthInPixels="656" mapHeightInPixels="720" scale="0.0625" tag="Map">
+  <Prefab name="empty_1x2" numTilesWide="41" numTilesHigh="45" tileWidth="16" tileHeight="16" exportScale="0.0625" mapWidthInPixels="656" mapHeightInPixels="720" tag="Map">
     <GameObject name="bg_00" x="0" y="0" />
     <GameObject name="Tile_Layer_1_01" x="0" y="0" />
   </Prefab>

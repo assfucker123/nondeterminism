@@ -14,6 +14,7 @@ public class HUD : MonoBehaviour {
     public GameObject mapUIGameObject;
     public GameObject speedLinesGameObject;
     public GameObject gameOverScreenObject;
+    public GameObject textBoxGameObject;
     public GameObject flashbackArtifactsGameObject;
 
     public int health { get { return _health; } }
@@ -33,6 +34,8 @@ public class HUD : MonoBehaviour {
     public PauseScreen pauseScreen { get { return _pauseScreen; } }
     public MapUI mapUI { get { return _mapUI; } }
     public GameOverScreen gameOverScreen { get { return _gameOverScreen; } }
+    public TextBox textBox {  get { return _textBox; } }
+    
     public FlashbackArtifacts flashbackArtifacts { get { return _flashbackArtifacts; } }
 
     public void setMaxHealth(int maxHealth){
@@ -138,6 +141,11 @@ public class HUD : MonoBehaviour {
         gosGO.transform.SetParent(canvas.transform, false);
         _gameOverScreen = gosGO.GetComponent<GameOverScreen>();
         _gameOverScreen.initialHide();
+        // create Text Box
+        GameObject tbGO = GameObject.Instantiate(textBoxGameObject) as GameObject;
+        tbGO.transform.SetParent(canvas.transform, false);
+        _textBox = tbGO.GetComponent<TextBox>();
+        _textBox.closeImmediately();
         
 	}
 
@@ -222,6 +230,7 @@ public class HUD : MonoBehaviour {
     private PauseScreen _pauseScreen;
     private MapUI _mapUI;
     private GameOverScreen _gameOverScreen;
+    private TextBox _textBox;
     private FlashbackArtifacts _flashbackArtifacts;
 	
 	// components

@@ -47,7 +47,10 @@ public class MapPage : MonoBehaviour {
     public void hide() {
         sampleText.makeAllCharsInvisible();
 
-        MapUI.instance.hideMap();
+        if (MapUI.instance != null) {
+            MapUI.instance.hideMap();
+        }
+        
     }
 
     Properties propAsset;

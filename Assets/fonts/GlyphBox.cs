@@ -123,6 +123,24 @@ public class GlyphBox : MonoBehaviour {
         updateGlyphs(false);
     }
 
+    /* Sets text that has been formatted with style. */
+    public void setText(string text) {
+        setText(text, 99999);
+        _visibleChars = 0;
+        for (int i = 0; i < height; i++) {
+            _visibleChars += lines[i].Length;
+        }
+    }
+    public void setText(string text, int visibleChars) {
+        formattedText = text;
+        Debug.Log("WORK HERE (FORMATTING TEXT)");
+        setPlainText(text, visibleChars);
+
+        // uncomment this when formatting text:
+        //updateGlyphs(true);
+    }
+
+
     /* Makes all characters in the text visible */
     public void makeAllCharsVisible() {
         _visibleChars = 0;
@@ -277,7 +295,8 @@ public class GlyphBox : MonoBehaviour {
 
     void Update() {
 
-        if (timeUser.shouldNotUpdate)
+        if (timeUser != null &&
+            timeUser.shouldNotUpdate)
             return;
 
         //testing
@@ -296,6 +315,9 @@ public class GlyphBox : MonoBehaviour {
         fi.ints["vC"] = visibleChars;
         fi.ints["vSC"] = visibleSecretChars;
         fi.ints["align"] = (int)alignment;
+
+        /* Old (and slow): save formatting of everything
+        
         // convert lines and secretLines into strings
         string linesStr = "";
         for (int i = 0; i < lines.Count; i++) {
@@ -311,6 +333,10 @@ public class GlyphBox : MonoBehaviour {
         fi.strings["sLines"] = linesStr;
 
         fi.strings["gStyles"] = glyphStylesToString();
+        */
+
+        /* New (faster): save formatted text and apply on revert */
+        fi.strings["formattedText"] = formattedText;
     }
 
     void OnRevert(FrameInfo fi) {
@@ -319,6 +345,10 @@ public class GlyphBox : MonoBehaviour {
         _visibleChars = fi.ints["vC"];
         _visibleSecretChars = fi.ints["vSC"];
         _alignment = (Alignment)fi.ints["align"];
+
+
+        /* Old (and slow): save formatting of everything
+
         // parse lines and secretLines from strings
         char[] delims = { '\n' };
         string linesStr = fi.strings["lines"];
@@ -341,6 +371,14 @@ public class GlyphBox : MonoBehaviour {
         glyphStylesFromString(fi.strings["gStyles"]);
 
         updateGlyphs(true);
+
+        */
+
+        /* New (faster): save formatted text and apply on revert */
+        formattedText = fi.strings["formattedText"];
+
+        setText(formattedText, visibleChars);
+        
     }
 
     void OnDestroy() {
@@ -527,6 +565,7 @@ public class GlyphBox : MonoBehaviour {
     int _visibleSecretChars = 0;
     List<string> lines = new List<string>(); // hold text data
     List<string> secretLines = new List<string>(); // hold secret text data
+    string formattedText = "";
     Alignment _alignment = Alignment.LEFT;
 
     TimeUser timeUser;

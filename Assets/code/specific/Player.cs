@@ -278,6 +278,8 @@ public class Player : MonoBehaviour {
             
         }
 
+        CutsceneKeys.updateFromKeys();
+
         // decrease phase over time
         if (!HUD.instance.phaseMeter.increasing) {
             if (TimeUser.reverting) {
@@ -306,14 +308,14 @@ public class Player : MonoBehaviour {
         }
 
         //set button vars
-        leftHeld = Keys.instance.leftHeld;
-        rightHeld = Keys.instance.rightHeld;
+        leftHeld = CutsceneKeys.leftHeld;
+        rightHeld = CutsceneKeys.rightHeld;
         if (leftHeld == rightHeld) {
             leftHeld = false;
             rightHeld = false;
         }
-        jumpPressed = Keys.instance.jumpPressed;
-        jumpHeld = Keys.instance.jumpHeld;
+        jumpPressed = CutsceneKeys.jumpPressed;
+        jumpHeld = CutsceneKeys.jumpHeld;
 
         //control reverting
         timeReverting();
@@ -327,9 +329,9 @@ public class Player : MonoBehaviour {
         switch (state) {
         case State.GROUND:
         case State.AIR:
-            if (Keys.instance.upHeld) {
+            if (CutsceneKeys.upHeld) {
                 aimDirection = AimDirection.UP;
-            } else if (Keys.instance.downHeld) {
+            } else if (CutsceneKeys.downHeld) {
                 aimDirection = AimDirection.DOWN;
             } else {
                 aimDirection = AimDirection.FORWARD;
@@ -361,7 +363,7 @@ public class Player : MonoBehaviour {
         // fire bullets
         bulletTime += Time.deltaTime;
         if (canFireBullet) {
-            if (Keys.instance.shootPressed) {
+            if (CutsceneKeys.shootPressed) {
                 bulletPrePress = true;
             }
             if (bulletPrePress && bulletTime >= bulletMinDuration) {
@@ -369,7 +371,7 @@ public class Player : MonoBehaviour {
                 bulletTime = 0;
                 bulletPrePress = false;
             }
-            if (chargeTime >= chargeDuration && Keys.instance.shootReleased) {
+            if (chargeTime >= chargeDuration && CutsceneKeys.shootReleased) {
                 fireBullet(true, aimDirection);
             }
         }
@@ -557,7 +559,7 @@ public class Player : MonoBehaviour {
                     chargeSoundTime = 0;
                 }
             }
-            if (!Keys.instance.shootHeld || !canFireBullet) {
+            if (!CutsceneKeys.shootHeld || !canFireBullet) {
                 chargeParticles.stopSpawning();
                 chargeTime = 0;
                 charging = false;
@@ -568,7 +570,7 @@ public class Player : MonoBehaviour {
         } else { // not currently charging
 
             if (Vars.abilityKnown(Decryptor.ID.CHARGE_SHOT)) {
-                if (Keys.instance.shootHeld && canFireBullet) {
+                if (CutsceneKeys.shootHeld && canFireBullet) {
                     chargeParticles.startSpawning();
                     chargeParticles.tiny = true;
                     chargeTime = 0;
@@ -593,7 +595,7 @@ public class Player : MonoBehaviour {
             //movement
             if (v.x > .01f) { //currently going right
                 v.x = Mathf.Max(0, v.x - groundFriction * Time.deltaTime); //apply friction
-            } else if (Keys.instance.leftPressed) {
+            } else if (CutsceneKeys.leftPressed) {
                 v.x = Mathf.Max(v.x, -groundStartSpeed + groundAccel * Time.deltaTime); // apply start speed
             }
             v.x -= groundAccel * Time.deltaTime;
@@ -614,7 +616,7 @@ public class Player : MonoBehaviour {
             //movement
             if (v.x < -.01f) { //currently going left
                 v.x = Mathf.Min(0, v.x + groundFriction * Time.deltaTime); //apply friction
-            } else if (Keys.instance.rightPressed) {
+            } else if (CutsceneKeys.rightPressed) {
                 v.x = Mathf.Min(v.x, groundStartSpeed - groundAccel * Time.deltaTime); // apply start speed
             }
             v.x += groundAccel * Time.deltaTime;

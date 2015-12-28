@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="82" height="23" tilewidth="16" tileheight="16" backgroundcolor="#00007f" nextobjectid="1">
  <properties>
-  <property name="unity:scale" value="0.0625"/>
   <property name="unity:sortingLayerName" value="Platforms"/>
   <property name="unity:sortingOrder" value="1"/>
   <property name="unity:tag" value="Map"/>
