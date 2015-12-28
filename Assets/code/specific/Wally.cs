@@ -61,7 +61,7 @@ public class Wally : MonoBehaviour {
                     animator.Play("tap");
                     scriptStep++;
                     time = 0;
-                    duration = 3.0f + timeUser.randomValue() * 2.0f;
+                    duration = 5.0f + timeUser.randomValue() * 4.0f;
                 }
                 break;
             case 1: // tap foot

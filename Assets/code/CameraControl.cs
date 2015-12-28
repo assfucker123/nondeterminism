@@ -33,6 +33,17 @@ public class CameraControl : MonoBehaviour {
             );
     }
 
+    // round to pixel
+    public static float roundToPixel(float x) {
+        return Mathf.Floor(x * PIXEL_PER_UNIT * PIXEL_PER_UNIT_SCALE) / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE;
+    }
+    public static Vector2 roundToPixel(Vector2 pos) {
+        return new Vector2(roundToPixel(pos.x), roundToPixel(pos.y));
+    }
+    public static Vector3 roundToPixel(Vector3 pos) {
+        return new Vector3(roundToPixel(pos.x), roundToPixel(pos.y), roundToPixel(pos.z));
+    }
+
     //////////////////////
     // PUBLIC FUNCTIONS //
     //////////////////////
@@ -334,8 +345,13 @@ public class CameraControl : MonoBehaviour {
         if (bobbing) {
             bobTime += Time.deltaTime;
             bobOffset = Mathf.Sin(bobTime / BOB_PERIOD * Mathf.PI * 2) * BOB_MAGNITUDE;
+
+            bobOffset = roundToPixel(bobOffset);
         }
         transform.localPosition += new Vector3(0, bobOffset, 0);
+
+        // pixel rounding
+        transform.localPosition = roundToPixel(transform.localPosition);
 
         updateParallaxObjects();
 
