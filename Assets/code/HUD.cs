@@ -15,6 +15,7 @@ public class HUD : MonoBehaviour {
     public GameObject speedLinesGameObject;
     public GameObject gameOverScreenObject;
     public GameObject textBoxGameObject;
+    public GameObject cutsceneBarsGameObject;
     public GameObject flashbackArtifactsGameObject;
 
     public int health { get { return _health; } }
@@ -35,6 +36,7 @@ public class HUD : MonoBehaviour {
     public MapUI mapUI { get { return _mapUI; } }
     public GameOverScreen gameOverScreen { get { return _gameOverScreen; } }
     public TextBox textBox {  get { return _textBox; } }
+    public CutsceneBars cutsceneBars {  get { return _cutsceneBars; } }
     
     public FlashbackArtifacts flashbackArtifacts { get { return _flashbackArtifacts; } }
 
@@ -53,6 +55,9 @@ public class HUD : MonoBehaviour {
             GameObject hhGO = GameObject.Instantiate(healthHeartGameObject) as GameObject;
             hhGO.transform.SetParent(canvas.transform, false);
             hhGO.transform.SetAsFirstSibling();
+            if (cutsceneBars != null) {
+                cutsceneBars.transform.SetAsFirstSibling();
+            }
             HealthHeart hh = hhGO.GetComponent<HealthHeart>();
             int index = healthHearts.Count;
             healthHearts.Add(hh);
@@ -107,13 +112,16 @@ public class HUD : MonoBehaviour {
         slGO.transform.SetParent(canvas.transform, false);
         _speedLines = slGO.GetComponent<SpeedLines>();
         _speedLines.setUp();
-
         //create Flashback Artifacts
         GameObject faGO = GameObject.Instantiate(flashbackArtifactsGameObject) as GameObject;
         faGO.transform.SetParent(canvas.transform, false);
         _flashbackArtifacts = faGO.GetComponent<FlashbackArtifacts>();
         _flashbackArtifacts.setUp();
-
+        // create Cutscene Bars
+        GameObject cbGO = GameObject.Instantiate(cutsceneBarsGameObject) as GameObject;
+        cbGO.transform.SetParent(canvas.transform, false);
+        _cutsceneBars = cbGO.GetComponent<CutsceneBars>();
+        _cutsceneBars.moveOffImmediately();
         //create Phase Meter
         GameObject pmGO = GameObject.Instantiate(phaseMeterGameObject) as GameObject;
         pmGO.transform.SetParent(canvas.transform, false);
@@ -146,7 +154,7 @@ public class HUD : MonoBehaviour {
         tbGO.transform.SetParent(canvas.transform, false);
         _textBox = tbGO.GetComponent<TextBox>();
         _textBox.closeImmediately();
-        
+
 	}
 
     void Start() {
@@ -231,6 +239,7 @@ public class HUD : MonoBehaviour {
     private MapUI _mapUI;
     private GameOverScreen _gameOverScreen;
     private TextBox _textBox;
+    private CutsceneBars _cutsceneBars;
     private FlashbackArtifacts _flashbackArtifacts;
 	
 	// components

@@ -1,0 +1,18 @@
+
+stop-player // sets Player's receivePlayerInput to false and calls CutsceneKeys.allFalse()
+cbars-on // turns the cutscene bars on (this is non-blocking)
+Wally: Hi what is going on? // opens TextBox, displays text.  Stops script until user continues
+t-O: Nothing much. // displays text by oracle
+t-W: Back to wally.
+wait 1.0 // waits for 1.0 seconds (clearly blocking)
+close-text // closes the textbox (non-blocking)
+cbars-off // turns the cutscene bars off (this is non-blocking)
+resume-player // player can receive player input again
+
+lbl: 1 // label with ID 1
+
+info-happen(5) // calls Vars.eventHappen(5) where 5 is the appropriate AdventureEvent.Info int
+phys-happen(7) // calls Vars.currentNodeData.eventHappen(7) where 7 is the appropriate AdventureEvent.Physical int
+
+jmp-info(3) 1 // if info event 3 has happened, jump to lbl 1
+jmp-phys(2) 3 // if physical event 2 has happened, jump to lbl 2

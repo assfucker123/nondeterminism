@@ -14,5 +14,4 @@ public class AdventureEvent {
         DESTROYED_TUTORIAL_WALL
     }
 
-
 }

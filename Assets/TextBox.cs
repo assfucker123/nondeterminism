@@ -74,6 +74,7 @@ public class TextBox : MonoBehaviour {
         _nameBox = transform.Find("Name").GetComponent<GlyphBox>();
         profileAnimator = transform.Find("Profile").GetComponent<Animator>();
         profileImage = profileAnimator.GetComponent<Image>();
+        continueImage = transform.Find("Continue").GetComponent<Image>();
     }
 	
 	void Update() {
@@ -139,6 +140,7 @@ public class TextBox : MonoBehaviour {
         messageBox.makeAllCharsVisible();
         nameBox.makeAllCharsVisible();
         profileImage.enabled = true;
+        continueImage.enabled = true;
     }
 
     void allInvisible() {
@@ -146,6 +148,7 @@ public class TextBox : MonoBehaviour {
         messageBox.makeAllCharsInvisible();
         nameBox.makeAllCharsInvisible();
         profileImage.enabled = false;
+        continueImage.enabled = false;
     }
 
     State _state = State.CLOSED;
@@ -159,6 +162,7 @@ public class TextBox : MonoBehaviour {
     GlyphBox _nameBox;
     Animator profileAnimator;
     Image profileImage;
+    Image continueImage;
 
     private static TextBox _instance = null;
 

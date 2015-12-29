@@ -223,6 +223,8 @@ public class Player : MonoBehaviour {
         this.lastLevelPosition = lastLevelPosition;
     }
 
+    public bool receivePlayerInput = true; // if CutsceneKeys are updated with input from the player
+
     /////////////////////
     // EVENT FUNCTIONS //
     /////////////////////
@@ -278,7 +280,9 @@ public class Player : MonoBehaviour {
             
         }
 
-        CutsceneKeys.updateFromKeys();
+        if (receivePlayerInput) {
+            CutsceneKeys.updateFromKeys();
+        }
 
         // decrease phase over time
         if (!HUD.instance.phaseMeter.increasing) {
@@ -452,6 +456,7 @@ public class Player : MonoBehaviour {
         fi.floats["chargeSoundTime"] = chargeSoundTime;
         fi.floats["postRevertTime"] = postRevertTime;
         fi.ints["aimDirection"] = (int)aimDirection;
+        fi.bools["rpi"] = receivePlayerInput;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -472,6 +477,7 @@ public class Player : MonoBehaviour {
         chargeSoundTime = fi.floats["chargeSoundTime"];
         postRevertTime = fi.floats["postRevertTime"];
         aimDirection = (AimDirection)fi.ints["aimDirection"];
+        receivePlayerInput = fi.bools["rpi"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
