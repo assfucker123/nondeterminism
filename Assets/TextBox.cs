@@ -29,20 +29,29 @@ public class TextBox : MonoBehaviour {
     }
 
     public State state {  get { return _state; } }
+    public bool isOpen {  get { return state == State.OPEN; } }
+    public bool isClosed { get { return state == State.CLOSED; } }
 
-    public void open() {
+    public bool doneDisplaying {  get { return _doneDisplaying; } }
+
+    public void open(bool clear = true) {
         if (state == State.OPEN || state == State.OPENING)
             return;
         allVisible();
         animator.Play("open");
         _state = State.OPENING;
         time = 0;
+
+        if (clear) {
+            this.clear();
+        }
     }
 
     public void close() {
         if (state == State.CLOSED || state == State.CLOSING)
             return;
         animator.Play("close");
+        clear();
         _state = State.CLOSING;
         time = 0;
     }
@@ -53,9 +62,27 @@ public class TextBox : MonoBehaviour {
     }
 
     public void setProfile(string profile) {
-        profileAnimator.Play("profile");
+        profileAnimator.Play(profile);
     }
     public string currentProfile {  get { return _currentProfile; } }
+
+    public void clear() {
+        setProfile("none");
+        messageBox.setPlainText("");
+        nameBox.setPlainText("");
+        continueImage.enabled = false;
+    }
+
+    public void displayText(string name, string formattedText) {
+        _doneDisplaying = false;
+        textIndex = 0;
+
+        nameBox.setPlainText(name);
+        profileImage.enabled = true;
+        messageBox.setText(formattedText, 0);
+        continueImage.enabled = false;
+
+    }
 
     /////////////
     // PRIVATE //
@@ -90,18 +117,41 @@ public class TextBox : MonoBehaviour {
 
         switch (state) {
         case State.OPENING:
-            if (time >= OPEN_DURATION) {
+            if (time >= openDuration) {
                 _state = State.OPEN;
                 time = 0;
             }
             break;
         case State.CLOSING:
-            if (time >= CLOSE_DURATION) {
+            if (time >= closeDuration) {
                 closeImmediately();
             }
             break;
         }
         
+        if (doneDisplaying) {
+            if (isOpen) {
+
+            }
+        } else {
+            if (PauseScreen.paused) {
+                textIndex += Time.unscaledDeltaTime * textDisplaySpeed;
+            } else {
+                textIndex += Time.deltaTime * textDisplaySpeed;
+            }
+            if (Keys.instance.confirmPressed) {
+                // pressing a button to advance text faster
+                textIndex = messageBox.totalChars - .001f;
+            }
+            if (textIndex > messageBox.totalChars) {
+                // finished displaying text
+                _doneDisplaying = true;
+                continueImage.enabled = true;
+                textIndex = messageBox.totalChars;
+            }
+            messageBox.visibleChars = Mathf.FloorToInt(textIndex);
+        }
+
     }
 
     void OnSaveFrame(FrameInfo fi) {
@@ -113,6 +163,9 @@ public class TextBox : MonoBehaviour {
         fi.strings["profile"] = currentProfile;
         fi.bools["ie"] = image.enabled;
         fi.bools["pie"] = profileImage.enabled;
+        fi.bools["cie"] = continueImage.enabled;
+        fi.bools["dd"] = doneDisplaying;
+        fi.floats["ti"] = textIndex;
 
     }
 
@@ -124,6 +177,9 @@ public class TextBox : MonoBehaviour {
         _currentProfile = fi.strings["profile"];
         image.enabled = fi.bools["ie"];
         profileImage.enabled = fi.bools["pie"];
+        continueImage.enabled = fi.bools["cie"];
+        _doneDisplaying = fi.bools["dd"];
+        textIndex = fi.floats["ti"];
 
     }
 
@@ -132,8 +188,9 @@ public class TextBox : MonoBehaviour {
             _instance = null;
     }
 
-    private float OPEN_DURATION = .134f;
-    private float CLOSE_DURATION = .134f;
+    public float openDuration = .134f;
+    public float closeDuration = .134f;
+    public float textDisplaySpeed = 20;
 
     void allVisible() {
         image.enabled = true;
@@ -154,6 +211,8 @@ public class TextBox : MonoBehaviour {
     State _state = State.CLOSED;
     string _currentProfile;
     float time = 0;
+    bool _doneDisplaying = true;
+    float textIndex = 0;
 
     TimeUser timeUser;
     Image image;

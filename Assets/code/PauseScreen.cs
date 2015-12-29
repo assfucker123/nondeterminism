@@ -38,6 +38,8 @@ public class PauseScreen : MonoBehaviour {
     public void pauseGame(Page page = Page.OPTIONS) {
         if (paused) return;
         if (page == Page.NONE) return;
+        if (ScriptRunner.scriptsPreventPausing)
+            return;
 
         stopTime();
         if (!Vars.screenshotMode) {
@@ -53,6 +55,8 @@ public class PauseScreen : MonoBehaviour {
     public bool doingOpenAnimation { get { return paused && openAnimationTime < openAnimationDuration; } }
     public void unpauseGame() {
         if (!paused)
+            return;
+        if (ScriptRunner.scriptsPreventPausing)
             return;
         
         hide();

@@ -163,6 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d4fcbb1601a6446abefcf892440966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openDuration: 0.134
+  closeDuration: 0.134
+  textDisplaySpeed: 30
 --- !u!114 &11431712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,7 +257,7 @@ MonoBehaviour:
   - {fileID: 198674, guid: f003a3a41b346b448ac9b0f89d79dbf0, type: 2}
   width: 40
   height: 3
-  initialText: This is the text
+  initialText: Message text
   initialAlignment: 0
   defaultStyle:
     color: {r: 0.8705883, g: 0.54901963, b: 1, a: 1}
@@ -372,7 +375,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -301, y: 30}
+  m_AnchoredPosition: {x: -301, y: 33}
   m_SizeDelta: {x: 340, y: 48}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &22462228
@@ -419,7 +422,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: initialText
+      value: Message text
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textDisplaySpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_AnchoredPosition.y
+      value: 29
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 165702}

@@ -18,6 +18,8 @@ public class CutsceneBars : MonoBehaviour {
     }
 
     public State state {  get { return _state; } }
+    public bool areOn {  get { return state == State.ON; } }
+    public bool areOff {  get { return state == State.OFF; } }
 
     public void moveOn() {
         if (state == State.MOVING_ON || state == State.ON) return;

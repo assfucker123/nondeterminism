@@ -1,12 +1,12 @@
 
 stopPlayer // sets Player's receivePlayerInput to false and calls CutsceneKeys.allFalse()
-cbarsOn // turns the cutscene bars on (this is non-blocking)
+cbarsOn block // turns the cutscene bars on (this is non-blocking, unless block is added)
+// wait 1.0 // waits for 1.0 seconds (clearly blocking)
 t-Wally: Hi what is going on? // opens TextBox, displays text.  Stops script until user continues
-t-O: Nothing much. // displays text by oracle
-t-W: Back to wally.
-wait 1.0 // waits for 1.0 seconds (clearly blocking)
-closeText // closes the textbox (non-blocking)
-cbarsOff // turns the cutscene bars off (this is non-blocking)
+t-O: Nothing much.  Is life even worth living?  Stretch out the character count.  The max is 120 chars. // displays text by oracle
+t-W(sad): Back to wally.  This should show the 'sad' profile.
+closeText // closes the textbox (non-blocking, unless block is added)
+cbarsOff block // turns the cutscene bars off (this is non-blocking, unless block is added)
 resumePlayer // player can receive player input again
 
 lbl: 1 // label with ID 1

@@ -10,6 +10,7 @@ public class ScriptRunner : MonoBehaviour {
             NONE,
             STOP_PLAYER,
             TALK,
+            CLOSE_TEXT,
             WAIT,
             RESUME_PLAYER,
             CUTSCENE_BARS_ON,
@@ -23,6 +24,8 @@ public class ScriptRunner : MonoBehaviour {
         public int int0 = 0;
         public int int1 = 0;
         public float float0 = 0;
+        public string str0 = "";
+        public bool blockToggle = false;
 
         public void clear() {
             id = ID.NONE;
@@ -31,12 +34,15 @@ public class ScriptRunner : MonoBehaviour {
             int0 = 0;
             int1 = 0;
             float0 = 0;
+            str0 = "";
+            blockToggle = false;
         }
 
         public void parse(string line) {
             // trim comment
             int index = line.IndexOf("//");
             int index2 = 0;
+            int index3 = 0;
             char[] trimChars = {' '};
             if (index != -1) {
                 line = line.Substring(0, index);
@@ -49,16 +55,37 @@ public class ScriptRunner : MonoBehaviour {
             }
             // get first word
             index = line.IndexOf(' ');
-            string word = line.Substring(0, index);
+            string word;
+            if (index == -1) {
+                word = line;
+            } else {
+                word = line.Substring(0, index);
+            }
             word = word.ToLower();
 
             if (word == "stopplayer") { // stopPlayer
                 id = ID.STOP_PLAYER;
-            } else if (word.IndexOf("t-") == 0) { // t-NAME: TEXT
+            } else if (word.IndexOf("t-") == 0) { // t-NAME(PROFILE): TEXT // profile is optional and not implemented yet
                 id = ID.TALK;
                 index2 = word.IndexOf(":");
                 name = line.Substring(2, index2 - 2);
+                index3 = name.IndexOf("(");
+                if (index3 == -1) {
+                    str0 = "";
+                } else {
+                    str0 = name.Substring(index3 + 1, name.IndexOf(")") - index3 - 1);
+                    name = name.Substring(0, index3);
+                }
+                if (name.ToLower() == "o")
+                    name = "Oracle";
+                else if (name.ToLower() == "w")
+                    name = "Wally";
                 text = line.Substring(index2 + 1).TrimStart(trimChars);
+            } else if (word == "closetext") { // closeText
+                id = ID.CLOSE_TEXT;
+                index2 = line.LastIndexOf("block");
+                if (index2 != -1)
+                    blockToggle = true;
             } else if (word == "wait") { // wait 1.0
                 id = ID.WAIT;
                 float0 = float.Parse(line.Substring(5));
@@ -66,8 +93,14 @@ public class ScriptRunner : MonoBehaviour {
                 id = ID.RESUME_PLAYER;
             } else if (word == "cbarson") { // cbarsOn
                 id = ID.CUTSCENE_BARS_ON;
+                index2 = line.LastIndexOf("block");
+                if (index2 != -1)
+                    blockToggle = true;
             } else if (word == "cbarsoff") { // cbarsOff
                 id = ID.CUTSCENE_BARS_OFF;
+                index2 = line.LastIndexOf("block");
+                if (index2 != -1)
+                    blockToggle = true;
             }
             
         }
@@ -113,7 +146,8 @@ public class ScriptRunner : MonoBehaviour {
     public bool runWhenPaused = false; // true means it can only run while paused
     public bool preventsPausing {
         get {
-            if (runningScript) return false;
+            if (!runningScript)
+                return false;
             return true;
         }
     }
@@ -121,6 +155,9 @@ public class ScriptRunner : MonoBehaviour {
 
     // FUNCTIONS
 
+    public void runScript() {
+        runScript(scriptAsset);
+    }
     public void runScript(TextAsset scriptAsset) {
         runScript(scriptAsset.text);
     }
@@ -145,6 +182,11 @@ public class ScriptRunner : MonoBehaviour {
 	}
 	
 	void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            runScript();
+        }
+
         if (!runningScript) return;
         if (runWhenPaused && !PauseScreen.paused) {
             Debug.LogError("ERROR: runWhenPaused is true, so it can only be run while paused.");
@@ -169,15 +211,58 @@ public class ScriptRunner : MonoBehaviour {
                 }
                 break;
             case Instruction.ID.TALK:
-                Debug.Log("WORK HERE: TALKING");
                 if (blocking) {
-                    if (true /* detect if talk is over */) {
-                        // talk instruction is over; set blocking to false and move to next instruction
-                        blocking = false;
+                    if (waitTime == -1) {
+                        // currently waiting for TextBox to open first
+                        if (TextBox.instance.isOpen) {
+                            waitTime = 0; // begin displaying text
+                            TextBox.instance.displayText(instr.name, instr.text);
+                            
+                            if (instr.str0 != "") {
+                                // display profile (not implemented yet)
+                                string profile = instr.name.ToLower() + "_" + instr.str0;
+                                Debug.Log("Display profile " + profile);
+                            }
+                            
+                        }
+                    } else {
+
+                        // display text here
+                        if (TextBox.instance.doneDisplaying) {
+                            // done displaying.  Now just wait for player to input command to go to the next instruction
+                            if (Keys.instance.confirmPressed) {
+                                // talk instruction is over; set blocking to false and move to next instruction
+                                blocking = false;
+                            }
+                        }
+
                     }
+                    
                 } else {
                     /* bring up text box if needed and set text */
-                    blocking = true;
+                    if (TextBox.instance == null) {
+                        Debug.LogError("Error: TextBox has not been created yet");
+                        blocking = false;
+                    } else {
+                        // open up TextBox, then display text
+                        waitTime = -1;
+                        TextBox.instance.open(true); // if TextBox is already open, this does nothing.
+                        blocking = true;
+                    }
+                 }
+                break;
+            case Instruction.ID.CLOSE_TEXT:
+                if (TextBox.instance != null) {
+                    if (blocking) {
+                        if (TextBox.instance.isClosed) {
+                            blocking = false;
+                        }
+                    } else {
+                        TextBox.instance.close();
+                        if (instr.blockToggle) {
+                            blocking = true;
+                        }
+                    }
                 }
                 break;
             case Instruction.ID.WAIT:
@@ -205,12 +290,30 @@ public class ScriptRunner : MonoBehaviour {
                 break;
             case Instruction.ID.CUTSCENE_BARS_ON:
                 if (CutsceneBars.instance != null) {
-                    CutsceneBars.instance.moveOn();
+                    if (blocking) {
+                        if (CutsceneBars.instance.areOn) {
+                            blocking = false;
+                        }
+                    } else {
+                        CutsceneBars.instance.moveOn();
+                        if (instr.blockToggle) {
+                            blocking = true;
+                        }
+                    }
                 }
                 break;
             case Instruction.ID.CUTSCENE_BARS_OFF:
                 if (CutsceneBars.instance != null) {
-                    CutsceneBars.instance.moveOff();
+                    if (blocking) {
+                        if (CutsceneBars.instance.areOff) {
+                            blocking = false;
+                        }
+                    } else {
+                        CutsceneBars.instance.moveOff();
+                        if (instr.blockToggle) {
+                            blocking = true;
+                        }
+                    }
                 }
                 break;
             }

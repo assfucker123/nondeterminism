@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2835088562041ca42a06b3c8c5f10a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveOnDuration: 1
-  moveOffDuration: 1
+  moveOnDuration: 0.8
+  moveOffDuration: 0.8
 --- !u!114 &11477756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,7 +200,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: moveOnDuration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: moveOffDuration
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 106350}

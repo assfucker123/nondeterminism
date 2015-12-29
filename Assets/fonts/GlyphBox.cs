@@ -94,7 +94,17 @@ public class GlyphBox : MonoBehaviour {
     }
 
     public RectTransform rectTransform { get { return GetComponent<RectTransform>(); } }
-    
+
+    public string formattedText {  get { return _formattedText; } }
+    public int totalChars {
+        get {
+            int ret = 0;
+            for (int i = 0; i < height; i++) {
+                ret += lines[i].Length;
+            }
+            return ret;
+        }
+    }
 
     ///////////////
     // FUNCTIONS //
@@ -103,10 +113,7 @@ public class GlyphBox : MonoBehaviour {
     /* Sets the text without applying any style. */
     public void setPlainText(string text) {
         setPlainText(text, 99999);
-        _visibleChars = 0;
-        for (int i = 0; i < height; i++) {
-            _visibleChars += lines[i].Length;
-        }
+        _visibleChars = totalChars;
     }
     public void setPlainText(string text, int visibleChars) {
         Alignment temp = alignment;
@@ -118,6 +125,7 @@ public class GlyphBox : MonoBehaviour {
             else
                 this.lines[i] = lines[i];
         }
+        _formattedText = text;
         _visibleChars = visibleChars;
         alignment = temp;
         updateGlyphs(false);
@@ -126,13 +134,10 @@ public class GlyphBox : MonoBehaviour {
     /* Sets text that has been formatted with style. */
     public void setText(string text) {
         setText(text, 99999);
-        _visibleChars = 0;
-        for (int i = 0; i < height; i++) {
-            _visibleChars += lines[i].Length;
-        }
+        _visibleChars = totalChars;
     }
     public void setText(string text, int visibleChars) {
-        formattedText = text;
+        _formattedText = text;
         Debug.Log("WORK HERE (FORMATTING TEXT)");
         setPlainText(text, visibleChars);
 
@@ -143,10 +148,7 @@ public class GlyphBox : MonoBehaviour {
 
     /* Makes all characters in the text visible */
     public void makeAllCharsVisible() {
-        _visibleChars = 0;
-        for (int i = 0; i < height; i++) {
-            _visibleChars += lines[i].Length;
-        }
+        _visibleChars = totalChars;
         updateGlyphs(false);
     }
     /* Makes all characters in the text invisible */
@@ -336,7 +338,7 @@ public class GlyphBox : MonoBehaviour {
         */
 
         /* New (faster): save formatted text and apply on revert */
-        fi.strings["formattedText"] = formattedText;
+        fi.strings["formattedText"] = _formattedText;
     }
 
     void OnRevert(FrameInfo fi) {
@@ -375,9 +377,9 @@ public class GlyphBox : MonoBehaviour {
         */
 
         /* New (faster): save formatted text and apply on revert */
-        formattedText = fi.strings["formattedText"];
+        _formattedText = fi.strings["formattedText"];
 
-        setText(formattedText, visibleChars);
+        setText(_formattedText, visibleChars);
         
     }
 
@@ -565,7 +567,7 @@ public class GlyphBox : MonoBehaviour {
     int _visibleSecretChars = 0;
     List<string> lines = new List<string>(); // hold text data
     List<string> secretLines = new List<string>(); // hold secret text data
-    string formattedText = "";
+    string _formattedText = "";
     Alignment _alignment = Alignment.LEFT;
 
     TimeUser timeUser;
