@@ -53,6 +53,7 @@ public class GlyphBox : MonoBehaviour {
     public string initialText = "";
     public Alignment initialAlignment = Alignment.LEFT;
     public GlyphStyle defaultStyle;
+    public Color importantColor = new Color(1,1,1);
     public bool useTimeUser = true;
 
     public bool uiMode { get { return gameObject.layer == LayerMask.NameToLayer("UI"); } }
@@ -139,10 +140,61 @@ public class GlyphBox : MonoBehaviour {
     public void setText(string text, int visibleChars) {
         _formattedText = text;
         Debug.Log("WORK HERE (FORMATTING TEXT)");
-        setPlainText(text, visibleChars);
 
-        // uncomment this when formatting text:
-        //updateGlyphs(true);
+        // set default style initially for all
+        setStyle(defaultStyle, false);
+
+        // replace \n with newlines
+        text = text.Replace("\\n", "\n");
+
+        // get lines
+        List<string> lines = textToLines(text);
+
+        bool styleInc = false;
+        int index0 = -1;
+        int index1 = -1;
+
+        // |important words| style
+        for (int i = 0; i<lines.Count; i++) {
+            for (int j=0; j<lines[i].Length; j++) {
+                if (lines[i][j] == '|') {
+                    if (styleInc) {
+                        // found end of applying the style
+                        index1 = j;
+                        // apply style
+                        setColor(importantColor, i, index0, index1, false);
+                        styleInc = false;
+                    } else {
+                        // found start of applying the style
+                        index0 = j;
+                        styleInc = true;
+                    }
+                    // get rid of the character from the line
+                    lines[i] = lines[i].Substring(0, j) + lines[i].Substring(j + 1);
+                    j--;
+                }
+
+                if (j == lines[i].Length - 1) { // end of the line
+                    if (styleInc) {
+                        // apply style from index0 to end of the line
+                        setColor(importantColor, i, index0, lines[i].Length, false);
+                        index0 = 0;
+                    }
+                }
+
+            }
+        }
+
+        // set lines
+        for (int i = 0; i < this.lines.Count; i++) {
+            if (i >= lines.Count)
+                this.lines[i] = "";
+            else
+                this.lines[i] = lines[i];
+        }
+        _visibleChars = visibleChars;
+
+        updateGlyphs(true);
     }
 
 

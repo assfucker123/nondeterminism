@@ -5,9 +5,14 @@ cbarsOn block // turns the cutscene bars on (this is non-blocking, unless block 
 t-Wally: Hi what is going on? // opens TextBox, displays text.  Stops script until user continues
 t-O: Nothing much.  Is life even worth living?  Stretch out the character count.  The max is 120 chars. // displays text by oracle
 t-W(sad): Back to wally.  This should show the 'sad' profile.
+t-W: These |two words| are important.
+t-W: Blah blah |this entire section of words right here| is important.
+
 closeText // closes the textbox (non-blocking, unless block is added)
 cbarsOff block // turns the cutscene bars off (this is non-blocking, unless block is added)
 resumePlayer // player can receive player input again
+
+
 
 lbl: 1 // label with ID 1
 

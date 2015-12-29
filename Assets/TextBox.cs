@@ -134,18 +134,25 @@ public class TextBox : MonoBehaviour {
 
             }
         } else {
-            if (PauseScreen.paused) {
-                textIndex += Time.unscaledDeltaTime * textDisplaySpeed;
-            } else {
-                textIndex += Time.deltaTime * textDisplaySpeed;
-            }
+
             if (Keys.instance.confirmPressed) {
-                // pressing a button to advance text faster
-                textIndex = messageBox.totalChars - .001f;
+                speedyText = true;
             }
+
+            float speed = textDisplaySpeed;
+            if (speedyText)
+                speed = textFastDisplaySpeed;
+            
+            if (PauseScreen.paused) {
+                textIndex += Time.unscaledDeltaTime * speed;
+            } else {
+                textIndex += Time.deltaTime * speed;
+            }
+
             if (textIndex > messageBox.totalChars) {
                 // finished displaying text
                 _doneDisplaying = true;
+                speedyText = false;
                 continueImage.enabled = true;
                 textIndex = messageBox.totalChars;
             }
@@ -166,6 +173,7 @@ public class TextBox : MonoBehaviour {
         fi.bools["cie"] = continueImage.enabled;
         fi.bools["dd"] = doneDisplaying;
         fi.floats["ti"] = textIndex;
+        fi.bools["st"] = speedyText;
 
     }
 
@@ -180,6 +188,7 @@ public class TextBox : MonoBehaviour {
         continueImage.enabled = fi.bools["cie"];
         _doneDisplaying = fi.bools["dd"];
         textIndex = fi.floats["ti"];
+        speedyText = fi.bools["st"];
 
     }
 
@@ -191,6 +200,7 @@ public class TextBox : MonoBehaviour {
     public float openDuration = .134f;
     public float closeDuration = .134f;
     public float textDisplaySpeed = 20;
+    public float textFastDisplaySpeed = 60;
 
     void allVisible() {
         image.enabled = true;
@@ -213,6 +223,7 @@ public class TextBox : MonoBehaviour {
     float time = 0;
     bool _doneDisplaying = true;
     float textIndex = 0;
+    bool speedyText = false;
 
     TimeUser timeUser;
     Image image;

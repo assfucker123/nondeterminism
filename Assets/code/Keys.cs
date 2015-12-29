@@ -297,6 +297,12 @@ public class Keys : MonoBehaviour {
     public bool confirmPressed { get {
             return jumpPressed;
     } }
+    public bool confirmHeld { get {
+            return jumpHeld;
+    } }
+    public bool confirmReleased { get {
+            return jumpReleased;
+    } }
 
     public bool backPressed { get {
             return shootPressed;

@@ -166,6 +166,7 @@ MonoBehaviour:
   openDuration: 0.134
   closeDuration: 0.134
   textDisplaySpeed: 30
+  textFastDisplaySpeed: 120
 --- !u!114 &11431712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -434,6 +435,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_AnchoredPosition.y
       value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textFastDisplaySpeed
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
