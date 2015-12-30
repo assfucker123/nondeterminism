@@ -1,0 +1,1593 @@
+fileFormatVersion: 2
+guid: 0d96f541ce325bc4e8e8cc03ac871c25
+timeCreated: 1451496537
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: tiny_text_0
+    21300002: tiny_text_1
+    21300004: tiny_text_2
+    21300006: tiny_text_3
+    21300008: tiny_text_4
+    21300010: tiny_text_5
+    21300012: tiny_text_6
+    21300014: tiny_text_7
+    21300016: tiny_text_8
+    21300018: tiny_text_9
+    21300020: tiny_text_10
+    21300022: tiny_text_11
+    21300024: tiny_text_12
+    21300026: tiny_text_13
+    21300028: tiny_text_14
+    21300030: tiny_text_15
+    21300032: tiny_text_16
+    21300034: tiny_text_17
+    21300036: tiny_text_18
+    21300038: tiny_text_19
+    21300040: tiny_text_20
+    21300042: tiny_text_21
+    21300044: tiny_text_22
+    21300046: tiny_text_23
+    21300048: tiny_text_24
+    21300050: tiny_text_25
+    21300052: tiny_text_26
+    21300054: tiny_text_27
+    21300056: tiny_text_28
+    21300058: tiny_text_29
+    21300060: tiny_text_30
+    21300062: tiny_text_31
+    21300064: tiny_text_32
+    21300066: tiny_text_33
+    21300068: tiny_text_34
+    21300070: tiny_text_35
+    21300072: tiny_text_36
+    21300074: tiny_text_37
+    21300076: tiny_text_38
+    21300078: tiny_text_39
+    21300080: tiny_text_40
+    21300082: tiny_text_41
+    21300084: tiny_text_42
+    21300086: tiny_text_43
+    21300088: tiny_text_44
+    21300090: tiny_text_45
+    21300092: tiny_text_46
+    21300094: tiny_text_47
+    21300096: tiny_text_48
+    21300098: tiny_text_49
+    21300100: tiny_text_50
+    21300102: tiny_text_51
+    21300104: tiny_text_52
+    21300106: tiny_text_53
+    21300108: tiny_text_54
+    21300110: tiny_text_55
+    21300112: tiny_text_56
+    21300114: tiny_text_57
+    21300116: tiny_text_58
+    21300118: tiny_text_59
+    21300120: tiny_text_60
+    21300122: tiny_text_61
+    21300124: tiny_text_62
+    21300126: tiny_text_63
+    21300128: tiny_text_64
+    21300130: tiny_text_65
+    21300132: tiny_text_66
+    21300134: tiny_text_67
+    21300136: tiny_text_68
+    21300138: tiny_text_69
+    21300140: tiny_text_70
+    21300142: tiny_text_71
+    21300144: tiny_text_72
+    21300146: tiny_text_73
+    21300148: tiny_text_74
+    21300150: tiny_text_75
+    21300152: tiny_text_76
+    21300154: tiny_text_77
+    21300156: tiny_text_78
+    21300158: tiny_text_79
+    21300160: tiny_text_80
+    21300162: tiny_text_81
+    21300164: tiny_text_82
+    21300166: tiny_text_83
+    21300168: tiny_text_84
+    21300170: tiny_text_85
+    21300172: tiny_text_86
+    21300174: tiny_text_87
+    21300176: tiny_text_88
+    21300178: tiny_text_89
+    21300180: tiny_text_90
+    21300182: tiny_text_91
+    21300184: tiny_text_92
+    21300186: tiny_text_93
+    21300188: tiny_text_94
+    21300190: tiny_text_95
+    21300192: tiny_text_96
+    21300194: tiny_text_97
+    21300196: tiny_text_98
+    21300198: tiny_text_99
+    21300200: tiny_text_100
+    21300202: tiny_text_101
+    21300204: tiny_text_102
+    21300206: tiny_text_103
+    21300208: tiny_text_104
+    21300210: tiny_text_105
+    21300212: tiny_text_106
+    21300214: tiny_text_107
+    21300216: tiny_text_108
+    21300218: tiny_text_109
+    21300220: tiny_text_110
+    21300222: tiny_text_111
+    21300224: tiny_text_112
+    21300226: tiny_text_113
+    21300228: tiny_text_114
+    21300230: tiny_text_115
+    21300232: tiny_text_116
+    21300234: tiny_text_117
+    21300236: tiny_text_118
+    21300238: tiny_text_119
+    21300240: tiny_text_120
+    21300242: tiny_text_121
+    21300244: tiny_text_122
+    21300246: tiny_text_123
+    21300248: tiny_text_124
+    21300250: tiny_text_125
+    21300252: tiny_text_126
+    21300254: tiny_text_127
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 16
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: tiny_text_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_5
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_6
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_7
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_9
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_10
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_11
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_12
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_13
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_14
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_15
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_17
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_18
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_19
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_20
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_21
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_22
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_23
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_24
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_25
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_26
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_27
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_28
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_29
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_30
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_31
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 18
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_33
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_34
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_35
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_36
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_37
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_38
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_39
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_40
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_41
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_42
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_43
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_44
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_45
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_46
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_47
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_48
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_49
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_50
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_51
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_52
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_53
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_54
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_55
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_56
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_57
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_58
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_59
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_60
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_61
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_62
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_63
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 12
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_65
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_66
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_67
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_68
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_69
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_70
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_71
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_72
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_73
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_74
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_75
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_76
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_77
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_78
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_79
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_80
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_81
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_82
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_83
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_84
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_85
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_86
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_87
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_88
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_89
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_90
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_91
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_92
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_93
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_94
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_95
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 6
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_97
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_98
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_99
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_100
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_101
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_102
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_103
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_104
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_105
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_106
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_107
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_108
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_109
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_110
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_111
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_112
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_113
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_114
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_115
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_116
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_117
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_118
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_119
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_120
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_121
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_122
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_123
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_124
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_125
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_126
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: tiny_text_127
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
