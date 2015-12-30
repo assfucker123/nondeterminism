@@ -139,8 +139,7 @@ public class GlyphBox : MonoBehaviour {
     }
     public void setText(string text, int visibleChars) {
         _formattedText = text;
-        Debug.Log("WORK HERE (FORMATTING TEXT)");
-
+        
         // set default style initially for all
         setStyle(defaultStyle, false);
 
@@ -352,15 +351,7 @@ public class GlyphBox : MonoBehaviour {
         if (timeUser != null &&
             timeUser.shouldNotUpdate)
             return;
-
-        //testing
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            
-        }
-
+        
     }
 
     void OnSaveFrame(FrameInfo fi) {
@@ -396,8 +387,14 @@ public class GlyphBox : MonoBehaviour {
     void OnRevert(FrameInfo fi) {
         if (!useTimeUser) return;
 
+        int prevVisibleChars = _visibleChars;
         _visibleChars = fi.ints["vC"];
-        _visibleSecretChars = fi.ints["vSC"];
+
+        // don't update visibleSecretChars, so that during a flashback visibleChars < visibleSecretChars so the secrets are revealed.  Only do it when a new message happens, implied by the visibleChars decreasing.
+        if (prevVisibleChars < _visibleChars) {
+            _visibleSecretChars = fi.ints["vSC"];
+        }
+        
         _alignment = (Alignment)fi.ints["align"];
 
 

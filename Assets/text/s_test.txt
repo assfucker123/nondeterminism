@@ -7,6 +7,8 @@ t-O: Nothing much.  Is life even worth living?  Stretch out the character count.
 t-W(sad): Back to wally.  This should show the 'sad' profile.
 t-W: These |two words| are important.
 t-W: Blah blah |this entire section of words right here| is important.
+t-O: There is secret text if you flashback here.  Zooby dooby dabby dumbleduffin.  lol lel glatamano. @0,2: spooky @1,6: line 1, start index 6 // Secret text: After the main text, it's @LINE,CHAR_INDEX:TEXT.  Can be repeated.
+t-W: Some post text.
 
 closeText // closes the textbox (non-blocking, unless block is added)
 cbarsOff block // turns the cutscene bars off (this is non-blocking, unless block is added)

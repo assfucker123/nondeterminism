@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 /* IMPORTANT: PLAYER SHOULD NOT BE ABLE TO MOVE TO ANOTHER LEVEL WHILE TEXT IS ON THE SCREEN.
  * IT'S IMPOSSIBLE FOR THE TEXT TO PRESERVE IN THE NEXT SCENE BECAUSE OF HOW TIMEUSER WORKS.
@@ -79,7 +80,44 @@ public class TextBox : MonoBehaviour {
 
         nameBox.setPlainText(name);
         profileImage.enabled = true;
-        messageBox.setText(formattedText, 0);
+
+        // extract secret text from formattedText
+        List<int> lines = new List<int>();
+        List<int> charIndexes = new List<int>();
+        List<string> secretTexts = new List<string>();
+        int index = formattedText.IndexOf("@");
+        int formattedTextEndIndex = index;
+        if (formattedTextEndIndex == -1)
+            formattedTextEndIndex = formattedText.Length;
+        while (index != -1) {
+            
+            int commaIndex = formattedText.IndexOf(",", index);
+            int colonIndex = formattedText.IndexOf(":", commaIndex);
+            int line = int.Parse(formattedText.Substring(index + 1, commaIndex - index - 1));
+            int charIndex = int.Parse(formattedText.Substring(commaIndex + 1, colonIndex - commaIndex - 1));
+            int endIndex = formattedText.IndexOf("@", commaIndex);
+            if (endIndex == -1) endIndex = formattedText.Length;
+            string secretText = formattedText.Substring(colonIndex + 1, endIndex - colonIndex - 1).Trim();
+
+            lines.Add(line);
+            charIndexes.Add(charIndex);
+            secretTexts.Add(secretText);
+
+            index = endIndex;
+            if (index >= formattedText.Length)
+                index = -1;
+        }
+
+        messageBox.clearText();
+        messageBox.setText(formattedText.Substring(0, formattedTextEndIndex), 0);
+
+        // insert secret text
+        for (int i=0; i<lines.Count; i++) {
+            messageBox.insertSecretText(secretTexts[i], lines[i], charIndexes[i]);
+        }
+
+
+
         continueImage.enabled = false;
 
     }
@@ -157,6 +195,7 @@ public class TextBox : MonoBehaviour {
                 textIndex = messageBox.totalChars;
             }
             messageBox.visibleChars = Mathf.FloorToInt(textIndex);
+            messageBox.visibleSecretChars = Mathf.Max(messageBox.visibleChars, messageBox.visibleSecretChars);
         }
 
     }
