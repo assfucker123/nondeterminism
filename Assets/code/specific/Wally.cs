@@ -125,7 +125,7 @@ public class Wally : MonoBehaviour {
         scriptStep = fi.ints["ss"];
         walkDur = fi.floats["walkDur"];
     }
-
+    
     float time = 0;
     float duration = 0;
     int scriptStep = 0;

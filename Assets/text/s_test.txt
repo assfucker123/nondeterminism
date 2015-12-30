@@ -1,3 +1,5 @@
+// Every command in this file has been tested and works
+
 
 stopPlayer // sets Player's receivePlayerInput to false and calls CutsceneKeys.allFalse()
 cbarsOn block // turns the cutscene bars on (this is non-blocking, unless block is added)
@@ -9,19 +11,29 @@ t-W: These |two words| are important.
 t-W: Blah blah |this entire section of words right here| is important.
 t-O: There is secret text if you flashback here.  Zooby dooby dabby dumbleduffin.  lol lel glatamano. @0,2: spooky @1,6: line 1, start index 6 // Secret text: After the main text, it's @LINE,CHAR_INDEX:TEXT.  Can be repeated.
 t-W: Some post text.
+camCustom // sets camera mode to custom
+camFollowPlayer 1.0 // takes 1.0 seconds to set the camera mode to follow the player (non-blocking, unless block is added)
+
+goto 2
+
+camSetPosition(44,13) 1.0 // takes 1.0 seconds to set the camera mode to move to the specified position (non-blocking, unless block is added)
+
+lbl 2
+
+
+jmpPhys(1) skip // if physical event 1 has happened, jump to lbl skip
+//jmpInfo(1) skip // if info even 1 has happened, jump to lbl skip
+
+t-W: We have not had this talk before.
+
+lbl skip
+
+physHappen(1) // calls Vars.currentNodeData.eventHappen(1) where 1 is the appropriate AdventureEvent.Physical int
+// infoHappen(1) // calls Vars.eventHappen(1) where 1 is the appropriate AdventureEvent.Info int
+
+sendMessage Wally GetTheMessage dooby dooby do // sends the message GetTheMessage with parameter "dooby dooby do" to the GameObject named Wally.  The parameter is optional
 
 closeText // closes the textbox (non-blocking, unless block is added)
 cbarsOff block // turns the cutscene bars off (this is non-blocking, unless block is added)
 resumePlayer // player can receive player input again
 
-
-
-lbl: 1 // label with ID 1
-
-infoHappen(5) // calls Vars.eventHappen(5) where 5 is the appropriate AdventureEvent.Info int
-physHappen(7) // calls Vars.currentNodeData.eventHappen(7) where 7 is the appropriate AdventureEvent.Physical int
-
-jmp-info(3) 1 // if info event 3 has happened, jump to lbl 1
-jmp-phys(2) 3 // if physical event 2 has happened, jump to lbl 2
-
-sendMessage: DoThis() // sends the message DoThis()

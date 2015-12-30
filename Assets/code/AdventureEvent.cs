@@ -11,7 +11,8 @@ public class AdventureEvent {
 
     // physical events are time-dependent
     public enum Physical {
-        DESTROYED_TUTORIAL_WALL
+        DESTROYED_TUTORIAL_WALL = 0,
+        FIRST_TALK = 1,
     }
 
 }

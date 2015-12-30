@@ -139,7 +139,10 @@ public class GlyphBox : MonoBehaviour {
     }
     public void setText(string text, int visibleChars) {
         _formattedText = text;
-        
+
+        Alignment temp = alignment;
+        alignment = Alignment.LEFT;
+
         // set default style initially for all
         setStyle(defaultStyle, false);
 
@@ -192,6 +195,8 @@ public class GlyphBox : MonoBehaviour {
                 this.lines[i] = lines[i];
         }
         _visibleChars = visibleChars;
+
+        alignment = temp;
 
         updateGlyphs(true);
     }

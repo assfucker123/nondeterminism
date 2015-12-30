@@ -15,6 +15,16 @@ public class ScriptRunner : MonoBehaviour {
             RESUME_PLAYER,
             CUTSCENE_BARS_ON,
             CUTSCENE_BARS_OFF,
+            CAMERA_FOLLOW_PLAYER,
+            CAMERA_SET_POSITION,
+            CAMERA_CUSTOM,
+            LABEL,
+            GOTO,
+            INFO_HAPPEN,
+            PHYS_HAPPEN,
+            JUMP_INFO,
+            JUMP_PHYS,
+            SEND_MESSAGE
         }
 
         public ID id = ID.NONE;
@@ -24,6 +34,8 @@ public class ScriptRunner : MonoBehaviour {
         public int int0 = 0;
         public int int1 = 0;
         public float float0 = 0;
+        public float float1 = 0;
+        public float float2 = 0;
         public string str0 = "";
         public bool blockToggle = false;
 
@@ -34,6 +46,8 @@ public class ScriptRunner : MonoBehaviour {
             int0 = 0;
             int1 = 0;
             float0 = 0;
+            float1 = 0;
+            float2 = 0;
             str0 = "";
             blockToggle = false;
         }
@@ -43,6 +57,7 @@ public class ScriptRunner : MonoBehaviour {
             int index = line.IndexOf("//");
             int index2 = 0;
             int index3 = 0;
+            string str = "";
             char[] trimChars = {' '};
             if (index != -1) {
                 line = line.Substring(0, index);
@@ -101,8 +116,104 @@ public class ScriptRunner : MonoBehaviour {
                 index2 = line.LastIndexOf("block");
                 if (index2 != -1)
                     blockToggle = true;
+            } else if (word == "camfollowplayer") { // camFollowPlayer 1.0
+                id = ID.CAMERA_FOLLOW_PLAYER;
+                index2 = line.LastIndexOf("block");
+                index3 = line.Length; // index3 will be the "right" of the line, where the duration will attempt to be parsed
+                if (index2 != -1) {
+                    index3 = index2;
+                    blockToggle = true;
+                }
+                str = line.Substring(16, index3 - 16).Trim();
+                if (str != "") {
+                    float0 = float.Parse(str);
+                }
+                if (float0 == 0 || float.IsNaN(float0)) {
+                    float0 = 0;
+                    blockToggle = false;
+                }
+            } else if (word.IndexOf("camsetposition") == 0) { // camSetPosition(5, 6) 1.0
+                id = ID.CAMERA_SET_POSITION;
+
+                index2 = line.IndexOf("(");
+                index3 = line.IndexOf(")", index2);
+                str = line.Substring(index2 + 1, index3 - index2 - 1); // getting coordinate string
+                index2 = str.IndexOf(",");
+                if (index2 == -1) {
+                    // no comma, so coordinates invalid.  But could this be the name of a GameObject?  possible implementation?
+                } else {
+                    float1 = float.Parse(str.Substring(0, index2).Trim()); // x coordinate
+                    float2 = float.Parse(str.Substring(index2 + 1).Trim()); // y coordinate
+                }
+                
+                index2 = line.LastIndexOf("block");
+                index3 = line.Length; // index3 will be the "right" of the line, where the duration will attempt to be parsed
+                if (index2 != -1) {
+                    index3 = index2;
+                    blockToggle = true;
+                }
+
+                index2 = line.IndexOf(")") + 1;
+                str = line.Substring(index2, index3 - index2).Trim();
+                if (str != "") {
+                    float0 = float.Parse(str);
+                }
+                if (float0 == 0 || float.IsNaN(float0)) {
+                    float0 = 0;
+                    blockToggle = false;
+                }
+            } else if (word == "camcustom") { // camCustom
+                id = ID.CAMERA_CUSTOM;
+            } else if (word.IndexOf("lbl") == 0) { // lbl: 1 or lbl 1
+                id = ID.LABEL;
+                index2 = line.IndexOf(":");
+                if (index2 == -1) {
+                    str0 = line.Substring(4).Trim();
+                } else {
+                    str0 = line.Substring(index2 + 1).Trim();
+                }
+            } else if (word.IndexOf("goto") == 0) { // goto 1
+                id = ID.GOTO;
+                index2 = line.IndexOf(":");
+                str0 = line.Substring(5).Trim();
+            } else if (word.IndexOf("infohappen") == 0) { // infoHappen(4) where 4 is (int) of some AdventureEvent.Info
+                id = ID.INFO_HAPPEN;
+                index2 = line.IndexOf("(") + 1;
+                index3 = line.IndexOf(")");
+                int0 = int.Parse(line.Substring(index2, index3 - index2).Trim());
+            } else if (word.IndexOf("physhappen") == 0) { // physHappen(4) where 4 is (int) of some AdventureEvent.Physical
+                id = ID.PHYS_HAPPEN;
+                index2 = line.IndexOf("(") + 1;
+                index3 = line.IndexOf(")");
+                int0 = int.Parse(line.Substring(index2, index3 - index2).Trim());
+            } else if (word.IndexOf("jmpinfo") == 0) { // jmpInfo(4) 3.  if (AdventureEvent.Info)4 has happened, then jumps to lbl 3
+                id = ID.JUMP_INFO;
+                index2 = line.IndexOf("(") + 1;
+                index3 = line.IndexOf(")");
+                int0 = int.Parse(line.Substring(index2, index3 - index2).Trim());
+                str0 = line.Substring(index3 + 1).Trim();
+            } else if (word.IndexOf("jmpphys") == 0) { // jmpPhys(4) 3.  if (AdventureEvent.Physical)4 has happened, then jumps to lbl 3
+                id = ID.JUMP_PHYS;
+                index2 = line.IndexOf("(") + 1;
+                index3 = line.IndexOf(")");
+                int0 = int.Parse(line.Substring(index2, index3 - index2).Trim());
+                str0 = line.Substring(index3 + 1).Trim();
+            } else if (word == "sendmessage") { // sendMessage thingObject Action stringParam (stringParam is optional)
+                id = ID.SEND_MESSAGE;
+                index2 = line.IndexOf(' ', index + 1);
+                name = line.Substring(index + 1, index2 - index - 1).Trim();
+                index3 = line.IndexOf(' ', index2 + 1);
+                if (index3 == -1) {
+                    // stringParam was not given
+                    str0 = line.Substring(index2 + 1).Trim();
+                    text = "";
+                } else {
+                    // stringParam is given
+                    str0 = line.Substring(index2 + 1, index3 - index2 - 1).Trim();
+                    text = line.Substring(index3 + 1).Trim();
+                }
             }
-            
+
         }
 
         public static Instruction createInstruction() {
@@ -313,6 +424,111 @@ public class ScriptRunner : MonoBehaviour {
                         if (instr.blockToggle) {
                             blocking = true;
                         }
+                    }
+                }
+                break;
+            case Instruction.ID.CAMERA_FOLLOW_PLAYER:
+                if (CameraControl.instance != null) {
+                    if (blocking) {
+                        if (runWhenPaused) {
+                            waitTime += Time.unscaledDeltaTime;
+                        } else {
+                            waitTime += Time.deltaTime;
+                        }
+                        if (waitTime >= waitDuration) {
+                            // wait is over
+                            blocking = false;
+                        }
+                    } else {
+                        // switch camera mode
+                        CameraControl.instance.followPlayer(instr.float0);
+                        if (instr.blockToggle) {
+                            waitTime = 0;
+                            waitDuration = instr.float0;
+                            blocking = true;
+                        }
+                    }
+                }
+                break;
+            case Instruction.ID.CAMERA_SET_POSITION:
+                if (CameraControl.instance != null) {
+                    if (blocking) {
+                        if (runWhenPaused) {
+                            waitTime += Time.unscaledDeltaTime;
+                        } else {
+                            waitTime += Time.deltaTime;
+                        }
+                        if (waitTime >= waitDuration) {
+                            // wait is over
+                            blocking = false;
+                        }
+                    } else {
+                        // switch camera mode
+                        CameraControl.instance.moveToPosition(new Vector2(instr.float1, instr.float2), instr.float0);
+                        if (instr.blockToggle) {
+                            waitTime = 0;
+                            waitDuration = instr.float0;
+                            blocking = true;
+                        }
+                    }
+                }
+                break;
+            case Instruction.ID.CAMERA_CUSTOM:
+                if (CameraControl.instance != null) {
+                    CameraControl.instance.customPositionMode();
+                }
+                break;
+            case Instruction.ID.LABEL:
+                break;
+            case Instruction.ID.GOTO:
+                for (int i=0; i<instructions.Count; i++) {
+                    if (instructions[i].id == Instruction.ID.LABEL) {
+                        if (instructions[i].str0 == instr.str0) {
+                            _runIndex = i - 1; // because will be incremented at end of the loop
+                            break;
+                        }
+                    }
+                }
+                break;
+            case Instruction.ID.INFO_HAPPEN:
+                Vars.eventHappen((AdventureEvent.Info)instr.int0);
+                break;
+            case Instruction.ID.PHYS_HAPPEN:
+                if (Vars.currentNodeData != null) {
+                    Vars.currentNodeData.eventHappen((AdventureEvent.Physical)instr.int0);
+                }
+                break;
+            case Instruction.ID.JUMP_INFO:
+                if (Vars.eventHappened((AdventureEvent.Info)instr.int0)) {
+                    for (int i = 0; i < instructions.Count; i++) {
+                        if (instructions[i].id == Instruction.ID.LABEL) {
+                            if (instructions[i].str0 == instr.str0) {
+                                _runIndex = i - 1; // because will be incremented at end of the loop
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            case Instruction.ID.JUMP_PHYS:
+                if (Vars.currentNodeData != null && Vars.currentNodeData.eventHappened((AdventureEvent.Physical)instr.int0)) {
+                   for (int i = 0; i < instructions.Count; i++) {
+                        if (instructions[i].id == Instruction.ID.LABEL) {
+                            if (instructions[i].str0 == instr.str0) {
+                                _runIndex = i - 1; // because will be incremented at end of the loop
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            case Instruction.ID.SEND_MESSAGE:
+                GameObject GO = GameObject.Find(instr.name);
+                if (GO != null) {
+                    if (instr.text == "") {
+                        GO.SendMessage(instr.str0, SendMessageOptions.DontRequireReceiver);
+                    } else {
+                        GO.SendMessage(instr.str0, instr.text, SendMessageOptions.DontRequireReceiver);
                     }
                 }
                 break;
