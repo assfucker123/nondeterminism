@@ -19,7 +19,7 @@ Physics2DSettings:
   m_TimeToSleep: 0.5
   m_LinearSleepTolerance: 0.01
   m_AngularSleepTolerance: 2
-  m_QueriesHitTriggers: 1
+  m_QueriesHitTriggers: 0
   m_QueriesStartInColliders: 1
   m_ChangeStopsCallbacks: 0
   m_LayerCollisionMatrix: ffbffcffff1ffcffff1ffcffffffffffff1ffcffff1ffcffffffffffffffffffff18ffffff14feffff02fcffff01fcffff03fcffc900fcffc800fcffc900fcffc801fcffc803fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff

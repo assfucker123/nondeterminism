@@ -12,7 +12,6 @@ public class Sibro : MonoBehaviour {
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
         rb2d = GetComponent<Rigidbody2D>();
-        receivesDamage = GetComponent<ReceivesDamage>();
 	}
 	
 	void Update() {
@@ -65,5 +64,4 @@ public class Sibro : MonoBehaviour {
 
     TimeUser timeUser;
     Rigidbody2D rb2d;
-    ReceivesDamage receivesDamage;
 }

@@ -221,7 +221,8 @@ MonoBehaviour:
   initialText: Quit
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11418486
 MonoBehaviour:
@@ -320,7 +321,8 @@ MonoBehaviour:
   initialText: Restart
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11427462
 MonoBehaviour:
@@ -340,7 +342,8 @@ MonoBehaviour:
   initialText: No
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11428006
 MonoBehaviour:
@@ -360,7 +363,8 @@ MonoBehaviour:
   initialText: Fullscreen Toggle
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11429886
 MonoBehaviour:
@@ -451,7 +455,8 @@ MonoBehaviour:
   initialText: Yes
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11468970
 MonoBehaviour:
@@ -471,7 +476,8 @@ MonoBehaviour:
   initialText: SFX Volume
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11473688
 MonoBehaviour:
@@ -491,7 +497,8 @@ MonoBehaviour:
   initialText: Music Volume
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11479558
 MonoBehaviour:
@@ -511,7 +518,8 @@ MonoBehaviour:
   initialText: 'SFX Volume: < 1.0 >'
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11495782
 MonoBehaviour:
@@ -531,7 +539,8 @@ MonoBehaviour:
   initialText: Resume
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11499868
 MonoBehaviour:
@@ -551,7 +560,8 @@ MonoBehaviour:
   initialText: Are you sure you want to quit?
   initialAlignment: 1
   defaultStyle:
-    color: {r: .796078503, g: .533333361, b: .694117665, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!222 &22252640
 CanvasRenderer:
@@ -571,11 +581,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 3
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: 0}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22404990
 RectTransform:
   m_ObjectHideFlags: 1
@@ -588,11 +598,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: 80}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22409080
 RectTransform:
   m_ObjectHideFlags: 1
@@ -605,11 +615,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 4
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: -40}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22411492
 RectTransform:
   m_ObjectHideFlags: 1
@@ -633,11 +643,11 @@ RectTransform:
   - {fileID: 22419902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1280, y: 720}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22419902
 RectTransform:
   m_ObjectHideFlags: 1
@@ -650,11 +660,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 10
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: -240}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22431396
 RectTransform:
   m_ObjectHideFlags: 1
@@ -667,11 +677,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 8
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: 134}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22435598
 RectTransform:
   m_ObjectHideFlags: 1
@@ -684,8 +694,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -104, y: 70}
   m_SizeDelta: {x: 350, y: 32}
   m_Pivot: {x: 0, y: 1}
@@ -701,11 +711,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 2
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: 40}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22451634
 RectTransform:
   m_ObjectHideFlags: 1
@@ -718,11 +728,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 6
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: 0}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22467596
 RectTransform:
   m_ObjectHideFlags: 1
@@ -735,11 +745,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 7
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: -120}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22480380
 RectTransform:
   m_ObjectHideFlags: 1
@@ -752,11 +762,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 9
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: -200}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!224 &22490440
 RectTransform:
   m_ObjectHideFlags: 1
@@ -769,11 +779,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22411492}
   m_RootOrder: 5
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -175, y: -80}
   m_SizeDelta: {x: 175, y: 16}
-  m_Pivot: {x: 0, y: 1.00000012}
+  m_Pivot: {x: 0, y: 1.0000001}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -808,6 +818,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultStyle.color.r
+      value: 0.74509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultStyle.color.g
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultStyle.color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

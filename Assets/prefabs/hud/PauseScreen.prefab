@@ -177,7 +177,8 @@ MonoBehaviour:
   initialText: time tree
   initialAlignment: 1
   defaultStyle:
-    color: {r: 0.79607844, g: 0.53333336, b: 0.69411767, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11421222
 MonoBehaviour:
@@ -273,7 +274,8 @@ MonoBehaviour:
   initialText: options
   initialAlignment: 1
   defaultStyle:
-    color: {r: 0.79607844, g: 0.53333336, b: 0.69411767, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11457640
 MonoBehaviour:
@@ -304,7 +306,8 @@ MonoBehaviour:
   initialText: map
   initialAlignment: 1
   defaultStyle:
-    color: {r: 0.79607844, g: 0.53333336, b: 0.69411767, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11462972
 MonoBehaviour:
@@ -324,7 +327,8 @@ MonoBehaviour:
   initialText: switch pages
   initialAlignment: 0
   defaultStyle:
-    color: {r: 0.42647058, g: 0.33239618, b: 0.3899641, a: 1}
+    color: {r: 0.11764706, g: 0.08627451, b: 0.15686275, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11470380
 MonoBehaviour:
@@ -344,7 +348,8 @@ MonoBehaviour:
   initialText: talk
   initialAlignment: 1
   defaultStyle:
-    color: {r: 0.79607844, g: 0.53333336, b: 0.69411767, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11478824
 MonoBehaviour:
@@ -364,7 +369,8 @@ MonoBehaviour:
   initialText: progress
   initialAlignment: 1
   defaultStyle:
-    color: {r: 0.79607844, g: 0.53333336, b: 0.69411767, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
+  importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11479038
 MonoBehaviour:
@@ -589,15 +595,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.r
-      value: 0
+      value: 0.11764706
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.g
-      value: 0
+      value: 0.08627451
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.b
-      value: 0
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: useTimeUser

@@ -483,7 +483,7 @@ public class GlyphBox : MonoBehaviour {
     }
 
     /* Updates GlyphSprites based on lines, visibleChars, glyphStyles, etc. */
-    void updateGlyphs(bool updateStyle) {
+    public void updateGlyphs(bool updateStyle) {
         int charCount = 0;
         for (int y = 0; y < height; y++) {
             string line = "";

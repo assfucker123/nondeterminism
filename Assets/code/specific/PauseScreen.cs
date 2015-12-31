@@ -20,8 +20,8 @@ public class PauseScreen : MonoBehaviour {
     public TextAsset propAsset;
     float openAnimationDuration = .00001f; //can't be 0
 
-    public static Color DEFAULT_COLOR = new Color(203 / 255f, 136 / 255f, 177 / 255f); // CB88B1
-    public static Color SELECTED_COLOR = new Color(45 / 255f, 0 / 255f, 27 / 255f); // 2D001B
+    public static Color DEFAULT_COLOR = new Color(190/255f, 140/255f, 255/255f); // BE8CFF
+    public static Color SELECTED_COLOR = new Color(30/255f, 22/255f, 40/255f); // 1E1628
 
     public enum Page {
         NONE, //meaning entire pause screen is hidden

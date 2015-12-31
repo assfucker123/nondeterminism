@@ -1,0 +1,10 @@
+
+t-W: This is our assailant?  He doesn't look too bad.  Just shoot at Sherivice until he goes away.
+t-W: You can use this fight to practice utilizing your |vision| and |flashback| abilities.
+t-W: You can see visions of Sherivice's attacks a second before they actually happen.
+t-W: Visions are represented by |gray silhouettes|.  While they can't hurt you, the attack that follows will...
+t-W: so when you get a vision of an attack, get out of the way quickly!
+t-W: If you do get hit, you can use a flashback to revert to before you got damaged, and avoid the attack next time.
+t-W: Just remember that flashbacks drain your |phase|, represented by a blue bar at the top of the screen.
+t-W: Don't run out by the time you actually need it!
+closeText block

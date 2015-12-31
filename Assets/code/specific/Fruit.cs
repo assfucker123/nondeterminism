@@ -25,7 +25,6 @@ public class Fruit : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
-        colFinder = GetComponent<ColFinder>();
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
@@ -87,7 +86,6 @@ public class Fruit : MonoBehaviour {
     Rigidbody2D rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
-    ColFinder colFinder;
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;

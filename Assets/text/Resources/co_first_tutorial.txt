@@ -1,0 +1,6 @@
+// the co_ prefix in the file name stands for Current Objective
+
+t-W: You predicted a creature will attack us before we land at Seudar Isle.
+t-W: Make your way outside the ship and climb to the top to confront it.
+t-W: Now would also be a good time to |get a feel for the basic controls of the game|.
+closeText block

@@ -261,7 +261,7 @@ MonoBehaviour:
   initialText: Message text
   initialAlignment: 0
   defaultStyle:
-    color: {r: 0.8705883, g: 0.54901963, b: 1, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
   importantColor: {r: 0.922, g: 1, b: 0, a: 1}
   useTimeUser: 1
 --- !u!114 &11475002
@@ -282,7 +282,7 @@ MonoBehaviour:
   initialText: Name
   initialAlignment: 1
   defaultStyle:
-    color: {r: 0.87058824, g: 0.54901963, b: 1, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
   importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11481388
@@ -453,6 +453,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: importantColor.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultStyle.color.r
+      value: 0.74509805
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

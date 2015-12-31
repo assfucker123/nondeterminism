@@ -60,6 +60,8 @@ public class Vars {
         loadData(saveFileIndexLastUsed);
 
         startGameCalled = true;
+
+        Debug.Log((Resources.Load("s_first_talk") as TextAsset).text);
     }
 
     /* Loads the given level after doing some stuff first. */
@@ -279,6 +281,10 @@ public class Vars {
             if (iStrs[i] == "") continue;
             infoEvents.Add((AdventureEvent.Info)int.Parse(iStrs[i]));
         }
+        // current objective conversation
+        TalkPage.setCurrentObjectiveFile(strs[9]);
+        // all talk conversations
+        TalkPage.loadAllConversationsFromString(strs[10]);
 
     }
 
@@ -313,6 +319,13 @@ public class Vars {
             if (i < infoEvents.Count - 1)
                 ret += ",";
         }
+        ret += "\n";
+        // current objective conversation (9)
+        ret += TalkPage.currentObjectiveFile;
+        ret += "\n";
+        // all talk conversations (10)
+        ret += TalkPage.saveAllConversationsToString();
+
 
         return ret;
     }

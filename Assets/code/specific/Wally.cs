@@ -28,7 +28,6 @@ public class Wally : MonoBehaviour {
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
         timeUser = GetComponent<TimeUser>();
-        receivesDamage = GetComponent<ReceivesDamage>();
     }
 
     void Start() {
@@ -143,6 +142,5 @@ public class Wally : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     Animator animator;
     TimeUser timeUser;
-    ReceivesDamage receivesDamage;
 
 }

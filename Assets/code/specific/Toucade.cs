@@ -120,12 +120,10 @@ public class Toucade : MonoBehaviour {
         spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
-        colFinder = GetComponent<ColFinder>();
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
         defaultDeath = GetComponent<DefaultDeath>();
-        enemyInfo = GetComponent<EnemyInfo>();
     }
 
     void Start() {
@@ -631,11 +629,9 @@ public class Toucade : MonoBehaviour {
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;
-    ColFinder colFinder;
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;
     DefaultDeath defaultDeath;
-    EnemyInfo enemyInfo;
 
 }

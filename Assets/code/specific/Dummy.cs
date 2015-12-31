@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// surpresses "assigned but never used" warnings.  Get rid of this line when making the actual enemy
+#pragma warning disable 0414
+
 public class Dummy : MonoBehaviour {
 
     
