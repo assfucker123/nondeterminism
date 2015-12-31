@@ -165,8 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openDuration: 0.134
   closeDuration: 0.134
-  textDisplaySpeed: 30
-  textFastDisplaySpeed: 120
+  textDisplaySpeed: 35
+  textFastDisplaySpeed: 180
 --- !u!114 &11431712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,7 +432,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: textDisplaySpeed
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_AnchoredPosition.y
@@ -440,7 +440,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: textFastDisplaySpeed
-      value: 120
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: importantColor.r

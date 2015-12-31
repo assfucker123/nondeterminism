@@ -33,6 +33,12 @@ public class CutsceneBars : MonoBehaviour {
         _state = State.MOVING_OFF;
     }
 
+    public void moveOnImmediately() {
+        topBar.rectTransform.localScale = new Vector3(1, 1, 1);
+        bottomBar.rectTransform.localScale = new Vector3(-1, 1, 1);
+        _state = State.ON;
+    }
+
     public void moveOffImmediately() {
         topBar.rectTransform.localScale = new Vector3(0, 1, 1);
         bottomBar.rectTransform.localScale = new Vector3(0, 1, 1);

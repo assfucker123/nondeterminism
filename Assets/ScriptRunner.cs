@@ -111,11 +111,21 @@ public class ScriptRunner : MonoBehaviour {
                 index2 = line.LastIndexOf("block");
                 if (index2 != -1)
                     blockToggle = true;
+                index2 = line.LastIndexOf("immediately");
+                if (index2 != -1) {
+                    int0 = 1;
+                    blockToggle = false;
+                }
             } else if (word == "cbarsoff") { // cbarsOff
                 id = ID.CUTSCENE_BARS_OFF;
                 index2 = line.LastIndexOf("block");
                 if (index2 != -1)
                     blockToggle = true;
+                index2 = line.LastIndexOf("immediately");
+                if (index2 != -1) {
+                    int0 = 1;
+                    blockToggle = false;
+                }
             } else if (word == "camfollowplayer") { // camFollowPlayer 1.0
                 id = ID.CAMERA_FOLLOW_PLAYER;
                 index2 = line.LastIndexOf("block");
@@ -293,11 +303,7 @@ public class ScriptRunner : MonoBehaviour {
 	}
 	
 	void Update() {
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            runScript();
-        }
-
+        
         if (!runningScript) return;
         if (runWhenPaused && !PauseScreen.paused) {
             Debug.LogError("ERROR: runWhenPaused is true, so it can only be run while paused.");
@@ -406,7 +412,11 @@ public class ScriptRunner : MonoBehaviour {
                             blocking = false;
                         }
                     } else {
-                        CutsceneBars.instance.moveOn();
+                        if (instr.int0 == 1) {
+                            CutsceneBars.instance.moveOnImmediately();
+                        } else {
+                            CutsceneBars.instance.moveOn();
+                        }
                         if (instr.blockToggle) {
                             blocking = true;
                         }
@@ -420,7 +430,11 @@ public class ScriptRunner : MonoBehaviour {
                             blocking = false;
                         }
                     } else {
-                        CutsceneBars.instance.moveOff();
+                        if (instr.int0 == 1) {
+                            CutsceneBars.instance.moveOffImmediately();
+                        } else {
+                            CutsceneBars.instance.moveOff();
+                        }
                         if (instr.blockToggle) {
                             blocking = true;
                         }

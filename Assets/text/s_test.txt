@@ -2,7 +2,7 @@
 
 
 stopPlayer // sets Player's receivePlayerInput to false and calls CutsceneKeys.allFalse()
-cbarsOn block // turns the cutscene bars on (this is non-blocking, unless block is added)
+cbarsOn block // turns the cutscene bars on (this is non-blocking, unless block is added) (immediately can be added to turn the bars on immediately)
 // wait 1.0 // waits for 1.0 seconds (clearly blocking)
 t-Wally: Hi what is going on? // opens TextBox, displays text.  Stops script until user continues
 t-O: Nothing much.  Is life even worth living?  Stretch out the character count.  The max is 120 chars. // displays text by oracle
@@ -21,19 +21,19 @@ camSetPosition(44,13) 1.0 // takes 1.0 seconds to set the camera mode to move to
 lbl 2
 
 
-jmpPhys(1) skip // if physical event 1 has happened, jump to lbl skip
+jmpPhys(2) skip // if physical event 2 has happened, jump to lbl skip
 //jmpInfo(1) skip // if info even 1 has happened, jump to lbl skip
 
 t-W: We have not had this talk before.
 
 lbl skip
 
-physHappen(1) // calls Vars.currentNodeData.eventHappen(1) where 1 is the appropriate AdventureEvent.Physical int
+physHappen(2) // calls Vars.currentNodeData.eventHappen(2) where 2 is the appropriate AdventureEvent.Physical int
 // infoHappen(1) // calls Vars.eventHappen(1) where 1 is the appropriate AdventureEvent.Info int
 
 sendMessage Wally GetTheMessage dooby dooby do // sends the message GetTheMessage with parameter "dooby dooby do" to the GameObject named Wally.  The parameter is optional
 
 closeText // closes the textbox (non-blocking, unless block is added)
-cbarsOff block // turns the cutscene bars off (this is non-blocking, unless block is added)
+cbarsOff block // turns the cutscene bars off (this is non-blocking, unless block is added) (immediately can be added to turn the bars off immediately)
 resumePlayer // player can receive player input again
 

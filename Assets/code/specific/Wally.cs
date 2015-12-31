@@ -66,6 +66,12 @@ public class Wally : MonoBehaviour {
                 break;
             case 1: // tap foot
                 v.Set(0, 0);
+
+                // hacky hack that keeps Wally tapping his foot when the first talk is happening
+                if (ScriptRunner.scriptsPreventPausing) {
+                    time = 0;
+                }
+
                 if (time >= duration) {
                     animator.Play("walk");
                     flippedHoriz = true;

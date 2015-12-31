@@ -6,13 +6,15 @@ public class AdventureEvent {
 
     // info events are time-independent
 	public enum Info {
-        COMPLETED_TUTORIAL
+        NONE = 0,
+        COMPLETED_TUTORIAL = 1
     }
 
     // physical events are time-dependent
     public enum Physical {
-        DESTROYED_TUTORIAL_WALL = 0,
-        FIRST_TALK = 1,
+        NONE = 0,
+        DESTROYED_TUTORIAL_WALL = 1,
+        FIRST_TALK = 2,
     }
 
 }
