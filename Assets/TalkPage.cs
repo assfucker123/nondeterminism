@@ -134,6 +134,7 @@ public class TalkPage : MonoBehaviour {
             selectionVisualIndex = value - listOffset;
         }
     }
+    public TalkConversation selectedConversation {  get { return list[selectionIndex]; } }
 
     /* Creates list, which will be the data used when displaying the list in displayList() */
     public void initializeList() {
@@ -148,11 +149,7 @@ public class TalkPage : MonoBehaviour {
         currentObjectiveTalkConversation.newConversation = true;
         currentObjectiveTalkConversation.tutorial = false;
         list.Add(currentObjectiveTalkConversation);
-
-        //testing
-        list.Add(currentObjectiveTalkConversation);
-        list.Add(currentObjectiveTalkConversation);
-
+        
         // (here add strip suit command)
 
         // add divider
@@ -182,17 +179,7 @@ public class TalkPage : MonoBehaviour {
                 list.Add(conversations[i]);
             }
         }
-
-
-        //testing
-        list.Add(currentObjectiveTalkConversation);
-        list.Add(currentObjectiveTalkConversation);
-        list.Add(currentObjectiveTalkConversation);
-        list.Add(currentObjectiveTalkConversation);
-        list.Add(currentObjectiveTalkConversation);
-        list.Add(currentObjectiveTalkConversation);
-
-
+        
     }
 
     /* Displays the list.  First line is the parameter listOffset */
@@ -282,38 +269,102 @@ public class TalkPage : MonoBehaviour {
     }
 
     void incrementSelection() {
-        if (selectionIndex >= list.Count)
-            return;
-        if (selectionVisualIndex >= listBox.height - 2) {
+        int prevSelectionVisualIndex = selectionVisualIndex;
+        selectionVisualPos0.Set(selectionImage.rectTransform.localPosition.x, selectionImage.rectTransform.localPosition.y);
+
+        if (selectionVisualIndex >= listBox.height - 1 /*2*/) {
             // scroll list offset instead, if possible
             if (listOffset < maxListOffset) {
                 listOffset++;
+            } else if (listOffset == maxListOffset) {
+                listOffset = 0;
+                selectionVisualIndex = 0;
             } else {
                 selectionVisualIndex++;
             }
         } else {
-            selectionVisualIndex++;
+            if (selectionVisualIndex == list.Count - 1) {
+                selectionVisualIndex = 0;
+            } else {
+                selectionVisualIndex++;
+            }
         }
+
+        if (Mathf.Abs(selectionVisualIndex - prevSelectionVisualIndex) == 1) {
+            selectionVisualPos1.Set(selectionImage.rectTransform.localPosition.x, selectionImage.rectTransform.localPosition.y);
+            selectionVisualTime = 0;
+            selectionImage.rectTransform.localPosition = new Vector3(selectionVisualPos0.x, selectionVisualPos0.y, selectionImage.rectTransform.localPosition.z);
+        } else {
+            selectionVisualTime = 99999;
+        }
+        
         displayList(listOffset);
     }
 
     void decrementSelection() {
-        if (selectionIndex <= 0)
-            return;
-        if (selectionVisualIndex <= 1) {
+        int prevSelectionVisualIndex = selectionVisualIndex;
+        selectionVisualPos0.Set(selectionImage.rectTransform.localPosition.x, selectionImage.rectTransform.localPosition.y);
+
+        if (selectionVisualIndex <= 0 /*1*/) {
             // scroll list offset instead, if possible
             if (listOffset > 0) {
                 listOffset--;
+            } else if (listOffset == 0) {
+                listOffset = maxListOffset;
+                selectionVisualIndex = Mathf.Min(list.Count, listBox.height);
             } else {
                 selectionVisualIndex--;
             }
         } else {
             selectionVisualIndex--;
         }
+
+        if (Mathf.Abs(selectionVisualIndex - prevSelectionVisualIndex) == 1) {
+            selectionVisualPos1.Set(selectionImage.rectTransform.localPosition.x, selectionImage.rectTransform.localPosition.y);
+            selectionVisualTime = 0;
+            selectionImage.rectTransform.localPosition = new Vector3(selectionVisualPos0.x, selectionVisualPos0.y, selectionImage.rectTransform.localPosition.z);
+        } else {
+            selectionVisualTime = 99999;
+        }
+
         displayList(listOffset);
     }
     
     public void update() {
+
+        // input
+        if (!TextBox.instance.isBeingUsed) {
+            if (markNotNewOnceTextBoxNotUsed) {
+                if (selectedConversation.newConversation &&
+                    selectedConversation.name != propAsset.getString("current_objective")) {
+                    selectedConversation.newConversation = false;
+                    displayList(listOffset);
+                }
+                markNotNewOnceTextBoxNotUsed = false;
+            }
+            if (Keys.instance.upPressed) {
+                decrementSelection();
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+            } else if (Keys.instance.downPressed) {
+                incrementSelection();
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+            } else if (Keys.instance.confirmPressed) {
+                // play text
+                if (selectedConversation.scriptFile != "") {
+                    scriptRunner.runScript(Resources.Load(selectedConversation.scriptFile) as TextAsset);
+                    markNotNewOnceTextBoxNotUsed = true;
+                }
+            }
+        }
+
+        // move selection
+        if (selectionVisualTime < selectionVisualDuration) {
+            selectionVisualTime += Time.unscaledDeltaTime;
+            selectionImage.rectTransform.localPosition = new Vector3(
+                Utilities.easeOutQuadClamp(selectionVisualTime, selectionVisualPos0.x, selectionVisualPos1.x - selectionVisualPos0.x, selectionVisualDuration),
+                Utilities.easeOutQuadClamp(selectionVisualTime, selectionVisualPos0.y, selectionVisualPos1.y - selectionVisualPos0.y, selectionVisualDuration),
+                selectionImage.rectTransform.localPosition.z);
+        }
         
     }
 
@@ -322,6 +373,11 @@ public class TalkPage : MonoBehaviour {
         listBG.enabled = true;
         selectionImage.enabled = true;
         listBox.makeAllCharsVisible();
+
+        initializeList();
+        displayList(0);
+        selectionVisualIndex = 0;
+
         displayList(listOffset);
     }
 
@@ -350,29 +406,19 @@ public class TalkPage : MonoBehaviour {
         scrollDownImage = transform.Find("ScrollDown").GetComponent<Image>();
         selectionImage = transform.Find("Selection").GetComponent<Image>();
         listBox = transform.Find("ListBox").GetComponent<GlyphBox>();
+        scriptRunner = GetComponent<ScriptRunner>();
         propAsset = new Properties(textAsset.text);
     }
 
     void Start() {
         
-        //hide();
-
-        //testing
-        initializeList();
-        displayList(1);
-
-        selectionVisualIndex = 1;
+        hide();
+        
     }
 
     void Update() {
 
-
-        //testing
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            decrementSelection();
-        } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            incrementSelection();
-        }
+        
 
     }
 
@@ -389,6 +435,7 @@ public class TalkPage : MonoBehaviour {
     Image scrollDownImage;
     Image selectionImage;
     GlyphBox listBox;
+    ScriptRunner scriptRunner;
 
     Properties propAsset;
 
@@ -397,6 +444,11 @@ public class TalkPage : MonoBehaviour {
 
     int _listOffset = 0;
     int _selectionVisualIndex = 0;
+    float selectionVisualTime = 9999;
+    float selectionVisualDuration = .15f;
+    Vector2 selectionVisualPos0 = new Vector2();
+    Vector2 selectionVisualPos1 = new Vector2();
+    bool markNotNewOnceTextBoxNotUsed = false;
     List<TalkConversation> list = new List<TalkConversation>();
 
 }

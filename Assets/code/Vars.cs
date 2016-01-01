@@ -61,7 +61,6 @@ public class Vars {
 
         startGameCalled = true;
 
-        Debug.Log((Resources.Load("s_first_talk") as TextAsset).text);
     }
 
     /* Loads the given level after doing some stuff first. */

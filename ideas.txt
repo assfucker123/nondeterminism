@@ -442,3 +442,10 @@ o Boss fight section: create obbs that will heal the boss.  Need to destroy the 
 o Advertise game as Majora's Mask time-rewind mechanic in a Metroidvania.
 
 o By standing still you can recharge a tiny bit of Phase (enough for a chamber flashback) if you're really low.  Innate ability, but can be upgraded.
+
+o Game crashing puzzle:
+	- Early on in the game, Oracle gets hit with a cold wind attack that freezes her (iced over sprite)
+	- Wally calls, says "When you freeze, rapidly tap left and right to resume playing".
+	- Player then taps left/right to escape the ice coating.
+	- During the glitch fight (when about to win?) have the game pretend to crash.  Bring up a fake "Unity fatal error" window.
+	- Rapidly tap left and right to get rid of the error and resume the game.

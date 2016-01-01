@@ -385,6 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
   mapPageGameObject: {fileID: 132328, guid: bc6057973e77ab042bd6a1d136c040d4, type: 2}
+  talkPageGameObject: {fileID: 122212, guid: c762de82b372f5342b1b6718b3552b7b, type: 2}
   optionsPageGameObject: {fileID: 104038, guid: 8c0654cd1387e704ba83d70d19cf8fdb,
     type: 2}
   propAsset: {fileID: 4900000, guid: 654bea6f3fd320c4fae4edf8789918a7, type: 3}

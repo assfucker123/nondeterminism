@@ -19,6 +19,11 @@ public class TextBox : MonoBehaviour {
     // PUBLIC //
     ////////////
 
+    public float openDuration = .134f;
+    public float closeDuration = .134f;
+    public float textDisplaySpeed = 20;
+    public float textFastDisplaySpeed = 60;
+
     public GlyphBox messageBox {  get { return _messageBox; } }
     public GlyphBox nameBox {  get { return _nameBox; } }
 
@@ -32,6 +37,7 @@ public class TextBox : MonoBehaviour {
     public State state {  get { return _state; } }
     public bool isOpen {  get { return state == State.OPEN; } }
     public bool isClosed { get { return state == State.CLOSED; } }
+    public bool isBeingUsed {  get { return state != State.CLOSED; } }
 
     public bool doneDisplaying {  get { return _doneDisplaying; } }
 
@@ -74,7 +80,7 @@ public class TextBox : MonoBehaviour {
         continueImage.enabled = false;
     }
 
-    public void displayText(string name, string formattedText) {
+    public void displayText(string name, string formattedText, bool playAdvanceSound = true) {
         _doneDisplaying = false;
         textIndex = 0;
 
@@ -116,10 +122,8 @@ public class TextBox : MonoBehaviour {
             messageBox.insertSecretText(secretTexts[i], lines[i], charIndexes[i]);
         }
 
-
-
         continueImage.enabled = false;
-
+        
     }
 
     /////////////
@@ -236,10 +240,7 @@ public class TextBox : MonoBehaviour {
             _instance = null;
     }
 
-    public float openDuration = .134f;
-    public float closeDuration = .134f;
-    public float textDisplaySpeed = 20;
-    public float textFastDisplaySpeed = 60;
+    
 
     void allVisible() {
         image.enabled = true;
