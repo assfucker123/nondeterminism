@@ -327,7 +327,7 @@ MonoBehaviour:
   initialText: switch pages
   initialAlignment: 0
   defaultStyle:
-    color: {r: 0.11764706, g: 0.08627451, b: 0.15686275, a: 1}
+    color: {r: 0.21599989, g: 0.15839998, b: 0.288, a: 1}
   importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11470380
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed3f004ea5fdb44b9f5fb803a1894a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  switchSound: {fileID: 8300000, guid: cfddc3f81f01c18488101dd5d2c31b24, type: 3}
   mapPageGameObject: {fileID: 132328, guid: bc6057973e77ab042bd6a1d136c040d4, type: 2}
   talkPageGameObject: {fileID: 122212, guid: c762de82b372f5342b1b6718b3552b7b, type: 2}
   optionsPageGameObject: {fileID: 104038, guid: 8c0654cd1387e704ba83d70d19cf8fdb,
@@ -565,7 +565,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: switchSound
       value: 
-      objectReference: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+      objectReference: {fileID: 8300000, guid: cfddc3f81f01c18488101dd5d2c31b24, type: 3}
     - target: {fileID: 0}
       propertyPath: m_AnchoredPosition.x
       value: 0
@@ -596,15 +596,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.r
-      value: 0.11764706
+      value: 0.21599989
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.g
-      value: 0.08627451
+      value: 0.15839998
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.b
-      value: 0.15686275
+      value: 0.288
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: useTimeUser

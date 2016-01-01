@@ -4,14 +4,14 @@ camSetPosition(48, 13) // happens immediately
 cbarsOn immediately
 wait 1.0
 
-t-W: Boy, this ship can really move.  We're now close enough to |Seudar Isle| that it's coming into view below us.
+t-W: We're making great time.  The ship is so close to |Seudar Isle| that it's right under our view.
 t-W: You know, this is the first time in my life I've done something this adventurous.  It's making me tense!
 t-W: The note |NPC| wrote warned us that the island was full of dangerous and hostile creatures,
 t-W: but surely he was exaggerating for our own safety, right?
 t-O: Sorry to further perturb you Wally, but the warnings contained in NPC's note are correct.
 t-O: We even get attacked by a creature native to Seudar Isle on the way there.
 t-W: But we haven't gotten attacked at all yet...
-t-W: Oh, I get it.  Keeping me suspense again?
+t-W: Oh, I get it.  Keeping me in suspense again?
 t-O: Not to worry, I will face the annoyance directly and defeat it quickly.
 t-W: It drives me nuts when you act like this.  I know you're always right when it comes to these things but...
 t-W: just be careful, okay?

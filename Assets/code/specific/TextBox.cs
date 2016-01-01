@@ -23,6 +23,11 @@ public class TextBox : MonoBehaviour {
     public float closeDuration = .134f;
     public float textDisplaySpeed = 20;
     public float textFastDisplaySpeed = 60;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+    public AudioClip wallyTextSound;
+    public AudioClip oracleTextSound;
+    public float textSoundPeriod = .04f;
 
     public GlyphBox messageBox {  get { return _messageBox; } }
     public GlyphBox nameBox {  get { return _nameBox; } }
@@ -52,6 +57,8 @@ public class TextBox : MonoBehaviour {
         if (clear) {
             this.clear();
         }
+
+        SoundManager.instance.playSFXIgnoreVolumeScale(openSound);
     }
 
     public void close() {
@@ -61,6 +68,8 @@ public class TextBox : MonoBehaviour {
         clear();
         _state = State.CLOSING;
         time = 0;
+
+        SoundManager.instance.playSFXIgnoreVolumeScale(closeSound);
     }
 
     public void closeImmediately() {
@@ -123,6 +132,15 @@ public class TextBox : MonoBehaviour {
         }
 
         continueImage.enabled = false;
+
+        // set current text sound effect
+        if (name.ToLower() == "wally") {
+            currentTextSoundEffect = wallyTextSound;
+        } else if (name.ToLower() == "oracle") {
+            currentTextSoundEffect = oracleTextSound;
+        } else {
+            currentTextSoundEffect = null;
+        }
         
     }
 
@@ -200,6 +218,15 @@ public class TextBox : MonoBehaviour {
             }
             messageBox.visibleChars = Mathf.FloorToInt(textIndex);
             messageBox.visibleSecretChars = Mathf.Max(messageBox.visibleChars, messageBox.visibleSecretChars);
+
+            textSoundTime += Time.unscaledDeltaTime;
+            if (textSoundTime >= textSoundPeriod) {
+                if (currentTextSoundEffect != null) {
+                    SoundManager.instance.playSFXIgnoreVolumeScale(currentTextSoundEffect);
+                }
+                textSoundTime = 0;
+            }
+            
         }
 
     }
@@ -217,6 +244,7 @@ public class TextBox : MonoBehaviour {
         fi.bools["dd"] = doneDisplaying;
         fi.floats["ti"] = textIndex;
         fi.bools["st"] = speedyText;
+        fi.floats["tst"] = textSoundTime;
 
     }
 
@@ -232,6 +260,7 @@ public class TextBox : MonoBehaviour {
         _doneDisplaying = fi.bools["dd"];
         textIndex = fi.floats["ti"];
         speedyText = fi.bools["st"];
+        textSoundTime = fi.floats["tst"];
 
     }
 
@@ -264,6 +293,7 @@ public class TextBox : MonoBehaviour {
     bool _doneDisplaying = true;
     float textIndex = 0;
     bool speedyText = false;
+    float textSoundTime = 0;
 
     TimeUser timeUser;
     Image image;
@@ -273,6 +303,7 @@ public class TextBox : MonoBehaviour {
     Animator profileAnimator;
     Image profileImage;
     Image continueImage;
+    AudioClip currentTextSoundEffect = null;
 
     private static TextBox _instance = null;
 

@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22441472}
   - 114: {fileID: 11455082}
+  - 114: {fileID: 11432076}
   m_Layer: 5
   m_Name: TalkPage
   m_TagString: Untagged
@@ -128,6 +129,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11432076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b765768a3cb144d8063a8bb7e82e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptAsset: {fileID: 0}
+  runWhenPaused: 1
 --- !u!114 &11455082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,7 +413,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: runWhenPaused
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 122212}
