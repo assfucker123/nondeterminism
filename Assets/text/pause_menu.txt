@@ -3,4 +3,4 @@ time_tree: <Time Tree>
 talk: <Talk>
 progress: <Progress>
 options: <Options>
-switch_pages: (Switch pages with PgUp/PgDn)
+switch_pages: (Switch pages with A/S)

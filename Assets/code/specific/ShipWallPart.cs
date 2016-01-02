@@ -5,6 +5,7 @@ public class ShipWallPart : MonoBehaviour {
 
     public float fadeStartTime = 1.0f;
     public float fadeFinishTime = 2.0f;
+    public int damage = 1;
     public AudioClip hitSound;
 
 	void Awake() {
@@ -31,6 +32,13 @@ public class ShipWallPart : MonoBehaviour {
         if (c2d.relativeVelocity.magnitude > 4) {
             SoundManager.instance.playSFXRandPitchBend(hitSound, .02f);
         }
+
+        if (c2d.gameObject == Player.instance.gameObject) {
+            if (c2d.contacts[0].normal.y > .5f) {
+                Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, true);
+            }
+        }
+
     }
 
     void OnSaveFrame(FrameInfo fi) {

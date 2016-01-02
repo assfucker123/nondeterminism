@@ -339,8 +339,8 @@ public class Keys : MonoBehaviour {
     public static KeyCode DEFAULT_FLASHBACK_KEY = KeyCode.LeftControl;
     public static KeyCode DEFAULT_DODGE_KEY = KeyCode.LeftShift;
     public static KeyCode DEFAULT_START_KEY = KeyCode.Return;
-    public static KeyCode DEFAULT_PAGE_LEFT_KEY = KeyCode.PageDown;
-    public static KeyCode DEFAULT_PAGE_RIGHT_KEY = KeyCode.PageUp;
+    public static KeyCode DEFAULT_PAGE_LEFT_KEY = KeyCode.A;//KeyCode.PageDown;
+    public static KeyCode DEFAULT_PAGE_RIGHT_KEY = KeyCode.S;//KeyCode.PageUp;
     
     public static KeyCode LEFT_KEY = DEFAULT_LEFT_KEY;
     public static KeyCode RIGHT_KEY = DEFAULT_RIGHT_KEY;

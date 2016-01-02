@@ -13,7 +13,7 @@ GameObject:
   - 60: {fileID: 6048616}
   - 114: {fileID: 11401162}
   - 114: {fileID: 11407960}
-  m_Layer: 13
+  m_Layer: 11
   m_Name: ShipWallPart3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeStartTime: 1.6
   fadeFinishTime: 2.1
+  damage: 1
   hitSound: {fileID: 8300000, guid: 9b03031c40a8b994b88e7e9ec8ea4f25, type: 3}
 --- !u!212 &21212992
 SpriteRenderer:
@@ -145,6 +146,10 @@ Prefab:
       propertyPath: hitSound
       value: 
       objectReference: {fileID: 8300000, guid: 9b03031c40a8b994b88e7e9ec8ea4f25, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167594}
