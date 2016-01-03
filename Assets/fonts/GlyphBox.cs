@@ -329,12 +329,31 @@ public class GlyphBox : MonoBehaviour {
         if (gs == null) return 0;
         return lines[line].Length * gs.pixelWidth + (lines[line].Length - 1) * gs.horizSpacing;
     }
-    
+
+    /* Gets the last visible character (ignoring secret lines) */
+    public char getLastVisibleChar() {
+        if (visibleChars == 0)
+            return ' ';
+        int charCount = 0;
+        for (int y = 0; y < height; y++) {
+            string line = "";
+            if (y < lines.Count)
+                line = lines[y];
+            for (int x = 0; x < line.Length; x++) {
+                charCount++;
+                if (charCount == visibleChars) {
+                    return line[x];
+                }
+            }
+        }
+        return ' ';
+    }
+
     ////////////////////
     // EVENT MESSAGES //
     ////////////////////
 
-	void Awake() {
+    void Awake() {
         timeUser = GetComponent<TimeUser>();
         if (!validateFonts())
             return;

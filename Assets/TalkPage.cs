@@ -98,6 +98,9 @@ public class TalkPage : MonoBehaviour {
     public static List<TalkConversation> conversations = new List<TalkConversation>();
     public static TalkPage instance {  get { return _instance; } }
 
+    private static int lastListOffset = 0;
+    private static int lastSelectionVisualIndex = 0;
+
     ////////////
     // PUBLIC //
     ////////////
@@ -299,6 +302,9 @@ public class TalkPage : MonoBehaviour {
         }
         
         displayList(listOffset);
+
+        lastListOffset = listOffset;
+        lastSelectionVisualIndex = selectionVisualIndex;
     }
 
     void decrementSelection() {
@@ -328,6 +334,9 @@ public class TalkPage : MonoBehaviour {
         }
 
         displayList(listOffset);
+
+        lastListOffset = listOffset;
+        lastSelectionVisualIndex = selectionVisualIndex;
     }
     
     public void update() {
@@ -375,8 +384,8 @@ public class TalkPage : MonoBehaviour {
         listBox.makeAllCharsVisible();
 
         initializeList();
-        displayList(0);
-        selectionVisualIndex = 0;
+        displayList(Mathf.Clamp(lastListOffset, minListOffset, maxListOffset));
+        selectionVisualIndex = lastSelectionVisualIndex;
 
         displayList(listOffset);
     }
@@ -423,6 +432,7 @@ public class TalkPage : MonoBehaviour {
     }
 
     void OnDestroy() {
+        hide();
         if (_instance == this)
             _instance = null;
     }

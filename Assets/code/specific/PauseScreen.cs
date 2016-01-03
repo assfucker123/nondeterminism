@@ -13,6 +13,12 @@ public class PauseScreen : MonoBehaviour {
         }
     }
     public static Page lastPageOpened = Page.OPTIONS;
+    public static Mode mode = Mode.NORMAL;
+    public enum Mode {
+        NORMAL, // all pages available
+        TUTORIAL, // map and time tree not available
+        TALK_DISABLED // talk is disabled
+    }
 
     public AudioClip switchSound;
     public GameObject mapPageGameObject;
@@ -25,6 +31,7 @@ public class PauseScreen : MonoBehaviour {
 
     public static Color DEFAULT_COLOR = new Color(190/255f, 140/255f, 255/255f); // BE8CFF
     public static Color SELECTED_COLOR = new Color(30/255f, 22/255f, 40/255f); // 1E1628
+    public static Color UNAVAILABLE_COLOR = new Color(160/255f, 73/255f, 125/255f); // A0497D
 
     public enum Page {
         NONE, //meaning entire pause screen is hidden
@@ -36,7 +43,7 @@ public class PauseScreen : MonoBehaviour {
     }
 
     public Page page { get { return _page; } }
-
+    
     // pauses the game, doing an animation before the player can choose stuff
     public void pauseGame(Page page = Page.OPTIONS) {
         if (paused) return;
@@ -267,6 +274,37 @@ public class PauseScreen : MonoBehaviour {
                 switchPagesText.setPlainText(prop.getString("switch_pages"));
                 image.enabled = true;
 
+                // display stuff based on mode
+                switch (mode) {
+                case Mode.NORMAL:
+                    mapPageText.setColor(DEFAULT_COLOR);
+                    timeTreePageText.setColor(DEFAULT_COLOR);
+                    talkPageText.setColor(DEFAULT_COLOR);
+                    progressPageText.setColor(DEFAULT_COLOR);
+                    optionsPageText.setColor(DEFAULT_COLOR);
+                    break;
+                case Mode.TUTORIAL:
+                    mapPageText.setColor(UNAVAILABLE_COLOR);
+                    timeTreePageText.setColor(UNAVAILABLE_COLOR);
+                    talkPageText.setColor(DEFAULT_COLOR);
+                    progressPageText.setColor(DEFAULT_COLOR);
+                    optionsPageText.setColor(DEFAULT_COLOR);
+                    if (lastPageOpened == Page.MAP || lastPageOpened == Page.TIME_TREE) {
+                        lastPageOpened = Page.TALK;
+                    }
+                    break;
+                case Mode.TALK_DISABLED:
+                    mapPageText.setColor(DEFAULT_COLOR);
+                    timeTreePageText.setColor(DEFAULT_COLOR);
+                    talkPageText.setColor(UNAVAILABLE_COLOR);
+                    progressPageText.setColor(DEFAULT_COLOR);
+                    optionsPageText.setColor(DEFAULT_COLOR);
+                    if (lastPageOpened == Page.TALK) {
+                        lastPageOpened = Page.TIME_TREE;
+                    }
+                    break;
+                }
+                
                 // display more stuff
                 if (!Vars.screenshotMode) {
                     show(lastPageOpened);
@@ -307,10 +345,26 @@ public class PauseScreen : MonoBehaviour {
                     pageTo = Page.OPTIONS;
                     immediately = true; //wrapping around looks awkward
                     break;
-                case Page.TIME_TREE: pageTo = Page.MAP; break;
-                case Page.TALK: pageTo = Page.TIME_TREE; break;
-                case Page.PROGRESS: pageTo = Page.TALK; break;
-                case Page.OPTIONS: pageTo = Page.PROGRESS; break;
+                case Page.TIME_TREE:
+                    pageTo = Page.MAP;
+                    break;
+                case Page.TALK:
+                    if (mode == Mode.TUTORIAL) {
+                        pageTo = Page.OPTIONS;
+                    } else {
+                        pageTo = Page.TIME_TREE;
+                    }
+                    break;
+                case Page.PROGRESS:
+                    if (mode == Mode.TALK_DISABLED) {
+                        pageTo = Page.TIME_TREE;
+                    } else {
+                        pageTo = Page.TALK;
+                    }
+                    break;
+                case Page.OPTIONS:
+                    pageTo = Page.PROGRESS;
+                    break;
                 }
                 switchPage(pageTo, immediately);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
@@ -319,12 +373,26 @@ public class PauseScreen : MonoBehaviour {
                 bool immediately = false;
                 switch (page) {
                 case Page.MAP: pageTo = Page.TIME_TREE; break;
-                case Page.TIME_TREE: pageTo = Page.TALK; break;
-                case Page.TALK: pageTo = Page.PROGRESS; break;
-                case Page.PROGRESS: pageTo = Page.OPTIONS; break;
+                case Page.TIME_TREE:
+                    if (mode == Mode.TALK_DISABLED) {
+                        pageTo = Page.PROGRESS;
+                    } else {
+                        pageTo = Page.TALK;
+                    }
+                    break;
+                case Page.TALK:
+                    pageTo = Page.PROGRESS;
+                    break;
+                case Page.PROGRESS:
+                    pageTo = Page.OPTIONS;
+                    break;
                 case Page.OPTIONS:
-                    pageTo = Page.MAP;
-                    immediately = true; //wrapping around looks weird
+                    if (mode == Mode.TUTORIAL) {
+                        pageTo = Page.TALK;
+                    } else {
+                        pageTo = Page.MAP;
+                        immediately = true; //wrapping around looks weird
+                    }
                     break;
                 }
                 switchPage(pageTo, immediately);
@@ -396,6 +464,7 @@ public class PauseScreen : MonoBehaviour {
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
     float openAnimationTime = 999999;
+    Mode _mode = Mode.NORMAL;
     
 
     // main pause screen

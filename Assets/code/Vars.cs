@@ -244,6 +244,14 @@ public class Vars {
         decryptors.Clear();
         // info events
         infoEvents.Clear();
+        // current objective conversation
+        TalkPage.setCurrentObjectiveFile("co_first_tutorial");
+        // all talk conversations
+        TalkPage.conversations.Clear();
+        // pause screen lastPageOpened, mode
+        PauseScreen.lastPageOpened = PauseScreen.Page.TALK;
+        PauseScreen.mode = PauseScreen.Mode.TUTORIAL;
+
 
     }
 
@@ -284,6 +292,10 @@ public class Vars {
         TalkPage.setCurrentObjectiveFile(strs[9]);
         // all talk conversations
         TalkPage.loadAllConversationsFromString(strs[10]);
+        // pause screen lastPageOpened, mode
+        string[] strsP = strs[11].Split(delims2);
+        PauseScreen.lastPageOpened = (PauseScreen.Page)int.Parse(strsP[0]);
+        PauseScreen.mode = (PauseScreen.Mode)int.Parse(strsP[1]);
 
     }
 
@@ -324,6 +336,9 @@ public class Vars {
         ret += "\n";
         // all talk conversations (10)
         ret += TalkPage.saveAllConversationsToString();
+        ret += "\n";
+        // pause screen lastPageOpened, mode (11)
+        ret += PauseScreen.lastPageOpened + "," + PauseScreen.mode;
 
 
         return ret;

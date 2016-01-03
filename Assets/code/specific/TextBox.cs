@@ -28,6 +28,10 @@ public class TextBox : MonoBehaviour {
     public AudioClip wallyTextSound;
     public AudioClip oracleTextSound;
     public float textSoundPeriod = .04f;
+    public char[] medChars = {',' };
+    public float medCharsSpeedMultiplier = .3f;
+    public char[] slowChars = {'.', '!', '?'};
+    public float slowCharsSpeedMultiplier = .1f;
 
     public GlyphBox messageBox {  get { return _messageBox; } }
     public GlyphBox nameBox {  get { return _nameBox; } }
@@ -89,7 +93,7 @@ public class TextBox : MonoBehaviour {
         continueImage.enabled = false;
     }
 
-    public void displayText(string name, string formattedText, bool playAdvanceSound = true) {
+    public void displayText(string name, string formattedText) {
         _doneDisplaying = false;
         textIndex = 0;
 
@@ -199,16 +203,37 @@ public class TextBox : MonoBehaviour {
                 speedyText = true;
             }
 
-            float speed = textDisplaySpeed;
-            if (speedyText)
-                speed = textFastDisplaySpeed;
-            
-            if (PauseScreen.paused) {
-                textIndex += Time.unscaledDeltaTime * speed;
-            } else {
-                textIndex += Time.deltaTime * speed;
-            }
+            bool incrementTextSoundTime = true;
+            float dt = Time.deltaTime;
+            if (PauseScreen.paused)
+                dt = Time.unscaledDeltaTime;
 
+            if (speedyText) {
+                textIndex += dt * textFastDisplaySpeed;
+            } else {
+                float charMultiplier = 1;
+                char lastChar = messageBox.getLastVisibleChar();
+                for (int i=0; i<medChars.Length; i++) {
+                    if (lastChar == medChars[i]) {
+                        charMultiplier = medCharsSpeedMultiplier;
+                        incrementTextSoundTime = false;
+                    }
+                }
+                for (int i=0; i<slowChars.Length; i++) {
+                    if (lastChar == slowChars[i]) {
+                        charMultiplier = slowCharsSpeedMultiplier;
+                        incrementTextSoundTime = false;
+                    }
+                }
+                
+                // ensures at most 1 new character will be displayed per frame
+                int floorTextIndex = Mathf.FloorToInt(textIndex);
+                textIndex += Mathf.Min(1, dt * textDisplaySpeed * charMultiplier);
+                if (floorTextIndex != Mathf.FloorToInt(textIndex)) {
+                    textIndex = Mathf.Floor(textIndex);
+                }
+            }
+            
             if (textIndex > messageBox.totalChars) {
                 // finished displaying text
                 _doneDisplaying = true;
@@ -219,7 +244,9 @@ public class TextBox : MonoBehaviour {
             messageBox.visibleChars = Mathf.FloorToInt(textIndex);
             messageBox.visibleSecretChars = Mathf.Max(messageBox.visibleChars, messageBox.visibleSecretChars);
 
-            textSoundTime += Time.unscaledDeltaTime;
+            if (incrementTextSoundTime) {
+                textSoundTime += Time.unscaledDeltaTime;
+            }
             if (textSoundTime >= textSoundPeriod) {
                 if (currentTextSoundEffect != null) {
                     SoundManager.instance.playSFXIgnoreVolumeScale(currentTextSoundEffect);
