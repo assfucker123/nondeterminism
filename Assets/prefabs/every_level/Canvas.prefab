@@ -82,6 +82,8 @@ MonoBehaviour:
   textBoxGameObject: {fileID: 165702, guid: ecafba7fa63b0d0409ba6901d27d10c5, type: 2}
   cutsceneBarsGameObject: {fileID: 106350, guid: 7cc94dd18d783b442b81e8cfd45cbe1d,
     type: 2}
+  controlsMessageSpawnerGameObject: {fileID: 188306, guid: f57bae9412352c745ad41c6a90159008,
+    type: 2}
   flashbackArtifactsGameObject: {fileID: 145208, guid: 498d1c9c90a16c440b2d66f4b223b40a,
     type: 2}
 --- !u!223 &22332152
@@ -178,6 +180,10 @@ Prefab:
       propertyPath: cutsceneBarsGameObject
       value: 
       objectReference: {fileID: 106350, guid: 7cc94dd18d783b442b81e8cfd45cbe1d, type: 2}
+    - target: {fileID: 0}
+      propertyPath: controlsMessageSpawnerGameObject
+      value: 
+      objectReference: {fileID: 188306, guid: f57bae9412352c745ad41c6a90159008, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162694}

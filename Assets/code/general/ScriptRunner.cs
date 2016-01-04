@@ -24,7 +24,9 @@ public class ScriptRunner : MonoBehaviour {
             PHYS_HAPPEN,
             JUMP_INFO,
             JUMP_PHYS,
-            SEND_MESSAGE
+            SEND_MESSAGE,
+            SPAWN_CONTROL_MESSAGE,
+            TAKE_DOWN_CONTROL_MESSAGE
         }
 
         public ID id = ID.NONE;
@@ -222,6 +224,12 @@ public class ScriptRunner : MonoBehaviour {
                     str0 = line.Substring(index2 + 1, index3 - index2 - 1).Trim();
                     text = line.Substring(index3 + 1).Trim();
                 }
+            } else if (word == "spawncontrolmessage") { // spawnControlMessage 1
+                id = ID.SPAWN_CONTROL_MESSAGE;
+                int0 = int.Parse(line.Substring(20));
+            } else if (word == "takedowncontrolmessage") { // takeDownControlMessage 1
+                id = ID.TAKE_DOWN_CONTROL_MESSAGE;
+                int0 = int.Parse(line.Substring(23));
             }
 
         }
@@ -545,6 +553,12 @@ public class ScriptRunner : MonoBehaviour {
                         GO.SendMessage(instr.str0, instr.text, SendMessageOptions.DontRequireReceiver);
                     }
                 }
+                break;
+            case Instruction.ID.SPAWN_CONTROL_MESSAGE:
+                ControlsMessageSpawner.instance.spawnMessage((ControlsMessage.Control)instr.int0);
+                break;
+            case Instruction.ID.TAKE_DOWN_CONTROL_MESSAGE:
+                ControlsMessageSpawner.instance.takeDownMessage((ControlsMessage.Control)instr.int0);
                 break;
             }
 

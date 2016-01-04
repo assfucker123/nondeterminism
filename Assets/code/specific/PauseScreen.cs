@@ -464,7 +464,6 @@ public class PauseScreen : MonoBehaviour {
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
     float openAnimationTime = 999999;
-    Mode _mode = Mode.NORMAL;
     
 
     // main pause screen

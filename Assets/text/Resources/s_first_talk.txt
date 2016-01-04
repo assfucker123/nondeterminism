@@ -4,8 +4,10 @@ camSetPosition(48, 13) // happens immediately
 cbarsOn immediately
 wait 1.0
 
+spawnControlMessage 0 // tutorial to advance messages
 t-W: We're making great time.  The ship is so close to |Seudar Isle| that it's right under our view.
 t-W: You know, this is the first time in my life I've done something this adventurous.  It's making me tense!
+takeDownControlMessage 0 // take down message tutorial
 t-W: The note |NPC| wrote warned us that the island was full of dangerous and hostile creatures,
 t-W: but surely he was exaggerating for our own safety, right?
 t-O: Sorry to further perturb you Wally, but the warnings contained in NPC's note are correct.
@@ -23,3 +25,11 @@ closeText
 camFollowPlayer 1.0
 cbarsOff block // blocks until cutscene bars are off
 resumePlayer
+
+// following commands spawn tutorial messages
+wait .4
+spawnControlMessage 1
+wait .4
+spawnControlMessage 2
+wait .4
+spawnControlMessage 3

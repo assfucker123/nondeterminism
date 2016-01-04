@@ -239,7 +239,7 @@ MonoBehaviour:
   minRevertDuration: 0.1
   maxHealth: 4
   maxPhase: 80
-  startPhase: 0.5
+  startPhase: 1
   phaseDecreaseSpeed: 0
   phaseRevertingDecreaseSpeed: 7
   postRevertDuration: 0.5
@@ -272,6 +272,7 @@ MonoBehaviour:
   larvaScreamSound: {fileID: 8300000, guid: 3224a467f67bba54dad7893d4c77b9f0, type: 3}
   flashbackBeginSound: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
   flashbackEndSound: {fileID: 8300000, guid: e2c9a6aa84ff08442b368b8e02b4cc4e, type: 3}
+  receivePlayerInput: 1
 --- !u!114 &11426192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -652,6 +653,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: groundStartSpeed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startPhase
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

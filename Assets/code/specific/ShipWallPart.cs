@@ -7,6 +7,7 @@ public class ShipWallPart : MonoBehaviour {
     public float fadeFinishTime = 2.0f;
     public int damage = 1;
     public AudioClip hitSound;
+    public bool takeDownMessages = false;
 
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
@@ -23,6 +24,13 @@ public class ShipWallPart : MonoBehaviour {
 
         if (time >= fadeFinishTime) {
             timeUser.timeDestroy();
+
+            // get rid of tutorial messages
+            if (takeDownMessages && ControlsMessageSpawner.instance != null) {
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.RUN_AIM);
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.JUMP);
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.SHOOT);
+            }
         }
 	}
 
@@ -51,6 +59,8 @@ public class ShipWallPart : MonoBehaviour {
     }
 
     void setColor() {
+        if (timeUser.shouldNotUpdate)
+            return;
         if (time < fadeStartTime) {
             spriteRenderer.color = Color.white;
         } else {

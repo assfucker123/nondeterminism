@@ -12,6 +12,9 @@ public class ShipWall : MonoBehaviour {
     public GameObject part3GameObject;
     public Vector2 part3Pos = new Vector2();
     public Vector2 part3Vel = new Vector2();
+    public GameObject destroyExplosionGameObject;
+    public Vector2 explosion1Pos = new Vector2();
+    public Vector2 explosion2Pos = new Vector2();
     public AudioClip destroySound;
     public AudioClip destroySound2;
 
@@ -25,6 +28,10 @@ public class ShipWall : MonoBehaviour {
         part2.velocity = part2Vel;
         Rigidbody2D part3 = (GameObject.Instantiate(part3GameObject, transform.localPosition + new Vector3(part3Pos.x, part3Pos.y), Quaternion.identity) as GameObject).GetComponent<Rigidbody2D>();
         part3.velocity = part3Vel;
+
+        // spawn explosions
+        GameObject.Instantiate(destroyExplosionGameObject, transform.localPosition + new Vector3(explosion1Pos.x, explosion1Pos.y), Quaternion.identity);
+        GameObject.Instantiate(destroyExplosionGameObject, transform.localPosition + new Vector3(explosion2Pos.x, explosion2Pos.y), Quaternion.identity);
 
         SoundManager.instance.playSFX(destroySound);
         SoundManager.instance.playSFX(destroySound2);
