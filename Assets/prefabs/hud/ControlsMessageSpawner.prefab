@@ -27,8 +27,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da775fe8da1350428ac0efdcaa73043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlsMessageGameObject: {fileID: 194564, guid: 902363cc47f4da747b9e815f9e06611f,
-    type: 2}
+  controlsMessageGameObject: {fileID: 0}
 --- !u!224 &22471078
 RectTransform:
   m_ObjectHideFlags: 1
@@ -52,7 +51,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: controlsMessageGameObject
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188306}

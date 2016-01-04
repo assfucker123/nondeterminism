@@ -28,7 +28,7 @@ public class ControlsMessage : MonoBehaviour {
     public Sprite flashbackSprite;
     public Sprite pauseGameSprite;
     public Sprite dodgeSprite;
-
+    
     /* Fades out message and automatically destroys it */
     public void fadeOut() {
         if (fadingOut) return;
@@ -44,6 +44,7 @@ public class ControlsMessage : MonoBehaviour {
         
         int yIndex = 0;
         foreach (ControlsMessage cm in allMessages) {
+            if (cm.transform.parent == null) continue;
             if (cm.GetComponent<TimeUser>().exists)
                 yIndex++;
         }

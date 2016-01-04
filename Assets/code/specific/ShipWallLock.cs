@@ -6,6 +6,7 @@ public class ShipWallLock : MonoBehaviour {
 
     public GameObject explosionGameObject;
     public AudioClip explosionSound;
+    public bool takeDownMessages = false;
 
 	void Awake() {
         receivesDamage = GetComponent<ReceivesDamage>();
@@ -44,6 +45,15 @@ public class ShipWallLock : MonoBehaviour {
                 shipWall.beDestroyed();
             }
 
+        }
+
+        if (takeDownMessages) {
+            // get rid of tutorial messages
+            if (ControlsMessageSpawner.instance != null) {
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.RUN_AIM);
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.JUMP);
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.SHOOT);
+            }
         }
     }
 
