@@ -165,13 +165,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openDuration: 0.334
   closeDuration: 0.134
-  textDisplaySpeed: 35
+  textDisplaySpeed: 45
   textFastDisplaySpeed: 180
   openSound: {fileID: 8300000, guid: 12cb03f077fa5234990ee6d2d4a674a8, type: 3}
   closeSound: {fileID: 8300000, guid: d71a4a9b6c7f06e4cb2f26b8ca1935dd, type: 3}
   wallyTextSound: {fileID: 8300000, guid: 5bfbd4d079032bc4dbeb068d1d14330a, type: 3}
   oracleTextSound: {fileID: 8300000, guid: 78275ddef4ef2784daafafda5d75922d, type: 3}
   textSoundPeriod: 0.08
+  medChars: 2c00
+  medCharsSpeedMultiplier: 0.3
+  slowChars: 2e0021003f00
+  slowCharsSpeedMultiplier: 0.1
 --- !u!114 &11431712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,7 +441,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: textDisplaySpeed
-      value: 35
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_AnchoredPosition.y

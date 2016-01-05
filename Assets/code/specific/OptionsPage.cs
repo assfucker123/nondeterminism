@@ -71,7 +71,7 @@ public class OptionsPage : MonoBehaviour {
                 } else {
                     Screen.SetResolution(10000, 10000, true);
                 }
-                
+
             } else if (option == sfxVolumeText) {
                 // toggle sfx volue
                 option.setColor(PauseScreen.DEFAULT_COLOR);
@@ -89,7 +89,15 @@ public class OptionsPage : MonoBehaviour {
                 setVolumeText(false);
                 options.Clear();
                 settingMusic = true;
-
+            } else if (option == vsyncText) {
+                // toggle vSync
+                if (QualitySettings.vSyncCount == 0) {
+                    QualitySettings.vSyncCount = 1;
+                    vsyncText.setPlainText(propAsset.getString("vsync_on"));
+                } else {
+                    QualitySettings.vSyncCount = 0;
+                    vsyncText.setPlainText(propAsset.getString("vsync_off"));
+                }
             } else if (option == quitText) {
                 if (titleMode) { // when quitText actually says BACK
                     // do nothing.  TitleScreen will detect backing out of the options page
@@ -131,6 +139,7 @@ public class OptionsPage : MonoBehaviour {
         sfxVolumeText = transform.Find("sfxVolumeText").GetComponent<GlyphBox>();
         musicVolumeText = transform.Find("MusicVolumeText").GetComponent<GlyphBox>();
         volumeText = transform.Find("VolumeText").GetComponent<GlyphBox>();
+        vsyncText = transform.Find("VSyncText").GetComponent<GlyphBox>();
         quitText = transform.Find("QuitText").GetComponent<GlyphBox>();
         quitSureText = transform.Find("QuitSureText").GetComponent<GlyphBox>();
         quitSureYesText = transform.Find("QuitSureYesText").GetComponent<GlyphBox>();
@@ -144,6 +153,11 @@ public class OptionsPage : MonoBehaviour {
         fullscreenText.setPlainText(propAsset.getString("fullscreen"));
         sfxVolumeText.setPlainText(propAsset.getString("sfx_volume"));
         musicVolumeText.setPlainText(propAsset.getString("music_volume"));
+        if (QualitySettings.vSyncCount == 0) {
+            vsyncText.setPlainText(propAsset.getString("vsync_off"));
+        } else {
+            vsyncText.setPlainText(propAsset.getString("vsync_on"));
+        }
         quitText.setPlainText(propAsset.getString("quit"));
         quitSureText.setPlainText(propAsset.getString("quit_sure"));
         quitSureYesText.setPlainText(propAsset.getString("quit_sure_yes"));
@@ -179,6 +193,7 @@ public class OptionsPage : MonoBehaviour {
         sfxVolumeText.makeAllCharsVisible();
         musicVolumeText.makeAllCharsVisible();
         volumeText.makeAllCharsInvisible();
+        vsyncText.makeAllCharsVisible();
         quitText.makeAllCharsVisible();
         quitSureText.makeAllCharsInvisible();
         quitSureYesText.makeAllCharsInvisible();
@@ -199,6 +214,7 @@ public class OptionsPage : MonoBehaviour {
         options.Add(fullscreenText);
         options.Add(sfxVolumeText);
         options.Add(musicVolumeText);
+        options.Add(vsyncText);
         options.Add(quitText);
         setSelection(0, true);
     }
@@ -211,6 +227,7 @@ public class OptionsPage : MonoBehaviour {
         sfxVolumeText.makeAllCharsInvisible();
         musicVolumeText.makeAllCharsInvisible();
         volumeText.makeAllCharsInvisible();
+        vsyncText.makeAllCharsInvisible();
         quitText.makeAllCharsInvisible();
         quitSureText.makeAllCharsInvisible();
         quitSureYesText.setColor(PauseScreen.DEFAULT_COLOR);
@@ -312,6 +329,7 @@ public class OptionsPage : MonoBehaviour {
     GlyphBox sfxVolumeText;
     GlyphBox musicVolumeText;
     GlyphBox volumeText;
+    GlyphBox vsyncText;
 
     GlyphBox quitText; // renamed to BACK when in title mode
     GlyphBox quitSureText;

@@ -54,7 +54,7 @@ public class ShipWallPart : MonoBehaviour {
         }
 
         if (c2d.gameObject == Player.instance.gameObject) {
-            if (c2d.contacts[0].normal.y > .5f) {
+            if (c2d.contacts[0].normal.y > .3f) {
                 Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, true);
                 timeSinceHitPlayer = 0;
             }

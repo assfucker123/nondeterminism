@@ -100,6 +100,8 @@ public class ControlsMessage : MonoBehaviour {
     }
 
     void updatePosition() {
+        if (!timeUser.exists)
+            return;
         Color color = Color.white;
         float m = 0;
         if (fadingOut) {

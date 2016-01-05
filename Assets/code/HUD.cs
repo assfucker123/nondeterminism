@@ -104,6 +104,17 @@ public class HUD : MonoBehaviour {
         }
 
     }
+
+    public void onUnloadLevel() {
+        foreach (ControlsMessage cm in ControlsMessage.allMessages) {
+            GameObject.Destroy(cm.gameObject);
+        }
+        ControlsMessage.allMessages.Clear();
+        foreach (HaltScreen hs in HaltScreen.allScreens) {
+            GameObject.Destroy(hs.gameObject);
+        }
+        HaltScreen.allScreens.Clear();
+    }
 	
 	void Awake() {
         _instance = this;

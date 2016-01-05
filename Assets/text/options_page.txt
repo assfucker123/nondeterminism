@@ -3,6 +3,8 @@ restart: Restart
 fullscreen: Fullscreen Mode
 sfx_volume: SFX Volume
 music_volume: Music Volume
+vsync_on: V-Sync On
+vsync_off: V-Sync Off
 quit: Quit
 quit_back: Back
 quit_sure: Are you sure you want to quit?

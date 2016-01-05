@@ -68,6 +68,9 @@ public class Vars {
 
         TimeUser.onUnloadLevel();
         VisionUser.onUnloadLevel();
+        if (HUD.instance != null) {
+            HUD.instance.onUnloadLevel();
+        }
         Time.timeScale = 1;
         SoundManager.instance.volumeScale = 1;
 
@@ -350,6 +353,7 @@ public class Vars {
         string str = "";
         str += "sfx_volume = " + sfxVolume + "\n";
         str += "music_volume = " + musicVolume + "\n";
+        str += "vsync = " + QualitySettings.vSyncCount + "\n";
         str += "save_file_last_used = " + saveFileIndexLastUsed + "\n";
         return str;
     }
@@ -366,6 +370,10 @@ public class Vars {
                 sfxVolume = float.Parse(value);
             } else if (name == "music_volume") {
                 musicVolume = float.Parse(value);
+            } else if (name == "vsync") {
+                int int0 = int.Parse(value);
+                if (int0 != QualitySettings.vSyncCount)
+                    QualitySettings.vSyncCount = int0;
             } else if (name == "save_file_last_used") {
                 saveFileIndexLastUsed = int.Parse(value);
             }
