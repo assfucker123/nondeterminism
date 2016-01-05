@@ -22,7 +22,7 @@ public class ControlsMessageSpawner : MonoBehaviour {
 
     public void takeDownMessage(ControlsMessage.Control message) {
         foreach (ControlsMessage cm in ControlsMessage.allMessages) {
-            if (cm.control == message) {
+            if (cm.control == message && cm.transform.parent != null) {
                 cm.fadeOut();
             }
         }
@@ -41,7 +41,7 @@ public class ControlsMessageSpawner : MonoBehaviour {
 
     public void endHaltScreen(HaltScreen.Screen screen) {
         foreach (HaltScreen hs in HaltScreen.allScreens) {
-            if (hs.screen == screen) {
+            if (hs.screen == screen && hs.transform.parent != null) {
                 hs.end();
             }
         }

@@ -233,7 +233,7 @@ public class Vars {
         currentNodeData.level = "tut_ship_1";
         currentNodeData.levelMapX = 1;
         currentNodeData.levelMapY = 0;
-        currentNodeData.position.Set(25, 14);
+        currentNodeData.position.Set(33, 14);
         currentNodeData.orbs.Clear();
         currentNodeData.hasBooster = false;
         currentNodeData.healthUpgrades.Clear();

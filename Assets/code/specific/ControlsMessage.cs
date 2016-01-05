@@ -106,6 +106,7 @@ public class ControlsMessage : MonoBehaviour {
             if (time < fadeDuration) {
                 m = Utilities.easeLinearClamp(time, 0, 1, fadeDuration);
             } else {
+                image.color = Color.clear;
                 timeUser.timeDestroy();
                 return;
             }

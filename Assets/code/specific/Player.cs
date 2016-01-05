@@ -280,7 +280,7 @@ public class Player : MonoBehaviour {
 
         //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            
+            phasePickup(maxPhase);
         }
 
         if (receivePlayerInput) {
