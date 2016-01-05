@@ -25,7 +25,7 @@ public class LevelSensor : MonoBehaviour {
 
         if (TimeUser.reverting ||
             Time.timeScale < .0001f ||
-            HUD.instance.gameOverScreen.activated)
+            (HUD.instance != null && HUD.instance.gameOverScreen != null && HUD.instance.gameOverScreen.activated))
             return;
 
         if (goToLevel) {

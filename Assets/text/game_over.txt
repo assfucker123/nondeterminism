@@ -1,0 +1,3 @@
+oracle_dies: ORACLE  DIES
+continue: Continue
+quit: Quit

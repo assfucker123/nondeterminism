@@ -49,23 +49,33 @@ MonoBehaviour:
   distMax: 180
   angleMin: 40
   angleMax: 70
-  timePerBranch: .600000024
-  startGradientColor: {r: .463235319, g: 0, b: .263948351, a: 1}
-  endGradientColor: {r: .286764681, g: 0, b: 0, a: 1}
+  timePerBranch: 0.6
+  startGradientColor: {r: 0.46323532, g: 0, b: 0.26394835, a: 1}
+  endGradientColor: {r: 0.28676468, g: 0, b: 0, a: 1}
   endGradientY: 100
   startLineWidth: 4
   endLineWidth: 2
-  treeMaxDuration: 3.5
+  treeMaxDuration: 4.5
   gameOverLineRendererGameObject: {fileID: 193944, guid: c2d2618bfc7ec1e46a0944c564c09bea,
     type: 2}
   crackSound: {fileID: 8300000, guid: fd4cb1c4616d72140a394657ef9df9e2, type: 3}
+  gameOverGlyphGameObject: {fileID: 157504, guid: 5f3a352690125884f95fff3ee0fcc5b7,
+    type: 2}
+  glyphStartPosition: {x: -500, y: 0}
+  glyphSpacing: 90
+  glyphText: ORACLE  DIES
+  glyphAppearInitialDelay: 0.2
+  glyphAppearDuration: 3
+  glyphDisappearDuration: 0.3
+  glyphSound: {fileID: 8300000, guid: 806983e451548b245add9201f2a985b5, type: 3}
   gameOverTextGameObject: {fileID: 125212, guid: d20a4a8bcfb9a1f4d905d210133c36c8,
     type: 2}
-  textColor: {r: 1, g: 0, b: 0, a: 1}
-  textAppearDuration: .600000024
+  gameOverTextPosition: {x: 0, y: 130}
+  textAppearDuration: 0.5
   uiAppearsDuration: 1.5
   humSound: {fileID: 8300000, guid: 5d600e4b31eaf614c82cc797e9f56000, type: 3}
   uiSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  textAsset: {fileID: 4900000, guid: 7508ea42a5963214693f7c33eb8e9a74, type: 3}
 --- !u!222 &22262782
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -84,11 +94,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -6.10349962e-05, y: .000633239746}
-  m_SizeDelta: {x: 1366, y: 768.52002}
-  m_Pivot: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000061034996, y: 0.00063323975}
+  m_SizeDelta: {x: 1366, y: 768.52}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -174,7 +184,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: treeMaxDuration
-      value: 3.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: endGradientColor.r
@@ -214,7 +224,7 @@ Prefab:
       objectReference: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
     - target: {fileID: 0}
       propertyPath: textAppearDuration
-      value: .600000024
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: uiAppearsDuration
@@ -228,6 +238,26 @@ Prefab:
       propertyPath: humSound
       value: 
       objectReference: {fileID: 8300000, guid: 5d600e4b31eaf614c82cc797e9f56000, type: 3}
+    - target: {fileID: 0}
+      propertyPath: gameOverGlyphGameObject
+      value: 
+      objectReference: {fileID: 157504, guid: 5f3a352690125884f95fff3ee0fcc5b7, type: 2}
+    - target: {fileID: 0}
+      propertyPath: glyphAppearDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: glyphStartPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textAsset
+      value: 
+      objectReference: {fileID: 4900000, guid: 7508ea42a5963214693f7c33eb8e9a74, type: 3}
+    - target: {fileID: 0}
+      propertyPath: glyphSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 806983e451548b245add9201f2a985b5, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152978}

@@ -45,6 +45,9 @@ public class CountdownTimer : MonoBehaviour {
 	
 	void Update() {
 
+        //temporary until i make a better countdownTimer
+        visible = false;
+
         if (timeUser.shouldNotUpdate)
             return;
 

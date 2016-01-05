@@ -57,12 +57,21 @@ public class GameOverScreen : MonoBehaviour {
     public float treeMaxDuration = 3.0f;
     public GameObject gameOverLineRendererGameObject;
     public AudioClip crackSound;
+    public GameObject gameOverGlyphGameObject;
+    public Vector2 glyphStartPosition = new Vector2(-500,100);
+    public float glyphSpacing = 90;
+    public string glyphText = "ORACLE  DIES";
+    public float glyphAppearInitialDelay = .2f;
+    public float glyphAppearDuration = 2.0f;
+    public float glyphDisappearDuration = .3f;
+    public AudioClip glyphSound;
     public GameObject gameOverTextGameObject;
-    public Color textColor = new Color(.9f, 0, 0);
+    public Vector2 gameOverTextPosition = new Vector2(0, 130);
     public float textAppearDuration = .5f;
     public float uiAppearsDuration = .5f; //after text appears
     public AudioClip humSound;
     public AudioClip uiSwitchSound;
+    public TextAsset textAsset;
 
     public bool activated { get { return _activated; } }
     public bool cannotRevert { get {
@@ -113,15 +122,16 @@ public class GameOverScreen : MonoBehaviour {
     public void initialHide() {
         GameObject gotGO = GameObject.Instantiate(gameOverTextGameObject) as GameObject;
         gotGO.transform.SetParent(HUD.instance.GetComponent<Canvas>().transform, false);
-        text = gotGO.GetComponent<UnityEngine.UI.Text>();
+        gotGO.GetComponent<RectTransform>().localPosition = new Vector3(gameOverTextPosition.x, gameOverTextPosition.y);
+        text = gotGO.GetComponent<UnityEngine.UI.Image>();
         selection = gotGO.transform.Find("Selection").GetComponent<UnityEngine.UI.Image>();
-        restartText = gotGO.transform.Find("RestartText").GetComponent<UnityEngine.UI.Text>();
-        quitText = gotGO.transform.Find("QuitText").GetComponent<UnityEngine.UI.Text>();
+        continueText = gotGO.transform.Find("ContinueText").GetComponent<GlyphBox>();
+        quitText = gotGO.transform.Find("QuitText").GetComponent<GlyphBox>();
         
         text.enabled = false;
         selection.enabled = false;
-        restartText.enabled = false;
-        quitText.enabled = false;
+        continueText.makeAllCharsInvisible();
+        quitText.makeAllCharsInvisible();
     }
 
     public void activate() {
@@ -129,9 +139,6 @@ public class GameOverScreen : MonoBehaviour {
 
         randSeed = (int)(timeUser.randomValue() * int.MaxValue);
         treeTime = 0;
-        if (Vars.arcadeMode) {
-            text.text = "GAME OVER";
-        }
         _activated = true;
     }
 
@@ -156,12 +163,13 @@ public class GameOverScreen : MonoBehaviour {
     /////////////
 
 	void Awake() {
-        text = GetComponent<UnityEngine.UI.Text>();
+        text = GetComponent<UnityEngine.UI.Image>();
         timeUser = GetComponent<TimeUser>();
+        propAsset = new Properties(textAsset.text);
 	}
 
     void Start() {
-        
+        glyphText = propAsset.getString("oracle_dies");
     }
 
     private void clearTree(GOSNode root) {
@@ -309,19 +317,49 @@ public class GameOverScreen : MonoBehaviour {
                 setBlackScreen();
             }
 
+            updateGlyphs();
+
         }
         
         
 	}
 
+    void updateGlyphs() {
+
+        glyphTime += Time.deltaTime;
+
+        int numGlyphs = glyphText.Length;
+        float durEach = glyphAppearDuration / numGlyphs;
+
+        if (glyphTime - glyphAppearInitialDelay > durEach * glyphSpawnIndex && glyphSpawnIndex < numGlyphs) {
+            // spawn glyph
+            GameObject gogGO = GameObject.Instantiate(gameOverGlyphGameObject);
+            if (glyphText[glyphSpawnIndex] != ' ') {
+                SoundManager.instance.playSFX(glyphSound);
+            }
+            //gogGO.transform.SetParent(transform, false);
+            gogGO.transform.SetParent(text.transform, false);
+            GameOverGlyphUI gog = gogGO.GetComponent<GameOverGlyphUI>();
+            gog.rectTransform.localPosition = new Vector3(glyphStartPosition.x + glyphSpawnIndex * glyphSpacing, glyphStartPosition.y, 0);
+            gog.glyphSprite.character = glyphText[glyphSpawnIndex];
+            gog.existDuration = treeMaxDuration - glyphTime - (glyphDisappearDuration * (numGlyphs - glyphSpawnIndex) / numGlyphs);
+            glyphSpawnIndex++;
+        }
+
+    }
+
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["tt"] = treeTime;
         fi.bools["activated"] = activated;
+        fi.floats["gt"] = glyphTime;
+        fi.ints["gsi"] = glyphSpawnIndex;
     }
 
     void OnRevert(FrameInfo fi) {
         bool prevActivated = activated;
         treeTime = fi.floats["tt"];
+        glyphTime = fi.floats["gt"];
+        glyphSpawnIndex = fi.ints["gsi"];
         bool act = fi.bools["activated"];
         if (!act && prevActivated) {
             deactivate();
@@ -356,7 +394,7 @@ public class GameOverScreen : MonoBehaviour {
                 //play appear sound effect here
                 SoundManager.instance.playSFXIgnoreVolumeScale(humSound);
             }
-            text.color = Color.Lerp(Color.clear, textColor, (treeTime - treeMaxDuration) / textAppearDuration);
+            text.color = Color.Lerp(Color.clear, Color.white, (treeTime - treeMaxDuration) / textAppearDuration);
             if (treeTime >= treeMaxDuration + textAppearDuration + uiAppearsDuration) {
                 showUI();
             }
@@ -372,15 +410,17 @@ public class GameOverScreen : MonoBehaviour {
 
         selection.enabled = true;
         selectionIndex = 0;
-        restartText.enabled = true;
-        quitText.enabled = true;
+        continueText.makeAllCharsVisible();
+        continueText.setPlainText(propAsset.getString("continue"));
+        quitText.makeAllCharsVisible();
+        quitText.setPlainText(propAsset.getString("quit"));
 
         // select restartText first
         selection.rectTransform.localPosition = new Vector3(
-            restartText.rectTransform.localPosition.x + selectionImageOffset.x,
-            restartText.rectTransform.localPosition.y + selectionImageOffset.y);
-        restartText.color = PauseScreen.SELECTED_COLOR;
-        quitText.color = PauseScreen.DEFAULT_COLOR;
+            continueText.rectTransform.localPosition.x + selectionImageOffset.x,
+            continueText.rectTransform.localPosition.y + selectionImageOffset.y);
+        continueText.setColor(PauseScreen.SELECTED_COLOR, true);
+        quitText.setColor(PauseScreen.DEFAULT_COLOR, true);
 
         callUIUpdate = true;
     }
@@ -390,19 +430,19 @@ public class GameOverScreen : MonoBehaviour {
             //setSelection(selectionIndex + 1);
             SoundManager.instance.playSFXIgnoreVolumeScale(uiSwitchSound);
 
-            UnityEngine.UI.Text textFrom;
-            UnityEngine.UI.Text textTo;
+            GlyphBox textFrom;
+            GlyphBox textTo;
             if (selectionIndex == 0) {
                 selectionIndex = 1;
-                textFrom = restartText;
+                textFrom = continueText;
                 textTo = quitText;
             } else {
                 selectionIndex = 0;
                 textFrom = quitText;
-                textTo = restartText;
+                textTo = continueText;
             }
-            textFrom.color = PauseScreen.DEFAULT_COLOR;
-            textTo.color = PauseScreen.SELECTED_COLOR;
+            textFrom.setColor(PauseScreen.DEFAULT_COLOR, true);
+            textTo.setColor(PauseScreen.SELECTED_COLOR, true);
             selectionPos0.Set(selection.rectTransform.localPosition.x, selection.rectTransform.localPosition.y);
             selectionPos1 = new Vector2(textTo.rectTransform.localPosition.x, textTo.rectTransform.localPosition.y) +
                 selectionImageOffset;
@@ -419,7 +459,8 @@ public class GameOverScreen : MonoBehaviour {
         }
 
         if (Keys.instance.confirmPressed || Keys.instance.startPressed) {
-            if (selectionIndex == 0) { // restart
+            GameObject.Destroy(gameObject);
+            if (selectionIndex == 0) { // continue
                 Vars.restartLevel();
             } else if (selectionIndex == 1) { // quit game
                 Vars.goToTitleScreen();
@@ -440,16 +481,20 @@ public class GameOverScreen : MonoBehaviour {
     int branchIndex = 0;
 
     int selectionIndex = 0;
-    Vector2 selectionImageOffset = new Vector2(0, 2);
+    Vector2 selectionImageOffset = new Vector2(100, -17);
     Vector2 selectionPos0 = new Vector2();
     Vector2 selectionPos1 = new Vector2();
     float selectionImageTime = 9999;
 
+    float glyphTime = 0;
+    int glyphSpawnIndex = 0;
+
     // components
-    UnityEngine.UI.Text text;
+    UnityEngine.UI.Image text;
     UnityEngine.UI.Image selection;
-    UnityEngine.UI.Text restartText;
-    UnityEngine.UI.Text quitText;
+    GlyphBox continueText;
+    GlyphBox quitText;
     TimeUser timeUser;
+    Properties propAsset;
 	
 }
