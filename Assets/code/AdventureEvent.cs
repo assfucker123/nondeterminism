@@ -15,6 +15,8 @@ public class AdventureEvent {
         NONE = 0,
         DESTROYED_TUTORIAL_WALL = 1,
         FIRST_TALK = 2,
+        HIT_PLAYER_WITH_TUTORIAL_WALL = 3,
+
     }
 
 }

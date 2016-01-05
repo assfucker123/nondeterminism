@@ -8,6 +8,7 @@ public class ShipWallPart : MonoBehaviour {
     public int damage = 1;
     public AudioClip hitSound;
     public bool takeDownMessages = false;
+    public float flashbackHaltMessageDelay = .3f;
 
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
@@ -20,6 +21,7 @@ public class ShipWallPart : MonoBehaviour {
             return;
 
         time += Time.deltaTime;
+        timeSinceHitPlayer += Time.deltaTime;
         setColor();
 
         if (time >= fadeFinishTime) {
@@ -32,7 +34,17 @@ public class ShipWallPart : MonoBehaviour {
                 ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.SHOOT);
             }
         }
-	}
+
+        if (timeSinceHitPlayer - Time.deltaTime < flashbackHaltMessageDelay &&
+            timeSinceHitPlayer >= flashbackHaltMessageDelay) {
+            if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL)) {
+                Vars.currentNodeData.eventHappen(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL);
+                if (Player.instance.phase > 0) {
+                    ControlsMessageSpawner.instance.spawnHaltScreen(HaltScreen.Screen.FLASHBACK);
+                }
+            }
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D c2d) {
         if (timeUser.shouldNotUpdate)
@@ -44,6 +56,7 @@ public class ShipWallPart : MonoBehaviour {
         if (c2d.gameObject == Player.instance.gameObject) {
             if (c2d.contacts[0].normal.y > .5f) {
                 Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, true);
+                timeSinceHitPlayer = 0;
             }
         }
 
@@ -51,15 +64,17 @@ public class ShipWallPart : MonoBehaviour {
 
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
+        fi.floats["tshp"] = timeSinceHitPlayer;
     }
 
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
+        timeSinceHitPlayer = fi.floats["tshp"];
         setColor();
     }
 
     void setColor() {
-        if (timeUser.shouldNotUpdate)
+        if (!timeUser.exists)
             return;
         if (time < fadeStartTime) {
             spriteRenderer.color = Color.white;
@@ -70,6 +85,7 @@ public class ShipWallPart : MonoBehaviour {
     }
 
     float time = 0;
+    float timeSinceHitPlayer = 9999;
 
     TimeUser timeUser;
     SpriteRenderer spriteRenderer;

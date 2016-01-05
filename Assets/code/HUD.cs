@@ -177,7 +177,7 @@ public class HUD : MonoBehaviour {
 
     }
 
-    void createPauseScreen() {
+    public void createPauseScreen() {
         if (PauseScreen.instance != null) return;
         GameObject psGO = GameObject.Instantiate(pauseScreenGameObject) as GameObject;
         psGO.transform.SetParent(canvas.transform, false);

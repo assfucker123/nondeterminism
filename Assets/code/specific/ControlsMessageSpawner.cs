@@ -28,7 +28,26 @@ public class ControlsMessageSpawner : MonoBehaviour {
         }
     }
 
-	void Awake() {
+    public void spawnHaltScreen(HaltScreen.Screen screen) {
+        if (haltScreenGameObject == null) {
+            Debug.LogError("Error: haltScreenGameObject is null.  Put a HaltScreen gameObject in the scene");
+            return;
+        }
+        GameObject hsGO = GameObject.Instantiate(haltScreenGameObject);
+        hsGO.transform.SetParent(this.transform, false);
+        HaltScreen hs = hsGO.GetComponent<HaltScreen>();
+        hs.screen = screen;
+    }
+
+    public void endHaltScreen(HaltScreen.Screen screen) {
+        foreach (HaltScreen hs in HaltScreen.allScreens) {
+            if (hs.screen == screen) {
+                hs.end();
+            }
+        }
+    }
+
+    void Awake() {
 		if (_instance != null) {
             GameObject.Destroy(this.gameObject);
             return;

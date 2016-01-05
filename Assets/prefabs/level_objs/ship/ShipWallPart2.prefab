@@ -82,6 +82,8 @@ MonoBehaviour:
   fadeFinishTime: 1.9
   damage: 1
   hitSound: {fileID: 8300000, guid: 9b03031c40a8b994b88e7e9ec8ea4f25, type: 3}
+  takeDownMessages: 0
+  flashbackHaltMessageDelay: 0.25
 --- !u!114 &11422648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,6 +151,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashbackHaltMessageDelay
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

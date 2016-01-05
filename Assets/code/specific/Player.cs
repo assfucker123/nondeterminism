@@ -45,6 +45,9 @@ public class Player : MonoBehaviour {
 
     public float postRevertDuration = .5f; // still lose a tiny bit of phase after a revert for this duration
 
+    [HideInInspector]
+    public bool flashbackNextFrameFlag = false; // hacky fix so that flashback will happen out of the flashback haltscreen
+
     public float damageSpeed = 10;
     public float damageFriction = 20;
     public float damageDuration = .5f;
@@ -477,7 +480,11 @@ public class Player : MonoBehaviour {
         chargeSoundTime = fi.floats["chargeSoundTime"];
         postRevertTime = fi.floats["postRevertTime"];
         aimDirection = (AimDirection)fi.ints["aimDirection"];
+        bool prevReceivePlayerInput = receivePlayerInput;
         receivePlayerInput = fi.bools["rpi"];
+        if (prevReceivePlayerInput && !receivePlayerInput) {
+            CutsceneKeys.allFalse(); // this is a temporary solution.  CutsceneKeys or something similar needs to use TimeUser
+        }
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -529,7 +536,7 @@ public class Player : MonoBehaviour {
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
         } else if (!PauseScreen.paused && !HUD.instance.gameOverScreen.cannotRevert) {
-            if (Keys.instance.flashbackPressed &&
+            if ((Keys.instance.flashbackPressed || flashbackNextFrameFlag) &&
                 Time.timeSinceLevelLoad > .1f) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
@@ -546,6 +553,7 @@ public class Player : MonoBehaviour {
                 } else {
                     HUD.instance.phaseMeter.playPhaseEmptySound();
                 }
+                flashbackNextFrameFlag = false;
             }
         }
 

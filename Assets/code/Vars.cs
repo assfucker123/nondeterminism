@@ -10,7 +10,7 @@ public class Vars {
 
     public static bool arcadeMode = false;
     public static int highScore = 0;
-    public static bool screenshotMode = false;
+    public static bool screenshotMode = true;
 
     // TIME-INDEPENDENT
     public static int saveFileIndex = 0;

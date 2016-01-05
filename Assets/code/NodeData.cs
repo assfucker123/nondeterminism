@@ -23,6 +23,9 @@ public class NodeData {
         if (eventHappened(eventID)) return;
         physicalEvents.Add(eventID);
     }
+    public void eventUndo(AdventureEvent.Physical eventID) {
+        physicalEvents.Remove(eventID);
+    }
     public bool eventHappened(AdventureEvent.Physical eventID) {
         return physicalEvents.IndexOf(eventID) != -1;
     }
@@ -30,6 +33,9 @@ public class NodeData {
     public void defeatAmbush(string levelName) {
         if (ambushDefeated(levelName)) return;
         levelsAmbushesDefeated.Add(levelName);
+    }
+    public void defeatAmbushUndo(string levelName) {
+        levelsAmbushesDefeated.Remove(levelName);
     }
     public bool ambushDefeated(string levelName) {
         return levelsAmbushesDefeated.IndexOf(levelName) != -1;

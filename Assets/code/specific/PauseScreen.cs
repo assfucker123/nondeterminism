@@ -50,7 +50,7 @@ public class PauseScreen : MonoBehaviour {
         if (page == Page.NONE) return;
         if (ScriptRunner.scriptsPreventPausing)
             return;
-
+        
         stopTime();
         if (!Vars.screenshotMode) {
             CameraControl.instance.enableEffects(0, 0, 0); //grayscale camera
@@ -59,10 +59,27 @@ public class PauseScreen : MonoBehaviour {
         // do open animation first
         lastPageOpened = page;
         openAnimationTime = 0;
+        if (Vars.screenshotMode) {
+            openAnimationTime = 99999; // skip open animation
+        }
+
+        _pausingHaltScreen = false;
 
         _paused = true;
     }
+    // pauses the game, but by displaying a halt screen instead
+    public void pauseGameHaltScreen() {
+        if (paused) return;
+
+        stopTime();
+        openAnimationTime = 99999; // skip open animation
+
+        _pausingHaltScreen = true;
+        
+        _paused = true;
+    }
     public bool doingOpenAnimation { get { return paused && openAnimationTime < openAnimationDuration; } }
+    public bool pausingHaltScreen {  get { return _pausingHaltScreen; } }
     public void unpauseGame() {
         if (!paused)
             return;
@@ -306,7 +323,7 @@ public class PauseScreen : MonoBehaviour {
                 }
                 
                 // display more stuff
-                if (!Vars.screenshotMode) {
+                if (!Vars.screenshotMode && !pausingHaltScreen) {
                     show(lastPageOpened);
                 }
                 timePaused = 0;
@@ -325,6 +342,10 @@ public class PauseScreen : MonoBehaviour {
         // use Time.unscaledDeltaTime;
         timePaused += Time.unscaledDeltaTime;
 
+        if (pausingHaltScreen) {
+            // the halt screen will decide when to unpause
+            return;
+        }
         if (Vars.screenshotMode) {
             // unpausing game
             if (timePaused > .1f && Keys.instance.startPressed) {
@@ -464,6 +485,7 @@ public class PauseScreen : MonoBehaviour {
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
     float openAnimationTime = 999999;
+    bool _pausingHaltScreen = false;
     
 
     // main pause screen
