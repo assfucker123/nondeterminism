@@ -16,6 +16,9 @@ public class ShipFlame : MonoBehaviour {
     public float flameParticleMaxSpeed = 10;
     public float flameParticleFrequency = 2;
 
+    public bool triggerFlashbackHaltScreen = false;
+    public float triggerFlashbackHaltScreenDelay = .25f;
+
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
 	}
@@ -43,6 +46,16 @@ public class ShipFlame : MonoBehaviour {
         }
 
         updateScale();
+
+        if (time > timeToTriggerHaltScreen) {
+            if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL)) {
+                Vars.currentNodeData.eventHappen(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL);
+                if (Player.instance.phase > 0) {
+                    ControlsMessageSpawner.instance.spawnHaltScreen(HaltScreen.Screen.FLASHBACK);
+                }
+            }
+            timeToTriggerHaltScreen = 999999;
+        }
         
 	}
 
@@ -57,6 +70,12 @@ public class ShipFlame : MonoBehaviour {
         updateScale();
     }
 
+    void OnDealDamage(ReceivesDamage rd) {
+        if (triggerFlashbackHaltScreen) {
+            timeToTriggerHaltScreen = time + triggerFlashbackHaltScreenDelay;
+        }
+    }
+
     void updateScale() {
         float scale = Mathf.Sin(time / scalePeriod * Mathf.PI*2) * (scaleMax - scaleMin) / 2 + (scaleMax + scaleMin) / 2;
 
@@ -67,6 +86,7 @@ public class ShipFlame : MonoBehaviour {
 
     float time = 0;
     float particleTime = 0;
+    float timeToTriggerHaltScreen = 999999;
 
     TimeUser timeUser;
 

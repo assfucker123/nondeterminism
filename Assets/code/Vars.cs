@@ -97,9 +97,7 @@ public class Vars {
     /* updates the given NodeData with information about the current level */
     public static void updateNodeData(NodeData nodeData) {
         Scene activeScene = SceneManager.GetActiveScene();
-        if (activeScene != null) {
-            nodeData.level = activeScene.name;
-        }
+        nodeData.level = activeScene.name;
         if (Level.currentLoadedLevel != null) {
             nodeData.levelMapX = Level.currentLoadedLevel.mapX;
             nodeData.levelMapY = Level.currentLoadedLevel.mapY;

@@ -44,10 +44,10 @@ public class ReceivesDamage : MonoBehaviour {
     // PUBLIC FUNCTIONS //
     //////////////////////
 
-    public void dealDamage(int damage) {
-        dealDamage(damage, true);
+    public AttackInfo dealDamage(int damage) {
+        return dealDamage(damage, true);
     }
-    public void dealDamage(int damage, bool toRight) {
+    public AttackInfo dealDamage(int damage, bool toRight) {
         AttackInfo ai = new AttackInfo();
         ai.damage = damage;
         if (toRight) {
@@ -56,7 +56,7 @@ public class ReceivesDamage : MonoBehaviour {
             ai.impactHeading = -180;
         }
         ai.impactMagnitude = 1;
-        dealDamage(ai);
+        return dealDamage(ai);
     }
     /* Calling dealDamage(attackInfo) will not change the attackInfo parameter */
     public AttackInfo dealDamage(AttackInfo attackInfo) {

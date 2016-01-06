@@ -48,6 +48,8 @@ public class NodeData {
 
     /* Copies info from the given nodeData to this (except for ID) */
     public void copyFrom(NodeData nodeData) {
+        if (nodeData == null)
+            return;
         time = nodeData.time;
         level = nodeData.level;
         levelMapX = nodeData.levelMapX;

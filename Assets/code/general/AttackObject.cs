@@ -7,6 +7,9 @@ public class AttackObject : MonoBehaviour {
      * Make an empty child object, and add the collider(s) to it.
      * Then add this component to the child object. */
 
+    // MESSAGES:
+    // void OnDealDamage(ReceivesDamage rd);
+
     public int damage = 1;
 
 	void Awake() {
@@ -40,7 +43,9 @@ public class AttackObject : MonoBehaviour {
         if (rd == null)
             return;
         bool toRight = (gOrb2d.position.x > rb2d.position.x);
+
         rd.dealDamage(damage, toRight);
+        SendMessage("OnDealDamage", rd, SendMessageOptions.DontRequireReceiver);
     }
 	
 	// components

@@ -113,6 +113,8 @@ MonoBehaviour:
   flameParticleSpread: 2.5
   flameParticleMaxSpeed: 30
   flameParticleFrequency: 8
+  triggerFlashbackHaltScreen: 0
+  triggerFlashbackHaltScreenDelay: 0.2
 --- !u!212 &21259154
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -201,6 +203,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: flameParticleX
       value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: triggerFlashbackHaltScreenDelay
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

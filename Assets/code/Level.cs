@@ -27,6 +27,8 @@ public class Level : MonoBehaviour {
         if (Vars.currentNodeData == null) {
             Vars.currentNodeData = NodeData.createNodeData(null, true);
             Vars.currentNodeData.position = debugStartPosition;
+            Vars.levelStartNodeData = NodeData.createNodeData(null, true);
+            Vars.levelStartNodeData.copyFrom(Vars.currentNodeData);
         }
 
         // check if Keys has been set up yet (it should if being played from first_scene).  If not, do so.
@@ -54,6 +56,7 @@ public class Level : MonoBehaviour {
         if (playerGO == null) {
             Vector3 position = Vars.currentNodeData.position;
             playerGO = GameObject.Instantiate(playerGameObject, position, Quaternion.identity) as GameObject;
+            playerGO.GetComponent<Player>().saveFrameInfoOnLevelLoad();
             // prevent player from getting destroyed when loading new level
             GameObject.DontDestroyOnLoad(playerGO);
         }

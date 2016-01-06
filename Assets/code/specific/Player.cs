@@ -233,6 +233,10 @@ public class Player : MonoBehaviour {
             timeUser.revertToFrameInfoUnsafe(frameInfoOnLevelLoad);
         }
     }
+    public void saveFrameInfoOnLevelLoad() {
+        timeUser.addCurrentFrameInfo();
+        frameInfoOnLevelLoad = timeUser.getLastFrameInfo();
+    }
 
     public bool receivePlayerInput = true; // if CutsceneKeys are updated with input from the player
 
@@ -266,6 +270,10 @@ public class Player : MonoBehaviour {
 	}
     
     void OnLevelWasLoaded(int level) {
+
+        if (HUD.instance != null && HUD.instance.phaseMeter != null) {
+            HUD.instance.phaseMeter.endPulse();
+        }
         
         if (repositionOnLevelLoad) {
             if (determineNewPositionFromLastLevel) {
@@ -278,15 +286,15 @@ public class Player : MonoBehaviour {
             } else {
                 rb2d.position = newPosition;
             }
-            timeUser.addCurrentFrameInfo();
-
+            
             Vars.updateNodeData(Vars.currentNodeData);
             Vars.updateNodeData(Vars.levelStartNodeData);
             
             repositionOnLevelLoad = false;
         }
 
-        frameInfoOnLevelLoad = timeUser.getLastFrameInfo();
+        saveFrameInfoOnLevelLoad();
+        
     }
 
     void Update() {
@@ -798,6 +806,23 @@ public class Player : MonoBehaviour {
             }
         }
 
+        // fixing stalling on steep slopes
+        if (colFinder.hitRight) {
+            //offset v.x to account for steep slope (so won't be slowed by slope)
+            if (v.y < 0 && Mathf.Sin(colFinder.normalRight) > 0) {
+                float a = Mathf.PI - colFinder.normalRight;
+                v.x = Mathf.Min(v.x, v.y * Mathf.Atan(a) * SLOPE_RUN_MODIFIER + .1f);
+            }
+        }
+        if (colFinder.hitLeft) {
+            //offset v.x to account for steep slope (so won't be slowed by slope)
+            if (v.y < 0 && Mathf.Sin(colFinder.normalLeft) > 0) {
+                float a = colFinder.normalLeft;
+                v.x = Mathf.Max(v.x, -v.y * Mathf.Atan(a) * SLOPE_RUN_MODIFIER - .1f);
+            }
+
+        }
+        
         rb2d.velocity = v;
     }
 
