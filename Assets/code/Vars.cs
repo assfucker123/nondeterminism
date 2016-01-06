@@ -29,10 +29,13 @@ public class Vars {
     }
 
     // TIME-DEPENDENT
-    /* Keeps changing based on what the player does.
+    /* Keeps changing based on what the player does.  Note this is temporary, so it's not part of the time tree.
      * When resuming a game after saving or loading, make a new currentNodeData.
      * If the player dies before getting to a save point, delete this currentNodeData first (and player can pick on time tree where to resume) */
     public static NodeData currentNodeData = null;
+
+    /* When a level starts, the currentNodeData at the time is copied to this */
+    public static NodeData levelStartNodeData = null;
 
     // SETTINGS
 
@@ -83,11 +86,38 @@ public class Vars {
         if (HUD.instance != null && HUD.instance.blackScreen != null) {
             HUD.instance.blackScreen.color = new Color(0, 0, 0, 1);
         }
-
+        
         SceneManager.LoadScene(name);
+
+        updateNodeData(currentNodeData);
+        levelStartNodeData = NodeData.createNodeData(currentNodeData, true);
+        levelStartNodeData.copyFrom(currentNodeData);
     }
 
+    /* updates the given NodeData with information about the current level */
+    public static void updateNodeData(NodeData nodeData) {
+        Scene activeScene = SceneManager.GetActiveScene();
+        if (activeScene != null) {
+            nodeData.level = activeScene.name;
+        }
+        if (Level.currentLoadedLevel != null) {
+            nodeData.levelMapX = Level.currentLoadedLevel.mapX;
+            nodeData.levelMapY = Level.currentLoadedLevel.mapY;
+        }
+        if (Player.instance != null) {
+            nodeData.position = Player.instance.rb2d.position;
+        }
+    }
+
+    /* Restart level, using info from levelStartNodeData */
     public static void restartLevel() {
+
+        currentNodeData.copyFrom(levelStartNodeData);
+
+        if (Player.instance != null) {
+            Player.instance.revertToFrameInfoOnLevelLoad();
+        }
+
         loadLevel(SceneManager.GetActiveScene().name);
     }
 
@@ -102,8 +132,21 @@ public class Vars {
         if (playerGO != null) {
             GameObject.Destroy(playerGO);
         }
+        // destroy current node data (which is temporary) if leaving main game
+        NodeData.deleteNode(Vars.currentNodeData);
+        NodeData.deleteNode(Vars.levelStartNodeData);
+        Vars.currentNodeData = null;
+        Vars.levelStartNodeData = null;
 
-        loadLevel("title_scene");
+        TimeUser.onUnloadLevel();
+        VisionUser.onUnloadLevel();
+        if (HUD.instance != null) {
+            HUD.instance.onUnloadLevel();
+        }
+        Time.timeScale = 1;
+        SoundManager.instance.volumeScale = 1;
+
+        SceneManager.LoadScene("title_scene");
     }
 
     public static void quitGame() {
@@ -231,7 +274,7 @@ public class Vars {
         // all node data
         NodeData.clearAllNodes();
         // current node data
-        currentNodeData = NodeData.createNodeData();
+        currentNodeData = NodeData.createNodeData(null, true);
         currentNodeData.time = 0;
         currentNodeData.level = "tut_ship_1";
         currentNodeData.levelMapX = 1;

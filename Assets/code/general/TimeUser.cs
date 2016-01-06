@@ -333,6 +333,14 @@ public class TimeUser : MonoBehaviour {
     void OnLevelWasLoaded(int level) {
         //fixing odd bug.  For some TimeUsers that get created at the start, TimeUser.time isn't reset to 0 when Awake() is called
         _timeCreated = 0;
+
+        // destroy all frameInfos that came from the previous level
+        foreach (FrameInfo fi in fis) {
+            FrameInfo.destroy(fi);
+        }
+        fis.Clear();
+        // add current one
+        addCurrentFrameInfo();
     }
 
     void Start() {
@@ -382,7 +390,7 @@ public class TimeUser : MonoBehaviour {
         //
         allTimeUsers.Remove(this);
     }
-
+    
     /* Destroys all frame info earlier than MAX_TIME_DESTROY_AGE */
     void destroyEarlyFrameInfo() {
         for (int i=0; i<fis.Count; i++) {

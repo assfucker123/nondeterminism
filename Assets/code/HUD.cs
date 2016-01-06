@@ -26,7 +26,7 @@ public class HUD : MonoBehaviour {
             return (
                 !PauseScreen.paused &&
                 !TimeUser.reverting &&
-                !HUD.instance.gameOverScreen.activated);
+                !(GameOverScreen.instance != null && GameOverScreen.instance.activated));
         }
     }
     public UnityEngine.UI.Image blackScreen { get { return _blackScreen; } }
@@ -163,11 +163,10 @@ public class HUD : MonoBehaviour {
         ctGO.transform.SetParent(canvas.transform, false);
         _countdownTimer = ctGO.GetComponent<CountdownTimer>();
         _countdownTimer.setUp();
-        //create Game Over Screen
-        GameObject gosGO = GameObject.Instantiate(gameOverScreenObject) as GameObject;
-        gosGO.transform.SetParent(canvas.transform, false);
-        _gameOverScreen = gosGO.GetComponent<GameOverScreen>();
-        _gameOverScreen.initialHide();
+        
+
+        // (not creating Game Over screen unitl needed)
+
         // create Text Box
         GameObject tbGO = GameObject.Instantiate(textBoxGameObject) as GameObject;
         tbGO.transform.SetParent(canvas.transform, false);
@@ -201,7 +200,21 @@ public class HUD : MonoBehaviour {
         GameObject.Destroy(_pauseScreen.gameObject);
         _pauseScreen = null;
     }
+
+    public void createGameOverScreen() {
+        if (GameOverScreen.instance != null) return;
+        GameObject gosGO = GameObject.Instantiate(gameOverScreenObject) as GameObject;
+        gosGO.transform.SetParent(canvas.transform, false);
+        gosGO.transform.SetSiblingIndex(_textBox.transform.GetSiblingIndex()); // put pause screen behind textBox
+        _gameOverScreen = gosGO.GetComponent<GameOverScreen>();
+        _gameOverScreen.initialHide();
+    }
 	
+    public void destroyGameOverScreen() {
+        GameObject.Destroy(_gameOverScreen.gameObject);
+        _gameOverScreen = null;
+    }
+
 	void Update() {
 
         // blackscreen fading

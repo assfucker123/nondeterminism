@@ -25,7 +25,7 @@ public class Level : MonoBehaviour {
 
         // If currentNodeData hasn't been created yet (it should be created if game started at the title screen), then create something
         if (Vars.currentNodeData == null) {
-            Vars.currentNodeData = NodeData.createNodeData();
+            Vars.currentNodeData = NodeData.createNodeData(null, true);
             Vars.currentNodeData.position = debugStartPosition;
         }
 

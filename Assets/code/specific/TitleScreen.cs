@@ -86,6 +86,7 @@ public class TitleScreen : MonoBehaviour {
     void Start() {
         // start game
         Vars.startGame();
+        Vars.loadData(Vars.saveFileIndexLastUsed);
 
         optionsPage.hide();
         Time.timeScale = 1;
@@ -192,7 +193,8 @@ public class TitleScreen : MonoBehaviour {
     }
 
     void playGameSelected() {
-        Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData); // creating new node to save info to
+        // this SHOULD be creating node data from save file, not currentNodeData
+        Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData, true); // creating new node to save info to.  new node if child of the old node
         Vars.loadLevel(Vars.currentNodeData.level);
         //Vars.loadLevel("calm_tundra_1");
         //Vars.loadLevel("mapScene");

@@ -11,6 +11,9 @@ public class ControlsMessageSpawner : MonoBehaviour {
 
     public void spawnMessage(ControlsMessage.Control message) {
         if (controlsMessageGameObject == null) {
+            controlsMessageGameObject = GameObject.Find("ControlsMessage");
+        }
+        if (controlsMessageGameObject == null) {
             Debug.LogError("Error: controlsMessageGameObject is null.  Put a ControlsMessage gameObject in the scene");
             return;
         }
@@ -29,6 +32,9 @@ public class ControlsMessageSpawner : MonoBehaviour {
     }
 
     public void spawnHaltScreen(HaltScreen.Screen screen) {
+        if (haltScreenGameObject == null) {
+            haltScreenGameObject = GameObject.Find("HaltScreen");
+        }
         if (haltScreenGameObject == null) {
             Debug.LogError("Error: haltScreenGameObject is null.  Put a HaltScreen gameObject in the scene");
             return;

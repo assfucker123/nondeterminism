@@ -158,11 +158,18 @@ public class GameOverScreen : MonoBehaviour {
         _activated = false;
     }
 
+    public static GameOverScreen instance {  get { return _instance; } }
+
     /////////////
     // PRIVATE //
     /////////////
 
 	void Awake() {
+        if (_instance != null) {
+            GameObject.Destroy(_instance.gameObject);
+        }
+        _instance = this;
+
         text = GetComponent<UnityEngine.UI.Image>();
         timeUser = GetComponent<TimeUser>();
         propAsset = new Properties(textAsset.text);
@@ -372,6 +379,9 @@ public class GameOverScreen : MonoBehaviour {
     }
 
     void OnDestroy() {
+        if (instance == this) {
+            _instance = null;
+        }
         foreach (UnityEngine.UI.Extensions.UILineRenderer lr in lineRenderers) {
             GameObject.Destroy(lr.gameObject);
         }
@@ -459,7 +469,8 @@ public class GameOverScreen : MonoBehaviour {
         }
 
         if (Keys.instance.confirmPressed || Keys.instance.startPressed) {
-            GameObject.Destroy(gameObject);
+            HUD.instance.destroyGameOverScreen();
+
             if (selectionIndex == 0) { // continue
                 Vars.restartLevel();
             } else if (selectionIndex == 1) { // quit game
@@ -488,6 +499,9 @@ public class GameOverScreen : MonoBehaviour {
 
     float glyphTime = 0;
     int glyphSpawnIndex = 0;
+
+
+    private static GameOverScreen _instance = null;
 
     // components
     UnityEngine.UI.Image text;

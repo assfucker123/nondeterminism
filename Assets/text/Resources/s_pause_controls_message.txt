@@ -1,0 +1,3 @@
+
+// just spawns the pause controls message
+spawnControlMessage 5

@@ -226,6 +226,14 @@ public class Player : MonoBehaviour {
         this.lastLevelPosition = lastLevelPosition;
     }
 
+    /* Brings player back to how it was when the level was loaded.
+     * this is called by Vars when the level is about to restart */
+    public void revertToFrameInfoOnLevelLoad() {
+        if (frameInfoOnLevelLoad != null) {
+            timeUser.revertToFrameInfoUnsafe(frameInfoOnLevelLoad);
+        }
+    }
+
     public bool receivePlayerInput = true; // if CutsceneKeys are updated with input from the player
 
     /////////////////////
@@ -270,10 +278,15 @@ public class Player : MonoBehaviour {
             } else {
                 rb2d.position = newPosition;
             }
+            timeUser.addCurrentFrameInfo();
 
+            Vars.updateNodeData(Vars.currentNodeData);
+            Vars.updateNodeData(Vars.levelStartNodeData);
+            
             repositionOnLevelLoad = false;
         }
-        
+
+        frameInfoOnLevelLoad = timeUser.getLastFrameInfo();
     }
 
     void Update() {
@@ -460,6 +473,7 @@ public class Player : MonoBehaviour {
         fi.floats["postRevertTime"] = postRevertTime;
         fi.ints["aimDirection"] = (int)aimDirection;
         fi.bools["rpi"] = receivePlayerInput;
+        fi.bools["pd"] = pitfallDeath;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -482,6 +496,7 @@ public class Player : MonoBehaviour {
         aimDirection = (AimDirection)fi.ints["aimDirection"];
         bool prevReceivePlayerInput = receivePlayerInput;
         receivePlayerInput = fi.bools["rpi"];
+        pitfallDeath = fi.bools["pd"];
         if (prevReceivePlayerInput && !receivePlayerInput) {
             CutsceneKeys.allFalse(); // this is a temporary solution.  CutsceneKeys or something similar needs to use TimeUser
         }
@@ -535,7 +550,7 @@ public class Player : MonoBehaviour {
                 postRevertTime = 0;
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
-        } else if (!PauseScreen.paused && !HUD.instance.gameOverScreen.cannotRevert) {
+        } else if (!PauseScreen.paused && !(GameOverScreen.instance != null && GameOverScreen.instance.cannotRevert)) {
             if ((Keys.instance.flashbackPressed || flashbackNextFrameFlag) &&
                 Time.timeSinceLevelLoad > .1f) {
                 if (phase > 0) {
@@ -829,7 +844,7 @@ public class Player : MonoBehaviour {
             rb2d.velocity = v;
 
             // explode
-            if (deadTime >= dieExplodeDelay) {
+            if (deadTime >= dieExplodeDelay && !pitfallDeath) {
                 explode();
             }
         }
@@ -865,6 +880,7 @@ public class Player : MonoBehaviour {
             return;
 
         CameraControl.instance.hitPause(deathHitPause);
+        HUD.instance.createGameOverScreen();
         HUD.instance.gameOverScreen.activate();
         SoundManager.instance.playSFX(deathSound);
         rb2d.velocity.Set(0, 0); // stop Player from moving
@@ -956,9 +972,14 @@ public class Player : MonoBehaviour {
             return;
 
         bool willDie = (receivesDamage.health <= 0);
+        if (willDie) {
+            pitfallDeath = ai.message == "pitfall";
+        }
 
         bool knockbackRight = ai.impactToRight();
-        CameraControl.instance.hitPause(ai.damage * hitPauseDamageMultiplier);
+        if (!pitfallDeath) {
+            CameraControl.instance.hitPause(ai.damage * hitPauseDamageMultiplier);
+        }
         if (knockbackRight) {
             flippedHoriz = true;
             rb2d.velocity = new Vector2(damageSpeed, 0);
@@ -977,7 +998,9 @@ public class Player : MonoBehaviour {
         jumpTime = jumpMaxDuration + 1;
 
         if (willDie) {
-            HUD.instance.speedLines.flashHeavyRed();
+            if (!pitfallDeath) {
+                HUD.instance.speedLines.flashHeavyRed();
+            }
             die();
         } else {
             HUD.instance.speedLines.flashRed();
@@ -1109,6 +1132,7 @@ public class Player : MonoBehaviour {
     bool charging = false;
     float chargeTime = 0;
     AimDirection _aimDirection = AimDirection.FORWARD;
+    bool pitfallDeath = false;
 
     bool repositionOnLevelLoad = false;
     bool determineNewPositionFromLastLevel = false;
@@ -1116,6 +1140,8 @@ public class Player : MonoBehaviour {
     int lastLevelMapY = 0;
     Vector2 lastLevelPosition = new Vector2();
     Vector2 newPosition = new Vector2();
+
+    FrameInfo frameInfoOnLevelLoad = null; // frame info of the player saved when starting a new level (calling OnLevelWasLoaded)
 
     // components
     Rigidbody2D _rb2d;

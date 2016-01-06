@@ -67,7 +67,7 @@ public class ReceivesDamage : MonoBehaviour {
 
         //decrease health
         bool sendOnDamage = true;
-        if (isMercyInvincible && ai.damage > 0) {
+        if (isMercyInvincible && !ai.ignoreMercyInvincibility && ai.damage > 0) {
             int dam = ai.damage;
             dam -= mercyInvincibilityDamageDecrease;
             if (dam > 0) {

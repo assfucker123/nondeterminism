@@ -8,7 +8,7 @@ public class NodeData {
     public NodeData(int id) {
         this.id = id;
     }
-
+    
     public float time = 0;
     public string level = "";
     public int levelMapX = 0;
@@ -44,6 +44,7 @@ public class NodeData {
     public int id = 1; // used to identify this NodeData.  Must be a positive integer
     public NodeData parent = null;
     public List<NodeData> children = new List<NodeData>();
+    public bool temporary = false; // temporary nodes are not saved
 
     /* Copies info from the given nodeData to this (except for ID) */
     public void copyFrom(NodeData nodeData) {
@@ -65,6 +66,7 @@ public class NodeData {
         parent = nodeData.parent;
         children.Clear();
         children.AddRange(nodeData.children);
+        temporary = nodeData.temporary;
     }
 
     /* Gets if this and the given nodeData are exactly the same,
@@ -240,7 +242,7 @@ public class NodeData {
     /* Creates a new NodeData, and automatically adds it to allNodes.
      * If parent is given, then new NodeData will have the parent's properties,
      * and parent/children data of both will be set accordingly */
-    public static NodeData createNodeData(NodeData parent = null) {
+    public static NodeData createNodeData(NodeData parent, bool temporary) {
         // pick random ID that does not match any ID in allNodes
         int id = 1;
         bool found = false;
@@ -262,6 +264,7 @@ public class NodeData {
             nodeData.children.Clear();
             parent.children.Add(nodeData);
         }
+        nodeData.temporary = temporary;
         return nodeData;
     }
 
@@ -287,11 +290,18 @@ public class NodeData {
     /* deletes a node, which also deletes all of its children.
      * returns the parent of the deleted nodeData. */
     public static NodeData deleteNode(NodeData nodeData) {
+        if (nodeData == null) return null;
         NodeData parent = nodeData.parent;
         nodeData.parent = null; // removes reference to parent
-        parent.children.Remove(nodeData); // removes child reference from parent
+        if (parent != null) {
+            parent.children.Remove(nodeData); // removes child reference from parent
+        }
         while (nodeData.children.Count > 0) {
-            deleteNode(nodeData.children[0]); // deleting all child nodes
+            NodeData childNode = nodeData.children[0];
+            if (childNode != nodeData) { // this shouldn't happen
+                deleteNode(childNode);
+            }
+            nodeData.children.Remove(childNode);
         }
         allNodes.Remove(nodeData);
         return parent;
@@ -328,6 +338,8 @@ public class NodeData {
     public static string saveAllNodesToString() {
         string ret = "";
         for (int i=0; i<allNodes.Count; i++) {
+            if (allNodes[i].temporary)
+                continue;
             ret += allNodes[i].saveToString();
             if (i < allNodes.Count - 1) {
                 ret += "<";
