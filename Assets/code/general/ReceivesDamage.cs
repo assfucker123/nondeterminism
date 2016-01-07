@@ -61,6 +61,10 @@ public class ReceivesDamage : MonoBehaviour {
     /* Calling dealDamage(attackInfo) will not change the attackInfo parameter */
     public AttackInfo dealDamage(AttackInfo attackInfo) {
 
+        // don't damage if doesn't exist
+        if (timeUser != null && !timeUser.exists)
+            return new AttackInfo();
+
         //calls PreDamage to possibly change attackInfo before it's applied
         AttackInfo ai = attackInfo.clone();
         SendMessage("PreDamage", ai, SendMessageOptions.DontRequireReceiver);
@@ -118,6 +122,7 @@ public class ReceivesDamage : MonoBehaviour {
             spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         }
         defaultDeath = GetComponent<DefaultDeath>();
+        timeUser = GetComponent<TimeUser>(); // can be null
     }
     void Update() {
         _mercyInvincibilityTime += Time.deltaTime;
@@ -146,6 +151,7 @@ public class ReceivesDamage : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     private DefaultDeath defaultDeath;
+    private TimeUser timeUser;
     private float hitFlashTime = 9999;
 
 }

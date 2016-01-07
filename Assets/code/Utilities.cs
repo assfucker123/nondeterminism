@@ -21,6 +21,7 @@ public static class Utilities {
 			);
 		return quat;
 	}
+    /* rotates v around point */
 	public static Vector2 rotateAroundPoint(Vector2 v, Vector2 point, float rotationRadians){
 		Vector2 ret = new Vector2();
 		float c = Mathf.Cos(rotationRadians);

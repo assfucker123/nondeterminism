@@ -2,6 +2,7 @@ How I made a new level:
 - made new Scene, saved in scenes/levels
 - swapped camera with Main Camera prefeab
 - put prefab from Tiled2Unity into the level, then did these (to object in inspector, DO NOT DIRECTLY CHANGE THE PREFAB)
+	- position is 0, numTilesHigh (so that bottom left corner of the map is at 0,0)
 	- set Tag to Map
 	- set SortingLayer of bg to Platforms, OrderInLayer to 0
 	- set SortingLayer of tile_layer_1 to Platforms, OrderInLayer to 1
@@ -9,3 +10,5 @@ How I made a new level:
 		- added PlatformEffector2D, UseOneWay unchecked
 		- in PolygonCollider2D, check UsedByEffector
 - add Level prefab, set appropriate properties
+- add some LevelSensors so player can move between levels
+- Build Settings -> add open scenes

@@ -514,11 +514,17 @@ The Salesman Backstory: (BAD IDEA to flesh out backstory?  Leave ambiguous?)
 - Can sense the future, same as Oracle.
 	- Same species as Oracle?  Related?
 - In conversations Wally has with Oracle, they note that Oracle could theoretically do whatever she wanted without negative repercussions.  He notes that Oracle might halfway be there already, with how desensitized she is to killing enemies.  Oracle is bothered by this a little.  "Me acting only for myself... does not lead to a pleasant future."
-- Was terrified of all the visions he saw as a kid.  Knew the end of the world was inevitable, didn't know how to stop it.
-- Changed since childhood, decided to accept the world's fate and make the best of it.
-- He would always change the way he acted to how he anticipated conversations with others, and got frustrated when they wouldn't do the same.  Decided not to care about others.
+BAD IDEA: Fleshing out backstory:
+	- Was terrified of all the visions he saw as a kid.  Knew the end of the world was inevitable, didn't know how to stop it.
+	- Changed since childhood, decided to accept the world's fate and make the best of it.
+	- He would always change the way he acted to how he anticipated conversations with others, and got frustrated when they wouldn't do the same.  Decided not to care about others.
+BETTER IDEA: Unknown backstroy and motivations:
+	- As with Oracle, The Salesman's clairvoyance results in him suffering from a poor memory.
+	- Even he doesn't know what there is to be gained or lost from destroying the world.
+	- But it was a plan he created long ago, and he trusts his own past self to know what to expect.
 - Would sell and trade things to improve his own life, would sucker other people out.
 - "Sold the fate of the world"
+
 
 Final Boss Backstory:
 - Wants to blow up the planet to get enough energy to use true time travel
