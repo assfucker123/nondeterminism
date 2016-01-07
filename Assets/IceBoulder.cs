@@ -6,6 +6,7 @@ public class IceBoulder : MonoBehaviour {
     public GameObject[] shardGameObjects;
     public PickupSpawner.BurstSize pickupsBurstSize = PickupSpawner.BurstSize.MEDIUM;
     public float pickupsProbability = .5f;
+    public Vector2 pickupsSpawnOffset = new Vector2(0,0);
     public AudioClip iceShatterSound;
 
 	void Awake() {
@@ -31,7 +32,7 @@ public class IceBoulder : MonoBehaviour {
             // be destroyed
             SoundManager.instance.playSFXRandPitchBend(iceShatterSound);
             if (timeUser.randomValue() < pickupsProbability) {
-                pickupSpawner.burstSpawn(rb2d.position, pickupsBurstSize);
+                pickupSpawner.burstSpawn(rb2d.position + pickupsSpawnOffset, pickupsBurstSize);
             }
             spawnShards();
             timeUser.timeDestroy();

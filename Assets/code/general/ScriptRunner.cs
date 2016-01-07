@@ -18,6 +18,8 @@ public class ScriptRunner : MonoBehaviour {
             CAMERA_FOLLOW_PLAYER,
             CAMERA_SET_POSITION,
             CAMERA_CUSTOM,
+            CAMERA_ENABLE_BOUNDS,
+            CAMERA_DISABLE_BOUNDS,
             LABEL,
             GOTO,
             INFO_HAPPEN,
@@ -26,7 +28,10 @@ public class ScriptRunner : MonoBehaviour {
             JUMP_PHYS,
             SEND_MESSAGE,
             SPAWN_CONTROL_MESSAGE,
-            TAKE_DOWN_CONTROL_MESSAGE
+            TAKE_DOWN_CONTROL_MESSAGE,
+
+            KEY_DOWN,
+            KEY_UP
         }
 
         public ID id = ID.NONE;
@@ -176,6 +181,10 @@ public class ScriptRunner : MonoBehaviour {
                 }
             } else if (word == "camcustom") { // camCustom
                 id = ID.CAMERA_CUSTOM;
+            } else if (word == "camenablebounds") { // camEnableBounds
+                id = ID.CAMERA_ENABLE_BOUNDS;
+            } else if (word == "camdisablebounds") { // camDisableBounds
+                id = ID.CAMERA_DISABLE_BOUNDS;
             } else if (word.IndexOf("lbl") == 0) { // lbl: 1 or lbl 1
                 id = ID.LABEL;
                 index2 = line.IndexOf(":");
@@ -230,6 +239,12 @@ public class ScriptRunner : MonoBehaviour {
             } else if (word == "takedowncontrolmessage") { // takeDownControlMessage 1
                 id = ID.TAKE_DOWN_CONTROL_MESSAGE;
                 int0 = int.Parse(line.Substring(23));
+            } else if (word == "keydown") { // keyDown right
+                id = ID.KEY_DOWN;
+                str0 = line.Substring(8).ToLower();
+            } else if (word == "keyup") { // keyUp right
+                id = ID.KEY_UP;
+                str0 = line.Substring(6).ToLower();
             }
 
         }
@@ -281,6 +296,7 @@ public class ScriptRunner : MonoBehaviour {
         }
     }
     public int runIndex {  get { return _runIndex; } }
+    public bool makeInstantKeysFalseWhenPlayerDoesNotReceiveInput = true;
 
     // FUNCTIONS
 
@@ -319,6 +335,11 @@ public class ScriptRunner : MonoBehaviour {
         } else if (!runWhenPaused) {
             if (timeUser.shouldNotUpdate)
                 return;
+        }
+
+        if (makeInstantKeysFalseWhenPlayerDoesNotReceiveInput &&
+            Player.instance != null && !Player.instance.receivePlayerInput) {
+            CutsceneKeys.instantKeysFalse();
         }
 
         Instruction instr;
@@ -500,6 +521,16 @@ public class ScriptRunner : MonoBehaviour {
                     CameraControl.instance.customPositionMode();
                 }
                 break;
+            case Instruction.ID.CAMERA_ENABLE_BOUNDS:
+                if (CameraControl.instance != null) {
+                    CameraControl.instance.enableBounds();
+                }
+                break;
+            case Instruction.ID.CAMERA_DISABLE_BOUNDS:
+                if (CameraControl.instance != null) {
+                    CameraControl.instance.disableBounds();
+                }
+                break;
             case Instruction.ID.LABEL:
                 break;
             case Instruction.ID.GOTO:
@@ -559,6 +590,60 @@ public class ScriptRunner : MonoBehaviour {
                 break;
             case Instruction.ID.TAKE_DOWN_CONTROL_MESSAGE:
                 ControlsMessageSpawner.instance.takeDownMessage((ControlsMessage.Control)instr.int0);
+                break;
+            case Instruction.ID.KEY_DOWN:
+                if (instr.str0 == "left") {
+                    CutsceneKeys.leftPressed = true;
+                    CutsceneKeys.leftHeld = true;
+                } else if (instr.str0 == "right") {
+                    CutsceneKeys.rightPressed = true;
+                    CutsceneKeys.rightHeld = true;
+                } else if (instr.str0 == "up") {
+                    CutsceneKeys.upPressed = true;
+                    CutsceneKeys.upHeld = true;
+                } else if (instr.str0 == "down") {
+                    CutsceneKeys.downPressed = true;
+                    CutsceneKeys.downHeld = true;
+                } else if (instr.str0 == "jump") {
+                    CutsceneKeys.jumpPressed = true;
+                    CutsceneKeys.jumpHeld = true;
+                } else if (instr.str0 == "shoot") {
+                    CutsceneKeys.shootPressed = true;
+                    CutsceneKeys.shootHeld = true;
+                } else if (instr.str0 == "bomb") {
+                    CutsceneKeys.bombPressed = true;
+                    CutsceneKeys.bombHeld = true;
+                } else if (instr.str0 == "dodge") {
+                    CutsceneKeys.dodgePressed = true;
+                    CutsceneKeys.dodgeHeld = true;
+                }
+                break;
+            case Instruction.ID.KEY_UP:
+                if (instr.str0 == "left") {
+                    CutsceneKeys.leftReleased = true;
+                    CutsceneKeys.leftHeld = false;
+                } else if (instr.str0 == "right") {
+                    CutsceneKeys.rightReleased = true;
+                    CutsceneKeys.rightHeld = false;
+                } else if (instr.str0 == "up") {
+                    CutsceneKeys.upReleased = true;
+                    CutsceneKeys.upHeld = false;
+                } else if (instr.str0 == "down") {
+                    CutsceneKeys.downReleased = true;
+                    CutsceneKeys.downHeld = false;
+                } else if (instr.str0 == "jump") {
+                    CutsceneKeys.jumpReleased = true;
+                    CutsceneKeys.jumpHeld = false;
+                } else if (instr.str0 == "shoot") {
+                    CutsceneKeys.shootReleased = true;
+                    CutsceneKeys.shootHeld = false;
+                } else if (instr.str0 == "bomb") {
+                    CutsceneKeys.bombReleased = true;
+                    CutsceneKeys.bombHeld = false;
+                } else if (instr.str0 == "dodge") {
+                    CutsceneKeys.dodgeReleased = true;
+                    CutsceneKeys.dodgeHeld = false;
+                }
                 break;
             }
 

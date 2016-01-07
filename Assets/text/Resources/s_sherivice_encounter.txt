@@ -1,0 +1,22 @@
+
+stopPlayer // player won't receive input
+keyDown right // simulates pressing right (and holding it down until keyUp command)
+
+camDisableBounds
+camSetPosition(20.5, 8) 1.0 // move camera slightly lower, so Oracle won't be obscured by textbox
+cbarsOn
+
+// release right key
+wait .7
+keyUp right // simulates releasing right
+
+wait .5
+
+t-O: I'll begin talking now.
+
+closeText
+cbarsOff
+camSetPosition(20.5, 11.5) 1.0 block
+
+camEnableBounds // done after camSetPosition has completed
+resumePlayer

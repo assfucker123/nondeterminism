@@ -306,6 +306,8 @@ public class Player : MonoBehaviour {
 
         if (receivePlayerInput) {
             CutsceneKeys.updateFromKeys();
+        } else {
+            cutsceneKeysInfo = CutsceneKeys.saveToInt(); // saving record of keys at the time
         }
 
         // decrease phase over time
@@ -463,6 +465,7 @@ public class Player : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
 
+        
     }
     
     void OnSaveFrame(FrameInfo fi) {
@@ -481,6 +484,7 @@ public class Player : MonoBehaviour {
         fi.floats["postRevertTime"] = postRevertTime;
         fi.ints["aimDirection"] = (int)aimDirection;
         fi.bools["rpi"] = receivePlayerInput;
+        fi.ints["cki"] = cutsceneKeysInfo;
         fi.bools["pd"] = pitfallDeath;
     }
     void OnRevert(FrameInfo fi) {
@@ -504,10 +508,11 @@ public class Player : MonoBehaviour {
         aimDirection = (AimDirection)fi.ints["aimDirection"];
         bool prevReceivePlayerInput = receivePlayerInput;
         receivePlayerInput = fi.bools["rpi"];
-        pitfallDeath = fi.bools["pd"];
-        if (prevReceivePlayerInput && !receivePlayerInput) {
-            CutsceneKeys.allFalse(); // this is a temporary solution.  CutsceneKeys or something similar needs to use TimeUser
+        cutsceneKeysInfo = fi.ints["cki"];
+        if (!receivePlayerInput) {
+            CutsceneKeys.loadFromInt(cutsceneKeysInfo); // loading keys the cutscene simulated pressing
         }
+        pitfallDeath = fi.bools["pd"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -1165,6 +1170,8 @@ public class Player : MonoBehaviour {
     int lastLevelMapY = 0;
     Vector2 lastLevelPosition = new Vector2();
     Vector2 newPosition = new Vector2();
+
+    int cutsceneKeysInfo = 0; // when receivePlayerInput is false, this keeps a record of the CutsceneKeys (saved to timeUser's frame info)
 
     FrameInfo frameInfoOnLevelLoad = null; // frame info of the player saved when starting a new level (calling OnLevelWasLoaded)
 

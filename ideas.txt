@@ -449,3 +449,6 @@ o Game crashing puzzle:
 	- Player then taps left/right to escape the ice coating.
 	- During the glitch fight (when about to win?) have the game pretend to crash.  Bring up a fake "Unity fatal error" window.
 	- Rapidly tap left and right to get rid of the error and resume the game.
+	
+o Quantum pickup spawners.
+	- Usually things that randomly drop pickups are fixed.  But certain special objects will be different after each flashback to before they were destroyed.  Can chance reverting back and forth to get a better drop.

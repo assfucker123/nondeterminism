@@ -16,7 +16,8 @@ public class AdventureEvent {
         DESTROYED_TUTORIAL_WALL = 1,
         FIRST_TALK = 2,
         HIT_PLAYER_WITH_TUTORIAL_WALL = 3,
-        SPAWN_PAUSE_CONTROLS_MESSAGE = 4
+        SPAWN_PAUSE_CONTROLS_MESSAGE = 4,
+        SHERIVICE_ENCOUNTER = 5
     }
 
 }

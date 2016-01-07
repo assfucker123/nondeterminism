@@ -12,6 +12,8 @@ public class ReceivesDamage : MonoBehaviour {
     public int health = 10;
     public bool autoHitFlash = true; //if set to true, spriteRenderer will briefly flash after being hit
     public bool autoActivateDefaultDeath = true; //if set to true, will call activate() from the DefaultDeath component (if available)
+    public bool useCustomFlashColor = false;
+    public Color customFlashColor = new Color(.89f, 0, 0);
     
     /* Granting mercyInvincibility does not change any events and does not alter AttackInfo at any point.
      * Modification to health lost is only done in the calculation, and is not reflected in PreDamage()
@@ -98,7 +100,11 @@ public class ReceivesDamage : MonoBehaviour {
             if (autoHitFlash && spriteRenderer != null &&
                 (defaultDeath == null || !defaultDeath.activated)) {
                 hitFlashTime = 0;
-                spriteRenderer.color = HIT_FLASH_COLOR;
+                if (useCustomFlashColor) {
+                    spriteRenderer.color = customFlashColor;
+                } else {
+                    spriteRenderer.color = HIT_FLASH_COLOR;
+                }
             }
             SendMessage("OnDamage", ai, SendMessageOptions.DontRequireReceiver);
         }

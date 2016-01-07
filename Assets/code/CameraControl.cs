@@ -33,6 +33,15 @@ public class CameraControl : MonoBehaviour {
             );
     }
 
+    public static bool pointContainedInMapBounds(Vector2 point, float extraBorder = 0) {
+        Rect rect = CameraControl.getMapBounds();
+        rect.xMin -= extraBorder;
+        rect.xMax += extraBorder;
+        rect.yMin -= extraBorder;
+        rect.yMax += extraBorder;
+        return rect.Contains(point);
+    }
+
     // round to pixel
     public static float roundToPixel(float x) {
         return Mathf.Floor(x * PIXEL_PER_UNIT * PIXEL_PER_UNIT_SCALE) / PIXEL_PER_UNIT / PIXEL_PER_UNIT_SCALE;

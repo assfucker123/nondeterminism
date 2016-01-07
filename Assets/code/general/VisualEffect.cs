@@ -26,6 +26,8 @@ public class VisualEffect : MonoBehaviour {
     }
 
     void updateFadeColor() {
+        if (!timeUser.exists)
+            return;
         if (fadeOut) {
             if (spriteRenderer != null) {
                 Color c = spriteRenderer.color;

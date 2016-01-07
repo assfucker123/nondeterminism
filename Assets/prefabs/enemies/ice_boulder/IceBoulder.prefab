@@ -146,6 +146,7 @@ MonoBehaviour:
   - {fileID: 133014, guid: db34848fd95768848984c0be6cb51fe0, type: 2}
   pickupsBurstSize: 2
   pickupsProbability: 0.5
+  pickupsSpawnOffset: {x: 0, y: 1}
   iceShatterSound: {fileID: 8300000, guid: f5f9452a89bfc2e48bdf0c73108bff1f, type: 3}
 --- !u!114 &11424256
 MonoBehaviour:
@@ -187,6 +188,8 @@ MonoBehaviour:
   health: 6
   autoHitFlash: 1
   autoActivateDefaultDeath: 0
+  useCustomFlashColor: 1
+  customFlashColor: {r: 0.9529412, g: 0.57254905, b: 0.9137255, a: 1}
 --- !u!114 &11499484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -292,6 +295,26 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: customFlashColor.r
+      value: 0.9529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: customFlashColor.g
+      value: 0.57254905
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: customFlashColor.b
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: useCustomFlashColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pickupsSpawnOffset.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
