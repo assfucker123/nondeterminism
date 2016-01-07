@@ -238,8 +238,14 @@ public class Player : MonoBehaviour {
         frameInfoOnLevelLoad = timeUser.getLastFrameInfo();
     }
 
-    public bool receivePlayerInput = true; // if CutsceneKeys are updated with input from the player
-
+    public bool receivePlayerInput {
+        get { return _receivePlayerInput; }
+        set {
+            if (_receivePlayerInput == value) return;
+            _receivePlayerInput = value;
+        }
+    }
+    
     /////////////////////
     // EVENT FUNCTIONS //
     /////////////////////
@@ -1171,6 +1177,7 @@ public class Player : MonoBehaviour {
     Vector2 lastLevelPosition = new Vector2();
     Vector2 newPosition = new Vector2();
 
+    bool _receivePlayerInput = true; // if CutsceneKeys are updated with input from the player
     int cutsceneKeysInfo = 0; // when receivePlayerInput is false, this keeps a record of the CutsceneKeys (saved to timeUser's frame info)
 
     FrameInfo frameInfoOnLevelLoad = null; // frame info of the player saved when starting a new level (calling OnLevelWasLoaded)

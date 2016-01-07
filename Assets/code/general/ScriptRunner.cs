@@ -26,7 +26,7 @@ public class ScriptRunner : MonoBehaviour {
             PHYS_HAPPEN,
             JUMP_INFO,
             JUMP_PHYS,
-            SEND_MESSAGE,
+            SEND_MESSAGE, // sendMessage thingObject Action stringParam (stringParam is optional)
             SPAWN_CONTROL_MESSAGE,
             TAKE_DOWN_CONTROL_MESSAGE,
 
@@ -341,6 +341,8 @@ public class ScriptRunner : MonoBehaviour {
             Player.instance != null && !Player.instance.receivePlayerInput) {
             CutsceneKeys.instantKeysFalse();
         }
+
+
 
         Instruction instr;
         

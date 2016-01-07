@@ -15,6 +15,15 @@ wait .5
 t-O: I'll begin talking now.
 
 closeText
+sendMessage Sherivice ScriptFlyIn
+camSetPosition(24, 8) 2.0
+wait 3.3
+
+t-Sherivice: I have arrived.
+t-O: Okay.
+t-Sherivice: This conversation is done.
+
+closeText
 cbarsOff
 camSetPosition(20.5, 11.5) 1.0 block
 
