@@ -76,16 +76,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  speed: 13
+  speed: 21
   heading: 0
-  headingSpeed: 100
+  headingSpeed: 140
   positiveHeading: 1
-  headingSwitchDurationMin: 0.4
-  headingSwitchDurationMax: 0.8
+  headingSwitchDurationMin: 0.05
+  headingSwitchDurationMax: 0.45
   spinMaxSpeed: 150
   hitsSherivice: 0
   trailGameObject: {fileID: 158460, guid: 551c9c22d360c6e409e0f5e796339318, type: 2}
-  trailPeriod: 0.12
+  trailPeriod: 0.09
   explosionGameObject: {fileID: 111064, guid: 5b51cc32200e877498e11474a189ba7d, type: 2}
 --- !u!114 &11428140
 MonoBehaviour:
@@ -160,11 +160,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 13
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: trailPeriod
-      value: 0.12
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spinMaxSpeed
@@ -172,7 +172,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: headingSwitchDurationMax
-      value: 0.8
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: headingSpeed
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: headingSwitchDurationMin
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

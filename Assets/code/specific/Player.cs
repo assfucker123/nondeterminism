@@ -236,6 +236,7 @@ public class Player : MonoBehaviour {
     public void saveFrameInfoOnLevelLoad() {
         timeUser.addCurrentFrameInfo();
         frameInfoOnLevelLoad = timeUser.getLastFrameInfo();
+        frameInfoOnLevelLoad.preserve = true;
     }
 
     public bool receivePlayerInput {

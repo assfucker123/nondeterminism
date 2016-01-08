@@ -68,6 +68,10 @@ public class IceRock : MonoBehaviour {
         trailTime += Time.deltaTime;
         if (trailTime >= trailPeriod) {
             GameObject trailGO = (GameObject.Instantiate(trailGameObject, transform.localPosition, transform.localRotation) as GameObject);
+            if (visionUser.isVision) {
+                VisionUser tvu = trailGO.GetComponent<VisionUser>();
+                tvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+            }
             trailTime -= trailPeriod;
         }
 
@@ -79,24 +83,39 @@ public class IceRock : MonoBehaviour {
 	}
 
     void OnCollisionEnter2D(Collision2D c2d) {
+
+        if (timeUser.shouldNotUpdate)
+            return;
         
-        if (c2d.gameObject == Player.instance.gameObject) {
+        if (!visionUser.isVision &&
+            c2d.gameObject == Player.instance.gameObject) {
             // deal damage to player if hit
             Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, rb2d.position.x > Player.instance.rb2d.position.x);
         }
+
         // destroy
         GameObject explosionGO = (GameObject.Instantiate(explosionGameObject, transform.localPosition, transform.localRotation) as GameObject);
+        if (visionUser.isVision) {
+            VisionUser evu = explosionGO.GetComponent<VisionUser>();
+            evu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+        }
         timeUser.timeDestroy();
     }
 
     void OnSaveFrame(FrameInfo fi) {
+        fi.floats["h"] = heading;
         fi.floats["hst"] = headingSwitchTime;
         fi.floats["hsd"] = headingSwitchDuration;
+        fi.bools["ph"] = positiveHeading;
+        fi.floats["tt"] = trailTime;
     }
 
     void OnRevert(FrameInfo fi) {
+        heading = fi.floats["h"];
         headingSwitchTime = fi.floats["hst"];
         headingSwitchDuration = fi.floats["hsd"];
+        positiveHeading = fi.bools["ph"];
+        trailTime = fi.floats["tt"];
     }
 
     TimeUser timeUser;

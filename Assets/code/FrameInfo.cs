@@ -25,6 +25,8 @@ public class FrameInfo {
     public Dictionary<string, string> strings = new Dictionary<string, string>();
     public Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
 
+    public bool preserve = false; // if set to true, will not be deleted with MAX_TIME_DESTROY_AGE
+
     public bool thisFrameInfoDestroyed { get { return _thisFrameInfoDestroyed; } }
     
     public static void clear(FrameInfo fi) {

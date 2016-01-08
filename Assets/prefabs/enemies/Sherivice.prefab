@@ -92,7 +92,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.44, y: 17.56, z: 0}
+  m_LocalPosition: {x: 22.59, y: 17.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 420288}
@@ -155,9 +155,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -1.1146002}
+  m_Offset: {x: 0, y: -1.3191738}
   serializedVersion: 2
-  m_Size: {x: 1.5266805, y: 0.58355707}
+  m_Size: {x: 1.5266805, y: 0.9927026}
 --- !u!61 &6174960
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -171,7 +171,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.048992157}
   serializedVersion: 2
-  m_Size: {x: 3.2047026, y: 1.1224847}
+  m_Size: {x: 4.25048, y: 1.1224847}
 --- !u!95 &9584546
 Animator:
   serializedVersion: 3
@@ -285,6 +285,31 @@ MonoBehaviour:
   flyInDuration: 3
   flyInStartPosition: {x: 45, y: 16}
   flyInPosition: {x: 37, y: 14}
+  toInitialTauntDuration: 2
+  tauntPosition: {x: 20.5, y: 17}
+  initialTauntDuration: 0.5
+  toRockThrowDuration: 2
+  rockThrowLeftPosition: {x: 3, y: 19}
+  rockThrowRightPosition: {x: 41, y: 12}
+  rockThrowPeriod: 2.1
+  rockThrowPoint: {x: 1.21, y: -1.56}
+  rockThrowCenterAngle: -60
+  rockThrowSpread: 0
+  rockThrowTimes: 3
+  rockGameObject: {fileID: 107556, guid: 33fe1f5a35d99954bb1001d0d9b68963, type: 2}
+  bobMagnitude: 0.8
+  bobPeriod: 2
+  toBulletDuration: 2
+  bulletPeriod: 1.1
+  numBullets: 4
+  perBulletPeriod: 0.1
+  bulletTimes: 4
+  bulletPoint: {x: 1.8, y: -0.94}
+  bulletLeftPositionHigh: {x: 8, y: 7}
+  bulletLeftPositionLow: {x: 8, y: 6}
+  bulletRightPositionHigh: {x: 36, y: 6}
+  bulletRightPositionLow: {x: 36, y: 5}
+  bulletGameObject: {fileID: 136156, guid: 474b19ea5cf564f4c9b66835e11ca8fd, type: 2}
   wingFlapSound: {fileID: 8300000, guid: b65f6cd170d5bb14a935be58d197331b, type: 3}
   screamSound: {fileID: 8300000, guid: 29983815db1d51948b10614e67a11129, type: 3}
 --- !u!114 &11485860
@@ -395,6 +420,26 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: flyInPosition.x
       value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: toInitialTauntDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: toRockThrowDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialTauntDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rockThrowLeftPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rockThrowLeftPosition.y
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

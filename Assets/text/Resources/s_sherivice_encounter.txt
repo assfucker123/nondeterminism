@@ -10,6 +10,9 @@ cbarsOn
 wait .7
 keyUp right // simulates releasing right
 
+
+goto quickStart
+
 wait .5
 
 t-O: I'll begin talking now.
@@ -23,9 +26,12 @@ t-Sherivice: I have arrived.
 t-O: Okay.
 t-Sherivice: This conversation is done.
 
-closeText
-cbarsOff
-camSetPosition(20.5, 11.5) 1.0 block
 
-camEnableBounds // done after camSetPosition has completed
+lbl quickStart
+
+closeText
+camSetPosition(24, 11.5) 1.0
+cbarsOff block
 resumePlayer
+
+sendMessage Sherivice ScriptStartFight

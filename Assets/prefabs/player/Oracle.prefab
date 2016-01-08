@@ -195,9 +195,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 8
+  health: 4
   autoHitFlash: 0
   autoActivateDefaultDeath: 0
+  useCustomFlashColor: 0
+  customFlashColor: {r: 0.89, g: 0, b: 0, a: 1}
 --- !u!114 &11425680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,7 +231,7 @@ MonoBehaviour:
   bulletSpawnUp: {x: 0.2, y: 1.35}
   bulletSpawnDown: {x: 0.2, y: -0.6}
   bulletSpread: 0.5
-  bulletMinDuration: 0.16
+  bulletMinDuration: 0.19
   chargeBulletGameObject: {fileID: 179616, guid: c8d0d6be73026d94492e7732bb1d9bdc,
     type: 2}
   chargeDuration: 0.8
@@ -243,6 +245,7 @@ MonoBehaviour:
   phaseDecreaseSpeed: 0
   phaseRevertingDecreaseSpeed: 7
   postRevertDuration: 0.5
+  flashbackNextFrameFlag: 0
   damageSpeed: 14
   damageFriction: 40
   damageDuration: 0.3
@@ -272,7 +275,6 @@ MonoBehaviour:
   larvaScreamSound: {fileID: 8300000, guid: 3224a467f67bba54dad7893d4c77b9f0, type: 3}
   flashbackBeginSound: {fileID: 8300000, guid: f6c696605c0bc244090af2d8bed8a8e4, type: 3}
   flashbackEndSound: {fileID: 8300000, guid: e2c9a6aa84ff08442b368b8e02b4cc4e, type: 3}
-  receivePlayerInput: 1
 --- !u!114 &11426192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,7 +506,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: health
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseRevertingDecreaseSpeed
@@ -516,7 +518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bulletMinDuration
-      value: .159999996
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: flashbackBeginSound

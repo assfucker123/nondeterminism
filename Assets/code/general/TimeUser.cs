@@ -395,7 +395,7 @@ public class TimeUser : MonoBehaviour {
     void destroyEarlyFrameInfo() {
         for (int i=0; i<fis.Count; i++) {
             FrameInfo fi = fis[i];
-            if (fi.time < TimeUser.time - MAX_TIME_DESTROY_AGE) {
+            if (!fi.preserve && fi.time < TimeUser.time - MAX_TIME_DESTROY_AGE) {
                 FrameInfo.destroy(fi);
                 fis.RemoveAt(i);
                 i--;
