@@ -86,7 +86,7 @@ public class IceBoulder : MonoBehaviour {
         
         // destroy if getting too old
         if (timeUser.age > 40f) {
-            destroy();
+            destroy(false);
         }
 	}
 
@@ -137,8 +137,10 @@ public class IceBoulder : MonoBehaviour {
         }
     }
 
-    void destroy() {
-        SoundManager.instance.playSFXRandPitchBend(iceShatterSound);
+    void destroy(bool playSound = true) {
+        if (playSound) {
+            SoundManager.instance.playSFXRandPitchBend(iceShatterSound);
+        }
         if (spawnsPickups) {
             pickupSpawner.burstSpawn(rb2d.position + pickupsSpawnOffset, pickupsBurstSize);
         }

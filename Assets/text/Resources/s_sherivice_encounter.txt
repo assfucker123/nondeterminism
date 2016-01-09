@@ -30,6 +30,7 @@ t-Sherivice: This conversation is done.
 lbl quickStart
 
 closeText
+sendMessage InvisibleWall EnableWall // makes invisible wall on left side
 camSetPosition(24, 11.5) 1.0
 cbarsOff block
 resumePlayer

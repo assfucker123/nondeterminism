@@ -90,7 +90,7 @@ public class IceRock : MonoBehaviour {
         if (!visionUser.isVision &&
             c2d.gameObject == Player.instance.gameObject) {
             // deal damage to player if hit
-            Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, rb2d.position.x > Player.instance.rb2d.position.x);
+            Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, rb2d.position.x < Player.instance.rb2d.position.x);
         }
 
         // destroy

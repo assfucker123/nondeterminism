@@ -533,6 +533,13 @@ public class Sherivice : MonoBehaviour {
             bobOffset = new Vector2(0, Mathf.Sin(bobOffsetTime / boulderBobPeriod * Mathf.PI * 2) * boulderBobMagnitude);
             pos.y = pos0.y + bobOffset.y;
 
+            // create vision of throwing boulders
+            if (boulders.Count == numBoulders &&
+                time >= boulderHoldDuration - VisionUser.VISION_DURATION - .3f &&
+                time - Time.deltaTime < boulderHoldDuration - VisionUser.VISION_DURATION - .3f) {
+
+                visionUser.createVision(VisionUser.VISION_DURATION);
+            }
 
             // create boulders if not created yet
             bool createdThisFrame = false;
@@ -583,6 +590,7 @@ public class Sherivice : MonoBehaviour {
                 }
                 boulders.Clear();
 
+                animator.Play("throw_boulder");
                 state = State.BOULDER_RECOIL;
                 time = 0;
                 pos0 = rb2d.position;
@@ -596,6 +604,7 @@ public class Sherivice : MonoBehaviour {
 
             if (time >= boulderRecoilDuration) {
                 // go to another state
+                animator.Play("forward");
                 if (timeUser.randomValue() > .5f) {
                     goToRockThrow();
                 } else {
@@ -681,6 +690,30 @@ public class Sherivice : MonoBehaviour {
         // increment time
         time += timeInFuture;
         bobOffsetTime += timeInFuture;
+
+        if (state == State.BOULDER) {
+
+            // create new boulders
+            List<GameObject> oldBoulders = new List<GameObject>();
+            oldBoulders.AddRange(boulders);
+            boulders.Clear();
+            float angle0 = time / boulderRevolvePeriod * Mathf.PI*2;
+
+            for (int i=0; i<numBoulders; i++) {
+
+                GameObject boulderGO = GameObject.Instantiate(boulderGameObject, oldBoulders[i].transform.localPosition, oldBoulders[i].transform.localRotation) as GameObject;
+                boulders.Add(boulderGO);
+                IceBoulder iceBoulder = boulderGO.GetComponent<IceBoulder>();
+                iceBoulder.invincible = true;
+                iceBoulder.spawnsPickups = oldBoulders[i].GetComponent<IceBoulder>().spawnsPickups;
+
+                // convert to vision
+                boulderGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, oldBoulders[i].GetComponent<VisionUser>());
+            }
+            
+            
+        }
+        
     }
 
     /* called when this takes damage */
