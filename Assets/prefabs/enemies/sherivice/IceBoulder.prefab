@@ -79,7 +79,7 @@ Rigidbody2D:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!60 &6066508
 PolygonCollider2D:
@@ -144,10 +144,15 @@ MonoBehaviour:
   - {fileID: 174860, guid: 14555b46c880ff64a84839a315f86108, type: 2}
   - {fileID: 109362, guid: 11d76f812f0f2d940ac29ee15dd16834, type: 2}
   - {fileID: 133014, guid: db34848fd95768848984c0be6cb51fe0, type: 2}
+  spawnsPickups: 1
   pickupsBurstSize: 2
-  pickupsProbability: 0.5
   pickupsSpawnOffset: {x: 0, y: 1}
   iceShatterSound: {fileID: 8300000, guid: f5f9452a89bfc2e48bdf0c73108bff1f, type: 3}
+  fadeInDuration: 0.6
+  throwRaycastOffset: 2
+  throwRaycastEndOffset: 1
+  damage: 1
+  invincible: 0
 --- !u!114 &11424256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,6 +319,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: pickupsSpawnOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeInDuration
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

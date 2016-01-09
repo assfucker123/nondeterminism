@@ -122,6 +122,7 @@ public class TimeUser : MonoBehaviour {
         }
     }
     public float timeCreated { get { return _timeCreated; } }
+    public float age {  get { return TimeUser.time - timeCreated; } }
     public bool createdAtLevelLoad { get { return timeCreated < .1f; } }
     public int randSeed { get { return _randSeed; } }
     public FrameInfo getLastFrameInfo() {

@@ -212,46 +212,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletLeftPositionLow.y
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletRightPositionLow.y
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletRightPositionHigh.y
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletLeftPositionHigh.y
-      value: 8.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletLeftPositionHigh.x
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletLeftPositionLow.x
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletSwitchDuration
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: numBullets
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: perBulletPeriod
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: bulletPeriod
-      value: 1.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
   m_IsPrefabParent: 0
@@ -332,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  speed: 4
+  speed: 8
   distance: 41.25
 --- !u!114 &841374912
 MonoBehaviour:
@@ -400,7 +360,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1001 &857570818
 Prefab:
   m_ObjectHideFlags: 0
@@ -623,11 +583,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1514943786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.2, y: 3.87, z: 0}
+  m_LocalPosition: {x: 4.11, y: 18.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1001 &1716779369
 Prefab:
   m_ObjectHideFlags: 0
@@ -767,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  speed: 4
+  speed: 8
   distance: 41.25
 --- !u!114 &2097885816
 MonoBehaviour:

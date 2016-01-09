@@ -83,8 +83,11 @@ public class Bullet : MonoBehaviour {
                 ai.damage = damage;
                 ai.impactHeading = heading;
                 ai = rd.dealDamage(ai);
-                if (hitSound != null)
-                    SoundManager.instance.playSFXRandPitchBend(hitSound);
+                if (ai.damage > 0) {
+                    if (hitSound != null)
+                        SoundManager.instance.playSFXRandPitchBend(hitSound);
+                }
+                
             }
 
             rb2d.position = rh2d.point;

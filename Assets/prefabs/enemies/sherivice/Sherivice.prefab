@@ -289,27 +289,49 @@ MonoBehaviour:
   tauntPosition: {x: 20.5, y: 17}
   initialTauntDuration: 0.5
   toRockThrowDuration: 2
-  rockThrowLeftPosition: {x: 3, y: 19}
+  rockThrowLeftPosition: {x: 4, y: 19}
   rockThrowRightPosition: {x: 41, y: 12}
+  rockThrowBobMagnitude: 0.8
+  rockThrowBobPeriod: 2.5
   rockThrowPeriod: 2.1
   rockThrowPoint: {x: 1.21, y: -1.56}
-  rockThrowCenterAngle: -60
   rockThrowSpread: 0
   rockThrowTimes: 3
   rockGameObject: {fileID: 107556, guid: 33fe1f5a35d99954bb1001d0d9b68963, type: 2}
-  bobMagnitude: 0.8
-  bobPeriod: 2
-  toBulletDuration: 2
-  bulletPeriod: 1.1
-  numBullets: 4
-  perBulletPeriod: 0.1
+  toBulletShortDuration: 1.5
+  toBulletFarDuration: 2.5
+  bulletPeriod: 1.4
+  numBullets: 2
+  perBulletPeriod: 0.15
   bulletTimes: 4
   bulletPoint: {x: 1.8, y: -0.94}
-  bulletLeftPositionHigh: {x: 8, y: 7}
-  bulletLeftPositionLow: {x: 8, y: 6}
-  bulletRightPositionHigh: {x: 36, y: 6}
-  bulletRightPositionLow: {x: 36, y: 5}
+  bulletLeftPositionHigh: {x: 7.5, y: 8.5}
+  bulletLeftPositionLow: {x: 7.5, y: 6.5}
+  bulletRightPositionHigh: {x: 36, y: 6.5}
+  bulletRightPositionLow: {x: 36, y: 4.5}
+  bulletSwitchHeightDuration: 0.6
+  bulletSwitchDuration: 0.8
+  bulletBobMagnitude: 0.6
+  bulletBobPeriod: 1.7
   bulletGameObject: {fileID: 136156, guid: 474b19ea5cf564f4c9b66835e11ca8fd, type: 2}
+  toBoulderDuration: 2.1
+  boulderLeftX: 12
+  boulderRightX: 33
+  boulderY: 18
+  boulderXLoopPeriod: 6
+  boulderBobMagnitude: 0.8
+  boulderBobPeriod: 1.4
+  numBoulders: 3
+  boulderRevolveCenter: {x: 0, y: -0.5}
+  boulderRevolveRadius: {x: 5, y: 1}
+  boulderRevolvePeriod: 2
+  boulderHoldMinDuration: 2
+  boulderHoldMaxDuration: 4
+  boulderThrowAngleSpread: 15
+  boulderThrowSpeed: 35
+  boulderGameObject: {fileID: 118516, guid: 8f0640d8acb4dfa4d8b8f73b01e32ec6, type: 2}
+  boulderRecoilDist: 1.5
+  boulderRecoilDuration: 0.7
   wingFlapSound: {fileID: 8300000, guid: b65f6cd170d5bb14a935be58d197331b, type: 3}
   screamSound: {fileID: 8300000, guid: 29983815db1d51948b10614e67a11129, type: 3}
 --- !u!114 &11485860
@@ -385,7 +407,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 1ffa9a6d1bcd4374682d14cce71747df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

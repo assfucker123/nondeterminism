@@ -87,7 +87,7 @@ public class ReceivesDamage : MonoBehaviour {
                 sendOnDamage = false;
             }
         }
-
+        
         if (sendOnDamage) {
             
             if (health <= 0 && autoActivateDefaultDeath) {
@@ -97,7 +97,9 @@ public class ReceivesDamage : MonoBehaviour {
                     }
                 }
             }
-            if (autoHitFlash && spriteRenderer != null &&
+            // damage flash
+            if (autoHitFlash && ai.damage > 0 &&
+                spriteRenderer != null &&
                 (defaultDeath == null || !defaultDeath.activated)) {
                 hitFlashTime = 0;
                 if (useCustomFlashColor) {
@@ -106,6 +108,7 @@ public class ReceivesDamage : MonoBehaviour {
                     spriteRenderer.color = HIT_FLASH_COLOR;
                 }
             }
+
             SendMessage("OnDamage", ai, SendMessageOptions.DontRequireReceiver);
         }
         return ai;

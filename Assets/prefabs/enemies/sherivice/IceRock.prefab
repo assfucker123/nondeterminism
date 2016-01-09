@@ -81,7 +81,7 @@ MonoBehaviour:
   headingSpeed: 140
   positiveHeading: 1
   headingSwitchDurationMin: 0.05
-  headingSwitchDurationMax: 0.45
+  headingSwitchDurationMax: 0.35
   spinMaxSpeed: 150
   hitsSherivice: 0
   trailGameObject: {fileID: 158460, guid: 551c9c22d360c6e409e0f5e796339318, type: 2}
@@ -172,7 +172,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: headingSwitchDurationMax
-      value: 0.45
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: headingSpeed
