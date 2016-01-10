@@ -452,3 +452,5 @@ o Game crashing puzzle:
 	
 o Quantum pickup spawners.
 	- Usually things that randomly drop pickups are fixed.  But certain special objects will be different after each flashback to before they were destroyed.  Can chance reverting back and forth to get a better drop.
+
+o Enemy attacks that drain phase
