@@ -333,6 +333,10 @@ MonoBehaviour:
   boulderRecoilDist: 1.5
   boulderRecoilDuration: 0.7
   wingFlapSound: {fileID: 8300000, guid: b65f6cd170d5bb14a935be58d197331b, type: 3}
+  bulletSound: {fileID: 8300000, guid: d8c431fd15466d6419be388737c777fb, type: 3}
+  rockSound: {fileID: 8300000, guid: 4b19be50d40971e4688bcb2e0674b073, type: 3}
+  boulderAppearSound: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
+  boulderThrowSound: {fileID: 8300000, guid: c4506d0cdf37acc4d93ff842a0439f4c, type: 3}
   screamSound: {fileID: 8300000, guid: 29983815db1d51948b10614e67a11129, type: 3}
 --- !u!114 &11485860
 MonoBehaviour:
@@ -463,6 +467,22 @@ Prefab:
       propertyPath: rockThrowLeftPosition.y
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d8c431fd15466d6419be388737c777fb, type: 3}
+    - target: {fileID: 0}
+      propertyPath: boulderThrowSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c4506d0cdf37acc4d93ff842a0439f4c, type: 3}
+    - target: {fileID: 0}
+      propertyPath: rockSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b19be50d40971e4688bcb2e0674b073, type: 3}
+    - target: {fileID: 0}
+      propertyPath: boulderAppearSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181426}

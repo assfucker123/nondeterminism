@@ -7,7 +7,8 @@ using System.Collections.Generic;
 public class HaltScreen : MonoBehaviour {
 
     public enum Screen {
-        FLASHBACK = 0
+        FLASHBACK = 0,
+        VISION = 1
     }
 
     public Screen screen = Screen.FLASHBACK;
@@ -15,6 +16,7 @@ public class HaltScreen : MonoBehaviour {
     public static List<HaltScreen> allScreens = new List<HaltScreen>();
 
     public Sprite flashbackSprite;
+    public Sprite visionSprite;
 
     public void end() {
         PauseScreen.instance.unpauseGame();
@@ -35,12 +37,16 @@ public class HaltScreen : MonoBehaviour {
         case Screen.FLASHBACK:
             image.sprite = flashbackSprite;
             break;
+        case Screen.VISION:
+            image.sprite = visionSprite;
+            break;
         }
 
         GetComponent<RectTransform>().localPosition = Vector3.zero;
 
         HUD.instance.createPauseScreen();
         PauseScreen.instance.pauseGameHaltScreen();
+        time = 0;
     }
 
     void Update() {
@@ -55,6 +61,14 @@ public class HaltScreen : MonoBehaviour {
                 end();
             }
             break;
+        case Screen.VISION:
+            time += Time.unscaledDeltaTime;
+            if (time > .2f) {
+                if (Keys.instance.jumpPressed) {
+                    end();
+                }
+            }
+            break;
         }
 
 	}
@@ -64,4 +78,5 @@ public class HaltScreen : MonoBehaviour {
     }
 
     Image image;
+    float time = 0;
 }

@@ -44,6 +44,16 @@ public class SoundManager : MonoBehaviour {
         return false;
     }
 
+    public AudioSource getAudioSourcePlayingClip(AudioClip clip) {
+        if (clip == null) return null;
+        foreach (AudioSource audS in sfxSources) {
+            if (audS.clip == clip && audS.isPlaying) {
+                return audS;
+            }
+        }
+        return null;
+    }
+
     /////////////
     // PRIVATE //
     /////////////
@@ -86,6 +96,7 @@ public class SoundManager : MonoBehaviour {
         AudioSource source = assignSource(clip);
         source.volume = volume;
         source.pitch = pitch;
+        source.loop = false;
         source.Play();
     }
 

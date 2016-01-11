@@ -29,7 +29,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccd12b93f656a0409b123191a1fd0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screen: 0
   flashbackSprite: {fileID: 21300000, guid: bfe6ae0f6a56edc43ab3872e31ac2a38, type: 3}
+  visionSprite: {fileID: 21300000, guid: 1bd584f5c4a306e47a3e24fd379e54e7, type: 3}
 --- !u!114 &11473952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,7 +88,12 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: visionSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1bd584f5c4a306e47a3e24fd379e54e7,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 169346}

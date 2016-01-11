@@ -671,6 +671,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: adcfa817722367346958dd11bda1ea91, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &743246414
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 496826, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8472b2f11c3c0e841a755308603eb5ba, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &749361185
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  speed: 4
+  speed: 8
   distance: 41.25
 --- !u!114 &1102850867
 MonoBehaviour:
@@ -1318,7 +1360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  speed: 4
+  speed: 8
   distance: 41.25
 --- !u!114 &1813997096
 MonoBehaviour:

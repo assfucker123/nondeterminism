@@ -17,7 +17,8 @@ public class AdventureEvent {
         FIRST_TALK = 2,
         HIT_PLAYER_WITH_TUTORIAL_WALL = 3,
         SPAWN_PAUSE_CONTROLS_MESSAGE = 4,
-        SHERIVICE_ENCOUNTER = 5
+        SHERIVICE_ENCOUNTER = 5,
+        VISION_TUTORIAL_SCREEN = 6
     }
 
 }

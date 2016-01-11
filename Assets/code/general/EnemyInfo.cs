@@ -16,7 +16,9 @@ public class EnemyInfo : MonoBehaviour {
         TOUCADE,
         TOUCADE_PASSIVE,
         TOUCADE_NO_FRUIT,
-        SHERIVICE
+        SHERIVICE,
+        VENGEMOLE,
+        VENGEMOLE_CAN_THROW
     }
 
     public enum SpawnLocation {

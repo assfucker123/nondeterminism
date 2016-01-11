@@ -42,6 +42,7 @@ public class Sherivice : MonoBehaviour {
     public float bulletBobMagnitude = 1f;
     public float bulletBobPeriod = 1.4f;
     public GameObject bulletGameObject;
+    
 
 
 
@@ -68,7 +69,14 @@ public class Sherivice : MonoBehaviour {
 
     
     public AudioClip wingFlapSound;
+    public AudioClip bulletSound;
+    public AudioClip rockSound;
+    public AudioClip boulderAppearSound;
+    public AudioClip boulderThrowSound;
     public AudioClip screamSound;
+
+    /* Order: FLY_IN -> INITIAL_TAUNT -> ROCK_THROW -> BULLET -> BOULDER -> (ROCK_THROW or BULLET) -> (the other one) -> (back to boulder, repeat)
+     */
 
     public enum State {
         IDLE,
@@ -137,12 +145,14 @@ public class Sherivice : MonoBehaviour {
             pos1 = rockThrowLeftPosition;
         }
         time = 0;
+        wingFlapPlayTime = 0;
         bobOffsetTime = 0;
     }
 
     void goToBullet() {
         state = State.TO_BULLET;
         time = 0;
+        wingFlapPlayTime = 0;
         pos0 = rb2d.position;
         bobOffsetTime = 0;
         toRight = (timeUser.randomValue() > .5f);
@@ -165,6 +175,7 @@ public class Sherivice : MonoBehaviour {
     void goToBoulder() {
         state = State.TO_BOULDER;
         time = 0;
+        wingFlapPlayTime = 0;
         bobOffsetTime = 0;
         pos0 = rb2d.position;
         toRight = !toRight;
@@ -226,6 +237,15 @@ public class Sherivice : MonoBehaviour {
 
                 state = State.INITIAL_TAUNT;
                 time = 0;
+
+                // vision tutorial screen
+                if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.VISION_TUTORIAL_SCREEN)) {
+                    Vars.currentNodeData.eventHappen(AdventureEvent.Physical.VISION_TUTORIAL_SCREEN);
+                    if (Player.instance.phase > 0) {
+                        ControlsMessageSpawner.instance.spawnHaltScreen(HaltScreen.Screen.VISION);
+                    }
+                }
+
             } else {
                 // ease camera into the custom mode
                 CameraControl.instance.targetPosition = cameraPosition();
@@ -234,8 +254,8 @@ public class Sherivice : MonoBehaviour {
         case State.INITIAL_TAUNT:
             if (time >= initialTauntDuration) {
                 // go to rock throw
-                //goToRockThrow();
-                goToBoulder();
+                rockThrowFirst = true;
+                goToRockThrow();
             }
             break;
         case State.TO_ROCK_THROW:
@@ -258,6 +278,14 @@ public class Sherivice : MonoBehaviour {
                 count = 0;
                 pos0 = pos1;
             }
+
+            wingFlapPlayTime += Time.deltaTime;
+            if (!visionUser.isVision) {
+                if (wingFlapPlayTime > .45f && time < 1) {
+                    SoundManager.instance.playSFXRandPitchBend(wingFlapSound);
+                    wingFlapPlayTime = 0;
+                }
+            }
             
             break;
         case State.ROCK_THROW:
@@ -279,7 +307,11 @@ public class Sherivice : MonoBehaviour {
 
                 if (count >= rockThrowTimes) {
                     // to other state
-                    goToBullet();
+                    if (rockThrowFirst) {
+                        goToBullet();
+                    } else {
+                        goToBoulder();
+                    }
                 } else {
 
                     // throw rock(s)
@@ -308,6 +340,10 @@ public class Sherivice : MonoBehaviour {
                         }
 
                     }
+
+                    if (!visionUser.isVision) {
+                        SoundManager.instance.playSFX(rockSound);
+                    }
                     
                     count++;
                     time -= rockThrowPeriod;
@@ -330,6 +366,14 @@ public class Sherivice : MonoBehaviour {
                     animator.Play("side");
                 }
                 flippedHoriz = toRight;
+            }
+
+            wingFlapPlayTime += Time.deltaTime;
+            if (!visionUser.isVision) {
+                if (wingFlapPlayTime > .45f && time < 1) {
+                    SoundManager.instance.playSFXRandPitchBend(wingFlapSound);
+                    wingFlapPlayTime = 0;
+                }
             }
 
             if (time >= bulletDuration) {
@@ -386,8 +430,12 @@ public class Sherivice : MonoBehaviour {
             if (time >= bulletPeriod) {
 
                 if (count >= bulletTimes) {
-                    // done shooting bullets, go to another state (work here)
-                    goToBoulder();
+                    // done shooting bullets, go to another state
+                    if (rockThrowFirst) {
+                        goToBoulder();
+                    } else {
+                        goToRockThrow();
+                    }
                     
                 } else if (switchHalfwayThroughBullet && count == bulletTimes / 2) {
 
@@ -433,6 +481,8 @@ public class Sherivice : MonoBehaviour {
                         if (visionUser.isVision) { //make bullet a vision if this is also a vision
                             VisionUser bvu = bullet.GetComponent<VisionUser>();
                             bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                        } else {
+                            SoundManager.instance.playSFXRandPitchBend(bulletSound, .01f);
                         }
 
                         bulletTime -= perBulletPeriod;
@@ -510,6 +560,14 @@ public class Sherivice : MonoBehaviour {
                 }
             }
 
+            wingFlapPlayTime += Time.deltaTime;
+            if (!visionUser.isVision) {
+                if (wingFlapPlayTime > .45f && time < 1) {
+                    SoundManager.instance.playSFXRandPitchBend(wingFlapSound);
+                    wingFlapPlayTime = 0;
+                }
+            }
+
             if (time >= toBoulderDuration) {
                 state = State.BOULDER;
                 time = 0;
@@ -554,6 +612,9 @@ public class Sherivice : MonoBehaviour {
                     iceBoulder.invincible = true;
                     iceBoulder.spawnsPickups = (i == indexToSpawnPickups);
                 }
+                if (!visionUser.isVision) {
+                    SoundManager.instance.playSFX(boulderAppearSound);
+                }
                 createdThisFrame = true;
             }
 
@@ -592,6 +653,9 @@ public class Sherivice : MonoBehaviour {
 
                 animator.Play("throw_boulder");
                 state = State.BOULDER_RECOIL;
+                if (!visionUser.isVision) {
+                    SoundManager.instance.playSFX(boulderThrowSound);
+                }
                 time = 0;
                 pos0 = rb2d.position;
                 pos1 = pos0 + new Vector2(0, boulderRecoilDist);
@@ -605,7 +669,8 @@ public class Sherivice : MonoBehaviour {
             if (time >= boulderRecoilDuration) {
                 // go to another state
                 animator.Play("forward");
-                if (timeUser.randomValue() > .5f) {
+                rockThrowFirst = (timeUser.randomValue() > .5f);
+                if (rockThrowFirst) {
                     goToRockThrow();
                 } else {
                     goToBullet();
@@ -745,6 +810,7 @@ public class Sherivice : MonoBehaviour {
         fi.bools["shtb"] = switchHalfwayThroughBullet;
         fi.floats["bro"] = boulderRevolveOffset;
         fi.floats["bhd"] = boulderHoldDuration;
+        fi.bools["rtf"] = rockThrowFirst;
 
         for (int i=0; i<numBoulders; i++) {
             if (i < boulders.Count) {
@@ -773,6 +839,7 @@ public class Sherivice : MonoBehaviour {
         switchHalfwayThroughBullet = fi.bools["shtb"];
         boulderRevolveOffset = fi.floats["bro"];
         boulderHoldDuration = fi.floats["bhd"];
+        rockThrowFirst = fi.bools["rtf"];
 
         boulders.Clear();
         for (int i=0; i<numBoulders; i++) {
@@ -811,6 +878,7 @@ public class Sherivice : MonoBehaviour {
     List<GameObject> boulders = new List<GameObject>();
     float boulderRevolveOffset = 0;
     float boulderHoldDuration = 0;
+    bool rockThrowFirst = false;
     
 
     // components
