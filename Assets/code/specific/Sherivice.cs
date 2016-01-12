@@ -123,6 +123,7 @@ public class Sherivice : MonoBehaviour {
         visionUser = GetComponent<VisionUser>();
         defaultDeath = GetComponent<DefaultDeath>();
         enemyInfo = GetComponent<EnemyInfo>();
+        eventHappener = GetComponent<EventHappener>();
     }
 
     void Start() {
@@ -240,7 +241,7 @@ public class Sherivice : MonoBehaviour {
 
                 // vision tutorial screen
                 if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.VISION_TUTORIAL_SCREEN)) {
-                    Vars.currentNodeData.eventHappen(AdventureEvent.Physical.VISION_TUTORIAL_SCREEN);
+                    eventHappener.physicalHappen(AdventureEvent.Physical.VISION_TUTORIAL_SCREEN);
                     if (Player.instance.phase > 0) {
                         ControlsMessageSpawner.instance.spawnHaltScreen(HaltScreen.Screen.VISION);
                     }
@@ -892,5 +893,6 @@ public class Sherivice : MonoBehaviour {
     VisionUser visionUser;
     DefaultDeath defaultDeath;
     EnemyInfo enemyInfo;
+    EventHappener eventHappener;
 
 }

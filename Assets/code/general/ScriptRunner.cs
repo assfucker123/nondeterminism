@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ScriptRunner : MonoBehaviour {
+/* uses EventHappener to record events so it's correctly handled when reverting */
+
+public class ScriptRunner : EventHappener {
 
     public class Instruction {
 
@@ -320,13 +322,17 @@ public class ScriptRunner : MonoBehaviour {
 
     // PRIVATE
 
-	void Awake() {
+	protected override void Awake() {
         timeUser = GetComponent<TimeUser>();
 
         scriptRunners.Add(this);
+
+        base.Awake();
 	}
 	
-	void Update() {
+	protected override void Update() {
+
+        base.Update();
         
         if (!runningScript) return;
         if (runWhenPaused && !PauseScreen.paused) {
@@ -546,12 +552,10 @@ public class ScriptRunner : MonoBehaviour {
                 }
                 break;
             case Instruction.ID.INFO_HAPPEN:
-                Vars.eventHappen((AdventureEvent.Info)instr.int0);
+                this.infoHappen((AdventureEvent.Info)instr.int0);
                 break;
             case Instruction.ID.PHYS_HAPPEN:
-                if (Vars.currentNodeData != null) {
-                    Vars.currentNodeData.eventHappen((AdventureEvent.Physical)instr.int0);
-                }
+                this.physicalHappen((AdventureEvent.Physical)instr.int0);
                 break;
             case Instruction.ID.JUMP_INFO:
                 if (Vars.eventHappened((AdventureEvent.Info)instr.int0)) {
@@ -661,7 +665,10 @@ public class ScriptRunner : MonoBehaviour {
         
 	}
 
-    void OnSaveFrame(FrameInfo fi) {
+    protected override void OnSaveFrame(FrameInfo fi) {
+
+        base.OnSaveFrame(fi);
+
         if (runWhenPaused) return;
         fi.bools["rs"] = runningScript;
         fi.ints["ri"] = runIndex;
@@ -670,7 +677,10 @@ public class ScriptRunner : MonoBehaviour {
         fi.bools["b"] = blocking;
     }
 
-    void OnRevert(FrameInfo fi) {
+    protected override void OnRevert(FrameInfo fi) {
+
+        base.OnSaveFrame(fi);
+
         if (runWhenPaused) return;
         runningScript = fi.bools["rs"];
         _runIndex = fi.ints["ri"];
@@ -695,8 +705,6 @@ public class ScriptRunner : MonoBehaviour {
             }
         }
     }
-
-    TimeUser timeUser;
 
     bool runningScript = false;
     int _runIndex = 0;

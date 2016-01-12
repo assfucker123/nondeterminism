@@ -24,6 +24,8 @@ public class NodeData {
         physicalEvents.Add(eventID);
     }
     public void eventUndo(AdventureEvent.Physical eventID) {
+        if (eventID == AdventureEvent.Physical.NONE)
+            return;
         physicalEvents.Remove(eventID);
     }
     public bool eventHappened(AdventureEvent.Physical eventID) {

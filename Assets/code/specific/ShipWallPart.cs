@@ -13,6 +13,7 @@ public class ShipWallPart : MonoBehaviour {
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        eventHappener = GetComponent<EventHappener>();
 	}
 	
 	void Update() {
@@ -37,11 +38,14 @@ public class ShipWallPart : MonoBehaviour {
 
         if (timeSinceHitPlayer - Time.deltaTime < flashbackHaltMessageDelay &&
             timeSinceHitPlayer >= flashbackHaltMessageDelay) {
-            if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL)) {
-                Vars.currentNodeData.eventHappen(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL);
+
+            if (triggerHaltScreen) {
+                
                 if (Player.instance.phase > 0) {
                     ControlsMessageSpawner.instance.spawnHaltScreen(HaltScreen.Screen.FLASHBACK);
                 }
+                triggerHaltScreen = false;
+
             }
         }
     }
@@ -54,8 +58,13 @@ public class ShipWallPart : MonoBehaviour {
         }
 
         if (c2d.gameObject == Player.instance.gameObject) {
-            if (c2d.contacts[0].normal.y > .5f) {
+            if (c2d.contacts[0].normal.y > .4f) {
                 Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, true);
+                if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL)) {
+                    eventHappener.physicalHappen(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL, false);
+                    triggerHaltScreen = true;
+                }
+                
                 timeSinceHitPlayer = 0;
             }
         }
@@ -65,11 +74,13 @@ public class ShipWallPart : MonoBehaviour {
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
         fi.floats["tshp"] = timeSinceHitPlayer;
+        fi.bools["ths"] = triggerHaltScreen;
     }
 
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
         timeSinceHitPlayer = fi.floats["tshp"];
+        triggerHaltScreen = fi.bools["ths"];
         setColor();
     }
 
@@ -86,7 +97,9 @@ public class ShipWallPart : MonoBehaviour {
 
     float time = 0;
     float timeSinceHitPlayer = 9999;
+    bool triggerHaltScreen = false;
 
     TimeUser timeUser;
     SpriteRenderer spriteRenderer;
+    EventHappener eventHappener;
 }

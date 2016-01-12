@@ -21,6 +21,7 @@ public class ShipFlame : MonoBehaviour {
 
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
+        eventHappener = GetComponent<EventHappener>();
 	}
 
     void Start() {
@@ -49,7 +50,7 @@ public class ShipFlame : MonoBehaviour {
 
         if (time > timeToTriggerHaltScreen) {
             if (!Vars.currentNodeData.eventHappened(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL)) {
-                Vars.currentNodeData.eventHappen(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL);
+                eventHappener.physicalHappen(AdventureEvent.Physical.HIT_PLAYER_WITH_TUTORIAL_WALL, false);
                 if (Player.instance.phase > 0) {
                     ControlsMessageSpawner.instance.spawnHaltScreen(HaltScreen.Screen.FLASHBACK);
                 }
@@ -89,5 +90,6 @@ public class ShipFlame : MonoBehaviour {
     float timeToTriggerHaltScreen = 999999;
 
     TimeUser timeUser;
+    EventHappener eventHappener;
 
 }

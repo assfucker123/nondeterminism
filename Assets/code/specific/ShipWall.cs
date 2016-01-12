@@ -20,7 +20,7 @@ public class ShipWall : MonoBehaviour {
 
     public void beDestroyed() {
         timeUser.timeDestroy();
-        Vars.currentNodeData.eventHappen(AdventureEvent.Physical.DESTROYED_TUTORIAL_WALL);
+        eventHappener.physicalHappen(AdventureEvent.Physical.DESTROYED_TUTORIAL_WALL);
 
         Rigidbody2D part1 = (GameObject.Instantiate(part1GameObject, transform.localPosition + new Vector3(part1Pos.x, part1Pos.y), Quaternion.identity) as GameObject).GetComponent<Rigidbody2D>();
         part1.velocity = part1Vel;
@@ -40,8 +40,7 @@ public class ShipWall : MonoBehaviour {
 
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
-
-        
+        eventHappener = GetComponent<EventHappener>();
 	}
 	
     void Start() {
@@ -55,4 +54,5 @@ public class ShipWall : MonoBehaviour {
 	}
 
     TimeUser timeUser;
+    EventHappener eventHappener;
 }

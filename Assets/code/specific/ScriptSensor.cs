@@ -58,11 +58,10 @@ public class ScriptSensor : MonoBehaviour {
         scriptRunner.runScript();
 
         if (infoEventHappenOnRunningScript != AdventureEvent.Info.NONE) {
-            Vars.eventHappen(infoEventHappenOnRunningScript);
+            scriptRunner.infoHappen(infoEventHappenOnRunningScript);
         }
-        if (physicalEventHappenOnRunningScript != AdventureEvent.Physical.NONE &&
-            Vars.currentNodeData != null) {
-            Vars.currentNodeData.eventHappen(physicalEventHappenOnRunningScript);
+        if (physicalEventHappenOnRunningScript != AdventureEvent.Physical.NONE) {
+            scriptRunner.physicalHappen(physicalEventHappenOnRunningScript);
         }
 
     }

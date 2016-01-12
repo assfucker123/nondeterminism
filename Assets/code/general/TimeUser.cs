@@ -366,8 +366,12 @@ public class TimeUser : MonoBehaviour {
 
         continuousRevertAppliedThisFrame = false;
 
-        if (PauseScreen.instance != null && PauseScreen.paused)
+        // no reason to save frame info when game is paused.  But still save frame info of the frame that caused the game to pause in the first place.
+        if (screenPausedNextFrame) {
+            screenPausedNextFrame = (PauseScreen.instance != null && PauseScreen.paused);
             return;
+        }
+        screenPausedNextFrame = (PauseScreen.instance != null && PauseScreen.paused);
 
         addCurrentFrameInfo();
 
@@ -415,4 +419,5 @@ public class TimeUser : MonoBehaviour {
     private float _timeCreated = 0;
     private int _randSeed = 0;
     private List<FrameInfo> fis = new List<FrameInfo>(); //FrameInfos sorted in ascending timeSinceLevelLoad
+    private bool screenPausedNextFrame = false;
 }
