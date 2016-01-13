@@ -17,6 +17,9 @@ public class HUD : MonoBehaviour {
     public GameObject textBoxGameObject;
     public GameObject cutsceneBarsGameObject;
     public GameObject controlsMessageSpawnerGameObject;
+
+    public GameObject bossHealthBarGameObject;
+
     public GameObject flashbackArtifactsGameObject;
 
     public int health { get { return _health; } }
@@ -38,6 +41,7 @@ public class HUD : MonoBehaviour {
     public GameOverScreen gameOverScreen { get { return _gameOverScreen; } }
     public TextBox textBox {  get { return _textBox; } }
     public CutsceneBars cutsceneBars {  get { return _cutsceneBars; } }
+    public BossHealthBar bossHealthBar {  get { return _bossHealthBar; } }
     public ControlsMessageSpawner controlsMessageSpawner {  get { return _controlsMessageSpawner; } }
     
     public FlashbackArtifacts flashbackArtifacts { get { return _flashbackArtifacts; } }
@@ -136,6 +140,12 @@ public class HUD : MonoBehaviour {
         _cutsceneBars = cbGO.GetComponent<CutsceneBars>();
         _cutsceneBars.moveOffImmediately();
 
+        // creates boss health bar
+        GameObject bhbGO = GameObject.Instantiate(bossHealthBarGameObject) as GameObject;
+        bhbGO.transform.SetParent(canvas.transform, false);
+        _bossHealthBar = bhbGO.GetComponent<BossHealthBar>();
+        _bossHealthBar.hide();
+
         // create controls message spawner
         GameObject cmsGO = GameObject.Instantiate(controlsMessageSpawnerGameObject) as GameObject;
         cmsGO.transform.SetParent(canvas.transform, false);
@@ -145,6 +155,9 @@ public class HUD : MonoBehaviour {
         GameObject pmGO = GameObject.Instantiate(phaseMeterGameObject) as GameObject;
         pmGO.transform.SetParent(canvas.transform, false);
         _phaseMeter = pmGO.GetComponent<PhaseMeter>();
+
+
+
         _phaseMeter.setUp();
         //create Black Screen
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
@@ -272,6 +285,7 @@ public class HUD : MonoBehaviour {
     private GameOverScreen _gameOverScreen;
     private TextBox _textBox;
     private CutsceneBars _cutsceneBars;
+    private BossHealthBar _bossHealthBar;
     private ControlsMessageSpawner _controlsMessageSpawner;
     private FlashbackArtifacts _flashbackArtifacts;
 	

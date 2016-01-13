@@ -32,6 +32,7 @@ public class ControlsMessage : MonoBehaviour {
     /* Fades out message and automatically destroys it */
     public void fadeOut() {
         if (fadingOut) return;
+        if (!timeUser.exists) return;
         fadingOut = true;
         time = 0;
     }

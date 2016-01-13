@@ -12,6 +12,7 @@ GameObject:
   - 50: {fileID: 5074752}
   - 60: {fileID: 6003074}
   - 114: {fileID: 11423846}
+  - 114: {fileID: 11462742}
   - 114: {fileID: 11428634}
   m_Layer: 0
   m_Name: ShipWall
@@ -104,6 +105,17 @@ MonoBehaviour:
   explosion2Pos: {x: 0.8, y: 1.5}
   destroySound: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
   destroySound2: {fileID: 8300000, guid: 29ab1d56c6e3083429dc1c18eeac53ea, type: 3}
+--- !u!114 &11462742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95473ea29e3de0f45b68f826e52b718c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21266774
 SpriteRenderer:
   m_ObjectHideFlags: 1

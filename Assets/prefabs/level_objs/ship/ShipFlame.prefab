@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11494662}
   - 114: {fileID: 11483662}
   - 60: {fileID: 6008020}
+  - 114: {fileID: 11412316}
   - 114: {fileID: 11495334}
   m_Layer: 11
   m_Name: ShipFlame
@@ -67,6 +68,17 @@ PolygonCollider2D:
     - - {x: -14.393579, y: -0.0037193298}
       - {x: 0, y: -2.0827065}
       - {x: 0, y: 2.0422611}
+--- !u!114 &11412316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95473ea29e3de0f45b68f826e52b718c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11483662
 MonoBehaviour:
   m_ObjectHideFlags: 1

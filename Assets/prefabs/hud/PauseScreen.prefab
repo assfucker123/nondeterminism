@@ -327,7 +327,7 @@ MonoBehaviour:
   initialText: switch pages
   initialAlignment: 0
   defaultStyle:
-    color: {r: 0.21599989, g: 0.15839998, b: 0.288, a: 1}
+    color: {r: 0.32849985, g: 0.2409, b: 0.438, a: 1}
   importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 1
 --- !u!114 &11470380
@@ -596,15 +596,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.r
-      value: 0.21599989
+      value: 0.32849985
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.g
-      value: 0.15839998
+      value: 0.2409
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultStyle.color.b
-      value: 0.288
+      value: 0.438
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: useTimeUser

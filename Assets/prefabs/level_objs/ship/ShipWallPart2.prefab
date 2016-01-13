@@ -12,6 +12,7 @@ GameObject:
   - 50: {fileID: 5076034}
   - 60: {fileID: 6076046}
   - 114: {fileID: 11422648}
+  - 114: {fileID: 11492158}
   - 114: {fileID: 11402952}
   m_Layer: 11
   m_Name: ShipWallPart2
@@ -93,6 +94,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11492158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95473ea29e3de0f45b68f826e52b718c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &21264900

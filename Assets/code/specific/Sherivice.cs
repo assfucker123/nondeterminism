@@ -7,6 +7,8 @@ public class Sherivice : MonoBehaviour {
 
     public State state = State.IDLE;
 
+    public int maxHealth = 30;
+
     public float flyInDuration = .8f;
     public Vector2 flyInStartPosition = new Vector2(47, 16);
     public Vector2 flyInPosition = new Vector2(33, 14);
@@ -43,8 +45,6 @@ public class Sherivice : MonoBehaviour {
     public float bulletBobPeriod = 1.4f;
     public GameObject bulletGameObject;
     
-
-
 
     public float toBoulderDuration = 1.5f;
     public float boulderLeftX = 8;
@@ -129,6 +129,8 @@ public class Sherivice : MonoBehaviour {
     void Start() {
         // attach to Segment
         /* segment = Segment.findBottom(rb2d.position); */
+        receivesDamage.health = maxHealth;
+        HUD.instance.bossHealthBar.maxHealth = maxHealth;
     }
 
     /* Called when being spawned from a Portal */
@@ -193,6 +195,9 @@ public class Sherivice : MonoBehaviour {
     }
 
     void Update() {
+
+        if (Keys.instance.flashbackPressed)
+            playerPressedFlashback = true;
 
         if (timeUser.shouldNotUpdate)
             return;
@@ -713,7 +718,23 @@ public class Sherivice : MonoBehaviour {
         }
         */
 
-        
+        // make flashback controls appear if player is doing bad
+        if (!playerPressedFlashback && !displayedFlashbackReminder && !Vars.currentNodeData.eventHappened(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER)) {
+            if (Player.instance.state == Player.State.DAMAGE) {
+                if (Player.instance.health <= 2 && Player.instance.health >= 1) {
+                    eventHappener.physicalHappen(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER, false);
+                    ControlsMessageSpawner.instance.spawnMessage(ControlsMessage.Control.FLASHBACK);
+                    displayedFlashbackReminder = true; // this somehow keeps getting set to false through black magic 
+                    timeSinceDisplayedFlashbackReminder = 0;
+                }
+            }
+        }
+        if (displayedFlashbackReminder) {
+            timeSinceDisplayedFlashbackReminder += Time.deltaTime;
+            if (timeSinceDisplayedFlashbackReminder > 4.0f) {
+                ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.FLASHBACK);
+            }
+        }
 
     }
 
@@ -745,6 +766,8 @@ public class Sherivice : MonoBehaviour {
 
         CameraControl.instance.disableBounds();
         CameraControl.instance.moveToPosition(cameraPosition(), toInitialTauntDuration);
+
+        HUD.instance.bossHealthBar.fadeIn();
     }
 
     /* called when this becomes a vision */
@@ -784,10 +807,18 @@ public class Sherivice : MonoBehaviour {
 
     /* called when this takes damage */
     void OnDamage(AttackInfo ai) {
+
+        HUD.instance.bossHealthBar.setHealth(receivesDamage.health);
+
         if (receivesDamage.health <= 0) {
             flippedHoriz = ai.impactToRight();
             //animator.Play("damage");
+
+            HUD.instance.bossHealthBar.destroy();
+
+
         }
+        
     }
 
     /* called at the end of a frame to record information */
@@ -812,6 +843,7 @@ public class Sherivice : MonoBehaviour {
         fi.floats["bro"] = boulderRevolveOffset;
         fi.floats["bhd"] = boulderHoldDuration;
         fi.bools["rtf"] = rockThrowFirst;
+        fi.floats["tsdfr"] = timeSinceDisplayedFlashbackReminder;
 
         for (int i=0; i<numBoulders; i++) {
             if (i < boulders.Count) {
@@ -841,6 +873,7 @@ public class Sherivice : MonoBehaviour {
         boulderRevolveOffset = fi.floats["bro"];
         boulderHoldDuration = fi.floats["bhd"];
         rockThrowFirst = fi.bools["rtf"];
+        timeSinceDisplayedFlashbackReminder = fi.floats["tsdfr"];
 
         boulders.Clear();
         for (int i=0; i<numBoulders; i++) {
@@ -880,6 +913,11 @@ public class Sherivice : MonoBehaviour {
     float boulderRevolveOffset = 0;
     float boulderHoldDuration = 0;
     bool rockThrowFirst = false;
+
+    // for displaying flashback controls if player is doing bad (don't update in timeUser)
+    bool playerPressedFlashback = false;
+    bool displayedFlashbackReminder = false;
+    float timeSinceDisplayedFlashbackReminder = 0; // okay this will be updated in timeUser
     
 
     // components
