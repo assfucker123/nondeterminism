@@ -363,30 +363,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: boulderXLoopPeriod
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: boulderHoldMinDuration
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: boulderHoldMaxDuration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: boulderRevolveRadius.x
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: boulderRevolveRadius.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485450, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
-      propertyPath: boulderThrowAngleSpread
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20ab8eff4825ab540b5ffd875275b1bd, type: 2}
   m_IsPrefabParent: 0

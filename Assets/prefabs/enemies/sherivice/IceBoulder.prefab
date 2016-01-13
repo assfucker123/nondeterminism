@@ -149,6 +149,7 @@ MonoBehaviour:
   pickupsSpawnOffset: {x: 0, y: 1}
   iceShatterSound: {fileID: 8300000, guid: f5f9452a89bfc2e48bdf0c73108bff1f, type: 3}
   fadeInDuration: 0.6
+  fadeOutDuration: 0.4
   throwRaycastOffset: 2
   throwRaycastEndOffset: 1
   damage: 1
@@ -328,6 +329,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeOutDuration
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -26,6 +26,8 @@ public class Sherivice : MonoBehaviour {
     public Vector2 rockThrowPoint = new Vector2(1.21f, -1.56f);
     public float rockThrowSpread = 10;
     public int rockThrowTimes = 3;
+    public float percentHealth3RocksThrown = .7f;
+    public float percentHealth4RocksThrown = .4f;
     public GameObject rockGameObject;
     
     public float toBulletShortDuration = 1.0f;
@@ -43,6 +45,10 @@ public class Sherivice : MonoBehaviour {
     public float bulletSwitchDuration = .5f;
     public float bulletBobMagnitude = 1f;
     public float bulletBobPeriod = 1.4f;
+    public float percentHealthToSwitchHalfwayThroughBullet = .5f;
+    public float percentHealth3Bullets = .6f;
+    public float percentHealth4Bullets = .3f;
+
     public GameObject bulletGameObject;
     
 
@@ -66,7 +72,6 @@ public class Sherivice : MonoBehaviour {
 
     public float boulderRecoilDist = 3;
     public float boulderRecoilDuration = 3;
-
     
     public AudioClip wingFlapSound;
     public AudioClip bulletSound;
@@ -448,6 +453,7 @@ public class Sherivice : MonoBehaviour {
                     // instead of shooting bullets, switch positions
                     state = State.BULLET_SWITCH;
                     time = 0;
+                    wingFlapPlayTime = 0;
                     pos0 = rb2d.position;
                     bulletHigh = !bulletHigh;
                     toRight = !toRight;
@@ -541,6 +547,14 @@ public class Sherivice : MonoBehaviour {
 
             if (time >= bulletSwitchDuration / 2) {
                 flippedHoriz = toRight;
+            }
+
+            wingFlapPlayTime += Time.deltaTime;
+            if (!visionUser.isVision) {
+                if (wingFlapPlayTime > .1f && time < .25f) {
+                    SoundManager.instance.playSFXRandPitchBend(wingFlapSound);
+                    wingFlapPlayTime = 0;
+                }
             }
 
             if (time >= bulletSwitchDuration) {
@@ -694,30 +708,28 @@ public class Sherivice : MonoBehaviour {
             CameraControl.instance.position = cameraPosition();
         }
 
-        // travel across a segment:
-        /*
-        x = segment.travelClamp(rb2d.position.x, speed, Time.fixedDeltaTime);
-        rb2d.MovePosition(new Vector2(x, rb2d.position.y));
-        */
-
-        // create a vision:
-        /*
-        GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
-        */
-
-        // spawn a bullet:
-        /*
-        GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
-            rb2d.position + relSpawnPosition,
-            Utilities.setQuat(heading)) as GameObject;
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.heading = heading;
-        if (visionUser.isVision) { //make bullet a vision if this is also a vision
-            VisionUser bvu = bullet.GetComponent<VisionUser>();
-            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+        // difficulty
+        float healthPercent = receivesDamage.health * 1.0f / maxHealth;
+        if (state != State.BULLET) {
+            if (healthPercent < percentHealthToSwitchHalfwayThroughBullet) {
+                switchHalfwayThroughBullet = true;
+            }
+            if (healthPercent < percentHealth3Bullets) {
+                numBullets = 3;
+            }
+            if (healthPercent < percentHealth4Bullets) {
+                numBullets = 4;
+            }
         }
-        */
-
+        if (state != State.ROCK_THROW) {
+            if (healthPercent < percentHealth3RocksThrown) {
+                rocksThrownSimultaneously = 3;
+            }
+            if (healthPercent < percentHealth4RocksThrown) {
+                rocksThrownSimultaneously = 4;
+            }
+        }
+        
         // make flashback controls appear if player is doing bad
         if (!playerPressedFlashback && !displayedFlashbackReminder && !Vars.currentNodeData.eventHappened(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER)) {
             if (Player.instance.state == Player.State.DAMAGE) {
@@ -814,6 +826,13 @@ public class Sherivice : MonoBehaviour {
             flippedHoriz = ai.impactToRight();
             //animator.Play("damage");
 
+            if (boulders.Count > 0) {
+                foreach (GameObject bGO in boulders) {
+                    bGO.GetComponent<IceBoulder>().fadeOut();
+                }
+                boulders.Clear();
+            }
+
             HUD.instance.bossHealthBar.destroy();
 
 
@@ -835,6 +854,7 @@ public class Sherivice : MonoBehaviour {
         fi.floats["rta"] = rockThrowAngle;
         fi.ints["rts"] = rocksThrownSimultaneously;
         fi.floats["bot"] = bobOffsetTime;
+        fi.ints["nb"] = numBullets;
         fi.bools["bh"] = bulletHigh;
         fi.floats["bt"] = bulletTime;
         fi.ints["bc"] = bulletCount;
@@ -865,6 +885,7 @@ public class Sherivice : MonoBehaviour {
         rockThrowAngle = fi.floats["rta"];
         rocksThrownSimultaneously = fi.ints["rts"];
         bobOffsetTime = fi.floats["bot"];
+        numBullets = fi.ints["nb"];
         bulletHigh = fi.bools["bh"];
         bulletTime = fi.floats["bt"];
         bulletCount = fi.ints["bc"];

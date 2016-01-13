@@ -9,6 +9,7 @@ public class IceBoulder : MonoBehaviour {
     public Vector2 pickupsSpawnOffset = new Vector2(0,0);
     public AudioClip iceShatterSound;
     public float fadeInDuration = .8f;
+    public float fadeOutDuration = .5f;
     public float throwRaycastOffset = 2.0f;
     public float throwRaycastEndOffset = 1.0f;
     public int damage = 1;
@@ -22,7 +23,18 @@ public class IceBoulder : MonoBehaviour {
         setColor();
     }
 
+    // use for when Sherivice dies when boulders are still out
+    public void fadeOut() {
+        if (fadingOut) return;
+        time = 0;
+        fadingOut = true;
+        invincible = true;
+        setColor();
+    }
+
     public void throwBoulder(float speed, float heading) {
+        if (fadingOut)
+            return;
         float headingR = heading * Mathf.PI/180;
         throwDirection = new Vector2(Mathf.Cos(headingR), Mathf.Sin(headingR));
         throwSpeed = speed;
@@ -78,6 +90,12 @@ public class IceBoulder : MonoBehaviour {
                 fadingIn = false;
             }
             setColor();
+        } else if (fadingOut) {
+            time += Time.deltaTime;
+            if (time >= fadeOutDuration) {
+                timeUser.timeDestroy();
+            }
+            setColor();
         }
 
         if (!CameraControl.pointContainedInMapBounds(rb2d.position, 10)) {
@@ -97,6 +115,8 @@ public class IceBoulder : MonoBehaviour {
         Color color = spriteRenderer.color;
         if (fadingIn) {
             color.a = Utilities.easeLinearClamp(time, 0, 1, fadeInDuration);
+        } else if (fadingOut) {
+            color.a = Utilities.easeLinearClamp(time, 1, -1, fadeOutDuration);
         } else {
             color.a = 1;
         }
@@ -106,6 +126,7 @@ public class IceBoulder : MonoBehaviour {
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
         fi.bools["f"] = fadingIn;
+        fi.bools["fo"] = fadingOut;
         fi.bools["i"] = invincible;
         fi.ints["so"] = spriteRenderer.sortingOrder;
         fi.bools["throwing"] = throwing;
@@ -115,6 +136,7 @@ public class IceBoulder : MonoBehaviour {
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
         fadingIn = fi.bools["f"];
+        fadingOut = fi.bools["fo"];
         invincible = fi.bools["i"];
         spriteRenderer.sortingOrder = fi.ints["so"];
         throwing = fi.bools["throwing"];
@@ -138,6 +160,8 @@ public class IceBoulder : MonoBehaviour {
     }
 
     void destroy(bool playSound = true) {
+        if (!timeUser.exists)
+            return;
         if (playSound) {
             SoundManager.instance.playSFXRandPitchBend(iceShatterSound);
         }
@@ -169,6 +193,7 @@ public class IceBoulder : MonoBehaviour {
     float throwSpeed = 0;
     
     bool fadingIn = false;
+    bool fadingOut = false;
     float time = 0;
     bool throwing = false;
 }
