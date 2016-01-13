@@ -10,30 +10,31 @@ public class ScriptRunner : EventHappener {
 
         public enum ID {
             NONE,
-            STOP_PLAYER,
-            TALK,
-            CLOSE_TEXT,
-            WAIT,
-            RESUME_PLAYER,
-            CUTSCENE_BARS_ON,
-            CUTSCENE_BARS_OFF,
-            CAMERA_FOLLOW_PLAYER,
-            CAMERA_SET_POSITION,
-            CAMERA_CUSTOM,
-            CAMERA_ENABLE_BOUNDS,
-            CAMERA_DISABLE_BOUNDS,
-            LABEL,
-            GOTO,
-            INFO_HAPPEN,
-            PHYS_HAPPEN,
-            JUMP_INFO,
-            JUMP_PHYS,
-            SEND_MESSAGE, // sendMessage thingObject Action stringParam (stringParam is optional)
-            SPAWN_CONTROL_MESSAGE,
-            TAKE_DOWN_CONTROL_MESSAGE,
-
-            KEY_DOWN,
-            KEY_UP
+            STOP_PLAYER,                // stopPlayer
+            TALK,                       // t-NAME(PROFILE): TEXT // profile is optional and not implemented yet
+            CLOSE_TEXT,                 // closeText
+            WAIT,                       // wait 1.0
+            RESUME_PLAYER,              // resumePlayer
+            CUTSCENE_BARS_ON,           // cbarsOn [immediately] [block]
+            CUTSCENE_BARS_OFF,          // cbarsOff [immediately] [block]
+            CAMERA_FOLLOW_PLAYER,       // camFollowPlayer [1.0] [block]
+            CAMERA_SET_POSITION,        // camSetPosition(5, 6) [1.0] [block]
+            CAMERA_CUSTOM,              // camCustom
+            CAMERA_ENABLE_BOUNDS,       // camEnableBounds
+            CAMERA_DISABLE_BOUNDS,      // camDisableBounds
+            LABEL,                      // lbl: 1 or lbl 1
+            GOTO,                       // goto 1
+            INFO_HAPPEN,                // infoHappen(4) where 4 is (int) of some AdventureEvent.Info
+            PHYS_HAPPEN,                // physHappen(4) where 4 is (int) of some AdventureEvent.Physical
+            JUMP_INFO,                  // jmpInfo(4) 3.  if (AdventureEvent.Info)4 has happened, then jumps to lbl 3
+            JUMP_PHYS,                  // jmpPhys(4) 3.  if (AdventureEvent.Physical)4 has happened, then jumps to lbl 3
+            SEND_MESSAGE,               // sendMessage thingObject Action [stringParam]
+            SPAWN_CONTROL_MESSAGE,      // spawnControlMessage 1
+            TAKE_DOWN_CONTROL_MESSAGE,  // takeDownControlMessage 1
+            KEY_DOWN,                   // keyDown right
+            KEY_UP,                     // keyUp right
+            PLAYER_MOVE_X,              // playerMoveX 15 [block]
+            PLAYER_FLIPPED_HORIZ        // playerFlippedHoriz true
         }
 
         public ID id = ID.NONE;
@@ -247,6 +248,22 @@ public class ScriptRunner : EventHappener {
             } else if (word == "keyup") { // keyUp right
                 id = ID.KEY_UP;
                 str0 = line.Substring(6).ToLower();
+            } else if (word == "playermovex") { // playerMoveX 15 block (block is optional)
+                id = ID.PLAYER_MOVE_X;
+                index2 = line.LastIndexOf("block");
+                if (index == -1) {
+                    index3 = line.Length;
+                } else {
+                    blockToggle = true;
+                    index3 = index2;
+                }
+                float0 = float.Parse(line.Substring(12, index3 - 12));
+            } else if (word == "playerflippedhoriz") { // playerFlippedHoriz true
+                id = ID.PLAYER_FLIPPED_HORIZ;
+                if (line.IndexOf("true") != -1)
+                    int0 = 1;
+                else
+                    int0 = 0;
             }
 
         }
@@ -342,6 +359,9 @@ public class ScriptRunner : EventHappener {
             if (timeUser.shouldNotUpdate)
                 return;
         }
+        // don't run if game over
+        if (GameOverScreen.instance != null && GameOverScreen.instance.activated)
+            return;
 
         if (makeInstantKeysFalseWhenPlayerDoesNotReceiveInput &&
             Player.instance != null && !Player.instance.receivePlayerInput) {
@@ -371,13 +391,13 @@ public class ScriptRunner : EventHappener {
                         if (TextBox.instance.isOpen) {
                             waitTime = 0; // begin displaying text
                             TextBox.instance.displayText(instr.name, instr.text);
-                            
+
                             if (instr.str0 != "") {
                                 // display profile (not implemented yet)
                                 string profile = instr.name.ToLower() + "_" + instr.str0;
                                 Debug.Log("Display profile " + profile);
                             }
-                            
+
                         }
                     } else {
 
@@ -391,7 +411,7 @@ public class ScriptRunner : EventHappener {
                         }
 
                     }
-                    
+
                 } else {
                     /* bring up text box if needed and set text */
                     if (TextBox.instance == null) {
@@ -403,7 +423,7 @@ public class ScriptRunner : EventHappener {
                         TextBox.instance.open(true); // if TextBox is already open, this does nothing.
                         blocking = true;
                     }
-                 }
+                }
                 break;
             case Instruction.ID.CLOSE_TEXT:
                 if (TextBox.instance != null) {
@@ -542,7 +562,7 @@ public class ScriptRunner : EventHappener {
             case Instruction.ID.LABEL:
                 break;
             case Instruction.ID.GOTO:
-                for (int i=0; i<instructions.Count; i++) {
+                for (int i = 0; i < instructions.Count; i++) {
                     if (instructions[i].id == Instruction.ID.LABEL) {
                         if (instructions[i].str0 == instr.str0) {
                             _runIndex = i - 1; // because will be incremented at end of the loop
@@ -571,7 +591,7 @@ public class ScriptRunner : EventHappener {
                 break;
             case Instruction.ID.JUMP_PHYS:
                 if (Vars.currentNodeData != null && Vars.currentNodeData.eventHappened((AdventureEvent.Physical)instr.int0)) {
-                   for (int i = 0; i < instructions.Count; i++) {
+                    for (int i = 0; i < instructions.Count; i++) {
                         if (instructions[i].id == Instruction.ID.LABEL) {
                             if (instructions[i].str0 == instr.str0) {
                                 _runIndex = i - 1; // because will be incremented at end of the loop
@@ -651,6 +671,27 @@ public class ScriptRunner : EventHappener {
                     CutsceneKeys.dodgeHeld = false;
                 }
                 break;
+            case Instruction.ID.PLAYER_MOVE_X:
+                if (Player.instance != null) {
+                    if (blocking) {
+                        // wait for player to get to x position
+                        if (Player.instance.movedToX()) {
+                            blocking = false;
+                        }
+                    } else {
+                        // move player to x position
+                        Player.instance.moveToX(instr.float0);
+                        if (instr.blockToggle) {
+                            blocking = true;
+                        }
+                    }
+                }
+                break;
+            case Instruction.ID.PLAYER_FLIPPED_HORIZ:
+                if (Player.instance != null) {
+                    Player.instance.flippedHoriz = (instr.int0 == 1);
+                }
+                break;
             }
 
             if (blocking) {
@@ -670,6 +711,12 @@ public class ScriptRunner : EventHappener {
         base.OnSaveFrame(fi);
 
         if (runWhenPaused) return;
+
+        // don't run if game over
+        if (GameOverScreen.instance != null && GameOverScreen.instance.activated)
+            return;
+
+
         fi.bools["rs"] = runningScript;
         fi.ints["ri"] = runIndex;
         fi.floats["wt"] = waitTime;
@@ -682,6 +729,11 @@ public class ScriptRunner : EventHappener {
         base.OnSaveFrame(fi);
 
         if (runWhenPaused) return;
+
+        // don't run if game over
+        if (GameOverScreen.instance != null && GameOverScreen.instance.activated)
+            return;
+
         runningScript = fi.bools["rs"];
         _runIndex = fi.ints["ri"];
         waitTime = fi.floats["wt"];

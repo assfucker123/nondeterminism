@@ -246,6 +246,23 @@ public class Player : MonoBehaviour {
             _receivePlayerInput = value;
         }
     }
+
+    /* Takes control of the player (sets receivePlayerInput to false) and attempts to move it to the x position specified */
+    public void moveToX(float x) {
+        _receivePlayerInput = false;
+        movingToX = true;
+        xMovingTo = x;
+    }
+    /* checks if player is at the specified x position */
+    public bool movedToX() {
+        if (Mathf.Abs(rb2d.position.x - xMovingTo) < 2) {
+            return true;
+        }
+        return false;
+    }
+    bool movingToX = false;
+    float xMovingTo = 0;
+    
     
     /////////////////////
     // EVENT FUNCTIONS //
@@ -311,9 +328,27 @@ public class Player : MonoBehaviour {
             phasePickup(maxPhase);
         }
 
+        // getting input
         if (receivePlayerInput) {
             CutsceneKeys.updateFromKeys();
         } else {
+            // don't get input traditionally
+            if (movingToX) {
+                if (movedToX()) {
+                    if (CutsceneKeys.rightHeld) CutsceneKeys.rightReleased = true;
+                    CutsceneKeys.rightHeld = false;
+                    if (CutsceneKeys.leftHeld) CutsceneKeys.leftReleased = true;
+                    CutsceneKeys.leftHeld = false;
+                } else {
+                    if (rb2d.position.x > xMovingTo) {
+                        if (!CutsceneKeys.leftHeld) CutsceneKeys.leftPressed = true;
+                        CutsceneKeys.leftHeld = true;
+                    } else {
+                        if (!CutsceneKeys.rightHeld) CutsceneKeys.rightPressed = true;
+                        CutsceneKeys.rightHeld = true;
+                    }
+                }
+            }
             cutsceneKeysInfo = CutsceneKeys.saveToInt(); // saving record of keys at the time
         }
 
@@ -493,6 +528,8 @@ public class Player : MonoBehaviour {
         fi.bools["rpi"] = receivePlayerInput;
         fi.ints["cki"] = cutsceneKeysInfo;
         fi.bools["pd"] = pitfallDeath;
+        fi.bools["mtx"] = movingToX;
+        fi.floats["xmt"] = xMovingTo;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -520,6 +557,8 @@ public class Player : MonoBehaviour {
             CutsceneKeys.loadFromInt(cutsceneKeysInfo); // loading keys the cutscene simulated pressing
         }
         pitfallDeath = fi.bools["pd"];
+        movingToX = fi.bools["mtx"];
+        xMovingTo = fi.floats["xmt"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert

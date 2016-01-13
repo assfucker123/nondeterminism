@@ -11,11 +11,18 @@ wait .7
 keyUp right // simulates releasing right
 
 
-goto quickStart
+// goto quickStart
+
+
 
 wait .5
 
+
+
+
 t-O: I'll begin talking now.
+
+
 
 closeText
 sendMessage Sherivice ScriptFlyIn
@@ -25,6 +32,11 @@ wait 3.3
 t-Sherivice: I have arrived.
 t-O: Okay.
 t-Sherivice: This conversation is done.
+
+
+// test moving player
+playerMoveX 33 block
+playerFlippedHoriz true
 
 
 lbl quickStart
