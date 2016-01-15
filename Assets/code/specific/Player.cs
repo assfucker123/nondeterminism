@@ -244,6 +244,9 @@ public class Player : MonoBehaviour {
         set {
             if (_receivePlayerInput == value) return;
             _receivePlayerInput = value;
+            if (!_receivePlayerInput) {
+                movingToX = false;
+            }
         }
     }
 
@@ -260,10 +263,7 @@ public class Player : MonoBehaviour {
         }
         return false;
     }
-    bool movingToX = false;
-    float xMovingTo = 0;
-    
-    
+        
     /////////////////////
     // EVENT FUNCTIONS //
     /////////////////////
@@ -334,17 +334,16 @@ public class Player : MonoBehaviour {
         } else {
             // don't get input traditionally
             if (movingToX) {
+                CutsceneKeys.allFalse();
                 if (movedToX()) {
-                    if (CutsceneKeys.rightHeld) CutsceneKeys.rightReleased = true;
-                    CutsceneKeys.rightHeld = false;
-                    if (CutsceneKeys.leftHeld) CutsceneKeys.leftReleased = true;
                     CutsceneKeys.leftHeld = false;
+                    CutsceneKeys.rightHeld = false;
                 } else {
                     if (rb2d.position.x > xMovingTo) {
-                        if (!CutsceneKeys.leftHeld) CutsceneKeys.leftPressed = true;
                         CutsceneKeys.leftHeld = true;
+                        CutsceneKeys.rightHeld = false;
                     } else {
-                        if (!CutsceneKeys.rightHeld) CutsceneKeys.rightPressed = true;
+                        CutsceneKeys.leftHeld = false;
                         CutsceneKeys.rightHeld = true;
                     }
                 }
@@ -1219,6 +1218,8 @@ public class Player : MonoBehaviour {
 
     bool _receivePlayerInput = true; // if CutsceneKeys are updated with input from the player
     int cutsceneKeysInfo = 0; // when receivePlayerInput is false, this keeps a record of the CutsceneKeys (saved to timeUser's frame info)
+    bool movingToX = false;
+    float xMovingTo = 0;
 
     FrameInfo frameInfoOnLevelLoad = null; // frame info of the player saved when starting a new level (calling OnLevelWasLoaded)
 

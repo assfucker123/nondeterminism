@@ -75,11 +75,23 @@ public class CutsceneBars : MonoBehaviour {
                 _state = State.ON;
             }
             break;
+        case State.ON:
+            if (topBar.rectTransform.localScale.x != 1) {
+                topBar.rectTransform.localScale = new Vector3(1, 1, 1);
+                bottomBar.rectTransform.localScale = new Vector3(-1, 1, 1);
+            }
+            break;
         case State.MOVING_OFF:
             topBar.rectTransform.localScale = new Vector3(Utilities.easeOutQuadClamp(time, 1, -1, moveOnDuration), 1, 1);
             bottomBar.rectTransform.localScale = new Vector3(Utilities.easeOutQuadClamp(time, -1, 1, moveOnDuration), 1, 1);
             if (time >= moveOnDuration) {
                 _state = State.OFF;
+            }
+            break;
+        case State.OFF:
+            if (topBar.rectTransform.localScale.x != 0) {
+                topBar.rectTransform.localScale = new Vector3(0, 1, 1);
+                bottomBar.rectTransform.localScale = new Vector3(0, 1, 1);
             }
             break;
         }

@@ -43,6 +43,11 @@ public static class Utilities {
         return new string(chars);
     }
 
+    /* calculates x % y */
+    public static float fmod(float x, float y) {
+        return x - Mathf.Floor(x / y) * y;
+    }
+
     public static float easeLinear(float t, float b, float c, float d){
         return c*t/d + b;
     }

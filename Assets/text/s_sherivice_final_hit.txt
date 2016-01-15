@@ -1,0 +1,26 @@
+
+stopPlayer
+wait 1.0
+
+destroyBossHealthBar
+
+wait 1.0
+
+sendMessage Sherivice FinalHitTumble
+camSetPosition(20.5, 7) 1.2
+
+wait .5
+
+playerFlippedHoriz true
+
+wait 2.0
+
+cbarsOn block
+
+t-O: Wally, we're done here.
+
+closeText
+
+cbarsOff block
+
+resumePlayer

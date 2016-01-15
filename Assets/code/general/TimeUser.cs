@@ -302,7 +302,7 @@ public class TimeUser : MonoBehaviour {
     public void setRandSeed(int seed) {
         _randSeed = seed;
     }
-
+    
     /////////////
     // PRIVATE //
     /////////////

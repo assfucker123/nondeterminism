@@ -54,6 +54,8 @@ GameObject:
   - 114: {fileID: 11408562}
   - 114: {fileID: 11445654}
   - 114: {fileID: 11434116}
+  - 114: {fileID: 11459426}
+  - 114: {fileID: 11484788}
   - 114: {fileID: 11485450}
   m_Layer: 9
   m_Name: Sherivice
@@ -203,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 9999
   autoHitFlash: 1
-  autoActivateDefaultDeath: 1
+  autoActivateDefaultDeath: 0
   useCustomFlashColor: 0
   customFlashColor: {r: 0.89, g: 0, b: 0, a: 1}
 --- !u!114 &11422810
@@ -268,6 +270,20 @@ MonoBehaviour:
   pickupSize: 2
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
   deathSound2: {fileID: 0}
+--- !u!114 &11459426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b765768a3cb144d8063a8bb7e82e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptAsset: {fileID: 0}
+  runWhenPaused: 0
+  makeInstantKeysFalseWhenPlayerDoesNotReceiveInput: 1
 --- !u!114 &11481656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,6 +298,20 @@ MonoBehaviour:
   bottomAngleThreshold: 35
   raycastDownDistance: 0.2
   raycastDownGravity: 70
+--- !u!114 &11484788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b765768a3cb144d8063a8bb7e82e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptAsset: {fileID: 0}
+  runWhenPaused: 0
+  makeInstantKeysFalseWhenPlayerDoesNotReceiveInput: 1
 --- !u!114 &11485450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -294,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 2
-  maxHealth: 120
+  maxHealth: 12
   flyInDuration: 3
   flyInStartPosition: {x: 45, y: 16}
   flyInPosition: {x: 37, y: 14}
@@ -350,11 +380,29 @@ MonoBehaviour:
   boulderGameObject: {fileID: 118516, guid: 8f0640d8acb4dfa4d8b8f73b01e32ec6, type: 2}
   boulderRecoilDist: 1.5
   boulderRecoilDuration: 0.7
+  percentHealthTriggerScript: 0.3
+  toLowHealthDuration: 1.5
+  lowHealthPosition: {x: 28, y: 15}
+  lowHealthScript: {fileID: 4900000, guid: 65c4f37685a3fd54ca5fa51e9f3a8837, type: 3}
+  coveredSwayRotation: 15
+  coveredSwayPeriod: 1.1
+  coveredBobDist: 2.5
+  coveredBobPeriod: 2.5
+  coveredRockThrowInitialDelay: 0.5
+  coveredRockThrowPeriod: 0.7
+  finalHitWait: 3
+  finalHitRockAngle: 300
+  finalHitRotation: -10
+  finalHitTumbleVelocity: {x: -5, y: 10}
+  finalHitTumbleAccel: {x: 0, y: 60}
+  finalHitTumbleAngularVelocity: 200
+  finalHitScript: {fileID: 4900000, guid: 3c46128b483912f4fb034d14463b230b, type: 3}
   wingFlapSound: {fileID: 8300000, guid: b65f6cd170d5bb14a935be58d197331b, type: 3}
   bulletSound: {fileID: 8300000, guid: d8c431fd15466d6419be388737c777fb, type: 3}
   rockSound: {fileID: 8300000, guid: 4b19be50d40971e4688bcb2e0674b073, type: 3}
   boulderAppearSound: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
   boulderThrowSound: {fileID: 8300000, guid: c4506d0cdf37acc4d93ff842a0439f4c, type: 3}
+  finalHitSound: {fileID: 8300000, guid: df53a3e077c732c4f901751e99b56d48, type: 3}
   screamSound: {fileID: 8300000, guid: 29983815db1d51948b10614e67a11129, type: 3}
 --- !u!114 &11485860
 MonoBehaviour:
@@ -503,7 +551,7 @@ Prefab:
       objectReference: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
     - target: {fileID: 0}
       propertyPath: maxHealth
-      value: 120
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: toBulletShortDuration
@@ -520,6 +568,70 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: perBulletPeriod
       value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: lowHealthScript
+      value: 
+      objectReference: {fileID: 4900000, guid: 65c4f37685a3fd54ca5fa51e9f3a8837, type: 3}
+    - target: {fileID: 0}
+      propertyPath: lowHealthPosition.x
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: lowHealthPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: coveredBobDist
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: coveredBobPeriod
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: coveredSwayRotation
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: coveredSwayPeriod
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitWait
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: autoActivateDefaultDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitScript
+      value: 
+      objectReference: {fileID: 4900000, guid: 3c46128b483912f4fb034d14463b230b, type: 3}
+    - target: {fileID: 0}
+      propertyPath: finalHitRockAngle
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitRotation
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: df53a3e077c732c4f901751e99b56d48, type: 3}
+    - target: {fileID: 0}
+      propertyPath: finalHitTumbleVelocity.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitTumbleVelocity.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitTumbleAccel.y
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

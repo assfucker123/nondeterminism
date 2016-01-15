@@ -72,13 +72,36 @@ public class Sherivice : MonoBehaviour {
 
     public float boulderRecoilDist = 3;
     public float boulderRecoilDuration = 3;
-    
+
+    public float percentHealthTriggerScript = .3f;
+    public float toLowHealthDuration = 1.5f;
+    public Vector2 lowHealthPosition = new Vector2();
+    public TextAsset lowHealthScript;
+
+    public float coveredSwayRotation = 30;
+    public float coveredSwayPeriod = .7f;
+    public float coveredBobDist = 4;
+    public float coveredBobPeriod = 1.0f;
+    public float coveredRockThrowInitialDelay = .5f;
+    public float coveredRockThrowPeriod = .7f;
+
+    public float finalHitWait = 5.0f;
+    public float finalHitRockAngle = 300;
+    public float finalHitRotation = 10;
+    public Vector2 finalHitTumbleVelocity = new Vector2();
+    public Vector2 finalHitTumbleAccel = new Vector2(); // gravity, etc.
+    public float finalHitTumbleAngularVelocity = 200;
+
+    public TextAsset finalHitScript;
+
     public AudioClip wingFlapSound;
     public AudioClip bulletSound;
     public AudioClip rockSound;
     public AudioClip boulderAppearSound;
     public AudioClip boulderThrowSound;
+    public AudioClip finalHitSound;
     public AudioClip screamSound;
+    
 
     /* Order: FLY_IN -> INITIAL_TAUNT -> ROCK_THROW -> BULLET -> BOULDER -> (ROCK_THROW or BULLET) -> (the other one) -> (back to boulder, repeat)
      */
@@ -101,6 +124,14 @@ public class Sherivice : MonoBehaviour {
         TO_BOULDER,
         BOULDER,
         BOULDER_RECOIL,
+
+        TO_LOW_HEALTH,
+        LOW_HEALTH,
+        COVERED,
+        COVERED_THROWING,
+
+        FINAL_HIT_FROZEN,
+        FINAL_HIT_TUMBLE,
 
         DEAD //don't do anything; DefaultDeath takes care of this
     }
@@ -129,6 +160,9 @@ public class Sherivice : MonoBehaviour {
         defaultDeath = GetComponent<DefaultDeath>();
         enemyInfo = GetComponent<EnemyInfo>();
         eventHappener = GetComponent<EventHappener>();
+        ScriptRunner[] scriptRunners = GetComponents<ScriptRunner>();
+        scriptRunner1 = scriptRunners[0];
+        scriptRunner2 = scriptRunners[1];
     }
 
     void Start() {
@@ -193,6 +227,60 @@ public class Sherivice : MonoBehaviour {
             pos1.x = boulderLeftX;
         }
         pos1.y = boulderY;
+    }
+
+    /* goes to TO_LOW_HEALTH state, but only if the timing works */
+    void lowHealthTrigger() {
+        if (receivesDamage.health * 1.0f / maxHealth > percentHealthTriggerScript)
+            return;
+        if (state != State.TO_BOULDER && state != State.TO_BULLET && state != State.TO_ROCK_THROW)
+            return;
+
+        time = 0;
+        wingFlapPlayTime = 0;
+        pos0 = rb2d.position;
+        pos1 = lowHealthPosition;
+        state = State.TO_LOW_HEALTH;
+
+        // trigger script
+        scriptRunner1.runScript(lowHealthScript);
+    }
+
+    /* called by the script */
+    void CoverFace() {
+        if (state != State.LOW_HEALTH && state != State.TO_LOW_HEALTH)
+            return;
+
+        time = 0;
+        bobOffsetTime = 0;
+        flippedHoriz = false;
+        pos0 = rb2d.position;
+        animator.Play("forward_covered");
+        state = State.COVERED;
+    }
+    void CoverStartThrow() {
+        if (state != State.COVERED) return;
+
+        count = 0;
+        time = -coveredRockThrowInitialDelay;
+        state = State.COVERED_THROWING;
+    }
+    void FinalHitTumble() {
+        if (state != State.FINAL_HIT_FROZEN)
+            return;
+
+        time = 0;
+        rb2d.velocity = finalHitTumbleVelocity;
+        rb2d.angularVelocity = finalHitTumbleAngularVelocity;
+        gameObject.layer = LayerMask.NameToLayer("HitNothing");
+        SoundManager.instance.playSFXIgnoreVolumeScale(screamSound);
+        state = State.FINAL_HIT_TUMBLE;
+
+        // destroy rock
+        IceRock[] iceRocks = GameObject.FindObjectsOfType<IceRock>();
+        for (int i=0; i<iceRocks.Length; i++) {
+            iceRocks[i].destroy();
+        }
     }
 
     Vector2 getBoulderPos(float angle) {
@@ -697,10 +785,108 @@ public class Sherivice : MonoBehaviour {
                 }
             }
             break;
+        case State.TO_LOW_HEALTH:
+            pos = quadEaseInOutClamp(toLowHealthDuration);
+
+            if (time >= toLowHealthDuration / 2) {
+                if (!isAnimatorCurrentState("forward")) {
+                    animator.Play("forward");
+                }
+                flippedHoriz = true;
+            }
+
+            wingFlapPlayTime += Time.deltaTime;
+            if (wingFlapPlayTime > .45f && time < flyInDuration / 2) {
+                SoundManager.instance.playSFXRandPitchBend(wingFlapSound);
+                wingFlapPlayTime = 0;
+            }
+
+            if (time >= toLowHealthDuration) {
+                state = State.LOW_HEALTH;
+                time = 0;
+            }
+            break;
+        case State.LOW_HEALTH:
+            break;
+        case State.COVERED:
+        case State.COVERED_THROWING:
+            bobOffsetTime += Time.deltaTime;
+
+            rb2d.rotation = Mathf.Sin(bobOffsetTime / coveredSwayPeriod * Mathf.PI * 2) * coveredSwayRotation;
+
+            float range = (Mathf.Cos(bobOffsetTime / coveredBobPeriod * Mathf.PI*2 + Mathf.PI) + 1) / 2; // mapped to [0, 1]
+            //range = Utilities.easeOutQuad(range, 0, 1, 1); // make range lean more toward 1
+            pos.y = pos0.y - range * coveredBobDist;
+
+            if (state == State.COVERED_THROWING) {
+                // handle throwing rocks
+
+                // create vision of throwing rocks
+                if (visionUser.shouldCreateVisionThisFrame(time - Time.deltaTime, time, coveredRockThrowPeriod, VisionUser.VISION_DURATION + .1f)) {
+
+                    // don't create visions of rocks after the one that deals the final hit
+                    //if (time + VisionUser.VISION_DURATION - .5f < finalHitWait || time + VisionUser.VISION_DURATION - .5f - coveredRockThrowPeriod > finalHitWait) {
+                        visionUser.createVision(VisionUser.VISION_DURATION);
+                    //}
+
+                    
+
+                }
+
+                // if should throw rock this frame
+                if (visionUser.shouldHaveEventThisFrame(time - Time.deltaTime, time, coveredRockThrowPeriod) && time > coveredRockThrowPeriod) {
+                    int index = Mathf.RoundToInt(time / coveredRockThrowPeriod);
+                    bool finalHit = (time >= finalHitWait && time - coveredRockThrowPeriod < finalHitWait);
+
+                    float rockAngle = coveredRockThrowAngle(index);
+                    if (finalHit)
+                        rockAngle = finalHitRockAngle;
+
+                    // throw rock(s)
+                    Vector2 rockPos = pos;
+                    rockPos += new Vector2(0f, -3f);
+
+                    GameObject iceRockGO = GameObject.Instantiate(rockGameObject, new Vector3(rockPos.x, rockPos.y), Quaternion.identity) as GameObject;
+                    IceRock iceRock = iceRockGO.GetComponent<IceRock>();
+                    iceRock.heading = rockAngle;
+                    if (finalHit) {
+                        iceRock.hitsSherivice = true;
+                        iceRock.positiveHeading = true;
+                    } else {
+                        iceRock.positiveHeading = (index % 2 == 0);
+                    }
+                    
+                    iceRock.GetComponent<TimeUser>().setRandSeed(index); // set predictable random value
+
+                    if (visionUser.isVision) { //make bullet a vision if this is also a vision
+                        VisionUser irvu = iceRock.GetComponent<VisionUser>();
+                        irvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                    }
+                    
+                    if (!visionUser.isVision) {
+                        SoundManager.instance.playSFX(rockSound);
+                    }
+
+                    // do not reset time
+
+                }
+
+            }
+            
+            break;
+        case State.FINAL_HIT_FROZEN:
+            break;
+        case State.FINAL_HIT_TUMBLE:
+            rb2d.velocity = rb2d.velocity + finalHitTumbleAccel * Time.deltaTime;
+            rb2d.rotation += finalHitTumbleAngularVelocity * Time.deltaTime;
+            break;
 
         }
         
-        rb2d.MovePosition(pos);
+        if (state != State.FINAL_HIT_TUMBLE) {
+            rb2d.MovePosition(pos);
+        }
+        
 
         // set camera
         if (!visionUser.isVision &&
@@ -729,6 +915,9 @@ public class Sherivice : MonoBehaviour {
                 rocksThrownSimultaneously = 4;
             }
         }
+
+        // check needing to run the low health script
+        lowHealthTrigger();
         
         // make flashback controls appear if player is doing bad
         if (!playerPressedFlashback && !displayedFlashbackReminder && !Vars.currentNodeData.eventHappened(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER)) {
@@ -751,6 +940,7 @@ public class Sherivice : MonoBehaviour {
     }
 
     Vector2 cameraPosition() {
+        
         Vector2 center = new Vector2(20.5f, 11.5f);
         Vector2 sherDiff = rb2d.position - center;
         Vector2 plrDiff = Player.instance.rb2d.position - center;
@@ -817,15 +1007,30 @@ public class Sherivice : MonoBehaviour {
         
     }
 
+    /* called just before taking damage.  Make sure health is at least 1 until the final hit is made */
+    void PreDamage(AttackInfo ai) {
+        if (state == State.FINAL_HIT_FROZEN) {
+            ai.damage = 0;
+            return;
+        }
+        if (ai.message == "final_hit") {
+            ai.damage = 999999;
+        } else {
+            if (receivesDamage.health <= ai.damage) {
+                receivesDamage.health = 2;
+                ai.damage = 1;
+            }
+        }
+    }
+
     /* called when this takes damage */
     void OnDamage(AttackInfo ai) {
 
         HUD.instance.bossHealthBar.setHealth(receivesDamage.health);
 
         if (receivesDamage.health <= 0) {
-            flippedHoriz = ai.impactToRight();
-            //animator.Play("damage");
-
+            
+            // clear boulders (not needed?)
             if (boulders.Count > 0) {
                 foreach (GameObject bGO in boulders) {
                     bGO.GetComponent<IceBoulder>().fadeOut();
@@ -833,11 +1038,21 @@ public class Sherivice : MonoBehaviour {
                 boulders.Clear();
             }
 
-            HUD.instance.bossHealthBar.destroy();
+            // play finalHitScript
+            scriptRunner2.runScript(finalHitScript);
+            visionUser.cutVisions();
+            rb2d.rotation = finalHitRotation;
+            SoundManager.instance.playSFXIgnoreVolumeScale(finalHitSound);
+            HUD.instance.speedLines.flashWhite();
+            CameraControl.instance.shake(1f, 1f);
+            CameraControl.instance.moveToPosition(rb2d.position, .2f);
 
+
+            state = State.FINAL_HIT_FROZEN;
+            animator.Play("damaged");
 
         }
-        
+
     }
 
     /* called at the end of a frame to record information */
@@ -876,6 +1091,9 @@ public class Sherivice : MonoBehaviour {
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
         state = (State)fi.state;
+        if (state == State.FINAL_HIT_FROZEN) {
+            gameObject.layer = LayerMask.NameToLayer("Enemies"); // this was undone in the FINAL_HIT_TUMBLE state
+        }
         time = fi.floats["time"];
         wingFlapPlayTime = fi.floats["wfpt"];
         pos0.Set(fi.floats["p0x"], fi.floats["p0y"]);
@@ -914,6 +1132,27 @@ public class Sherivice : MonoBehaviour {
     bool isAnimatorCurrentState(string stateString) {
         return animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(stateString);
     }
+    float coveredRockThrowAngle(int index) {
+        switch (index) {
+        case 0: return 140;
+        case 1: return 80;
+        case 2: return 270;
+        case 3: return 20;
+        case 4: return 280;
+        case 5: return 190;
+        case 6: return 270;
+        case 7: return 80;
+        case 8: return 280;
+        case 9: return 80;
+        case 10: return 200;
+        case 11: return 20;
+        default: return 260;
+        }
+    }
+    bool timePassedThisFrame(float duration) {
+        return time >= duration && time - Time.deltaTime < duration;
+    }
+
 
     float time;
     Segment segment;
@@ -953,5 +1192,7 @@ public class Sherivice : MonoBehaviour {
     DefaultDeath defaultDeath;
     EnemyInfo enemyInfo;
     EventHappener eventHappener;
+    ScriptRunner scriptRunner1;
+    ScriptRunner scriptRunner2;
 
 }

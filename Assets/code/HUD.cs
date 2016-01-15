@@ -29,7 +29,8 @@ public class HUD : MonoBehaviour {
             return (
                 !PauseScreen.paused &&
                 !TimeUser.reverting &&
-                !(GameOverScreen.instance != null && GameOverScreen.instance.activated));
+                !(GameOverScreen.instance != null && GameOverScreen.instance.activated) &&
+                !ScriptRunner.scriptsPreventPausing);
         }
     }
     public UnityEngine.UI.Image blackScreen { get { return _blackScreen; } }
@@ -118,6 +119,9 @@ public class HUD : MonoBehaviour {
             GameObject.Destroy(hs.gameObject);
         }
         HaltScreen.allScreens.Clear();
+        if (bossHealthBar != null) {
+            bossHealthBar.hide();
+        }
     }
 	
 	void Awake() {
@@ -250,7 +254,6 @@ public class HUD : MonoBehaviour {
             pauseScreen.pauseGame(PauseScreen.lastPageOpened);
         }
         
-
 	}
 
     void LateUpdate() {

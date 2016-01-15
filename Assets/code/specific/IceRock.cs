@@ -12,6 +12,8 @@ public class IceRock : MonoBehaviour {
     public float headingSwitchDurationMax = .9f;
     public float spinMaxSpeed = 100f;
     public bool hitsSherivice = false; // go on scripted path if this is true
+    public float hitsSheriviceHeadingSpeed = 200; // heading speed only for the ice rock that will hit sherivice
+    public float hitsSheriveBecomeLethalDuration = 1.0f; // time until layer becomes PlayerAttacks
     public GameObject trailGameObject;
     public float trailPeriod = .3f;
     public GameObject explosionGameObject;
@@ -25,7 +27,8 @@ public class IceRock : MonoBehaviour {
     void Start() {
         // set heading
         if (hitsSherivice) {
-
+            positiveHeading = true;
+            gameObject.layer = LayerMask.NameToLayer("HitNothing"); // so won't hit player
         } else {
             positiveHeading = timeUser.randomValue() > .5f;
             headingSwitchDuration = timeUser.randomValue() * (headingSwitchDurationMax - headingSwitchDurationMin) + headingSwitchDurationMin;
@@ -34,31 +37,42 @@ public class IceRock : MonoBehaviour {
 
         spinSpeed = (timeUser.randomValue()*2-1) * spinMaxSpeed;
     }
-	
-	void Update() {
+    
+	void FixedUpdate() {
 		
         if (timeUser.shouldNotUpdate)
             return;
 
+        if (frozen) {
+            return;
+        }
+        
         headingSwitchTime += Time.deltaTime;
         // detect reverse headings
-        if (headingSwitchTime >= headingSwitchDuration) {
+        if (headingSwitchTime >= headingSwitchDuration && !hitsSherivice) {
             positiveHeading = !positiveHeading;
             headingSwitchTime -= headingSwitchDuration;
             // get next time heading will reverse
-            if (hitsSherivice) {
-
-            } else {
-                headingSwitchDuration = timeUser.randomValue() * (headingSwitchDurationMax - headingSwitchDurationMin) + headingSwitchDurationMin;
-            }
+            headingSwitchDuration = timeUser.randomValue() * (headingSwitchDurationMax - headingSwitchDurationMin) + headingSwitchDurationMin;
             
         }
 
-        if (positiveHeading) {
-            heading += headingSpeed * Time.deltaTime;
-        } else {
-            heading -= headingSpeed * Time.deltaTime;
+        if (hitsSherivice) {
+            if (headingSwitchTime > hitsSheriveBecomeLethalDuration) {
+                gameObject.layer = LayerMask.NameToLayer("PlayerAttacks");
+            }
         }
+
+        if (hitsSherivice) {
+            heading += hitsSheriviceHeadingSpeed * Time.deltaTime;
+        } else {
+            if (positiveHeading) {
+                heading += headingSpeed * Time.deltaTime;
+            } else {
+                heading -= headingSpeed * Time.deltaTime;
+            }
+        }
+        
         rb2d.velocity = speed * new Vector2(Mathf.Cos(heading * Mathf.PI / 180), Mathf.Sin(heading * Mathf.PI / 180));
 
         // spinning
@@ -86,6 +100,8 @@ public class IceRock : MonoBehaviour {
 
         if (timeUser.shouldNotUpdate)
             return;
+        if (frozen)
+            return;
         
         if (!visionUser.isVision &&
             c2d.gameObject == Player.instance.gameObject) {
@@ -93,7 +109,30 @@ public class IceRock : MonoBehaviour {
             Player.instance.GetComponent<ReceivesDamage>().dealDamage(damage, rb2d.position.x < Player.instance.rb2d.position.x);
         }
 
+        if (!visionUser.isVision && hitsSherivice) {
+            // deal final blow to Sherivice
+            Sherivice sherivice = GameObject.Find("Sherivice").GetComponent<Sherivice>();
+            AttackInfo ai = new AttackInfo();
+            ai.damage = 99999;
+            ai.message = "final_hit";
+            sherivice.GetComponent<ReceivesDamage>().dealDamage(ai);
+            // set frozen state (stay still next to Sherivice) until it'll be destroyed by a script
+            frozen = true;
+            frozenTime = 0;
+            rb2d.velocity = Vector2.zero;
+
+        }
+
         // destroy
+        if (!frozen) {
+            destroy();
+        }
+        
+    }
+
+    public void destroy() {
+        if (!timeUser.exists)
+            return;
         GameObject explosionGO = (GameObject.Instantiate(explosionGameObject, transform.localPosition, transform.localRotation) as GameObject);
         if (visionUser.isVision) {
             VisionUser evu = explosionGO.GetComponent<VisionUser>();
@@ -108,6 +147,8 @@ public class IceRock : MonoBehaviour {
         fi.floats["hsd"] = headingSwitchDuration;
         fi.bools["ph"] = positiveHeading;
         fi.floats["tt"] = trailTime;
+        fi.bools["f"] = frozen;
+        fi.floats["ft"] = frozenTime;
     }
 
     void OnRevert(FrameInfo fi) {
@@ -116,6 +157,12 @@ public class IceRock : MonoBehaviour {
         headingSwitchDuration = fi.floats["hsd"];
         positiveHeading = fi.bools["ph"];
         trailTime = fi.floats["tt"];
+        frozen = fi.bools["f"];
+        frozenTime = fi.floats["ft"];
+
+        if (hitsSherivice && headingSwitchTime < hitsSheriveBecomeLethalDuration) {
+            gameObject.layer = LayerMask.NameToLayer("HitNothing");
+        }
     }
 
     TimeUser timeUser;
@@ -126,5 +173,7 @@ public class IceRock : MonoBehaviour {
     float headingSwitchDuration = 9999;
     float trailTime = 0;
     float spinSpeed = 0;
+    bool frozen = false;
+    float frozenTime = 99999;
 
 }

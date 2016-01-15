@@ -150,6 +150,25 @@ public class VisionUser : MonoBehaviour {
         becomeVision(0, visionDuration, null, visionCreator);
     }
 
+    /* Math helper:
+     * An event happens every eventPeriod seconds.  For each event, we want a vision to be created visionDuration seconds before it.
+     * If time was timePreviousFrame the previous frame, and is currently timeThisFrame, should we create a vision? */
+    public bool shouldCreateVisionThisFrame(float timePreviousFrame, float timeThisFrame, float eventPeriod, float visionDuration) {
+        float dt = timeThisFrame - timePreviousFrame;
+        float firstVisionTime = -visionDuration + eventPeriod * (Mathf.Floor(visionDuration / eventPeriod) + 1); // time the first vision should happen after t=0.  Every following vision should happen at eventPeriod intervals
+        timeThisFrame -= firstVisionTime;
+        timeThisFrame = Utilities.fmod(timeThisFrame, eventPeriod);
+        return (timeThisFrame >= 0 && timeThisFrame - dt < 0);
+    }
+    /* Math helper:
+     * An event happens every eventPeriod seconds.
+     * If time was timePreviousFrame the previous frame, and is currently timeThisFrame, should we trigger the event? */
+     public bool shouldHaveEventThisFrame(float timePreviousFrame, float timeThisFrame, float eventPeriod) {
+        float dt = timeThisFrame - timePreviousFrame;
+        timeThisFrame = Utilities.fmod(timeThisFrame, eventPeriod);
+        return (timeThisFrame >= 0 && timeThisFrame - dt < 0);
+    }
+
     /////////////
     // PRIVATE //
     /////////////

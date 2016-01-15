@@ -34,7 +34,9 @@ public class ScriptRunner : EventHappener {
             KEY_DOWN,                   // keyDown right
             KEY_UP,                     // keyUp right
             PLAYER_MOVE_X,              // playerMoveX 15 [block]
-            PLAYER_FLIPPED_HORIZ        // playerFlippedHoriz true
+            PLAYER_FLIPPED_HORIZ,       // playerFlippedHoriz true
+            DEBUGLOG,                   // DebugLog any text
+            DESTROY_BOSS_HEALTH_BAR,    // destroyBossHealthBar
         }
 
         public ID id = ID.NONE;
@@ -264,6 +266,11 @@ public class ScriptRunner : EventHappener {
                     int0 = 1;
                 else
                     int0 = 0;
+            } else if (word == "debuglog" || word == "debug.log") { // DebugLog any text
+                id = ID.DEBUGLOG;
+                str0 = line.Substring(word.Length).Trim();
+            } else if (word == "destroybosshealthbar") { // destroyBossHealthBar
+                id = ID.DESTROY_BOSS_HEALTH_BAR;
             }
 
         }
@@ -323,6 +330,7 @@ public class ScriptRunner : EventHappener {
         runScript(scriptAsset);
     }
     public void runScript(TextAsset scriptAsset) {
+        scriptName = scriptAsset.name;
         runScript(scriptAsset.text);
     }
     public void runScript(string script) {
@@ -344,6 +352,12 @@ public class ScriptRunner : EventHappener {
 
         scriptRunners.Add(this);
 
+        ScriptRunner[] srs = GetComponents<ScriptRunner>();
+        for (int i=0; i<srs.Length; i++) {
+            if (srs[i] == this)
+                idPrefix = "" + i;
+        }
+        
         base.Awake();
 	}
 	
@@ -692,6 +706,14 @@ public class ScriptRunner : EventHappener {
                     Player.instance.flippedHoriz = (instr.int0 == 1);
                 }
                 break;
+            case Instruction.ID.DEBUGLOG:
+                Debug.Log(instr.str0);
+                break;
+            case Instruction.ID.DESTROY_BOSS_HEALTH_BAR:
+                if (HUD.instance != null && HUD.instance.bossHealthBar != null) {
+                    HUD.instance.bossHealthBar.destroy();
+                }
+                break;
             }
 
             if (blocking) {
@@ -703,6 +725,10 @@ public class ScriptRunner : EventHappener {
                 runningScript = false;
             }
         }
+
+        if (runIndex >= instructions.Count) {
+            runningScript = false;
+        }
         
 	}
 
@@ -711,17 +737,16 @@ public class ScriptRunner : EventHappener {
         base.OnSaveFrame(fi);
 
         if (runWhenPaused) return;
-
+        
         // don't run if game over
         if (GameOverScreen.instance != null && GameOverScreen.instance.activated)
             return;
 
-
-        fi.bools["rs"] = runningScript;
-        fi.ints["ri"] = runIndex;
-        fi.floats["wt"] = waitTime;
-        fi.floats["wd"] = waitDuration;
-        fi.bools["b"] = blocking;
+        fi.bools[idPrefix + "rs"] = runningScript;
+        fi.ints[idPrefix + "ri"] = runIndex;
+        fi.floats[idPrefix + "wt"] = waitTime;
+        fi.floats[idPrefix + "wd"] = waitDuration;
+        fi.bools[idPrefix + "blocking"] = blocking;
     }
 
     protected override void OnRevert(FrameInfo fi) {
@@ -734,11 +759,11 @@ public class ScriptRunner : EventHappener {
         if (GameOverScreen.instance != null && GameOverScreen.instance.activated)
             return;
 
-        runningScript = fi.bools["rs"];
-        _runIndex = fi.ints["ri"];
-        waitTime = fi.floats["wt"];
-        waitDuration = fi.floats["wd"];
-        blocking = fi.bools["b"];
+        runningScript = fi.bools[idPrefix + "rs"];
+        _runIndex = fi.ints[idPrefix + "ri"];
+        waitTime = fi.floats[idPrefix + "wt"];
+        waitDuration = fi.floats[idPrefix + "wd"];
+        blocking = fi.bools[idPrefix + "blocking"];
     }
 
     void OnDestroy() {
@@ -764,5 +789,7 @@ public class ScriptRunner : EventHappener {
     float waitDuration = 0;
     bool blocking = false;
 
+    string scriptName = "";
+    string idPrefix = "0";
     List<Instruction> instructions = new List<Instruction>();
 }

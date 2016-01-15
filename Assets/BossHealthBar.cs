@@ -121,7 +121,7 @@ public class BossHealthBar : MonoBehaviour {
     /////////////
 
     float getScale(int health, int maxHealth) {
-        return health * 1.0f / maxHealth;
+        return Mathf.Clamp(health * 1.0f / maxHealth, 0, 1);
     }
 
     void updateHealth() {

@@ -11,7 +11,7 @@ wait .7
 keyUp right // simulates releasing right
 
 
-// goto quickStart
+goto quickStart
 
 
 

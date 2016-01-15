@@ -1,0 +1,25 @@
+
+camDisableBounds // is this even needed?
+
+camSetPosition(20.5, 8) 1.0 // move camera slightly lower, so Oracle won't be obscured by textbox
+cbarsOn
+
+// move player to see Sherivice
+playerMoveX 12 block
+playerFlippedHoriz false
+
+wait 1.0
+
+t-Sherivice: This is really hard.  Next I'll cover my eyes
+
+sendMessage Sherivice CoverFace
+
+t-Sherivice: Now you won't see it coming!
+t-O: That makes no sense.
+
+sendMessage Sherivice CoverStartThrow
+
+closeText
+camSetPosition(24, 11.5) 1.0
+cbarsOff block
+resumePlayer

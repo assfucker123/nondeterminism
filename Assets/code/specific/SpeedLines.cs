@@ -4,18 +4,23 @@ using System.Collections;
 public class SpeedLines : MonoBehaviour {
 
     public void flashRed() {
-        flash(new Color(1, 0, 0, .4f), Color.clear, .1f);
+        flash(new Color(1, 0, 0, .4f), new Color(1, 0, 0, .2f), .1f);
     }
     public void flashHeavyRed() {
         flash(new Color(1, 0, 0, .4f), new Color(1, 0, 0, .5f), .15f);
     }
+    public void flashWhite() {
+        flash(Color.clear, new Color(1, 1, 1, .3f), .15f, 2);
+    }
 
-    public void flash(Color imageColor, Color screenColor, float duration) {
+    public void flash(Color imageColor, Color screenColor, float duration, int numFlashes = 1) {
         if (duration <= .001f) return;
         this.imageColor = imageColor;
         this.screenColor = screenColor;
         fadeTime = 0;
         fadeDuration = duration;
+        count = 0;
+        this.numFlashes = numFlashes;
 
         image.color = imageColor;
         image.enabled = true;
@@ -55,6 +60,12 @@ public class SpeedLines : MonoBehaviour {
         if (fadeTime < fadeDuration) {
             fadeTime += Time.unscaledDeltaTime;
 
+            if (fadeTime >= fadeDuration) {
+                count++;
+                if (count < numFlashes)
+                    fadeTime -= fadeDuration;
+            }
+
             setColor();
         }
 
@@ -79,17 +90,27 @@ public class SpeedLines : MonoBehaviour {
     }
 
     void OnSaveFrame(FrameInfo fi) {
-        fi.strings["ic"] = TimeUser.colorToString(imageColor);
-        fi.strings["sc"] = TimeUser.colorToString(screenColor);
+        fi.floats["icr"] = imageColor.r;
+        fi.floats["icg"] = imageColor.g;
+        fi.floats["icb"] = imageColor.b;
+        fi.floats["ica"] = imageColor.a;
+        fi.floats["scr"] = screenColor.r;
+        fi.floats["scg"] = screenColor.g;
+        fi.floats["scb"] = screenColor.b;
+        fi.floats["sca"] = screenColor.a;
         fi.floats["ft"] = fadeTime;
         fi.floats["fd"] = fadeDuration;
+        fi.ints["c"] = count;
+        fi.ints["nf"] = numFlashes;
     }
 
     void OnRevert(FrameInfo fi) {
-        imageColor = TimeUser.stringToColor(fi.strings["ic"]);
-        screenColor = TimeUser.stringToColor(fi.strings["sc"]);
+        imageColor = new Color(fi.floats["icr"], fi.floats["icg"], fi.floats["icb"], fi.floats["ica"]);
+        screenColor = new Color(fi.floats["scr"], fi.floats["scg"], fi.floats["scb"], fi.floats["sca"]);
         fadeTime = fi.floats["ft"];
         fadeDuration = fi.floats["fd"];
+        count = fi.ints["c"];
+        numFlashes = fi.ints["nf"];
         setColor();
     }
 
@@ -97,6 +118,8 @@ public class SpeedLines : MonoBehaviour {
     Color screenColor = Color.white;
     float fadeTime = 0;
     float fadeDuration = 0;
+    int count = 0;
+    int numFlashes = 1;
 
     // components
     UnityEngine.UI.Image image;
