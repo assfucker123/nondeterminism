@@ -393,9 +393,9 @@ MonoBehaviour:
   finalHitWait: 3
   finalHitRockAngle: 300
   finalHitRotation: -10
-  finalHitTumbleVelocity: {x: -5, y: 10}
-  finalHitTumbleAccel: {x: 0, y: 60}
-  finalHitTumbleAngularVelocity: 200
+  finalHitTumbleVelocity: {x: -20, y: 25}
+  finalHitTumbleAccel: {x: 0, y: -50}
+  finalHitTumbleAngularVelocity: 600
   finalHitScript: {fileID: 4900000, guid: 3c46128b483912f4fb034d14463b230b, type: 3}
   wingFlapSound: {fileID: 8300000, guid: b65f6cd170d5bb14a935be58d197331b, type: 3}
   bulletSound: {fileID: 8300000, guid: d8c431fd15466d6419be388737c777fb, type: 3}
@@ -623,15 +623,19 @@ Prefab:
       objectReference: {fileID: 8300000, guid: df53a3e077c732c4f901751e99b56d48, type: 3}
     - target: {fileID: 0}
       propertyPath: finalHitTumbleVelocity.x
-      value: -5
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: finalHitTumbleVelocity.y
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: finalHitTumbleAccel.y
-      value: 60
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: finalHitTumbleAngularVelocity
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

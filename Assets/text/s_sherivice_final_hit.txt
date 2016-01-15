@@ -7,7 +7,7 @@ destroyBossHealthBar
 wait 1.0
 
 sendMessage Sherivice FinalHitTumble
-camSetPosition(20.5, 7) 1.2
+camSetPosition(20.5, 6) 1.2
 
 wait .5
 
