@@ -88,6 +88,8 @@ public class Sherivice : MonoBehaviour {
     public float finalHitWait = 5.0f;
     public float finalHitRockAngle = 300;
     public float finalHitRotation = 10;
+    public float finalHitShiverDist = .3f;
+    public float finalHitShiverPeriod = .07f;
     public Vector2 finalHitTumbleVelocity = new Vector2();
     public Vector2 finalHitTumbleAccel = new Vector2(); // gravity, etc.
     public float finalHitTumbleAngularVelocity = 200;
@@ -242,6 +244,12 @@ public class Sherivice : MonoBehaviour {
         pos1 = lowHealthPosition;
         state = State.TO_LOW_HEALTH;
 
+        // clear all boulders on the screen
+        IceBoulder[] iceBoulders = GameObject.FindObjectsOfType<IceBoulder>();
+        for (int i=0; i< iceBoulders.Length; i++) {
+            iceBoulders[i].fadeOut();
+        }
+
         // trigger script
         scriptRunner1.runScript(lowHealthScript);
     }
@@ -272,7 +280,6 @@ public class Sherivice : MonoBehaviour {
         time = 0;
         rb2d.velocity = finalHitTumbleVelocity;
         rb2d.angularVelocity = finalHitTumbleAngularVelocity;
-        gameObject.layer = LayerMask.NameToLayer("HitNothing");
         SoundManager.instance.playSFXIgnoreVolumeScale(screamSound);
         state = State.FINAL_HIT_TUMBLE;
 
@@ -789,8 +796,8 @@ public class Sherivice : MonoBehaviour {
             pos = quadEaseInOutClamp(toLowHealthDuration);
 
             if (time >= toLowHealthDuration / 2) {
-                if (!isAnimatorCurrentState("forward")) {
-                    animator.Play("forward");
+                if (!isAnimatorCurrentState("side")) {
+                    animator.Play("side");
                 }
                 flippedHoriz = true;
             }
@@ -875,6 +882,14 @@ public class Sherivice : MonoBehaviour {
             
             break;
         case State.FINAL_HIT_FROZEN:
+
+            float t = Utilities.fmod(time, finalHitShiverPeriod) / finalHitShiverPeriod;
+            if (t > .5f)
+                t = 1 - t;
+            t *= 2;
+
+            pos.x = pos0.x + Utilities.easeLinear(t, 0, finalHitShiverDist, 1);
+
             break;
         case State.FINAL_HIT_TUMBLE:
             rb2d.velocity = rb2d.velocity + finalHitTumbleAccel * Time.deltaTime;
@@ -1044,11 +1059,14 @@ public class Sherivice : MonoBehaviour {
             rb2d.rotation = finalHitRotation;
             SoundManager.instance.playSFXIgnoreVolumeScale(finalHitSound);
             HUD.instance.speedLines.flashWhite();
-            CameraControl.instance.shake(1f, 1f);
+            //CameraControl.instance.shake(1f, 1f);
+            gameObject.layer = LayerMask.NameToLayer("HitNothing");
             CameraControl.instance.moveToPosition(rb2d.position, .2f);
 
 
             state = State.FINAL_HIT_FROZEN;
+            pos0 = rb2d.position;
+            time = 0;
             animator.Play("damaged");
 
         }

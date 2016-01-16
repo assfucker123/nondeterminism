@@ -17,7 +17,6 @@ t-W: Oh, I get it.  Keeping me in suspense again?
 t-O: Not to worry, I will face the annoyance directly and defeat it quickly.
 t-W: It drives me nuts when you act like this.  I know you're always right when it comes to these things but...
 t-W: just be careful, okay?
-
 t-O: Certainly.  Now excuse me, I must make my way to the |roof of the ship|.  This will not take long.
  
 

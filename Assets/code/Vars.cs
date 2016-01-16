@@ -292,6 +292,11 @@ public class Vars {
         TalkPage.setCurrentObjectiveFile("co_first_tutorial");
         // all talk conversations
         TalkPage.conversations.Clear();
+        TalkPage.addConversation("Standard Conversations", "c_finish_sentences", false, false);
+        TalkPage.addConversation("Oracle's Flashbacks", "c_oracle_vision", true, false);
+        TalkPage.addConversation("(help) Basic Controls", "help_basic_controls", false, true);
+        TalkPage.addConversation("(help) Visions", "help_vision", false, true);
+        TalkPage.addConversation("(help) Flashback", "help_flashback", false, true);
         // pause screen lastPageOpened, mode
         PauseScreen.lastPageOpened = PauseScreen.Page.TALK;
         PauseScreen.mode = PauseScreen.Mode.TUTORIAL;

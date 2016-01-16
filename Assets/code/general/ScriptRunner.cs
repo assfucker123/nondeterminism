@@ -37,6 +37,7 @@ public class ScriptRunner : EventHappener {
             PLAYER_FLIPPED_HORIZ,       // playerFlippedHoriz true
             DEBUGLOG,                   // DebugLog any text
             DESTROY_BOSS_HEALTH_BAR,    // destroyBossHealthBar
+            SET_CURRENT_OBJECTIVE,      // setCurrentObjective co_newObjectiveFile
         }
 
         public ID id = ID.NONE;
@@ -271,6 +272,9 @@ public class ScriptRunner : EventHappener {
                 str0 = line.Substring(word.Length).Trim();
             } else if (word == "destroybosshealthbar") { // destroyBossHealthBar
                 id = ID.DESTROY_BOSS_HEALTH_BAR;
+            } else if (word == "setcurrentobjective") { // setCurrentObjective co_theObjective
+                id = ID.SET_CURRENT_OBJECTIVE;
+                str0 = line.Substring(word.Length).Trim();
             }
 
         }
@@ -713,6 +717,9 @@ public class ScriptRunner : EventHappener {
                 if (HUD.instance != null && HUD.instance.bossHealthBar != null) {
                     HUD.instance.bossHealthBar.destroy();
                 }
+                break;
+            case Instruction.ID.SET_CURRENT_OBJECTIVE:
+                TalkPage.setCurrentObjectiveFile(instr.str0);
                 break;
             }
 

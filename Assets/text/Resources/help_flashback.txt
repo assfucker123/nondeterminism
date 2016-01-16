@@ -1,0 +1,11 @@
+
+t-W: |Flashback| is your ability to travel back in time several seconds.
+t-W: Hold the flashback button to start the Flashback, and release the button to resume normal time.
+t-W: On a controller, this is the left shoulder button.  On the keyboard, this is the 'SHIFT' key.
+t-W: Using Flashback will deplete the blue |phase meter|.  When it's exhausted, Flashback cannot be used anymore.
+t-W: You will also be unable to see visions if the phase meter gets too low.  Meaning Flashback should be used wisely!
+t-W: I recommend using it immediately after you take damage, so you can revert back to before it happens and avoid it.
+t-O: What you say about Flashback is mostly correct.  But technically time travel is not involved...
+t-W: ...?
+
+closeText block

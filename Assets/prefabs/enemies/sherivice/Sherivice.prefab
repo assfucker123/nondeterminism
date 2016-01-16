@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 2
-  maxHealth: 12
+  maxHealth: 150
   flyInDuration: 3
   flyInStartPosition: {x: 45, y: 16}
   flyInPosition: {x: 37, y: 14}
@@ -340,8 +340,8 @@ MonoBehaviour:
   rockThrowPoint: {x: 1.21, y: -1.56}
   rockThrowSpread: 0
   rockThrowTimes: 3
-  percentHealth3RocksThrown: 0.7
-  percentHealth4RocksThrown: 0.4
+  percentHealth3RocksThrown: 0.8
+  percentHealth4RocksThrown: 0.55
   rockGameObject: {fileID: 107556, guid: 33fe1f5a35d99954bb1001d0d9b68963, type: 2}
   toBulletShortDuration: 1.3
   toBulletFarDuration: 2.1
@@ -358,9 +358,9 @@ MonoBehaviour:
   bulletSwitchDuration: 0.8
   bulletBobMagnitude: 0.6
   bulletBobPeriod: 1.7
-  percentHealthToSwitchHalfwayThroughBullet: 0.5
-  percentHealth3Bullets: 0.6
-  percentHealth4Bullets: 0.3
+  percentHealthToSwitchHalfwayThroughBullet: 0.6
+  percentHealth3Bullets: 0.75
+  percentHealth4Bullets: 0.5
   bulletGameObject: {fileID: 136156, guid: 474b19ea5cf564f4c9b66835e11ca8fd, type: 2}
   toBoulderDuration: 1.6
   boulderLeftX: 12
@@ -380,7 +380,7 @@ MonoBehaviour:
   boulderGameObject: {fileID: 118516, guid: 8f0640d8acb4dfa4d8b8f73b01e32ec6, type: 2}
   boulderRecoilDist: 1.5
   boulderRecoilDuration: 0.7
-  percentHealthTriggerScript: 0.3
+  percentHealthTriggerScript: 0.33
   toLowHealthDuration: 1.5
   lowHealthPosition: {x: 28, y: 15}
   lowHealthScript: {fileID: 4900000, guid: 65c4f37685a3fd54ca5fa51e9f3a8837, type: 3}
@@ -393,6 +393,8 @@ MonoBehaviour:
   finalHitWait: 3
   finalHitRockAngle: 300
   finalHitRotation: -10
+  finalHitShiverDist: 0.3
+  finalHitShiverPeriod: 0.07
   finalHitTumbleVelocity: {x: -20, y: 25}
   finalHitTumbleAccel: {x: 0, y: -50}
   finalHitTumbleAngularVelocity: 600
@@ -551,7 +553,7 @@ Prefab:
       objectReference: {fileID: 8300000, guid: eaf9bb82af4718c449f6d018a2ada0fa, type: 3}
     - target: {fileID: 0}
       propertyPath: maxHealth
-      value: 12
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: toBulletShortDuration
@@ -636,6 +638,30 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: finalHitTumbleAngularVelocity
       value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentHealthTriggerScript
+      value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentHealth3Bullets
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentHealth4Bullets
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentHealth4RocksThrown
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentHealth3RocksThrown
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentHealthToSwitchHalfwayThroughBullet
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

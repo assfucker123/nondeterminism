@@ -1,0 +1,11 @@
+
+t-W: Basic movements include running left and right, jumping, and shooting.
+t-W: Simply hold the left or right buttons to |run| in that direction.
+t-W: On a controller, these buttons are found on the D-Pad.  On the keyboard, these buttons are the arrow keys.
+t-W: Press the jump button to |jump|, and keep the button held down to jump higher.
+t-W: On a controller, this is the bottom face button.  On a keyboard, this is the 'Z' key.
+t-W: To |shoot|, press the shoot button.  Holding a direction will cause the bullet to go in that direction.
+t-W: On a controller, this is the left face button.  On a keyboard, this is the 'X' key.
+t-W: These basic controls are very important!  Understand them well!
+
+closeText block

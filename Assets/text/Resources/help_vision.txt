@@ -1,0 +1,7 @@
+
+t-W: |Vision| is your passive ability to see attacks from enemies a second or so before they happen.
+t-W: These visions are represented by gray silhouettes.
+t-W: If you see a vision of an attack, get out of the way before it occurs!
+t-W: Note that |you will stop seeing visions if your phase is too low|.
+
+closeText block

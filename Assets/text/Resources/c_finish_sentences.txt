@@ -1,0 +1,17 @@
+
+t-W: I was wondering, if you know everything I'm about to say--
+t-O: --then why do I not finish your sentences?
+t-W: ... yeah.
+t-O: Clearly I have the ability to do so.  You want to know why I wait for you to finish speaking?
+t-W: Well all I'm saying is, if you already know what I'm going to tell you--
+t-O: --then why say anything at all?
+t-W: ... then ... s-stop that!
+t-O: Ha ha.  You now have your answer.  You understandably do not appreciate getting interrupted.
+t-O: Forming a hostile relationship between us helps nobody, so I prefer we converse like ordinary creatures.
+t-W: I'm so glad you feel the need to optimize casual conversations.  // sarcasm profile
+t-W: But wouldn't it be more efficient if you just acknowledged everything I was about to say,
+t-W: before I take the time to let the words come out?
+t-O: I am not a mind reader Wally.  I will not understand you unless you actually say something at some point.
+t-W: Ah ... good point.
+
+closeText block

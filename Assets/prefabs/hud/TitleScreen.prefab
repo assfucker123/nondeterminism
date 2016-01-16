@@ -284,7 +284,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <RGS Build>
+  m_Text: 
 --- !u!114 &11427538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,7 +539,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: VISION   PROTO
+  m_Text: VISION  SR
 --- !u!114 &11488622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -728,7 +728,7 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19, y: 295}
+  m_AnchoredPosition: {x: 82, y: 295}
   m_SizeDelta: {x: 132, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22410808

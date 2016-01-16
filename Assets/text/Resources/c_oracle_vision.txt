@@ -1,0 +1,20 @@
+
+t-W: Say Oracle, you've mentioned that your clairvoyance abilities allow you to 'Flashback',
+t-W: but I don't think I've ever seen you do it.  You should show it to me sometime.
+t-O: Ah... I think you misunderstand what 'Flashback' means.
+t-W: I thought it was you disappearing from the present and traveling back to the past.
+t-O: Not quite.  Much of what I experience is actually a vision of what is going to happen in the future.
+t-O: Say I have a Flashback at time B, reverting to a previous time A.  B is 10 seconds after A.
+t-O: It may appear that B is the present, and A is 10 seconds in the past.  But this is false.
+t-O: In reality, A is the present time.  Everything that happens in-between B and A is one vision of the future.
+t-O: Flashbacks describe me switching focus from experiencing the future, B, to experiencing the present, A.
+t-W: Alright, I think I get it.  So, no actual time travel is involved?
+t-O: The past cannot be changed.  I perceive the future, that is all.
+t-W: Wait, but don't you use Flashback multiple times?  When's the present in that case?
+t-O: Repeated flashbacks are seeing visions of myself seeing visions.  The present is when it all begins.
+t-W: Wow, that's pretty amazing.  Visions within visions?  How deep can it go, and how far can you see into the future?
+t-O: ... quite a while, if I concentrate very hard.  I do not know exactly how long.
+t-W: Very cool.  Although it's too bad you can't truly go back through time.
+t-O: I do not need to.
+
+closeText block

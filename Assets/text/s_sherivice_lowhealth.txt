@@ -1,24 +1,27 @@
 
 camDisableBounds // is this even needed?
-
 camSetPosition(20.5, 8) 1.0 // move camera slightly lower, so Oracle won't be obscured by textbox
 cbarsOn
 
 // move player to see Sherivice
 playerMoveX 12 block
 playerFlippedHoriz false
-
 wait 1.0
 
-t-Sherivice: This is really hard.  Next I'll cover my eyes
+// Sherivice is tired from the fight
+t-Sherivice: Whew... j-just let me hit you already!  You're dodging all my ice shards before I even throw them!
+t-Sherivice: I suppose you really can see the future...
 
+// covers eyes in attempt to trick Oracle
 sendMessage Sherivice CoverFace
 
-t-Sherivice: Now you won't see it coming!
-t-O: That makes no sense.
+// explains why he did that
+t-Sherivice: Heh heh, but watch this!  How can you see my moves coming when not even I can see them coming?
+t-O: How in the world did you even arrive at that conclusion.  Clairvoyance does not work that way--
+t-Sherivice: Clever huh?  Your tricks won't work now!  Prepare to die, saucy intruder!
 
+// resume battle
 sendMessage Sherivice CoverStartThrow
-
 closeText
 camSetPosition(24, 11.5) 1.0
 cbarsOff block

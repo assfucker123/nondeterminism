@@ -9,39 +9,35 @@ cbarsOn
 // release right key
 wait .7
 keyUp right // simulates releasing right
-
-
-goto quickStart
-
-
-
+//goto quickStart
 wait .5
 
-
-
-
-t-O: I'll begin talking now.
-
-
-
+// Oracle talks before Sherivice shows up
+t-O: I know we are not permitted to be here Sherivice, but we must arrive at a facility located on this island,
+t-O: with or without Sonata's approval.
 closeText
+
+// Sherivice flies in from the right
 sendMessage Sherivice ScriptFlyIn
 camSetPosition(24, 8) 2.0
 wait 3.3
 
-t-Sherivice: I have arrived.
-t-O: Okay.
-t-Sherivice: This conversation is done.
+// Continue conversation
+t-Sherivice: Stop there!  Nobody enters nor leaves this island without the blessing of Empress Sonata!
+t-Sherivice: I, the admirable Sherivice, will personally great all violators with brutal force!
+t-Sherivice: ... Hey, you knew my name!  Where'd you hear it?
+t-O: I can foresee the future.  I knew your name a few seconds ago because you just said it now.
+t-Sherivice: So what, you're psychic or something?  Ree-e-eally?  So you know what happens next after crossing me?
+t-O: What happens next?  Well after ignoring everything I say, you unwisely challenge me to a fight.
+t-O: You then attempt to hit me with various ice-related attacks, most of which miss.
+t-O: Finally |you launch a projectile so hilariously off-course it circles back and hits you in the face|,
+t-O: thus securing victory for me.
+t-Sherivice: Nee-e-yehhhh?  You take me for some senseless weakling?  I'll crush your chrome cranium in for that!
 
-
-// test moving player
-playerMoveX 33 block
-playerFlippedHoriz true
-
-
+// Begin fight
 lbl quickStart
-
 closeText
+setCurrentObjective co_sherivice_fight
 sendMessage InvisibleWall EnableWall // makes invisible wall on left side
 camSetPosition(24, 11.5) 1.0
 cbarsOff block

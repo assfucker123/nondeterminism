@@ -1,26 +1,28 @@
 
+// stop player movement (Sherivice is frozen here)
 stopPlayer
 wait 1.0
 
+// destroy health bar
 destroyBossHealthBar
-
 wait 1.0
 
+// send Sherivice into tumble
 sendMessage Sherivice FinalHitTumble
 camSetPosition(20.5, 6) 1.2
-
 wait .5
-
-playerFlippedHoriz true
-
+playerFlippedHoriz true // looks at S tumbling
 wait 2.0
 
+// talking to Wally
 cbarsOn block
-
-t-O: Wally, we're done here.
+t-O: The annoyance has been dealt with Wally, just in case you doubted me.
+t-W: Hey, no doubt here!  
+t-W: Although wouldn't Sherivice have simply let us pass in the first place if we just explained why we're here?
+t-W: |The Meltdown| affects him too, along with everybody and everything on Seudar Isle.
+t-O: No, he would just have gotten confused.  More time arguing, less time being unconscious on the ground.
+t-W: Damn it Oracle, we're on a mission to save this island, not subdue everything we see.
 
 closeText
-
 cbarsOff block
-
 resumePlayer
