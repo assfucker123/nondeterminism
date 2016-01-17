@@ -39,6 +39,7 @@ public class Player : MonoBehaviour {
     public float minRevertDuration = 1.0f;
     public int maxHealth = 8;
     public float maxPhase = 100;
+    public float visionsPhase = 20;
     public float startPhase = .5f;
     public float phaseDecreaseSpeed = 2.5f;
     public float phaseRevertingDecreaseSpeed = 7.0f;
@@ -372,9 +373,9 @@ public class Player : MonoBehaviour {
         }
 
         // activating vision ability based on amount of phase
-        if (VisionUser.abilityActive && phase <= 0) {
+        if (VisionUser.abilityActive && phase <= visionsPhase) {
             VisionUser.deactivateAbility();
-        } else if (!VisionUser.abilityActive && phase > 0) {
+        } else if (!VisionUser.abilityActive && phase > visionsPhase) {
             VisionUser.activateAbility();
         }
 

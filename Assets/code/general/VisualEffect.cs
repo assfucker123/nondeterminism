@@ -10,6 +10,7 @@ public class VisualEffect : MonoBehaviour {
     void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         timeUser = GetComponent<TimeUser>();
+        visionUser = GetComponent<VisionUser>();
     }
 
     void Update() {
@@ -27,6 +28,8 @@ public class VisualEffect : MonoBehaviour {
 
     void updateFadeColor() {
         if (!timeUser.exists)
+            return;
+        if (visionUser != null && visionUser.isVision && !VisionUser.abilityActive)
             return;
         if (fadeOut) {
             if (spriteRenderer != null) {
@@ -47,6 +50,7 @@ public class VisualEffect : MonoBehaviour {
 
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;
+    VisionUser visionUser;
     float time = 0;
 
 }

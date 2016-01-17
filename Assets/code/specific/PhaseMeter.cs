@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PhaseMeter : MonoBehaviour {
@@ -8,17 +9,26 @@ public class PhaseMeter : MonoBehaviour {
     public float warningThreshold = .2f;
     public float pulsePeriod = .4f;
     public float lowSoundStart = 25;
-    public Sprite fullMeterSprite;
-    public Sprite fullBarSprite;
-    public Sprite emptyMeterSprite;
-    public Sprite emptyBarSprite;
+
+    public float fullStandardPhase = 80;
+    public float middleBarPhase = 20;
+    public float extendStandardPhase = 28;
+    public float bgExtendScaleMultiplier = 1.12f;
+    public Sprite[] digitSprites;
+    public Sprite messageSpriteVisionsOK;
+    public Sprite messageSpriteNoVisions;
+    public Sprite messageSpriteEmpty;
     public AudioClip phaseLowSound;
     public AudioClip phaseEmptySound;
     public Color increaseColor = new Color(1, 1, 0);
     public Color pulseColor = new Color(0, 0, 1);
+    public Color visionsOKColor = new Color(1, 1, 1, 1);
+    public Color noVisionsColor = new Color(1, 1, 1, 1);
+    public Color emptyColor = new Color(1, 1, 1, 1);
 
     /* Called by HUD after being instantiated. */
     public void setUp() {
+        RectTransform rt = GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(.5f, 1);
         rt.anchorMax = new Vector2(.5f, 1);
         rt.anchoredPosition = position;
@@ -37,6 +47,13 @@ public class PhaseMeter : MonoBehaviour {
     public void setMaxPhase(float maxPhase) {
         if (_maxPhase == maxPhase) return;
         _maxPhase = maxPhase;
+
+        // set scales of bgExtends
+        float scale = (maxPhase - (fullStandardPhase - extendStandardPhase)) / extendStandardPhase;
+        scale = 1 + (scale - 1) * bgExtendScaleMultiplier;
+        scale = Mathf.Max(0, scale);
+        bgExtendLeft.rectTransform.localScale = new Vector3(scale, 1, 1);
+        bgExtendRight.rectTransform.localScale = new Vector3(scale, 1, 1);
     }
     public float setPhase(float phase) {
         if (_phase == phase) return phase;
@@ -76,11 +93,18 @@ public class PhaseMeter : MonoBehaviour {
     
 
 	void Awake() {
-        image = GetComponent<UnityEngine.UI.Image>();
-        rt = GetComponent<RectTransform>();
-        phaseBar = transform.Find("PhaseBar").gameObject;
-        pbImage = phaseBar.GetComponent<UnityEngine.UI.Image>();
-        pbRT = phaseBar.GetComponent<RectTransform>();
+
+        bgExtendLeft = transform.Find("BGExtendLeft").GetComponent<Image>();
+        bgExtendRight = transform.Find("BGExtendRight").GetComponent<Image>();
+        barRight = transform.Find("BarRight").GetComponent<Image>();
+        barLeft = transform.Find("BarLeft").GetComponent<Image>();
+        barMiddle = transform.Find("BarMiddle").GetComponent<Image>();
+        message = transform.Find("Message").GetComponent<Image>();
+        percent = transform.Find("Percent").GetComponent<Image>();
+        digit1 = transform.Find("Digit1").GetComponent<Image>();
+        digit10 = transform.Find("Digit10").GetComponent<Image>();
+        digit100 = transform.Find("Digit100").GetComponent<Image>();
+
 	}
 	
 	void Update() {
@@ -92,12 +116,11 @@ public class PhaseMeter : MonoBehaviour {
             //change color
             float t = Mathf.Min(1, increaseTime / increaseDuration);
             if (t < .5f) {
-                image.color = Color.Lerp(Color.white, increaseColor, t * 2);
+                barLeft.color = Color.Lerp(Color.white, increaseColor, t * 2);
             } else {
-                image.color = Color.Lerp(increaseColor, Color.white, (t - .5f) * 2);
+                barLeft.color = Color.Lerp(increaseColor, Color.white, (t - .5f) * 2);
             }
-            pbImage.color = image.color;
-
+            
             displayPhase = Mathf.Min(maxPhase, Utilities.easeOutQuadClamp(
                 increaseTime,
                 increaseInitialPhase,
@@ -121,63 +144,78 @@ public class PhaseMeter : MonoBehaviour {
             //change color
             float t = Mathf.Min(1, pulseTime / pulsePeriod);
             if (t < .5f) {
-                image.color = Color.Lerp(Color.white, pulseColor, t * 2);
+                barLeft.color = Color.Lerp(Color.white, pulseColor, t * 2);
             } else {
-                image.color = Color.Lerp(pulseColor, Color.white, (t - .5f) * 2);
+                barLeft.color = Color.Lerp(pulseColor, Color.white, (t - .5f) * 2);
             }
-            pbImage.color = image.color;
 
             displayPhase = phase;
 
         } else {
             displayPhase = phase;
-            if (image.color != Color.white){
-                image.color = Color.white;
-                pbImage.color = image.color;
+            if (barLeft.color != Color.white){
+                barLeft.color = Color.white;
             }
             
         }
+        barRight.color = barLeft.color;
+        barMiddle.color = barLeft.color;
 
-        pbRT.transform.localScale = new Vector3(displayPhase / maxPhase, pbRT.transform.localScale.y);
-
-        
-        if (displayPhase == 0) {
-            // switch to empty sprite when phase is at 0
-            if (image.sprite != emptyMeterSprite) {
-                image.sprite = emptyMeterSprite;
-                pbImage.sprite = emptyBarSprite;
-            }
-        } else if (!increasing && !pulsing && displayPhase / maxPhase < warningThreshold) {
-            // blink warning when phase is getting low
-            warningTime += Time.deltaTime;
-            if (warningTime > .2f) {
-                if (image.sprite == fullMeterSprite) {
-                    image.sprite = emptyMeterSprite;
-                    pbImage.sprite = emptyBarSprite;
-                } else {
-                    image.sprite = fullMeterSprite;
-                    pbImage.sprite = fullBarSprite;
-                }
-                warningTime -= .2f;
-            }
+        // set scales
+        if (displayPhase <= middleBarPhase) {
+            barMiddle.rectTransform.localScale = new Vector3(displayPhase / middleBarPhase, 1, 1);
+            barLeft.rectTransform.localScale = new Vector3(0, 1, 1);
+            barRight.rectTransform.localScale = new Vector3(0, 1, 1);
         } else {
-            warningTime = 0;
-            if (image.sprite != fullMeterSprite) {
-                image.sprite = fullMeterSprite;
-                pbImage.sprite = fullBarSprite;
-            }
+            barMiddle.rectTransform.localScale = new Vector3(1, 1, 1);
+            barLeft.rectTransform.localScale = new Vector3((displayPhase - middleBarPhase) / (fullStandardPhase - middleBarPhase), 1, 1);
+            barRight.rectTransform.localScale = barLeft.rectTransform.localScale;
         }
+
+        // set digits
+        int percent = Mathf.CeilToInt(100 * displayPhase / fullStandardPhase);
+        int hundreds = percent / 100;
+        percent -= hundreds * 100;
+        if (hundreds > 10) hundreds = 9;
+        int tens = percent / 10;
+        percent -= tens * 10;
+        int ones = percent;
+        digit100.sprite = digitSprites[hundreds];
+        digit100.enabled = (hundreds > 0);
+        digit10.sprite = digitSprites[tens];
+        digit1.sprite = digitSprites[ones];
+
+        // set message and color
+        if (displayPhase <= .1f) {
+            message.sprite = messageSpriteEmpty;
+            message.color = emptyColor;
+        } else if (VisionUser.abilityActive) {
+            message.sprite = messageSpriteVisionsOK;
+            message.color = visionsOKColor;
+        } else {
+            message.sprite = messageSpriteNoVisions;
+            message.color = noVisionsColor;
+        }
+        this.percent.color = message.color;
+        digit1.color = message.color;
+        digit10.color = message.color;
+        digit100.color = message.color;
 
 	}
 
     private float _maxPhase = 1;
     private float _phase = 0;
     private float warningTime = 0;
-	
-	// components
-    UnityEngine.UI.Image image;
-    RectTransform rt;
-    GameObject phaseBar;
-    UnityEngine.UI.Image pbImage;
-    RectTransform pbRT;
+
+    // components
+    Image bgExtendLeft;
+    Image bgExtendRight;
+    Image barRight;
+    Image barLeft;
+    Image barMiddle;
+    Image message;
+    Image percent;
+    Image digit1;
+    Image digit10;
+    Image digit100;
 }

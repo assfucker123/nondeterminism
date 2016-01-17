@@ -171,6 +171,7 @@ MonoBehaviour:
   closeSound: {fileID: 8300000, guid: d71a4a9b6c7f06e4cb2f26b8ca1935dd, type: 3}
   wallyTextSound: {fileID: 8300000, guid: 5bfbd4d079032bc4dbeb068d1d14330a, type: 3}
   oracleTextSound: {fileID: 8300000, guid: 78275ddef4ef2784daafafda5d75922d, type: 3}
+  sheriviceTextSound: {fileID: 8300000, guid: 927b526c932c24646ac66634c0d0ca5f, type: 3}
   textSoundPeriod: 0.08
   medChars: 2c00
   medCharsSpeedMultiplier: 0.3
@@ -503,6 +504,10 @@ Prefab:
       propertyPath: closeSound
       value: 
       objectReference: {fileID: 8300000, guid: d71a4a9b6c7f06e4cb2f26b8ca1935dd, type: 3}
+    - target: {fileID: 0}
+      propertyPath: sheriviceTextSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 927b526c932c24646ac66634c0d0ca5f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 165702}

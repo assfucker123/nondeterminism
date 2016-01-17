@@ -472,6 +472,10 @@ public class GameOverScreen : MonoBehaviour {
             HUD.instance.destroyGameOverScreen();
 
             if (selectionIndex == 0) { // continue
+
+                // when restarting, refill Phase for mercy
+                HUD.instance.phaseMeter.setPhase(Player.instance.maxPhase);
+
                 Vars.restartLevel();
             } else if (selectionIndex == 1) { // quit game
                 Vars.goToTitleScreen();
