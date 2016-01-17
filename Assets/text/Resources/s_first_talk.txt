@@ -10,7 +10,7 @@ t-W: You know, this is the first time in my life I've done something this advent
 takeDownControlMessage 0 // take down message tutorial
 t-W: The note |NPC| wrote warned us that the island was full of dangerous and hostile creatures,
 t-W: but surely he was exaggerating for our own safety, right?
-t-O: Sorry to further perturb you Wally, but the warnings contained in NPC's note are correct.
+t-O: Unfortunately the warnings contained in NPC's note are correct.
 t-O: We even get attacked by a creature native to Seudar Isle on the way there.
 t-W: But we haven't been attacked at all yet...
 t-W: Oh, I get it.  Keeping me in suspense again?

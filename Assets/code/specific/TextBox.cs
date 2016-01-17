@@ -27,6 +27,7 @@ public class TextBox : MonoBehaviour {
     public AudioClip closeSound;
     public AudioClip wallyTextSound;
     public AudioClip oracleTextSound;
+    public AudioClip sheriviceTextSound;
     public float textSoundPeriod = .04f;
     public char[] medChars = {',' };
     public float medCharsSpeedMultiplier = .3f;
@@ -142,8 +143,11 @@ public class TextBox : MonoBehaviour {
             currentTextSoundEffect = wallyTextSound;
         } else if (name.ToLower() == "oracle") {
             currentTextSoundEffect = oracleTextSound;
+        } else if (name.ToLower() == "sherivice") {
+            currentTextSoundEffect = sheriviceTextSound;
         } else {
-            currentTextSoundEffect = null;
+            // default text sound
+            currentTextSoundEffect = wallyTextSound;
         }
         
     }
