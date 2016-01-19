@@ -454,3 +454,9 @@ o Quantum pickup spawners.
 	- Usually things that randomly drop pickups are fixed.  But certain special objects will be different after each flashback to before they were destroyed.  Can chance reverting back and forth to get a better drop.
 
 o Enemy attacks that drain phase
+
+o Lab sequence break puzzle:
+	- Passcode: turn on a certain number of lights in a series.
+	- Find out this code later, but when you first find it there's an equation in the room (on computer screen)
+		- Random for each save file
+	- Solve the equation, convert solution to binary, that's the answer to the lights.
