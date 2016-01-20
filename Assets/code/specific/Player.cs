@@ -876,14 +876,14 @@ public class Player : MonoBehaviour {
             //offset v.x to account for steep slope (so won't be slowed by slope)
             if (v.y < 0 && Mathf.Sin(colFinder.normalRight) > 0) {
                 float a = Mathf.PI - colFinder.normalRight;
-                v.x = Mathf.Min(v.x, v.y * Mathf.Atan(a) * SLOPE_RUN_MODIFIER + .1f);
+                v.x = Mathf.Min(v.x, v.y * Mathf.Tan(a) * SLOPE_RUN_MODIFIER + .1f);
             }
         }
         if (colFinder.hitLeft) {
             //offset v.x to account for steep slope (so won't be slowed by slope)
             if (v.y < 0 && Mathf.Sin(colFinder.normalLeft) > 0) {
                 float a = colFinder.normalLeft;
-                v.x = Mathf.Max(v.x, -v.y * Mathf.Atan(a) * SLOPE_RUN_MODIFIER - .1f);
+                v.x = Mathf.Max(v.x, -v.y * Mathf.Tan(a) * SLOPE_RUN_MODIFIER - .1f);
             }
 
         }
