@@ -43,12 +43,12 @@ public class Player : MonoBehaviour {
     public float startPhase = .5f;
     public float phaseDecreaseSpeed = 2.5f;
     public float phaseRevertingDecreaseSpeed = 7.0f;
-
     public float postRevertDuration = .5f; // still lose a tiny bit of phase after a revert for this duration
+    public float idlePhaseReplenishDelay = 1.5f;
+    public float idlePhaseReplenishSpeed = 1.0f;
+    public float idlePhaseReplenishMax = 20; // should be same as visionsPhase
 
-    [HideInInspector]
-    public bool flashbackNextFrameFlag = false; // hacky fix so that flashback will happen out of the flashback haltscreen
-
+    
     public float damageSpeed = 10;
     public float damageFriction = 20;
     public float damageDuration = .5f;
@@ -373,9 +373,9 @@ public class Player : MonoBehaviour {
         }
 
         // activating vision ability based on amount of phase
-        if (VisionUser.abilityActive && phase <= visionsPhase) {
+        if (VisionUser.abilityActive && phase < visionsPhase) {
             VisionUser.deactivateAbility();
-        } else if (!VisionUser.abilityActive && phase > visionsPhase) {
+        } else if (!VisionUser.abilityActive && phase >= visionsPhase) {
             VisionUser.activateAbility();
         }
 
@@ -732,8 +732,8 @@ public class Player : MonoBehaviour {
         }
 
         if (stillAnim) {
+            idleGunTime += Time.deltaTime;
             if (isAnimatorCurrentState("gun")) {
-                idleGunTime += Time.deltaTime;
                 if (idleGunTime > idleGunDownDuration) {
                     animator.Play("gun_to_idle");
                     SoundManager.instance.playSFXRandPitchBend(gunDownSound);
@@ -745,6 +745,20 @@ public class Player : MonoBehaviour {
                     idleGunTime = 0;
                 }
             }
+
+            // replenish phase while staying still
+            if (idleGunTime >= idlePhaseReplenishDelay && !ScriptRunner.scriptsPreventPausing) {
+                if (phase < idlePhaseReplenishMax) {
+                    if (phase + idlePhaseReplenishSpeed * Time.deltaTime >= idlePhaseReplenishMax) {
+                        HUD.instance.phaseMeter.increasePhase(idlePhaseReplenishMax - phase + .001f);
+                    } else {
+                        HUD.instance.phaseMeter.increasePhase(idlePhaseReplenishSpeed * Time.deltaTime);
+                    }
+                }
+            }
+
+        } else {
+            idleGunTime = 0;
         }
 
         if (jumpPressed) {
@@ -1223,6 +1237,9 @@ public class Player : MonoBehaviour {
     float xMovingTo = 0;
 
     FrameInfo frameInfoOnLevelLoad = null; // frame info of the player saved when starting a new level (calling OnLevelWasLoaded)
+
+    [HideInInspector]
+    public bool flashbackNextFrameFlag = false; // hacky fix so that flashback will happen out of the flashback haltscreen
 
     // components
     Rigidbody2D _rb2d;

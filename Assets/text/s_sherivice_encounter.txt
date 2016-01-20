@@ -30,7 +30,7 @@ t-O: I can foresee the future.  I knew your name a few seconds ago because you j
 t-Sherivice: So what, you're psychic or something?  Ree-e-eally?  So you know what happens next after crossing me?
 t-O: What happens next?  Well after ignoring everything I say, you unwisely challenge me to a fight.
 t-O: You then attempt to hit me with various ice-related attacks, most of which miss.
-t-O: Finally |you launch a projectile so hilariously off-course it circles back and hits you in the face|,
+t-O: Finally you launch a projectile so hilariously off-course it circles back and hits you in the face,
 t-O: thus securing victory for me.
 t-Sherivice: Nee-e-yehhhh?  You take me for some senseless weakling?  I'll crush your chrome cranium in for that!
 

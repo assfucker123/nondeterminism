@@ -460,3 +460,12 @@ o Lab sequence break puzzle:
 	- Find out this code later, but when you first find it there's an equation in the room (on computer screen)
 		- Random for each save file
 	- Solve the equation, convert solution to binary, that's the answer to the lights.
+
+o Icicle obstacles:
+	- Can be pointed down, up, sideways.
+	- Act as platforms.  Shooting them enough times will break them.
+	- One item requires player to keep certain icicles intact.
+	- Puzzle: need to flip switch? at bottom of well, then climb out of it to go through the door? the switch? opened.
+		- Need to break horizontal icicles to get down.
+		- Will be trapped down there unless icicles were broken in a way so that player can climb back up.
+		- Worst case scenario: use chamber flashback to escape if truly stuck.

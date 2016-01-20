@@ -173,7 +173,7 @@ public class PhaseMeter : MonoBehaviour {
         }
 
         // set digits
-        int percent = Mathf.CeilToInt(100 * displayPhase / fullStandardPhase);
+        int percent = Mathf.CeilToInt(100 * displayPhase / fullStandardPhase - .01f);
         int hundreds = percent / 100;
         percent -= hundreds * 100;
         if (hundreds > 10) hundreds = 9;

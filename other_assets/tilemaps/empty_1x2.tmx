@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="41" height="45" tilewidth="16" tileheight="16" backgroundcolor="#00007f" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="41" height="45" tilewidth="16" tileheight="16" backgroundcolor="#1f3f5f" nextobjectid="1">
  <properties>
   <property name="unity:sortingLayerName" value="Platforms"/>
   <property name="unity:sortingOrder" value="1"/>

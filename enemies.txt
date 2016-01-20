@@ -79,6 +79,11 @@ Enemy Attacks:
 - Lasers
 	- Can use i-frames from the dodge move to go past them.
 	- Hinted at with a subtle picture of a framed I in the background? (obviously an easter egg, not how the game introduces this feature to the player)
+- Circle hornet:
+	- Kind of circles a point.  Travels from 135 degrees, CCW to 405 degrees, then CW back to 135 degrees
+	- Faces left when going CCW, right when going CW
+	- aggressive version has a bullet attack, but only in direction facing.
+	- Not a hard enemy to fight, but can be tricky to get around if placed in tight areas.
 
 Special Enemy Attacks:
 - Quantum Attacks
