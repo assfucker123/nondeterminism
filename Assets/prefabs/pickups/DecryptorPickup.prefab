@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9159fa9def1ab4a871b30d93e0e823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decryptor: 0
   bobPeriod: 1.6
   bobDist: 0.2
   numNumbers: 10
@@ -107,6 +108,7 @@ MonoBehaviour:
   number0GameObject: {fileID: 107050, guid: 2c2d711fd6fffb14a97f5731ac97c689, type: 2}
   number1GameObject: {fileID: 100034, guid: 80bea929dbdd3c446b8869f34c27c2b9, type: 2}
   animationGameObject: {fileID: 114228, guid: 19949ebbea7423443b8caef4798ee10d, type: 2}
+  grayscaleMaterial: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
 --- !u!114 &11427880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,6 +225,10 @@ Prefab:
       propertyPath: animationGameObject
       value: 
       objectReference: {fileID: 114228, guid: 19949ebbea7423443b8caef4798ee10d, type: 2}
+    - target: {fileID: 0}
+      propertyPath: grayscaleMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 133126}

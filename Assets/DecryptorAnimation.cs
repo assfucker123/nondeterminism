@@ -17,10 +17,18 @@ public class DecryptorAnimation : MonoBehaviour {
     public Ring[] rings;
     public float moveCenterToPlayerDuration = .7f;
     public float circleDuration = 2.0f;
+    public Color flashColor = new Color();
+    public float flashInitialDuration = .7f;
+    public float flashMiddleTimingOffset = -.2f;
+    public float flashMiddleDuration = .4f;
+    public float flashLastDuration = .8f;
 
     public GameObject number0GameObject;
     public GameObject number1GameObject;
+    public GameObject decryptorTextGameObject;
 
+    [HideInInspector]
+    public Decryptor.ID decryptor = Decryptor.ID.NONE; // set by DecryptorPickup
     [HideInInspector]
     public int randSeed = 0; // set by DecryptorPickup
     [HideInInspector]
@@ -42,19 +50,21 @@ public class DecryptorAnimation : MonoBehaviour {
     }
 
     void Awake() {
-        timeUser = GetComponent<TimeUser>();
+        
 	}
 
     void Start() {
 
         // create numbers
+        Random.seed = randSeed;
         for (int i=0; i < rings.Length; i++) {
             Ring ring = rings[i];
             for (int j=0; j<ring.numNumbers; j++) {
                 Number num = new Number();
                 num.angleOffset = j * 1.0f / ring.numNumbers * Mathf.PI * 2;
                 num.ringIndex = i;
-                if (timeUser.randomValue() < .5f) {
+
+                if (Random.Range(0, 2) == 0) {
                     num.gameObject = GameObject.Instantiate(number0GameObject);
                 } else {
                     num.gameObject = GameObject.Instantiate(number1GameObject);
@@ -67,18 +77,18 @@ public class DecryptorAnimation : MonoBehaviour {
             collapseDuration = Mathf.Max(collapseDuration, ring.collapseDelay + ring.collapseDuration);
         }
 
-        // stop player
-        Player.instance.receivePlayerInput = false;
-        CutsceneKeys.allFalse();
+        // pause game
+        HUD.instance.createPauseScreenLight();
+        PauseScreen.instance.pauseGameDecryptor();
+
+        // flash screen
+        HUD.instance.speedLines.flash(Color.clear, flashColor, flashInitialDuration);
 
     }
 	
 	void Update() {
 
-        if (timeUser.shouldNotUpdate)
-            return;
-        
-        time += Time.deltaTime;
+        time += Time.unscaledDeltaTime;
 
         setPositions();
 
@@ -144,9 +154,14 @@ public class DecryptorAnimation : MonoBehaviour {
             }
             // play "shing" sound effect when a ring collapses
             foreach (Ring ring2 in rings) {
-                if (time - Time.deltaTime < ring2.collapseDelay + ring2.collapseDuration &&
-                    time >= ring2.collapseDelay + ring2.collapseDuration) {
+                if (time - Time.unscaledDeltaTime - flashMiddleTimingOffset < ring2.collapseDelay + ring2.collapseDuration &&
+                    time - flashMiddleTimingOffset >= ring2.collapseDelay + ring2.collapseDuration) {
                     Debug.Log("Shing! sound effect");
+                    if (time - flashMiddleTimingOffset >= collapseDuration) {
+                        HUD.instance.speedLines.flash(Color.clear, flashColor, flashLastDuration);
+                    } else {
+                        HUD.instance.speedLines.flash(Color.clear, flashColor, flashMiddleDuration);
+                    }
                 }
             }
             if (time >= collapseDuration) {
@@ -156,13 +171,23 @@ public class DecryptorAnimation : MonoBehaviour {
                     num.gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
                 }
                 Debug.Log("ending state");
-                // should do this later:
-                Player.instance.receivePlayerInput = true;
+                // make text explaining what decryptor does
+                GameObject dtGO = GameObject.Instantiate(decryptorTextGameObject);
+                dtGO.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+                createdDecryptorText = dtGO.GetComponent<DecryptorText>();
+                createdDecryptorText.display(decryptor);
             }
             break;
         case State.ENDING:
-            // todo put something here
-
+            // wait until decryptorText closes
+            if (createdDecryptorText == null || createdDecryptorText.closed) {
+                // add decryptor to save file
+                Vars.collectDecryptor(decryptor);
+                // unpause game
+                PauseScreen.instance.unpauseGame();
+                GameObject.Destroy(createdDecryptorText.gameObject);
+                GameObject.Destroy(gameObject);
+            }
             break;
         }
 
@@ -170,32 +195,7 @@ public class DecryptorAnimation : MonoBehaviour {
     void setPosition(Number num, float rad, float angle, Vector3 center) {
         num.gameObject.transform.localPosition = new Vector3(center.x + rad * Mathf.Cos(angle), center.y + rad * Mathf.Sin(angle));
     }
-
-    void OnSaveFrame(FrameInfo fi) {
-        fi.state = (int)state;
-        fi.floats["t"] = time;
-        fi.bools["rs"] = ranScript;
-    }
-
-    void OnRevert(FrameInfo fi) {
-        state = (State)fi.state;
-        time = fi.floats["t"];
-        ranScript = fi.bools["rs"];
-        setPositions();
-    }
-
-    void OnRevertExist() {
-        foreach (Number num in numbers) {
-            num.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        }
-    }
-
-    void OnTimeDestroy() {
-        foreach (Number num in numbers) {
-            num.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        }
-    }
-
+    
     void OnDestroy() {
         foreach (Number num in numbers) {
             GameObject.Destroy(num.gameObject);
@@ -203,12 +203,12 @@ public class DecryptorAnimation : MonoBehaviour {
         numbers.Clear();
     }
 
-    TimeUser timeUser;
     float time = 0;
     State state = State.GROW;
     bool ranScript = false;
     float growDuration = 0; // duration for all rings to grow
     float collapseDuration = 0; // duration for all rings to collapse
+    DecryptorText createdDecryptorText = null;
 
     List<Number> numbers = new List<Number>();
 

@@ -212,6 +212,11 @@ public class HUD : MonoBehaviour {
         _pauseScreen = psGO.GetComponent<PauseScreen>();
         _pauseScreen.initialHide();
     }
+    public void createPauseScreenLight() {
+        if (PauseScreen.instance != null) return;
+        PauseScreen.lightFlag = true;
+        createPauseScreen();
+    }
 
     void destroyPauseScreen() {
         GameObject.Destroy(_pauseScreen.gameObject);

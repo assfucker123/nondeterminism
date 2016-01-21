@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class DecryptorPickup : MonoBehaviour {
 
+    public Decryptor.ID decryptor = Decryptor.ID.NONE;
     public float bobPeriod = 2.0f;
     public float bobDist = .3f;
     public int numNumbers = 6;
@@ -20,6 +21,7 @@ public class DecryptorPickup : MonoBehaviour {
     public GameObject number0GameObject;
     public GameObject number1GameObject;
     public GameObject animationGameObject;
+    public Material grayscaleMaterial;
 
     public class Number {
         public float xTimeOffset = 0;
@@ -62,7 +64,14 @@ public class DecryptorPickup : MonoBehaviour {
 
             num.gameObject.GetComponent<Animator>().Play("idle", 0, timeUser.randomValue());
 
+            if (Vars.abilityKnown(decryptor)) {
+                num.gameObject.GetComponent<SpriteRenderer>().material = grayscaleMaterial;
+            }
+
             numbers.Add(num);
+        }
+        if (Vars.abilityKnown(decryptor)) {
+            spriteRenderer.material = grayscaleMaterial;
         }
     }
 	
@@ -115,11 +124,15 @@ public class DecryptorPickup : MonoBehaviour {
 
         // create animation
         DecryptorAnimation dAnim = GameObject.Instantiate(animationGameObject).GetComponent<DecryptorAnimation>();
+        dAnim.decryptor = decryptor;
         dAnim.randSeed = randSeed;
         dAnim.startPos = rb2d.position;
 
         timeUser.timeDestroy();
         obtained = true;
+
+        HUD.instance.createPauseScreenLight();
+        PauseScreen.instance.pauseGameDecryptor();
     }
 
     void OnSaveFrame(FrameInfo fi) {
@@ -137,6 +150,12 @@ public class DecryptorPickup : MonoBehaviour {
         foreach (Number num in numbers) {
             num.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
+        if (Vars.abilityKnown(decryptor)) {
+            spriteRenderer.material = grayscaleMaterial;
+            foreach (Number num in numbers) {
+                num.gameObject.GetComponent<SpriteRenderer>().material = grayscaleMaterial;
+            }
+        }
     }
 
     void OnTimeDestroy() {
@@ -149,6 +168,8 @@ public class DecryptorPickup : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
         if (c2d.gameObject != Player.instance.gameObject)
+            return;
+        if (Vars.abilityKnown(decryptor))
             return;
 
         obtain();

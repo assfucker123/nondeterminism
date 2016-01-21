@@ -19,6 +19,7 @@ public class PauseScreen : MonoBehaviour {
         TUTORIAL, // map and time tree not available
         TALK_DISABLED // talk is disabled
     }
+    public static bool lightFlag = false;
 
     public AudioClip switchSound;
     public GameObject mapPageGameObject;
@@ -78,8 +79,20 @@ public class PauseScreen : MonoBehaviour {
         
         _paused = true;
     }
+    // pauses the game, but just for a decryptor animation
+    public void pauseGameDecryptor() {
+        if (paused) return;
+
+        stopTime();
+        openAnimationTime = 99999; // skip open animation
+
+        _pausingDecryptor = true;
+
+        _paused = true;
+    }
     public bool doingOpenAnimation { get { return paused && openAnimationTime < openAnimationDuration; } }
     public bool pausingHaltScreen {  get { return _pausingHaltScreen; } }
+    public bool pausingDecryptor {  get { return _pausingDecryptor; } }
     public void unpauseGame() {
         if (!paused)
             return;
@@ -96,11 +109,13 @@ public class PauseScreen : MonoBehaviour {
         GameObject.Destroy(gameObject);
     }
     public void initialHide() {
-        mapPage.hide();
-        //timeTreePage.hide();
-        talkPage.hide();
-        //progressPage.hide();
-        optionsPage.hide();
+        if (!openedLight) {
+            mapPage.hide();
+            //timeTreePage.hide();
+            talkPage.hide();
+            //progressPage.hide();
+            optionsPage.hide();
+        }
         hide();
     }
 
@@ -160,6 +175,7 @@ public class PauseScreen : MonoBehaviour {
     void switchPage(Page pageTo, bool immediately=false) {
         if (doingOpenAnimation) return;
         if (page == pageTo) return;
+        if (openedLight) return;
         
         // hide original page
         GlyphBox option = null;
@@ -251,6 +267,12 @@ public class PauseScreen : MonoBehaviour {
         pageSelection = transform.Find("PageSelection").GetComponent<Image>();
         switchPagesText = transform.Find("SwitchPagesText").GetComponent<GlyphBox>();
 
+        if (lightFlag) {
+            openedLight = true;
+            lightFlag = false;
+            return;
+        }
+
         // map page
         GameObject mapPageGO = GameObject.Instantiate(mapPageGameObject);
         mapPageGO.transform.SetParent(transform, false);
@@ -269,6 +291,7 @@ public class PauseScreen : MonoBehaviour {
         optionsPage = optionsPageGO.GetComponent<OptionsPage>();
         optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
         
+
 	}
 
     void Start() {
@@ -323,7 +346,7 @@ public class PauseScreen : MonoBehaviour {
                 }
                 
                 // display more stuff
-                if (!Vars.screenshotMode && !pausingHaltScreen) {
+                if (!Vars.screenshotMode && !pausingHaltScreen && !pausingDecryptor) {
                     show(lastPageOpened);
                 }
                 timePaused = 0;
@@ -342,7 +365,7 @@ public class PauseScreen : MonoBehaviour {
         // use Time.unscaledDeltaTime;
         timePaused += Time.unscaledDeltaTime;
 
-        if (pausingHaltScreen) {
+        if (openedLight || pausingHaltScreen || pausingDecryptor) {
             // the halt screen will decide when to unpause
             return;
         }
@@ -460,15 +483,20 @@ public class PauseScreen : MonoBehaviour {
         hide();
         _instance = null;
 
-        GameObject.Destroy(mapPage.gameObject);
+        if (mapPage != null)
+            GameObject.Destroy(mapPage.gameObject);
         mapPage = null;
-        //GameObject.Destroy(timeTreePage.gameObject);
+        //if (timeTreePage != null)
+        //  GameObject.Destroy(timeTreePage.gameObject);
         //timeTreePage = null;
-        GameObject.Destroy(talkPage.gameObject);
+        if (talkPage != null)
+            GameObject.Destroy(talkPage.gameObject);
         talkPage = null;
-        //GameObject.Destroy(progressPage.gameObject);
+        //if (progressPage != null)
+        //  GameObject.Destroy(progressPage.gameObject);
         //progressPage = null;
-        GameObject.Destroy(optionsPage.gameObject);
+        if (optionsPage != null)
+            GameObject.Destroy(optionsPage.gameObject);
         optionsPage = null;
     }
 
@@ -485,7 +513,9 @@ public class PauseScreen : MonoBehaviour {
     Vector2 pageSelectionImageInitialPos = new Vector2();
     Vector2 pageSelectionImageFinalPos = new Vector2();
     float openAnimationTime = 999999;
+    bool openedLight = false;
     bool _pausingHaltScreen = false;
+    bool _pausingDecryptor = false;
     
 
     // main pause screen

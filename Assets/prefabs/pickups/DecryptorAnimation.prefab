@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 439194}
-  - 114: {fileID: 11471412}
   - 114: {fileID: 11467922}
   m_Layer: 0
   m_Name: DecryptorAnimation
@@ -40,24 +39,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a59b5e3c7118747a3a431b2c62c7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rings: []
-  moveCenterToPlayerDuration: 0.7
-  circleDuration: 2
+  rings:
+  - numNumbers: 6
+    radius: 2
+    revolvePeriod: 4
+    growDuration: 0.2
+    collapseDelay: 0
+    collapseDuration: 0.3
+  - numNumbers: 15
+    radius: 5
+    revolvePeriod: -4
+    growDuration: 0.4
+    collapseDelay: 0.4
+    collapseDuration: 0.3
+  - numNumbers: 25
+    radius: 8
+    revolvePeriod: 4
+    growDuration: 0.5
+    collapseDelay: 0.8
+    collapseDuration: 0.3
+  moveCenterToPlayerDuration: 0.1
+  circleDuration: 0.3
+  flashColor: {r: 0.74509805, g: 0.4156863, b: 0.9294118, a: 0.697}
+  flashInitialDuration: 0.7
+  flashMiddleTimingOffset: -0.15
+  flashMiddleDuration: 0.5
+  flashLastDuration: 3
   number0GameObject: {fileID: 107050, guid: 2c2d711fd6fffb14a97f5731ac97c689, type: 2}
   number1GameObject: {fileID: 100034, guid: 80bea929dbdd3c446b8869f34c27c2b9, type: 2}
+  decryptorTextGameObject: {fileID: 132046, guid: 812794d228ee3a4498546065dc98680f,
+    type: 2}
+  decryptor: 0
   randSeed: 0
   startPos: {x: 0, y: 0}
---- !u!114 &11471412
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 114228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -65,6 +79,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: rings.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ringAmounts.Array.size
       value: 3
@@ -101,6 +119,114 @@ Prefab:
       propertyPath: scriptAsset
       value: 
       objectReference: {fileID: 4900000, guid: a7a8e225f6dd5e64aa9be07eac95862c, type: 3}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[0].numNumbers
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[0].radius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[0].revolvePeriod
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[0].growDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[0].collapseDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[1].numNumbers
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[1].radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[1].revolvePeriod
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[1].growDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[1].collapseDelay
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[1].collapseDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[2].numNumbers
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[2].radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[2].revolvePeriod
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[2].growDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[2].collapseDelay
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rings.Array.data[2].collapseDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: circleDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: moveCenterToPlayerDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashColor.a
+      value: 0.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashColor.r
+      value: 0.74509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashColor.g
+      value: 0.4156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashColor.b
+      value: 0.9294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashMiddleTimingOffset
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashLastDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashMiddleDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: decryptorTextGameObject
+      value: 
+      objectReference: {fileID: 132046, guid: 812794d228ee3a4498546065dc98680f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 114228}

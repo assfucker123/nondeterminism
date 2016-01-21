@@ -69,7 +69,15 @@ public class Decryptor {
         return new List<ID>();
     }
 
+
+
     public static bool initialized {  get { return _initialized; } }
+    public static void initialize() {
+        if (initialized) return;
+        TextAsset ta = (Resources.Load("decryptor_info") as TextAsset);
+        Properties prop = new Properties(ta.text);
+        initialize(prop);
+    }
     public static void initialize(Properties prop) {
         if (initialized) return;
 
@@ -90,6 +98,7 @@ public class Decryptor {
     }
 
     public static bool canUse(ID decryptor, bool hasBooster, List<ID> collectedDecryptors) {
+        if (!initialized) initialize();
         if (!hasBooster) {
             if (requiresBooster(decryptor))
                 return false;
@@ -103,6 +112,7 @@ public class Decryptor {
     }
 
     public static string getName(ID decryptor) {
+        if (!initialized) initialize();
         if (!info.ContainsKey(decryptor)) {
             return "";
         }
@@ -110,6 +120,7 @@ public class Decryptor {
     }
 
     public static string getDescription(ID decryptor) {
+        if (!initialized) initialize();
         if (!info.ContainsKey(decryptor)) {
             return "";
         }

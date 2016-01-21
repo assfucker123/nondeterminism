@@ -54,7 +54,8 @@ public class SpeedLines : MonoBehaviour {
 	
 	void Update() {
 
-        if (timeUser.shouldNotUpdate)
+        //if (timeUser.shouldNotUpdate)
+        if (TimeUser.reverting)
             return;
 
         if (fadeTime < fadeDuration) {

@@ -1,0 +1,6 @@
+decryptor_get: Ability unlocked: 
+decryptor_found: Ability found: 
+requires_booster: cannot be used until the |Booster Upgrade| is obtained.
+requires_prerequisite: To use, find the
+requires_prerequisite_2: decryptor too.
+requires_prerequisites: To use, find these decryptors: 
