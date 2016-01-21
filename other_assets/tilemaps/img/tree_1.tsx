@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tree_1" tilewidth="16" tileheight="16" tilecount="60">
- <image source="tree_1.png" width="96" height="160"/>
+<tileset name="tree_1" tilewidth="16" tileheight="16" tilecount="66">
+ <image source="tree_1.png" width="96" height="176"/>
  <tile id="1">
   <objectgroup draworder="index">
    <object id="0" x="0" y="0" width="16" height="16"/>
@@ -44,7 +44,7 @@
  <tile id="13">
   <objectgroup draworder="index">
    <object id="0" x="0" y="0">
-    <polygon points="0,0 16,0 16,8 0,16"/>
+    <polygon points="0,0 16,0 16,8.5"/>
    </object>
   </objectgroup>
  </tile>
@@ -61,14 +61,14 @@
  <tile id="16">
   <objectgroup draworder="index">
    <object id="0" x="0" y="0">
-    <polygon points="0,0 16,0 16,16 0,8"/>
+    <polygon points="0,0 16,0 0,8.5"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="19">
   <objectgroup draworder="index">
-   <object id="0" x="0" y="0">
-    <polygon points="0,0 16,8 16,16 0,16"/>
+   <object id="0" x="0" y="16">
+    <polygon points="0,0 16,-8.5 16,0"/>
    </object>
   </objectgroup>
  </tile>
@@ -84,8 +84,8 @@
  </tile>
  <tile id="22">
   <objectgroup draworder="index">
-   <object id="0" x="0" y="8">
-    <polygon points="0,0 16,-8 16,8 0,8"/>
+   <object id="0" x="0" y="7">
+    <polygon points="0,0 16,9 0,9"/>
    </object>
   </objectgroup>
  </tile>
@@ -107,7 +107,7 @@
  <tile id="28">
   <objectgroup draworder="index">
    <object id="0" x="0" y="0">
-    <polygon points="0,0 16,0 16,16 0,8"/>
+    <polygon points="0,0 16,0 0.5,8.5"/>
    </object>
   </objectgroup>
  </tile>
@@ -118,8 +118,8 @@
  </tile>
  <tile id="34">
   <objectgroup draworder="index">
-   <object id="0" x="0" y="8">
-    <polygon points="0,0 16,-8 16,8 0,8"/>
+   <object id="0" x="0" y="9">
+    <polygon points="0,0 16,7 0,7"/>
    </object>
   </objectgroup>
  </tile>
@@ -146,7 +146,7 @@
  <tile id="49">
   <objectgroup draworder="index">
    <object id="0" x="0" y="0">
-    <polygon points="0,0 16,0 16,8 0,16"/>
+    <polygon points="0,0 16,0 14.5,9.5"/>
    </object>
   </objectgroup>
  </tile>
@@ -157,8 +157,8 @@
  </tile>
  <tile id="55">
   <objectgroup draworder="index">
-   <object id="0" x="0" y="0">
-    <polygon points="0,0 16,8 16,16 0,16"/>
+   <object id="0" x="0" y="16">
+    <polygon points="0,0 16,-10.5 16,0"/>
    </object>
   </objectgroup>
  </tile>

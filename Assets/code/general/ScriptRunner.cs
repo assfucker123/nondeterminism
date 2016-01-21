@@ -326,6 +326,7 @@ public class ScriptRunner : EventHappener {
         }
     }
     public int runIndex {  get { return _runIndex; } }
+    public bool runningScript {  get { return _runningScript; } }
     public bool makeInstantKeysFalseWhenPlayerDoesNotReceiveInput = true;
 
     // FUNCTIONS
@@ -342,7 +343,7 @@ public class ScriptRunner : EventHappener {
             return;
         char[] nlChars = {'\n'};
         parse(script.Split(nlChars)); // creates List of Instructions
-        runningScript = true;
+        _runningScript = true;
         blocking = false;
         _runIndex = 0;
         waitTime = 0;
@@ -729,12 +730,12 @@ public class ScriptRunner : EventHappener {
             _runIndex++;
             if (runIndex >= instructions.Count) {
                 // completed running script
-                runningScript = false;
+                _runningScript = false;
             }
         }
 
         if (runIndex >= instructions.Count) {
-            runningScript = false;
+            _runningScript = false;
         }
         
 	}
@@ -766,7 +767,7 @@ public class ScriptRunner : EventHappener {
         if (GameOverScreen.instance != null && GameOverScreen.instance.activated)
             return;
 
-        runningScript = fi.bools[idPrefix + "rs"];
+        _runningScript = fi.bools[idPrefix + "rs"];
         _runIndex = fi.ints[idPrefix + "ri"];
         waitTime = fi.floats[idPrefix + "wt"];
         waitDuration = fi.floats[idPrefix + "wd"];
@@ -790,7 +791,7 @@ public class ScriptRunner : EventHappener {
         }
     }
 
-    bool runningScript = false;
+    bool _runningScript = false;
     int _runIndex = 0;
     float waitTime = 0;
     float waitDuration = 0;

@@ -98,22 +98,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &140808
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 459692}
-  - 60: {fileID: 6060758}
-  m_Layer: 0
-  m_Name: Collision
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &149060
 GameObject:
   m_ObjectHideFlags: 1
@@ -123,6 +107,22 @@ GameObject:
   m_Component:
   - 4: {fileID: 429556}
   - 60: {fileID: 6003710}
+  m_Layer: 0
+  m_Name: Collision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &157340
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 404856}
+  - 60: {fileID: 6086482}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Untagged
@@ -187,6 +187,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &183132
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 436620}
+  - 60: {fileID: 6087952}
+  m_Layer: 0
+  m_Name: Collision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &185480
 GameObject:
   m_ObjectHideFlags: 1
@@ -201,22 +217,6 @@ GameObject:
   - 114: {fileID: 11439620}
   m_Layer: 0
   m_Name: mesh_[01]_[02]
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &193314
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 405212}
-  - 60: {fileID: 6049772}
-  m_Layer: 0
-  m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,12 +238,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &405212
+--- !u!4 &404856
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193314}
+  m_GameObject: {fileID: 157340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -297,7 +297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428338}
-  - {fileID: 405212}
+  - {fileID: 404856}
   m_Father: {fileID: 498260}
   m_RootOrder: 1
 --- !u!4 &428338
@@ -322,8 +322,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 474100}
-  m_RootOrder: 2
+  m_Father: {fileID: 430278}
+  m_RootOrder: 1
 --- !u!4 &430278
 Transform:
   m_ObjectHideFlags: 1
@@ -335,9 +335,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 410178}
-  - {fileID: 459692}
+  - {fileID: 429556}
   m_Father: {fileID: 498260}
   m_RootOrder: 3
+--- !u!4 &436620
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 474100}
+  m_RootOrder: 2
 --- !u!4 &450316
 Transform:
   m_ObjectHideFlags: 1
@@ -364,18 +376,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 450316}
   m_RootOrder: 1
---- !u!4 &459692
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 140808}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 430278}
-  m_RootOrder: 1
 --- !u!4 &460990
 Transform:
   m_ObjectHideFlags: 1
@@ -400,7 +400,7 @@ Transform:
   m_Children:
   - {fileID: 417000}
   - {fileID: 406572}
-  - {fileID: 429556}
+  - {fileID: 436620}
   m_Father: {fileID: 498260}
   m_RootOrder: 2
 --- !u!4 &498260
@@ -631,84 +631,6 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: 19, y: -36}
-      - {x: 21, y: -40}
-      - {x: 23, y: -40}
-      - {x: 25, y: -39}
-      - {x: 25, y: -37}
-      - {x: 22, y: -37}
-      - {x: 22, y: -33}
-      - {x: 19, y: -33}
-    - - {x: 0, y: -45}
-      - {x: 82, y: -45}
-      - {x: 82, y: -41}
-      - {x: 65, y: -41}
-      - {x: 63, y: -42}
-      - {x: 52, y: -42}
-      - {x: 50, y: -43}
-      - {x: 45, y: -43}
-      - {x: 45, y: -39}
-      - {x: 32, y: -39}
-      - {x: 26, y: -42}
-      - {x: 0, y: -42}
---- !u!60 &6049772
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193314}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: 62, y: -18.5}
-      - {x: 62, y: -14.5}
-      - {x: 64, y: -14.5}
-      - {x: 65, y: -15}
-      - {x: 65, y: -9}
-      - {x: 61, y: -9}
-      - {x: 61, y: -19}
-    - - {x: 62, y: -22.5}
-      - {x: 61, y: -22}
-      - {x: 61, y: -26}
-      - {x: 56, y: -26}
-      - {x: 56, y: -34}
-      - {x: 57, y: -33.5}
-      - {x: 65, y: -33.5}
-      - {x: 66, y: -34}
-      - {x: 66, y: -26}
-      - {x: 65, y: -26}
-      - {x: 65, y: -18}
-      - {x: 64, y: -18.5}
-      - {x: 64, y: -22.5}
-    - - {x: 43, y: -31}
-      - {x: 33, y: -31}
-      - {x: 33, y: -45}
-      - {x: 43, y: -45}
-    - - {x: 66, y: -39}
-      - {x: 65, y: -39.5}
-      - {x: 57, y: -39.5}
-      - {x: 56, y: -39}
-      - {x: 56, y: -45}
-      - {x: 66, y: -45}
---- !u!60 &6060758
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 140808}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
     - - {x: 64, y: -6}
       - {x: 62, y: -6}
       - {x: 58, y: -8}
@@ -733,6 +655,88 @@ PolygonCollider2D:
       - {x: 28, y: -31}
       - {x: 28, y: -35}
       - {x: 32, y: -33}
+--- !u!60 &6086482
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 61.875, y: -18.5625}
+      - {x: 62, y: -18}
+      - {x: 62, y: -14.5}
+      - {x: 64, y: -14.5}
+      - {x: 65, y: -14}
+      - {x: 65, y: -9}
+      - {x: 61, y: -9}
+      - {x: 61, y: -18}
+    - - {x: 62, y: -22.5}
+      - {x: 62, y: -22.3125}
+      - {x: 61, y: -23}
+      - {x: 61, y: -26}
+      - {x: 56, y: -26}
+      - {x: 56, y: -33}
+      - {x: 57, y: -33.5}
+      - {x: 65, y: -33.5}
+      - {x: 66, y: -33}
+      - {x: 66, y: -26}
+      - {x: 65, y: -26}
+      - {x: 65, y: -19}
+      - {x: 64, y: -18.5625}
+      - {x: 64, y: -22.5}
+    - - {x: 43, y: -31}
+      - {x: 33, y: -31}
+      - {x: 33, y: -45}
+      - {x: 43, y: -45}
+    - - {x: 66, y: -40}
+      - {x: 65, y: -39.4375}
+      - {x: 65, y: -39.5}
+      - {x: 57, y: -39.5}
+      - {x: 57, y: -39.4375}
+      - {x: 56, y: -40}
+      - {x: 56, y: -45}
+      - {x: 66, y: -45}
+--- !u!60 &6087952
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183132}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 19, y: -36}
+      - {x: 21, y: -40}
+      - {x: 23, y: -40}
+      - {x: 25, y: -39}
+      - {x: 25, y: -37}
+      - {x: 22, y: -37}
+      - {x: 22, y: -33}
+      - {x: 19, y: -33}
+    - - {x: 0, y: -45}
+      - {x: 82, y: -45}
+      - {x: 82, y: -41}
+      - {x: 65, y: -41}
+      - {x: 63, y: -42}
+      - {x: 52, y: -42}
+      - {x: 50, y: -43}
+      - {x: 45, y: -43}
+      - {x: 45, y: -39}
+      - {x: 32, y: -39}
+      - {x: 26, y: -42}
+      - {x: 0, y: -42}
 --- !u!114 &11406188
 MonoBehaviour:
   m_ObjectHideFlags: 1
