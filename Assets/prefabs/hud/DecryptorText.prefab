@@ -152,10 +152,15 @@ MonoBehaviour:
   openDuration: 0.167
   closeDuration: 0.167
   textSpeed: 30
+  textDisplayDelay: 0.2
   openedMinDuration: 2
   openedMaxDuration: 10
   decryptor: 0
   textAsset: {fileID: 4900000, guid: 1c7b929813c115d49bedff4fdeab16d7, type: 3}
+  openSound: {fileID: 8300000, guid: 12cb03f077fa5234990ee6d2d4a674a8, type: 3}
+  closeSound: {fileID: 8300000, guid: d71a4a9b6c7f06e4cb2f26b8ca1935dd, type: 3}
+  textSound: {fileID: 8300000, guid: 78275ddef4ef2784daafafda5d75922d, type: 3}
+  textSoundPeriod: 0.08
 --- !u!222 &22200350
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -250,6 +255,22 @@ Prefab:
       propertyPath: openedMinDuration
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: openSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 12cb03f077fa5234990ee6d2d4a674a8, type: 3}
+    - target: {fileID: 0}
+      propertyPath: closeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d71a4a9b6c7f06e4cb2f26b8ca1935dd, type: 3}
+    - target: {fileID: 0}
+      propertyPath: talkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 78275ddef4ef2784daafafda5d75922d, type: 3}
+    - target: {fileID: 0}
+      propertyPath: textSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 78275ddef4ef2784daafafda5d75922d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132046}

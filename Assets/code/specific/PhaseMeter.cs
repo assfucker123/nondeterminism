@@ -70,8 +70,11 @@ public class PhaseMeter : MonoBehaviour {
         }
     }
     public void endPulse() {
+        if (!pulsing)
+            return;
         pulseTime = 99999;
         if (phase == 0) {
+            Utilities.debugLogCallStack();
             SoundManager.instance.playSFX(phaseEmptySound);
         }
     }

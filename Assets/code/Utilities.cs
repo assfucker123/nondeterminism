@@ -43,6 +43,11 @@ public static class Utilities {
         return new string(chars);
     }
 
+    /* Unity stack trace */
+    public static void debugLogCallStack() {
+        Debug.Log(UnityEngine.StackTraceUtility.ExtractStackTrace());
+    }
+
     /* calculates x % y */
     public static float fmod(float x, float y) {
         return x - Mathf.Floor(x / y) * y;

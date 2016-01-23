@@ -23,6 +23,8 @@ public class DecryptorPickup : MonoBehaviour {
     public GameObject animationGameObject;
     public Material grayscaleMaterial;
 
+    public float audioDist = 40f;
+
     public class Number {
         public float xTimeOffset = 0;
         public float xDist = 0;
@@ -38,6 +40,7 @@ public class DecryptorPickup : MonoBehaviour {
         timeUser = GetComponent<TimeUser>();
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 	}
 
     void Start() {
@@ -72,9 +75,36 @@ public class DecryptorPickup : MonoBehaviour {
         }
         if (Vars.abilityKnown(decryptor)) {
             spriteRenderer.material = grayscaleMaterial;
+            abilityKnown = true;
         }
     }
 	
+    void Update() {
+        // audio
+        if (audioSource.isPlaying) {
+
+            float vol = 0;
+            if (Player.instance != null) {
+                float dist = Vector2.Distance(Player.instance.rb2d.position, rb2d.position);
+                vol = Utilities.easeLinearClamp(dist, 1, -1, audioDist);
+            }
+
+            audioSource.volume = vol * SoundManager.instance.volumeScale * Vars.sfxVolume;
+
+            if (TimeUser.reverting ||
+                Time.timeScale == 0 ||
+                abilityKnown) {
+                audioSource.Stop();
+            }
+        } else {
+            if (!TimeUser.reverting &&
+                Time.timeScale > 0 &&
+                !abilityKnown) {
+                audioSource.Play();
+            }
+        }
+    }
+
 	void FixedUpdate() {
 
         if (timeUser.shouldNotUpdate)
@@ -130,6 +160,8 @@ public class DecryptorPickup : MonoBehaviour {
 
         timeUser.timeDestroy();
         obtained = true;
+        abilityKnown = true;
+
 
         HUD.instance.createPauseScreenLight();
         PauseScreen.instance.pauseGameDecryptor();
@@ -185,10 +217,12 @@ public class DecryptorPickup : MonoBehaviour {
     TimeUser timeUser;
     Rigidbody2D rb2d;
     SpriteRenderer spriteRenderer;
+    AudioSource audioSource;
 
     Vector2 startPos = new Vector2();
     float time = 0;
     bool obtained = false;
+    bool abilityKnown = false;
 
     List<Number> numbers = new List<Number>();
 }

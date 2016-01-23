@@ -84,7 +84,9 @@ Enemy Attacks:
 	- Faces left when going CCW, right when going CW
 	- aggressive version has a bullet attack, but only in direction facing.
 	- Not a hard enemy to fight, but can be tricky to get around if placed in tight areas.
-
+- Pouches that burst scary mosquito-like enemies instead.
+	- Use flashback to prevent bursting the pouch.
+	
 Special Enemy Attacks:
 - Quantum Attacks
 	- Produce many fake visions and one real one.  Need to use pattern recognition to determine the real one?
@@ -130,9 +132,21 @@ Special Enemy Attacks:
 - The Salesman boss fight.
 	- Can also flashback.
 	- Uses a similar phase mechanic, need to drain their phase.
-	- Attacks by throwing needles, needles attached to string
+	- Attacks by throwing needles, needles attached to string.
 	- Looks like Greninja (smash bros) if it was a poison dart frog (with literal darts)
 		- Also has bright spots/stripes on the back (similar to larva Oracle)
+	- The Salesman will always drain phase to go back to before he takes damage.  So when his phase hits 0, he'll have near full health.
+		- Goal becomes to drain his phase, not chip his health.  Player strategy is to use weak attacks quickly, rather than strong attacks slowly.
+	- When this happens, cutscene will play.
+		- Oracle grabs The Salesman, and runs up a pillar with him.
+		- She jumps off and throws him down.  This causes the Flare Dive decryptor to leap off of him, and Oracle catches it while still in the air.
+		- Familiar animation plays, tells player to hold down and press jump to a Flare Dive.
+		- Oracle then does the Flare Dive from high up, landing on The Salesman and pushing him through the ground.  Goes through to the lower level (another scene)
+			- The material of this ground is the same as objects that are ordinarily destroyed by Flare Dive.
+		- She pushes him through the ceiling and into a room, where she pushes him onto a bed of spikes.
+			- This room was visited earlier.
+		- The spikes impale The Salesman, killing him in one hit.  Boss fight over.
+		- Oracle hops off The Salesman.  Her sprite is covered in his blood.
 
 - Final boss fight
 	- Fight takes place in gigantic scary cave with several heart-shaped orbs.

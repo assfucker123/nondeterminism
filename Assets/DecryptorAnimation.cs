@@ -22,10 +22,15 @@ public class DecryptorAnimation : MonoBehaviour {
     public float flashMiddleTimingOffset = -.2f;
     public float flashMiddleDuration = .4f;
     public float flashLastDuration = .8f;
+    public float waitToTextDuration = 2.0f;
 
     public GameObject number0GameObject;
     public GameObject number1GameObject;
     public GameObject decryptorTextGameObject;
+
+    public AudioClip getSound;
+    public AudioClip flashMediumSound;
+    public AudioClip flashFinalSound;
 
     [HideInInspector]
     public Decryptor.ID decryptor = Decryptor.ID.NONE; // set by DecryptorPickup
@@ -46,6 +51,7 @@ public class DecryptorAnimation : MonoBehaviour {
         GROW,
         CIRCLE,
         COLLAPSE,
+        WAIT_TO_TEXT,
         ENDING,
     }
 
@@ -83,6 +89,7 @@ public class DecryptorAnimation : MonoBehaviour {
 
         // flash screen
         HUD.instance.speedLines.flash(Color.clear, flashColor, flashInitialDuration);
+        SoundManager.instance.playSFXIgnoreVolumeScale(getSound);
 
     }
 	
@@ -143,7 +150,7 @@ public class DecryptorAnimation : MonoBehaviour {
         case State.COLLAPSE:
             foreach (Number num in numbers) {
                 ring = rings[num.ringIndex];
-                rad = Utilities.easeInOutQuadClamp(time - ring.collapseDelay, ring.radius, -ring.radius, ring.collapseDuration);
+                rad = Utilities.easeInQuadClamp(time - ring.collapseDelay, ring.radius, -ring.radius, ring.collapseDuration);
                 angle = num.angleOffset + (time + growDuration + circleDuration) * Mathf.PI * 2 / ring.revolvePeriod;
                 setPosition(num, rad, angle, center);
                 if (time - ring.collapseDelay >= ring.collapseDuration) {
@@ -156,21 +163,34 @@ public class DecryptorAnimation : MonoBehaviour {
             foreach (Ring ring2 in rings) {
                 if (time - Time.unscaledDeltaTime - flashMiddleTimingOffset < ring2.collapseDelay + ring2.collapseDuration &&
                     time - flashMiddleTimingOffset >= ring2.collapseDelay + ring2.collapseDuration) {
-                    Debug.Log("Shing! sound effect");
                     if (time - flashMiddleTimingOffset >= collapseDuration) {
                         HUD.instance.speedLines.flash(Color.clear, flashColor, flashLastDuration);
+                        //HUD.instance.speedLines.flash(Color.clear, flashColor, flashMiddleDuration);
                     } else {
                         HUD.instance.speedLines.flash(Color.clear, flashColor, flashMiddleDuration);
+                    }
+
+                    if (Mathf.Abs(ring2.collapseDelay + ring2.collapseDuration - collapseDuration) < .01f) {
+                        SoundManager.instance.playSFXIgnoreVolumeScale(flashFinalSound);
+                    } else {
+                        SoundManager.instance.playSFXIgnoreVolumeScale(flashMediumSound);
                     }
                 }
             }
             if (time >= collapseDuration) {
-                state = State.ENDING;
+                state = State.WAIT_TO_TEXT;
                 time -= collapseDuration;
                 foreach (Number num in numbers) {
                     num.gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
                 }
-                Debug.Log("ending state");
+                
+            }
+            break;
+        case State.WAIT_TO_TEXT:
+            if (time >= waitToTextDuration) {
+                state = State.ENDING;
+                time -= waitToTextDuration;
+
                 // make text explaining what decryptor does
                 GameObject dtGO = GameObject.Instantiate(decryptorTextGameObject);
                 dtGO.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);

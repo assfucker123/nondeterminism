@@ -42,33 +42,37 @@ MonoBehaviour:
   rings:
   - numNumbers: 6
     radius: 2
-    revolvePeriod: 4
-    growDuration: 0.2
+    revolvePeriod: 3
+    growDuration: 0.3
     collapseDelay: 0
-    collapseDuration: 0.3
+    collapseDuration: 0.4
   - numNumbers: 15
     radius: 5
-    revolvePeriod: -4
-    growDuration: 0.4
+    revolvePeriod: -3
+    growDuration: 0.5
     collapseDelay: 0.4
-    collapseDuration: 0.3
+    collapseDuration: 0.4
   - numNumbers: 25
     radius: 8
-    revolvePeriod: 4
-    growDuration: 0.5
-    collapseDelay: 0.8
-    collapseDuration: 0.3
+    revolvePeriod: 3
+    growDuration: 0.6
+    collapseDelay: 0.9
+    collapseDuration: 0.4
   moveCenterToPlayerDuration: 0.1
-  circleDuration: 0.3
+  circleDuration: 0.1
   flashColor: {r: 0.74509805, g: 0.4156863, b: 0.9294118, a: 0.697}
   flashInitialDuration: 0.7
-  flashMiddleTimingOffset: -0.15
+  flashMiddleTimingOffset: 0
   flashMiddleDuration: 0.5
-  flashLastDuration: 3
+  flashLastDuration: 2
+  waitToTextDuration: 1.2
   number0GameObject: {fileID: 107050, guid: 2c2d711fd6fffb14a97f5731ac97c689, type: 2}
   number1GameObject: {fileID: 100034, guid: 80bea929dbdd3c446b8869f34c27c2b9, type: 2}
   decryptorTextGameObject: {fileID: 132046, guid: 812794d228ee3a4498546065dc98680f,
     type: 2}
+  getSound: {fileID: 8300000, guid: 63cbba20015534b40af747697623cb97, type: 3}
+  flashMediumSound: {fileID: 8300000, guid: 71cb3282e1acfaa4088ae18b85dc737b, type: 3}
+  flashFinalSound: {fileID: 8300000, guid: b2f52eb03f3c2394fba9ed94e415e1b5, type: 3}
   decryptor: 0
   randSeed: 0
   startPos: {x: 0, y: 0}
@@ -129,15 +133,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[0].revolvePeriod
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[0].growDuration
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[0].collapseDuration
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[1].numNumbers
@@ -149,11 +153,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[1].revolvePeriod
-      value: -4
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[1].growDuration
-      value: 0.4
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[1].collapseDelay
@@ -161,7 +165,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[1].collapseDuration
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[2].numNumbers
@@ -173,23 +177,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[2].revolvePeriod
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[2].growDuration
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[2].collapseDelay
-      value: 0.8
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rings.Array.data[2].collapseDuration
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: circleDuration
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: moveCenterToPlayerDuration
@@ -213,11 +217,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: flashMiddleTimingOffset
-      value: -0.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: flashLastDuration
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: flashMiddleDuration
@@ -227,6 +231,22 @@ Prefab:
       propertyPath: decryptorTextGameObject
       value: 
       objectReference: {fileID: 132046, guid: 812794d228ee3a4498546065dc98680f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: getSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 63cbba20015534b40af747697623cb97, type: 3}
+    - target: {fileID: 0}
+      propertyPath: flashMediumSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71cb3282e1acfaa4088ae18b85dc737b, type: 3}
+    - target: {fileID: 0}
+      propertyPath: flashFinalSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b2f52eb03f3c2394fba9ed94e415e1b5, type: 3}
+    - target: {fileID: 0}
+      propertyPath: waitToTextDuration
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 114228}

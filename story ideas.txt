@@ -552,3 +552,39 @@ The planet's core is unstable and threatened to cause the planet to crack, so a 
 If the shield breaks, it would result in a huge explosion.  The big villain is planning on using the energy from the explosion to create a time machine for his own use.
 
 The creatures are all hostile due to them all being brainwashed by the villain.
+
+STREAMLINING THE STORY:
+- Remove NPC.  Oracle was found and raised by Wally.
+	- Oracle found in suit already.  Wally studies the suit, but doesn't know much about it (essential so that he cannot unlock abilities, and decryptors are needed)
+		- Later in the game, Wally is able to create the Strip Suit decrytor to save Oracle just in time in her fight against the virus boss.
+- Oracle's vision about The Meltdown is shown in the game intro.
+	- Happens right after Wally announces he's finished making the ship.
+		- So it's possible that Oracle knew about The Meltdown for a while, and just waited until the last minute to tell him to not stress him out.  It wouldn't matter, since they wouldn't be able to do anything about it until the ship was made anyway.
+	- Oracle foresaw them telling others about The Meltdown, but nobody would believe her.  It's "common knowledge" that the shield is infallible.
+- Wally stays inside the ship while Oracle explores Seudar Isle.  He'll research The Meltdown, explain the Endoplanetary Shield, etc.
+	- Conversations about history and lore will be periodically added to the Talk Page from Wally.
+- Shield was built to last millennia, no reason why it should be malfunctioning.
+	- Eventually revealed that The Salesman sabotaged it as part of a deal with Christopher.
+- Sonata conquered the island while 
+- A lot of technology and machinery still exist on Seudar Isle, left over from when the shield was built.
+	- Explains why some of the creatures use items as weapons.
+	- Fights would break out among the creatures and the scraps were fashioned into weapons.  The island became infamous for being dangerous.
+- All the fighting stopped when Sonata conquered the island.  She simply used her voice to hypnotize all the creatures, preventing them from harming each other.
+	- Created peace, but Sonata would eventually abuse her power.  She forced some creatures to do her bidding, and commanded creatures to attack anyone that could pose a threat.
+- Nobody on the island believes The Meltdown is coming either.
+- Wally's motivation to save the planet is to save his father.  He left home while Wally was young, but he's still on the planet, so he wants to save him.
+	- Wally reasons that as one of the world's leading scientists he would have had enough money to travel to another planet.  But after he was demoted he would not be able to.
+		- Turns out his father just built his own ship.  Wally didn't think of that.
+- Wally's father (Christopher) was a scientist, but he was humiliated by having a crazy theory
+	- Theory was dumping giant phase crystals into the mantle to calm it down for good, preventing The Meltdown forever.
+		- Community thought the idea was ridiculous.  It wasn't known if the crystals were potent enough to calm down the entire mantle.  Since the plan involved drilling a giant hole into the violent mantle, there was potential to make the problem even worse, so it was too great a risk.
+	- Left scientific community, left home so that he could "have some space to think".
+- It's revealed that after Christopher left, he tried to make a time machine.  This would be able to fix everything.  The endoplanetary shield was a temporary solution; with the time machine, he could go back to before the shield was built, dump the giant phase crystals into the mantle, calming it down for good.
+	- But it would require an immense amount of energy, called a singularity, to work.  Triggering The Meltdown was the only way he could produce this amount of energy.
+	- He hired The Salesman to sabotage the Endoplanetary Shield.  He was the only one psychotic enough to destroy the planet, yet powerful enough to subdue Sonata and Seudar Isle's creatures.
+		- In return, he gave The Salesman a map with the locations of many rare phase crystals that he could take.
+			- Christopher had a map from when he was studying phase crystals for his theory to stop The Meltdown.
+			- Did not give the location of the biggest phase crystals, so The Salesman never found them.  Christopher doesn't trust him.
+
+
+	

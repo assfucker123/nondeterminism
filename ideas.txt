@@ -469,3 +469,10 @@ o Icicle obstacles:
 		- Need to break horizontal icicles to get down.
 		- Will be trapped down there unless icicles were broken in a way so that player can climb back up.
 		- Worst case scenario: use chamber flashback to escape if truly stuck.
+
+o Beach area:
+	- Very small, like 1 or 2 rooms wide.
+	- Thin cover of ice.  Invisible wall to the far left or right
+	- Use Flare Dive to break through the ice.  Secret cave in there.
+		- Water controls the same as normal controls, except for floatier jumps
+		

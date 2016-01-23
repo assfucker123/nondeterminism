@@ -8,10 +8,15 @@ public class DecryptorText : MonoBehaviour {
     public float openDuration = .1f;
     public float closeDuration = .1f;
     public float textSpeed = 10;
+    public float textDisplayDelay = .2f;
     public float openedMinDuration = 4.0f;
     public float openedMaxDuration = 10.0f;
     public Decryptor.ID decryptor = Decryptor.ID.NONE;
     public TextAsset textAsset;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+    public AudioClip textSound;
+    public float textSoundPeriod = .08f;
 
     public bool closed {  get { return state == State.CLOSED; } }
 
@@ -30,6 +35,7 @@ public class DecryptorText : MonoBehaviour {
         hide();
         image.enabled = true;
         animator.Play("open");
+        SoundManager.instance.playSFXIgnoreVolumeScale(openSound);
     }
 
 	void Awake() {
@@ -119,8 +125,21 @@ public class DecryptorText : MonoBehaviour {
             }
             break;
         case State.OPENED:
-            instructions.visibleChars = Mathf.Min(Mathf.FloorToInt(time * textSpeed), instructions.totalChars);
+            // scroll text
+            instructions.visibleChars = Mathf.Clamp(Mathf.FloorToInt((time - textDisplayDelay) * textSpeed), 0, instructions.totalChars);
+            bool incrementTextSoundTime = true;
+            if (instructions.visibleChars >= instructions.totalChars || instructions.visibleChars <= 0) {
+                incrementTextSoundTime = false;
+            }
+            if (incrementTextSoundTime) {
+                textSoundTime += Time.unscaledDeltaTime;
+            }
+            if (textSoundTime >= textSoundPeriod) {
+                SoundManager.instance.playSFXIgnoreVolumeScale(textSound);
+                textSoundTime = 0;
+            }
 
+            // detect closing
             bool toCloseState = false;
             if (time >= openedMinDuration) {
                 if (Keys.instance.confirmPressed || Keys.instance.backPressed || time >= openedMaxDuration) {
@@ -131,6 +150,7 @@ public class DecryptorText : MonoBehaviour {
                 state = State.CLOSE;
                 time = 0;
                 animator.Play("close");
+                SoundManager.instance.playSFXIgnoreVolumeScale(closeSound);
                 ability.makeAllCharsInvisible();
                 instructions.makeAllCharsInvisible();
             }
@@ -153,5 +173,6 @@ public class DecryptorText : MonoBehaviour {
 
     State state = State.CLOSED;
     float time = 0;
+    float textSoundTime = 0;
 
 }
