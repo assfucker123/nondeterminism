@@ -215,12 +215,14 @@ public class TalkPage : MonoBehaviour {
                 line += convo.name;
                 grayLine = !convo.newConversation;
             }
-            
+
             // set color of line
             if (grayLine) {
                 listBox.setColor(grayColor, lineIndex, 0, line.Length, false);
+            } else if (convo.important) {
+                listBox.setColor(listBox.importantColor, lineIndex, 0, line.Length, false);
             }
-
+            
             text += line;
             if (lineIndex < listBox.height - 1)
                 text += "\n";
@@ -341,8 +343,16 @@ public class TalkPage : MonoBehaviour {
     
     public void update() {
 
-        // input
-        if (!TextBox.instance.isBeingUsed) {
+        
+
+        if (TextBox.instance.isBeingUsed) {
+            // press pause to immediately end conversation
+            if (Keys.instance.startPressed) {
+                scriptRunner.stopScript();
+                TextBox.instance.close();
+            }
+        } else {
+            // input
             if (markNotNewOnceTextBoxNotUsed) {
                 if (selectedConversation.newConversation &&
                     selectedConversation.name != propAsset.getString("current_objective")) {

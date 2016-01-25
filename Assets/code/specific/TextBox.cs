@@ -73,6 +73,7 @@ public class TextBox : MonoBehaviour {
         clear();
         _state = State.CLOSING;
         time = 0;
+        _doneDisplaying = true;
 
         SoundManager.instance.playSFXIgnoreVolumeScale(closeSound);
     }

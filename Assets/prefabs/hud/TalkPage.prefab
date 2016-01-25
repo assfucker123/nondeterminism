@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptAsset: {fileID: 0}
   runWhenPaused: 1
+  makeInstantKeysFalseWhenPlayerDoesNotReceiveInput: 1
 --- !u!114 &11455082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -274,7 +275,7 @@ MonoBehaviour:
   initialAlignment: 0
   defaultStyle:
     color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
-  importantColor: {r: 1, g: 1, b: 1, a: 1}
+  importantColor: {r: 0.92156863, g: 1, b: 0, a: 1}
   useTimeUser: 0
 --- !u!222 &22200124
 CanvasRenderer:
@@ -417,6 +418,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: runWhenPaused
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: importantColor.r
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: importantColor.b
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

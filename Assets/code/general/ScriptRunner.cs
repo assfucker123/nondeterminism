@@ -349,6 +349,10 @@ public class ScriptRunner : EventHappener {
         waitTime = 0;
         waitDuration = 0;
     }
+    public void stopScript() { // largely untested
+        if (!runningScript) return;
+        _runningScript = false;
+    }
 
     // PRIVATE
 

@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  speed: 17
+  speed: 20
   heading: 0
   headingSpeed: 140
   positiveHeading: 1
@@ -162,7 +162,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 17
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: trailPeriod
