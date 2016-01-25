@@ -554,6 +554,8 @@ If the shield breaks, it would result in a huge explosion.  The big villain is p
 The creatures are all hostile due to them all being brainwashed by the villain.
 
 STREAMLINING THE STORY:
+- Little dialogue.  Keep story interesting with lore and secret history stuff.
+
 - Remove NPC.  Oracle was found and raised by Wally.
 	- Oracle found in suit already.  Wally studies the suit, but doesn't know much about it (essential so that he cannot unlock abilities, and decryptors are needed)
 		- Later in the game, Wally is able to create the Strip Suit decrytor to save Oracle just in time in her fight against the virus boss.
@@ -585,6 +587,59 @@ STREAMLINING THE STORY:
 		- In return, he gave The Salesman a map with the locations of many rare phase crystals that he could take.
 			- Christopher had a map from when he was studying phase crystals for his theory to stop The Meltdown.
 			- Did not give the location of the biggest phase crystals, so The Salesman never found them.  Christopher doesn't trust him.
+- An advanced civilization from a thousand years ago built the Endoplanetary Shield.  
+- IDEAS: Have the main villain be a lone descendant from this civilization.  Wants to create a time machine to go back home.
+	- This villain, Oracle and The Salesman are all from the past.  They were frozen in ice, floated to the top of ocean, washed ashore elsewhere.  Found Oracle and her suit on the beach.
+	- Since clairvoyance makes it hard to remember the past, Oracle and The Salesman have no memory of the civilization.
+	- Oracle and The Salesman were actually enemies of the civilization.  Trying to overthrow it?  Trying to kill everyone?
+	- This villain stopped them a thousand years ago by creating a virus that game Oracle and The Salesman false visions, giving him a chance to strike with a powerful ice attacked that froze all of them.
+	- The weapons and materials used in their fight against Oracle and The Salesman became the weapons used by creatures many years later.
+	- Explains why this villain knows of Oracle's and The Salesman's power (and asks TS to help), yet doesn't trust them.
+	- Lore can be told through drawings on walls?
+	- Sherivice and Sonata are descendants of this villain and the actual empress of the civilization.
+- New opening:
+	- Oracle and Wally receive a package containing a mysterious rock reminiscent of a large phase crystal.
+	- This interests Oracle.  She wants to learn more about it, and claims it may help her learn more about her past.
+		- Actually, Oracle has a drug-like obsession with phase crystals.
+	- Wally says that phase crystals only come from Seudar Isle, and concludes the going there would be the best way to learn more about it.
+	- Rock was embedded with a device that secretly gave Oracle a virus.
+		- She unknowingly gets infected when she touches the rock in a cutscene.
+t-W: This rock we received just looks like a large phase crystal to me.  I'm surprised you're so interested in it.
+t-O: |Phase crystals| help me focus... they give my mind clarity.
+// Move to touch rock
+t-O: But the feeling I get from this surpasses that of any crystal I have encountered before.
+t-O: An empowering sensation reverberates through my entire body... absolutely incredible...
+// release grip from walk, start walking away
+t-W: I'm more interested in why it just randomly showed up on my doorstep the other--
+t-W: Hey, where're you going?
+t-O: A creature is about to attack us.  I am going to go deal with it.
+t-W: Huh?  Attacked?  I... I don't think I equipped this ship with anything--
+t-O: Do not worry, this will not take long once I |get to the roof of the ship|.
 
+t-O: Give up, Sherivice.  You lose this fight.
+t-Sherivice: Halt!  I'm Sherivice, and you are trespassing on-- hey, how did you know my name?
+t-O: I knew your name a few seconds ago because you just said it now.  I can foresee the future.
+t-Sherivice: Can you now?  Then you should know what happens to those that pick fights with me!
 
-	
+t-O: Problem averted Wally.  Sherivice will not bother us while unconscious on the ground below.
+t-W: Ah... good to hear.
+// fade to black (show splash image of giant rock?)
+t-W: Anyway, this giant rock just appeared next to our house yesterday.  I'm as interested in it as you.
+t-W: If it's a large phase crystal as you claim, then there's no doubt it came from |Seudar Isle|,
+t-W: the island we're flying towards.  If there are answers to be found, we'll find them here.
+t-O: I... I hope so.
+
+// Cloudy Future
+t-O: One thing has been bothering me Wally.
+t-W: What is that?
+t-O: Past 30 or so minutes my visions start to become... cloudy.  The situations I run into and
+t-O: the actions I take in response all feel uncertain.  My visions feel incomplete and full of holes
+t-O: I cannot tell if what I see is the truth, or something my mind instinctively creates to 'fill in' the gaps.
+t-W: Well it's normal for memories to become weaker over time for humans.  Do you think it's like that?
+t-O: No.  Usually my visions are perfectly accurate no matter the span of time.  This is different.
+t-W: Alright... maybe you're sick?  Feeling under the weather?
+t-O: What?
+t-W: Just spit-balling ideas here.  Sorry I'm not being especially helpful.  Again.
+t-W: Hey, is this why you can't see yourself finding the origin of the giant phase crystal?
+t-O: Well I kind of perceive something... possibly?  I cannot say for sure...
+t-W: I think it just means your mortal like the rest of us.  I wouldn't stress over it Oracle.

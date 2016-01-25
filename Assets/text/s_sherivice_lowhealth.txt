@@ -18,7 +18,7 @@ sendMessage Sherivice CoverFace
 // explains why he did that
 t-Sherivice: Heh heh, but watch this!  How can you see my moves coming when not even I can see them coming?
 t-O: How in the world did you even arrive at that conclusion.  Clairvoyance does not work that way--
-t-Sherivice: Clever huh?  Your tricks won't work now!  Prepare to die, saucy intruder!
+t-Sherivice: Clever huh?  Your tricks won't work now!
 
 // resume battle
 sendMessage Sherivice CoverStartThrow

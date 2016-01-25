@@ -14,12 +14,7 @@ public static class Utilities {
 		return quaternion.eulerAngles.z;
 	}
 	public static Quaternion setQuat(float rotation2D){
-		Quaternion quat = Quaternion.identity;
-		quat.SetFromToRotation(
-			Vector3.right,
-			new Vector3(Mathf.Cos(rotation2D*Mathf.PI/180), Mathf.Sin(rotation2D*Mathf.PI/180))
-			);
-		return quat;
+        return Quaternion.Euler(new Vector3(0, 0, rotation2D));
 	}
     /* rotates v around point */
 	public static Vector2 rotateAroundPoint(Vector2 v, Vector2 point, float rotationRadians){

@@ -476,3 +476,13 @@ o Beach area:
 	- Use Flare Dive to break through the ice.  Secret cave in there.
 		- Water controls the same as normal controls, except for floatier jumps
 		
+o Puzzle: Block Bats
+	- Harmless indestructible blocks that have wings.  Player can stand on them.
+	- Shooting them will cause them to move one "tile" in that direction.
+		- Background (no parallax) will show which the "tiles" the bats can travel to.
+	- When two bats are close to each other (one "tile", diagonally counts), they will react.
+		- Will shoot short beams of plasma.
+		- Directions extend the line that the centers of the two bats rest on.
+		- Plasma breaks the same obtacles that the guided missile would break.
+
+o Idea to fill "secret areas": moving to a location just adds a conversation with Wally to the Talk page.

@@ -86,6 +86,10 @@ Enemy Attacks:
 	- Not a hard enemy to fight, but can be tricky to get around if placed in tight areas.
 - Pouches that burst scary mosquito-like enemies instead.
 	- Use flashback to prevent bursting the pouch.
+- Squirrel enemy that throws acorns that explode
+	- Placement is usually on a ledge.
+	- Run to left of ledge if player is to left.  Run to right if player is to right.
+	- Throws acrons with its tail
 	
 Special Enemy Attacks:
 - Quantum Attacks

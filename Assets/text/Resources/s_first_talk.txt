@@ -5,6 +5,8 @@ cbarsOn immediately
 wait 1.0
 
 spawnControlMessage 0 // tutorial to advance messages
+
+// first talk
 t-W: We're making great time.  The ship is so close to |Seudar Isle| that it's right under our view.
 t-W: You know, this is the first time in my life I've done something this adventurous.  It's making me tense!
 takeDownControlMessage 0 // take down message tutorial
@@ -19,7 +21,6 @@ t-W: It drives me nuts when you act like this.  I know you're always right when 
 t-W: just be careful, okay?
 t-O: Certainly.  Now excuse me, I must make my way to the |roof of the ship|.  This will not take long.
  
-
 closeText
 camFollowPlayer 1.0
 cbarsOff block // blocks until cutscene bars are off
