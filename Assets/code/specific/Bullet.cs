@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour {
     public float heading = 0;
     public float radius = 0; // set to 0 for raycast, positive number for circlecast
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
+    public bool breaksChargeShotBarriers = false;
     public GameObject bulletFadeGameObject;
     public GameObject bulletExplosionGameObject;
     public AudioClip hitSound; // can be null for no sound
@@ -82,10 +83,14 @@ public class Bullet : MonoBehaviour {
                 AttackInfo ai = new AttackInfo();
                 ai.damage = damage;
                 ai.impactHeading = heading;
+                ai.impactPoint = rh2d.point;
+                ai.breaksChargeShotBarriers = breaksChargeShotBarriers;
                 ai = rd.dealDamage(ai);
                 if (ai.damage > 0) {
                     if (hitSound != null)
                         SoundManager.instance.playSFXRandPitchBend(hitSound);
+                } else {
+                    Debug.Log("Bullet dealt 0 damage");
                 }
                 
             }

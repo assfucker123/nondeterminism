@@ -13,7 +13,7 @@ keyUp right // simulates releasing right
 wait .5
 
 // Oracle talks before Sherivice shows up
-t-O: Give up, Sherivice.  You lose this fight.
+t-O: You will lose this fight Sherivice.  Spare yourself the humiliation and leave now.
 closeText
 
 // Sherivice flies in from the right

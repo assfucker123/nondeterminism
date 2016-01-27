@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3eb8ede70739f004383ed6be638e2621
+timeCreated: 1453871868
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - needChargeShotGameObject: {fileID: 136266, guid: a2058139fb977a944a5666d45e00a6ac,
+      type: 2}
+  - destroySound: {fileID: 8300000, guid: 13e8ff577eaba0b47ac6a7941444b433, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

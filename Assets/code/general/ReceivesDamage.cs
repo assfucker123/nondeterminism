@@ -10,6 +10,7 @@ public class ReceivesDamage : MonoBehaviour {
     public static Color MERCY_FLASH_COLOR = Color.red;
 
     public int health = 10;
+    public int defense = 0;
     public bool autoHitFlash = true; //if set to true, spriteRenderer will briefly flash after being hit
     public bool autoActivateDefaultDeath = true; //if set to true, will call activate() from the DefaultDeath component (if available)
     public bool useCustomFlashColor = false;
@@ -73,6 +74,9 @@ public class ReceivesDamage : MonoBehaviour {
 
         //decrease health
         bool sendOnDamage = true;
+
+        ai.damage = Mathf.Max(0, ai.damage - defense);
+
         if (isMercyInvincible && !ai.ignoreMercyInvincibility && ai.damage > 0) {
             int dam = ai.damage;
             dam -= mercyInvincibilityDamageDecrease;
