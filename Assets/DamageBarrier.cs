@@ -3,6 +3,8 @@ using System.Collections;
 
 /* Attach to objects that can only be destroyed by a certain weapon.
  * If object is immune to weapon, AttackInfo ai is set to 0 in PreDamage, and an effect happens. */
+[RequireComponent(typeof(TimeUser))]
+[RequireComponent(typeof(ReceivesDamage))]
 public class DamageBarrier : MonoBehaviour {
 
     public enum Type {
@@ -16,7 +18,7 @@ public class DamageBarrier : MonoBehaviour {
     public Type type = Type.NONE;
     public bool autoDestroyAnimation = true;
     public GameObject needChargeShotGameObject;
-    public float destroyDuration = .6f;
+    public float destroyDuration = .4f;
     public float destroyFlashPeriod = .04f;
     public AudioClip destroySound;
 
@@ -24,6 +26,11 @@ public class DamageBarrier : MonoBehaviour {
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // do not create this object if it was destroyed
+        if (Vars.currentNodeData != null && Vars.currentNodeData.damageBarrierDestroyed(Vars.currentLevel, gameObject.name)) {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     void PreDamage(AttackInfo ai) {
@@ -133,6 +140,9 @@ public class DamageBarrier : MonoBehaviour {
         if (destroySound != null) {
             SoundManager.instance.playSFX(destroySound);
         }
+        if (Vars.currentNodeData != null) {
+            Vars.currentNodeData.destroyDamageBarrier(Vars.currentLevel, gameObject.name);
+        }
     }
 
     void OnSaveFrame(FrameInfo fi) {
@@ -142,10 +152,17 @@ public class DamageBarrier : MonoBehaviour {
     }
 
     void OnRevert(FrameInfo fi) {
+        bool prevDestroying = destroying;
         gameObject.layer = fi.ints["lay"];
         destroying = fi.bools["d"];
         time = fi.floats["t"];
         setColor();
+
+        if (prevDestroying && !destroying) {
+            if (Vars.currentNodeData != null) {
+                Vars.currentNodeData.destroyDamageBarrierUndo(Vars.currentLevel, gameObject.name);
+            }
+        }
     }
 
     TimeUser timeUser;

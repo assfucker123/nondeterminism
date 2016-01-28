@@ -42,7 +42,18 @@ public class NodeData {
     public bool ambushDefeated(string levelName) {
         return levelsAmbushesDefeated.IndexOf(levelName) != -1;
     }
-
+    public List<string> damageBarriersDestroyed = new List<string>();
+    public void destroyDamageBarrier(string levelName, string objectName) {
+        if (damageBarrierDestroyed(levelName, objectName)) return;
+        damageBarriersDestroyed.Add(damageBarrierCode(levelName, objectName));
+    }
+    public void destroyDamageBarrierUndo(string levelName, string objectName) {
+        damageBarriersDestroyed.Remove(damageBarrierCode(levelName, objectName));
+    }
+    public bool damageBarrierDestroyed(string levelName, string objectName) {
+        return (damageBarriersDestroyed.IndexOf(damageBarrierCode(levelName, objectName)) != -1);
+    }
+    
     public int id = 1; // used to identify this NodeData.  Must be a positive integer
     public NodeData parent = null;
     public List<NodeData> children = new List<NodeData>();
@@ -67,6 +78,8 @@ public class NodeData {
         physicalEvents.AddRange(nodeData.physicalEvents);
         levelsAmbushesDefeated.Clear();
         levelsAmbushesDefeated.AddRange(nodeData.levelsAmbushesDefeated);
+        damageBarriersDestroyed.Clear();
+        damageBarriersDestroyed.AddRange(nodeData.damageBarriersDestroyed);
         parent = nodeData.parent;
         children.Clear();
         children.AddRange(nodeData.children);
@@ -108,6 +121,13 @@ public class NodeData {
         }
         foreach (string levelName in nodeData.levelsAmbushesDefeated) {
             if (levelsAmbushesDefeated.IndexOf(levelName) == -1) return false;
+        }
+        // compare damage barriers
+        foreach (string db in damageBarriersDestroyed) {
+            if (nodeData.damageBarriersDestroyed.IndexOf(db) == -1) return false;
+        }
+        foreach (string db in nodeData.damageBarriersDestroyed) {
+            if (damageBarriersDestroyed.IndexOf(db) == -1) return false;
         }
 
         return true;
@@ -170,6 +190,12 @@ public class NodeData {
             if (ambushStrs[i] == "") continue;
             levelsAmbushesDefeated.Add(ambushStrs[i]);
         }
+        // damage barriers destroyed
+        string[] dbStrs = strs[15].Split(delims2);
+        for (int i=0; i<dbStrs.Length; i++) {
+            if (dbStrs[i] == "") continue;
+            damageBarriersDestroyed.Add(dbStrs[i]);
+        }
 
     }
 
@@ -223,6 +249,12 @@ public class NodeData {
         for (int i = 0; i < levelsAmbushesDefeated.Count; i++) {
             ret += levelsAmbushesDefeated[i];
             if (i < levelsAmbushesDefeated.Count - 1) ret += "?";
+        }
+        ret += ">";
+        // damage barriers destroyed (15)
+        for (int i = 0; i < damageBarriersDestroyed.Count; i++) {
+            ret += damageBarriersDestroyed[i];
+            if (i < damageBarriersDestroyed.Count - 1) ret += "?";
         }
 
         return ret;
@@ -351,6 +383,13 @@ public class NodeData {
         }
         return ret;
     }
-    
+
+    /////////////
+    // PRIVATE //
+    /////////////
+
+    string damageBarrierCode(string levelName, string objectName) {
+        return levelName + "." + objectName;
+    }
 
 }

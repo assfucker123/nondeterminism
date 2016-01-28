@@ -27,6 +27,7 @@ public class Vars {
         if (eventHappened(eventID)) return;
         infoEvents.Add(eventID);
     }
+    public static string currentLevel {  get { return SceneManager.GetActiveScene().name; } }
 
     // TIME-DEPENDENT
     /* Keeps changing based on what the player does.  Note this is temporary, so it's not part of the time tree.
@@ -284,6 +285,7 @@ public class Vars {
         currentNodeData.phaseReplacements = 0;
         currentNodeData.physicalEvents.Clear();
         currentNodeData.levelsAmbushesDefeated.Clear();
+        currentNodeData.damageBarriersDestroyed.Clear();
         // decryptors
         decryptors.Clear();
         // info events
@@ -300,6 +302,14 @@ public class Vars {
         // pause screen lastPageOpened, mode
         PauseScreen.lastPageOpened = PauseScreen.Page.TALK;
         PauseScreen.mode = PauseScreen.Mode.TUTORIAL;
+
+
+        // for testing
+        #if UNITY_EDITOR
+
+        collectDecryptor(Decryptor.ID.CHARGE_SHOT);
+
+        #endif
 
 
     }
