@@ -1,0 +1,2 @@
+Sealime: card_sealime 001/1/2/2/0/ It's Sealime.
+Cuirivy: card_cuirivy 002/1/1/1/1/ It's Cuirivy.

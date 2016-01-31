@@ -38,6 +38,9 @@ public class Properties {
     public bool containsKey(string key) {
         return dic.ContainsKey(key);
     }
+    public List<string> getKeys() {
+        return new List<string>(dic.Keys);
+    }
 
     /* Parses string of a file with properties on it.
      * Format:
