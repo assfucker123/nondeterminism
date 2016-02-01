@@ -54,6 +54,7 @@ public class EnemyInfo : MonoBehaviour {
 
     public ID id = ID.NONE;
     public ID[] variations = { };
+    public string creatureName = "";
     public float danger = 5;
     public SpawnLocation spawnLocation = SpawnLocation.BOTTOM_SEGMENT;
     public float spawnDist = 0;
@@ -61,5 +62,15 @@ public class EnemyInfo : MonoBehaviour {
     [HideInInspector]
     public WaveSpawner waveSpanwerRef = null;
 
+    public int creatureID {
+        get {
+            if (cachedCreatureID > -1)
+                return cachedCreatureID;
+            cachedCreatureID = CreatureCard.getIDFromCardName(creatureName);
+            return cachedCreatureID;
+        }
+    }
+
+    private int cachedCreatureID = -1;
     VisionUser visionUser = null; // not required
 }

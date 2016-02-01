@@ -53,6 +53,20 @@ public class NodeData {
     public bool damageBarrierDestroyed(string levelName, string objectName) {
         return (damageBarriersDestroyed.IndexOf(damageBarrierCode(levelName, objectName)) != -1);
     }
+    public List<int> creatureCards = new List<int>();
+    public bool creatureCardCollected(string creatureName) {
+        return creatureCardCollected(CreatureCard.getIDFromCardName(creatureName));
+    }
+    public bool creatureCardCollected(int creatureID) {
+        return creatureCards.IndexOf(creatureID) != -1;
+    }
+    public void creatureCardCollect(string creatureName) {
+        creatureCardCollect(CreatureCard.getIDFromCardName(creatureName));
+    }
+    public void creatureCardCollect(int creatureID) {
+        if (creatureCardCollected(creatureID)) return;
+        creatureCards.Add(creatureID);
+    }
     
     public int id = 1; // used to identify this NodeData.  Must be a positive integer
     public NodeData parent = null;

@@ -89,7 +89,18 @@ Enemy Attacks:
 - Squirrel enemy that throws acorns that explode
 	- Placement is usually on a ledge.
 	- Run to left of ledge if player is to left.  Run to right if player is to right.
-	- Throws acrons with its tail
+	- Throws acorns with its tail
+- "Flying bomb" enemy.
+	- When this enemy dies, a ton of bullets come out really quickly, except in a small random angle slice.
+	- Use Flashback after knowing where this safe angle slice is.
+- "Indestructible plane" enemy
+	- Covered in metal, except for top (its weakness).
+	- Shoot flaps on the sides repeatedly to flip it over
+		- Horizontal flaps -> have to shoot from bottom.  Easier.
+		- Vertical flaps -> have to shoot from sides.  Harder, reliant on level design.
+	- Weakness is a "pocket" that can only be harmed by throwing an energy grenade in.
+	- Level design:
+		- Put a flipped variation over an instakill pit.  Need to shoot downwards from above to tip it, flipping the weakness to the top.
 	
 Special Enemy Attacks:
 - Quantum Attacks

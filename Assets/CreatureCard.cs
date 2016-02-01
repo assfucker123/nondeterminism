@@ -42,6 +42,40 @@ public class CreatureCard : MonoBehaviour {
 
         _initialized = true;
     }
+    public static string getCardNameFromID(int id) {
+        if (!initialized)
+            initialize();
+        if (id < 0 || id >= cardInfos.Count) {
+            Debug.LogError("Error: could not find creature card with id " + id);
+            return "";
+        }
+        string info = cardInfos[id];
+        if (info == "") {
+            Debug.LogWarning("Creature id " + id + " does not have corresponding creature");
+            return "";
+        }
+        int index = info.IndexOf(":");
+        return info.Substring(0, index);
+    }
+    public static int getIDFromCardName(string cardName) {
+        if (!initialized)
+            initialize();
+        string cardNameLower = cardName.ToLower();
+        for (int i=0; i<cardInfos.Count; i++) {
+            int index = cardInfos[i].IndexOf(":");
+            if (index == -1) continue;
+            if (cardInfos[i].Substring(0, index).ToLower() == cardNameLower) {
+                return i;
+            }
+        }
+        Debug.LogWarning("No id could be found for creature " + cardName);
+        return 0;
+    }
+    public static int getNumCardsTotal() {
+        if (!initialized)
+            initialize();
+        return cardInfos.Count - 1; // since there is no card with id 0
+    }
 
     /////////////
     // PUBLIC //
@@ -133,7 +167,7 @@ public class CreatureCard : MonoBehaviour {
     
 
     public void setProfile(string profileFileName) {
-        Sprite sprite = Resources.Load(profileFileName) as Sprite;
+        Sprite sprite = Resources.Load<Sprite>(profileFileName);
         if (sprite == null) {
             Debug.LogWarning("Error: card sprite " + profileFileName + " could not be found.");
             return;
@@ -161,6 +195,47 @@ public class CreatureCard : MonoBehaviour {
         specialBox.setPlainText("" + special);
     }
 
+    public void showFront() {
+        image.enabled = true;
+        image.sprite = cardFrontSprite;
+        profile.enabled = true;
+        nameBox.makeAllCharsVisible();
+        attackBox.makeAllCharsVisible();
+        defenseBox.makeAllCharsVisible();
+        specialBox.makeAllCharsVisible();
+        IDBox.makeAllCharsVisible();
+        foreach (GameObject sGO in stars) {
+            sGO.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void showBack() {
+        image.enabled = true;
+        image.sprite = cardBackSprite;
+        profile.enabled = false;
+        nameBox.makeAllCharsInvisible();
+        attackBox.makeAllCharsInvisible();
+        defenseBox.makeAllCharsInvisible();
+        specialBox.makeAllCharsInvisible();
+        IDBox.makeAllCharsInvisible();
+        foreach (GameObject sGO in stars) {
+            sGO.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    public void hide() {
+        image.enabled = false;
+        profile.enabled = false;
+        nameBox.makeAllCharsInvisible();
+        attackBox.makeAllCharsInvisible();
+        defenseBox.makeAllCharsInvisible();
+        specialBox.makeAllCharsInvisible();
+        IDBox.makeAllCharsInvisible();
+        foreach (GameObject sGO in stars) {
+            sGO.GetComponent<Image>().enabled = false;
+        }
+    }
+
     /////////////
     // PRIVATE //
     /////////////
@@ -170,6 +245,7 @@ public class CreatureCard : MonoBehaviour {
     private static bool _initialized = false;
 
     void Awake() {
+        image = GetComponent<Image>();
         profile = transform.Find("Profile").GetComponent<Image>();
         nameBox = transform.Find("NameBox").GetComponent<GlyphBox>();
         attackBox = transform.Find("AttackBox").GetComponent<GlyphBox>();
@@ -181,7 +257,8 @@ public class CreatureCard : MonoBehaviour {
 	void Update() {
 		
 	}
-    
+
+    Image image;
     Image profile;
     GlyphBox nameBox;
     GlyphBox attackBox;

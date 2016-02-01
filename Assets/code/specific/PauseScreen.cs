@@ -25,7 +25,7 @@ public class PauseScreen : MonoBehaviour {
     public GameObject mapPageGameObject;
     //public GameObject timeTreePageGameObject;
     public GameObject talkPageGameObject;
-    //public GameObject progressPageGameObject;
+    public GameObject progressPageGameObject;
     public GameObject optionsPageGameObject;
     public TextAsset propAsset;
     float openAnimationDuration = .00001f; //can't be 0
@@ -113,7 +113,7 @@ public class PauseScreen : MonoBehaviour {
             mapPage.hide();
             //timeTreePage.hide();
             talkPage.hide();
-            //progressPage.hide();
+            progressPage.hide();
             optionsPage.hide();
         }
         hide();
@@ -194,7 +194,7 @@ public class PauseScreen : MonoBehaviour {
             break;
         case Page.PROGRESS:
             option = progressPageText;
-            //progressPage.hide();
+            progressPage.hide();
             break;
         case Page.OPTIONS:
             option = optionsPageText;
@@ -226,7 +226,7 @@ public class PauseScreen : MonoBehaviour {
             break;
         case Page.PROGRESS:
             option = progressPageText;
-            //progressPage.show();
+            progressPage.show();
             break;
         case Page.OPTIONS:
             option = optionsPageText;
@@ -284,6 +284,12 @@ public class PauseScreen : MonoBehaviour {
         talkPageGO.transform.SetParent(transform, false);
         talkPage = talkPageGO.GetComponent<TalkPage>();
         talkPage.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        // progress page
+        GameObject progressPageGO = GameObject.Instantiate(progressPageGameObject);
+        progressPageGO.transform.SetParent(transform, false);
+        progressPage = progressPageGO.GetComponent<ProgressPage>();
+        progressPage.GetComponent<RectTransform>().localScale = Vector3.one;
 
         // options page
         GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
@@ -465,7 +471,7 @@ public class PauseScreen : MonoBehaviour {
             talkPage.update();
             break;
         case Page.PROGRESS:
-            //progressPage.update();
+            progressPage.update();
             break;
         case Page.OPTIONS:
             optionsPage.update();
@@ -492,9 +498,9 @@ public class PauseScreen : MonoBehaviour {
         if (talkPage != null)
             GameObject.Destroy(talkPage.gameObject);
         talkPage = null;
-        //if (progressPage != null)
-        //  GameObject.Destroy(progressPage.gameObject);
-        //progressPage = null;
+        if (progressPage != null)
+            GameObject.Destroy(progressPage.gameObject);
+        progressPage = null;
         if (optionsPage != null)
             GameObject.Destroy(optionsPage.gameObject);
         optionsPage = null;
@@ -539,7 +545,7 @@ public class PauseScreen : MonoBehaviour {
     MapPage mapPage;
     //TimeTreePage timeTreePage
     TalkPage talkPage;
-    //ProgressPage progressPage;
+    ProgressPage progressPage;
     OptionsPage optionsPage;
     
     

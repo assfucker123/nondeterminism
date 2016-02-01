@@ -1,0 +1,20 @@
+divider: -------
+collected: obtained
+not_collected: not obtained
+found: found
+orb_key: Orb Keys:
+boost_upgrade: Booster Upgrade:
+boost_upgrade_yes: YES
+boost_upgrade_no: NO
+health_upgrade: Health:
+decryptor: Decryptors:
+decryptor_prefix: (D)
+decryptor_booster_prefix: (B)
+creature_card: SCC's:
+creature_card_not_found: ??
+creature_card_prefix: (SCC)
+info_percent: Info:
+phys_percent: Phys:
+orb_description: Four orb keys are needed to open the gate.  These are physical items.
+boost_description: The booster upgrade is a physical item that allows Oracle to use abilities unlocked by certain decryptors.
+health_description: Oracle's maximum health increases for every health upgrade she's obtained.  These are physical items.

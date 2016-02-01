@@ -27,7 +27,82 @@ public class Vars {
         if (eventHappened(eventID)) return;
         infoEvents.Add(eventID);
     }
+    public static List<PhysicalUpgrade.Orb> orbsFound = new List<PhysicalUpgrade.Orb>();
+    public static bool orbFound(PhysicalUpgrade.Orb orb) {
+        return orbsFound.IndexOf(orb) != -1;
+    }
+    public static void orbFind(PhysicalUpgrade.Orb orb) {
+        if (orbFound(orb)) return;
+        orbsFound.Add(orb);
+    }
+    public static bool boosterFound = false;
+    public static List<PhysicalUpgrade.HealthUpgrade> healthUpgradesFound = new List<PhysicalUpgrade.HealthUpgrade>();
+    public static bool healthUpgradeFound(PhysicalUpgrade.HealthUpgrade healthUpgrade) {
+        return healthUpgradesFound.IndexOf(healthUpgrade) != -1;
+    }
+    public static void healthUpgradeFind(PhysicalUpgrade.HealthUpgrade healthUpgrade) {
+        if (healthUpgradeFound(healthUpgrade)) return;
+        healthUpgradesFound.Add(healthUpgrade);
+    }
+    public static List<int> creatureCardsFound = new List<int>();
+    public static bool creatureCardFound(string creatureName) {
+        return creatureCardFound(CreatureCard.getIDFromCardName(creatureName));
+    }
+    public static bool creatureCardFound(int creatureID) {
+        return creatureCardsFound.IndexOf(creatureID) != -1;
+    }
+    public static void creatureCardFind(string creatureName) {
+        creatureCardFind(CreatureCard.getIDFromCardName(creatureName));
+    }
+    public static void creatureCardFind(int creatureID) {
+        if (creatureCardFound(creatureID)) return;
+        creatureCardsFound.Add(creatureID);
+    }
     public static string currentLevel {  get { return SceneManager.GetActiveScene().name; } }
+    public static float infoPercentComplete() {
+        int stuff = 0;
+        int totalStuff = 0;
+
+        stuff += orbsFound.Count;
+        totalStuff += (int)PhysicalUpgrade.Orb.TOTAL_ORBS;
+
+        if (boosterFound) stuff += 1;
+        totalStuff += 1;
+
+        stuff += healthUpgradesFound.Count;
+        totalStuff += (int)PhysicalUpgrade.HealthUpgrade.TOTAL_HEALTH_UPGRADES;
+
+        stuff += decryptors.Count;
+        totalStuff += (int)Decryptor.ID.LAST_ID - 1;
+
+        stuff += creatureCardsFound.Count;
+        totalStuff += CreatureCard.getNumCardsTotal();
+
+        return stuff * 1.0f / totalStuff;
+    }
+    public static float physPercentComplete() {
+        if (currentNodeData == null)
+            return 0;
+        int stuff = 0;
+        int totalStuff = 0;
+
+        stuff += currentNodeData.orbs.Count;
+        totalStuff += (int)PhysicalUpgrade.Orb.TOTAL_ORBS;
+
+        if (currentNodeData.hasBooster) stuff += 1;
+        totalStuff += 1;
+
+        stuff += currentNodeData.healthUpgrades.Count;
+        totalStuff += (int)PhysicalUpgrade.HealthUpgrade.TOTAL_HEALTH_UPGRADES;
+
+        stuff += decryptors.Count;
+        totalStuff += (int)Decryptor.ID.LAST_ID - 1;
+
+        stuff += currentNodeData.creatureCards.Count;
+        totalStuff += CreatureCard.getNumCardsTotal();
+
+        return stuff * 1.0f / totalStuff;
+    }
 
     // TIME-DEPENDENT
     /* Keeps changing based on what the player does.  Note this is temporary, so it's not part of the time tree.
@@ -302,12 +377,24 @@ public class Vars {
         // pause screen lastPageOpened, mode
         PauseScreen.lastPageOpened = PauseScreen.Page.TALK;
         PauseScreen.mode = PauseScreen.Mode.TUTORIAL;
+        // orbs found
+        orbsFound.Clear();
+        // booster found
+        boosterFound = false;
+        // health upgrades found
+        healthUpgradesFound.Clear();
+        // creature cards found
+        creatureCardsFound.Clear();
 
 
         // for testing
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
-        collectDecryptor(Decryptor.ID.CHARGE_SHOT);
+        //collectDecryptor(Decryptor.ID.CHARGE_SHOT);
+        creatureCardFind("Sealime");
+        creatureCardFind("Magoom");
+        creatureCardFind("Sherivice");
+        creatureCardFind("Pengrunt");
 
         #endif
 
@@ -355,6 +442,29 @@ public class Vars {
         string[] strsP = strs[11].Split(delims2);
         PauseScreen.lastPageOpened = (PauseScreen.Page)int.Parse(strsP[0]);
         PauseScreen.mode = (PauseScreen.Mode)int.Parse(strsP[1]);
+        // orbs found
+        orbsFound.Clear();
+        string[] ofStrs = strs[12].Split(delims2);
+        for (int i = 0; i < ofStrs.Length; i++) {
+            if (ofStrs[i] == "") continue;
+            orbsFound.Add((PhysicalUpgrade.Orb)int.Parse(ofStrs[i]));
+        }
+        // booster found
+        boosterFound = (strs[13] == "1");
+        // health upgrades found
+        healthUpgradesFound.Clear();
+        string[] huStrs = strs[14].Split(delims2);
+        for (int i = 0; i < huStrs.Length; i++) {
+            if (huStrs[i] == "") continue;
+            healthUpgradesFound.Add((PhysicalUpgrade.HealthUpgrade)int.Parse(huStrs[i]));
+        }
+        // creature cards found
+        creatureCardsFound.Clear();
+        string[] ccStrs = strs[15].Split(delims2);
+        for (int i = 0; i < ccStrs.Length; i++) {
+            if (ccStrs[i] == "") continue;
+            creatureCardsFound.Add(int.Parse(ccStrs[i]));
+        }
 
     }
 
@@ -398,6 +508,30 @@ public class Vars {
         ret += "\n";
         // pause screen lastPageOpened, mode (11)
         ret += PauseScreen.lastPageOpened + "," + PauseScreen.mode;
+        ret += "/n";
+        // orbs found (12)
+        for (int i = 0; i < orbsFound.Count; i++) {
+            ret += ((int)orbsFound[i]);
+            if (i < orbsFound.Count - 1)
+                ret += ",";
+        }
+        ret += "\n";
+        // booster found (13)
+        if (boosterFound) ret += "1"; else ret += "0";
+        ret += "\n";
+        // health upgrades found (14)
+        for (int i = 0; i < healthUpgradesFound.Count; i++) {
+            ret += ((int)healthUpgradesFound[i]);
+            if (i < healthUpgradesFound.Count - 1)
+                ret += ",";
+        }
+        ret += "\n";
+        // creature cards found (15)
+        for (int i = 0; i < creatureCardsFound.Count; i++) {
+            ret += creatureCardsFound[i];
+            if (i < creatureCardsFound.Count - 1)
+                ret += ",";
+        }
 
 
         return ret;

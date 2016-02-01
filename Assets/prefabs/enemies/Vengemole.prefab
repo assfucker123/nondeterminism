@@ -234,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   variations: 0b000000
+  creatureName: Vengemole
   danger: 5
   spawnLocation: 0
   spawnDist: 0
@@ -273,7 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  holeGameObject: {fileID: 109372, guid: 0e9ffbd3292d3b74a84c45a945629487, type: 2}
   hammerGameObject: {fileID: 169810, guid: fe332387f46e615498a15ae9c9d0eb86, type: 2}
 --- !u!114 &11420452
 MonoBehaviour:
@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 8
+  defense: 0
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
   useCustomFlashColor: 0
@@ -439,6 +440,10 @@ Prefab:
       propertyPath: hammerGameObject
       value: 
       objectReference: {fileID: 169810, guid: fe332387f46e615498a15ae9c9d0eb86, type: 2}
+    - target: {fileID: 0}
+      propertyPath: creatureName
+      value: Vengemole
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 169222}

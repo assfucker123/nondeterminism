@@ -258,6 +258,11 @@ public class HUD : MonoBehaviour {
             createPauseScreen();
             pauseScreen.pauseGame(PauseScreen.lastPageOpened);
         }
+
+        // incrementing playtime
+        if (!PauseScreen.paused) {
+            Vars.playTime += Time.unscaledDeltaTime;
+        }
         
 	}
 

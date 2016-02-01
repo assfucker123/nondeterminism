@@ -80,7 +80,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.23000002, y: 2.47000003, z: 0}
+  m_LocalPosition: {x: 6.23, y: 2.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 495552}
@@ -106,9 +106,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189600}
+  m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 2
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -122,12 +123,13 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189600}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: 307b08ad117e6274e81fcafd5be00abd, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.670000017}
+  m_Offset: {x: 0, y: -0.67}
   serializedVersion: 2
-  m_Radius: .289999992
+  m_Radius: 0.29
 --- !u!60 &6001898
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -135,15 +137,16 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189600}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: 0, y: .961393833}
-      - {x: .232599258, y: .185095787}
-      - {x: -.217536926, y: .183546543}
+    - - {x: 0, y: 0.96139383}
+      - {x: 0.23259926, y: 0.18509579}
+      - {x: -0.21753693, y: 0.18354654}
 --- !u!61 &6114726
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -151,12 +154,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189600}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.239999995}
+  m_Offset: {x: 0, y: -0.24}
   serializedVersion: 2
-  m_Size: {x: .5, y: .899999976}
+  m_Size: {x: 0.5, y: 0.9}
 --- !u!61 &6159538
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -164,12 +168,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187976}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.283676147}
+  m_Offset: {x: 0, y: -0.28367615}
   serializedVersion: 2
-  m_Size: {x: .959999979, y: 1.40010452}
+  m_Size: {x: 0.96, y: 1.4001045}
 --- !u!95 &9517930
 Animator:
   serializedVersion: 3
@@ -199,8 +204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
+  defense: 0
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
+  useCustomFlashColor: 0
+  customFlashColor: {r: 0.89, g: 0, b: 0, a: 1}
 --- !u!114 &11421466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,7 +226,7 @@ MonoBehaviour:
   moveOffLedges: 1
   walkDurationMin: 1.5
   walkDurationMax: 4.5
-  teleportHalfDuration: .200000003
+  teleportHalfDuration: 0.2
   magicSound: {fileID: 8300000, guid: eecff0db342b59444ab9c5ede5ab9cfc, type: 3}
   teleportSound: {fileID: 8300000, guid: f287012d244c6a14eb54f90aac32f182, type: 3}
   state: 0
@@ -278,6 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flickerPeriod: 0.2
+  flickerAlpha: 0.6
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11486710
@@ -292,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomAngleThreshold: 35
-  raycastDownDistance: .200000003
+  raycastDownDistance: 0.2
   raycastDownGravity: 130
 --- !u!114 &11491516
 MonoBehaviour:
@@ -305,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e2965627bac3947b4987fc6b610623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: .600000024
+  duration: 0.6
   explosionSpawnWidth: 1
   explosionSpawnHeight: 2
   explosionDensity: 20
@@ -328,6 +338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 5
+  variations: 
+  creatureName: Magoom
   danger: 3
   spawnLocation: 0
   spawnDist: 1
@@ -351,14 +363,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 10dc8d7b69cdfe646a0b58bd582edeb8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -410,6 +426,10 @@ Prefab:
       propertyPath: healthSmallPickupGameObject
       value: 
       objectReference: {fileID: 195806, guid: eb641e6c04f6fa04a9c6e0818f6305d3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: creatureName
+      value: Magoom
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189600}

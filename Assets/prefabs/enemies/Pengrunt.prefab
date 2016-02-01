@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.06000042, y: 2.98000002, z: 0}
+  m_LocalPosition: {x: 8.06, y: 2.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 457966}
@@ -106,9 +106,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119236}
+  m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -122,12 +123,13 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119236}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .310000002}
+  m_Offset: {x: 0, y: 0.31}
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: 0.5
 --- !u!58 &5859910
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -135,12 +137,13 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119236}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.720000029}
+  m_Offset: {x: 0, y: -0.72}
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: 0.5
 --- !u!61 &6137992
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -148,12 +151,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120926}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.195416451}
+  m_Offset: {x: 0, y: -0.19541645}
   serializedVersion: 2
-  m_Size: {x: 1.05583346, y: 1.89333153}
+  m_Size: {x: 1.0558335, y: 1.8933315}
 --- !u!61 &6194494
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -161,12 +165,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119236}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.189999998}
+  m_Offset: {x: 0, y: -0.19}
   serializedVersion: 2
-  m_Size: {x: .959999979, y: .939999998}
+  m_Size: {x: 0.96, y: 0.94}
 --- !u!95 &9505146
 Animator:
   serializedVersion: 3
@@ -197,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   variations: 
+  creatureName: Pengrunt
   danger: 5
   spawnLocation: 0
   spawnDist: 1
@@ -246,8 +252,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 8
+  defense: 0
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
+  useCustomFlashColor: 0
+  customFlashColor: {r: 0.89, g: 0, b: 0, a: 1}
 --- !u!114 &11473484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,8 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickerPeriod: .200000003
-  flickerAlpha: .600000024
+  flickerPeriod: 0.2
+  flickerAlpha: 0.6
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11477066
@@ -274,16 +283,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9360250f0ce213d4dbe7a1ffe46d5f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleDuration: .200000003
+  idleDuration: 0.2
   walkShortDuration: 1
-  walkLongDuration: 1.20000005
-  sprayDuration: .5
+  walkLongDuration: 1.2
+  sprayDuration: 0.5
   speed: 3
   spraySpeed: 1
   bulletGameObject: {fileID: 147210, guid: e6acf5b46e6ed354e9cc9bf4fab36be4, type: 2}
-  bulletSpawn: {x: 1, y: -.400000006}
+  bulletSpawn: {x: 1, y: -0.4}
   bulletSpread: 5
-  bulletPeriod: .0399999991
+  bulletPeriod: 0.04
   state: 0
   aimRight: 0
   bulletSound: {fileID: 8300000, guid: 4ae2b939df325504f97c68c2b32c1f58, type: 3}
@@ -299,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomAngleThreshold: 35
-  raycastDownDistance: .200000003
+  raycastDownDistance: 0.2
   raycastDownGravity: 70
 --- !u!114 &11479872
 MonoBehaviour:
@@ -312,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e2965627bac3947b4987fc6b610623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: .600000024
+  duration: 0.6
   explosionSpawnWidth: 1
   explosionSpawnHeight: 2
   explosionDensity: 20
@@ -353,14 +362,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 73869171196ba694cb7b6a899184787a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -492,6 +505,10 @@ Prefab:
       propertyPath: healthSmallPickupGameObject
       value: 
       objectReference: {fileID: 195806, guid: eb641e6c04f6fa04a9c6e0818f6305d3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: creatureName
+      value: Pengrunt
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119236}
