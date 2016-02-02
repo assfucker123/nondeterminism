@@ -483,6 +483,8 @@ o Puzzle: Block Bats
 	- When two bats are close to each other (one "tile", diagonally counts), they will react.
 		- Will shoot short beams of plasma.
 		- Directions extend the line that the centers of the two bats rest on.
-		- Plasma breaks the same obtacles that the guided missile would break.
+		- Plasma breaks the same obstacles that the guided missile would break.
 
 o Idea to fill "secret areas": moving to a location just adds a conversation with Wally to the Talk page.
+
+o Puzzle where need to kill an enemy to get through an area.  But the enemy appears to be invincible.  Need to find its creature card nearby to weaken it so that it can be killed.
