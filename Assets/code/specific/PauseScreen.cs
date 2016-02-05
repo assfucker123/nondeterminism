@@ -90,9 +90,23 @@ public class PauseScreen : MonoBehaviour {
 
         _paused = true;
     }
+    // pauses the game, but just for a creature card animation
+    public void pauseGameCreatureCard() {
+        if (paused) return;
+
+        stopTime();
+        openAnimationTime = 99999; // skip open animation
+
+        _pausingCreatureCard = true;
+
+        _paused = true;
+    }
+
+
     public bool doingOpenAnimation { get { return paused && openAnimationTime < openAnimationDuration; } }
     public bool pausingHaltScreen {  get { return _pausingHaltScreen; } }
     public bool pausingDecryptor {  get { return _pausingDecryptor; } }
+    public bool pausingCreatureCard { get { return _pausingCreatureCard; } }
     public void unpauseGame() {
         if (!paused)
             return;
@@ -352,7 +366,7 @@ public class PauseScreen : MonoBehaviour {
                 }
                 
                 // display more stuff
-                if (!Vars.screenshotMode && !pausingHaltScreen && !pausingDecryptor) {
+                if (!Vars.screenshotMode && !pausingHaltScreen && !pausingDecryptor && !pausingCreatureCard) {
                     show(lastPageOpened);
                 }
                 timePaused = 0;
@@ -371,7 +385,7 @@ public class PauseScreen : MonoBehaviour {
         // use Time.unscaledDeltaTime;
         timePaused += Time.unscaledDeltaTime;
 
-        if (openedLight || pausingHaltScreen || pausingDecryptor) {
+        if (openedLight || pausingHaltScreen || pausingDecryptor || pausingCreatureCard) {
             // the halt screen will decide when to unpause
             return;
         }
@@ -522,6 +536,7 @@ public class PauseScreen : MonoBehaviour {
     bool openedLight = false;
     bool _pausingHaltScreen = false;
     bool _pausingDecryptor = false;
+    bool _pausingCreatureCard = false;
     
 
     // main pause screen

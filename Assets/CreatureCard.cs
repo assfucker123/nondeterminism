@@ -76,6 +76,24 @@ public class CreatureCard : MonoBehaviour {
             initialize();
         return cardInfos.Count - 1; // since there is no card with id 0
     }
+    public static string getCardDescription(string creatureName) {
+        return getCardDescription(getIDFromCardName(creatureName));
+    }
+    public static string getCardDescription(int creatureID) {
+        if (!initialized)
+            initialize();
+        if (creatureID < 0 || creatureID >= getNumCardsTotal()) {
+            Debug.LogWarning("creature id " + creatureID + " is invalid");
+            return "";
+        }
+        string info = cardInfos[creatureID];
+        if (info == "") {
+            Debug.LogWarning("creature id " + creatureID + " not found");
+            return "";
+        }
+        int index = info.LastIndexOf("/");
+        return info.Substring(index + 1).Trim();
+    }
 
     /////////////
     // PUBLIC //

@@ -141,7 +141,7 @@ public class DecryptorText : MonoBehaviour {
 
             // detect closing
             bool toCloseState = false;
-            if (time >= openedMinDuration) {
+            if (time >= openedMinDuration && instructions.visibleChars >= instructions.totalChars) {
                 if (Keys.instance.confirmPressed || Keys.instance.backPressed || time >= openedMaxDuration) {
                     toCloseState = true;
                 }

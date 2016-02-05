@@ -130,6 +130,7 @@ public class TimeUser : MonoBehaviour {
             return null;
         return fis[fis.Count - 1];
     }
+    public bool updateAnimatorInfo = true; // set to false to not record or update animator info when using Flashback
     
     ///////////////
     // FUNCTIONS //
@@ -213,7 +214,7 @@ public class TimeUser : MonoBehaviour {
                 spriteRenderer.transform.localScale.z);
             spriteRenderer.transform.localRotation = Utilities.setQuat(fiRevert.spriteRendererLocalRotation);
         }
-        if (animator != null) {
+        if (animator != null && updateAnimatorInfo) {
             animator.Play(
                 fiRevert.animatorFullPathHash, 0,
                 fiRevert.animatorNormalizedTime);
@@ -257,7 +258,7 @@ public class TimeUser : MonoBehaviour {
             fi.spriteRendererLocalScaleY = spriteRenderer.transform.localScale.y;
             fi.spriteRendererLocalRotation = Utilities.get2DRot(spriteRenderer.transform.localRotation);
         }
-        if (animator != null) {
+        if (animator != null && updateAnimatorInfo) {
             fi.animatorFullPathHash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
             fi.animatorNormalizedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
         }

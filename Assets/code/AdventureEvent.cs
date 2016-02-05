@@ -7,7 +7,9 @@ public class AdventureEvent {
     // info events are time-independent
 	public enum Info {
         NONE = 0,
-        COMPLETED_TUTORIAL = 1
+        COMPLETED_TUTORIAL = 1,
+        FOUND_CREATURE_CARD = 2,
+
     }
 
     // physical events are time-dependent

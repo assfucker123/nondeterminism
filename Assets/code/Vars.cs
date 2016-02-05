@@ -391,8 +391,8 @@ public class Vars {
 #if UNITY_EDITOR
 
         //collectDecryptor(Decryptor.ID.CHARGE_SHOT);
-        creatureCardFind("Sealime");
-        creatureCardFind("Magoom");
+        //creatureCardFind("Sealime");
+        //creatureCardFind("Magoom");
         creatureCardFind("Sherivice");
         creatureCardFind("Pengrunt");
 

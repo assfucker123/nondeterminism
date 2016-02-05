@@ -67,6 +67,12 @@ public class NodeData {
         if (creatureCardCollected(creatureID)) return;
         creatureCards.Add(creatureID);
     }
+    public void creatureCardCollectUndo(string creatureName) {
+        creatureCardCollectUndo(CreatureCard.getIDFromCardName(creatureName));
+    }
+    public void creatureCardCollectUndo(int creatureID) {
+        creatureCards.Remove(creatureID);
+    }
     
     public int id = 1; // used to identify this NodeData.  Must be a positive integer
     public NodeData parent = null;

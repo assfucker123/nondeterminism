@@ -1,0 +1,5 @@
+numLines: 4
+line0: A |Seudar Creature Card| (SCC) has been collected!  SCC's contain information on the creatures of this island.
+line1: Oracle uses this information to |deal additional damage| to creatures featured on SCC's she has found.
+line2: Being information based, this buff is still in effect |even when reverting to before the card was collected|.
+line3: Doing this will mark the card as "not collected", however, and will not count towards physical completion.
