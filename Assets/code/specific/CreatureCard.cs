@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class CreatureCard : MonoBehaviour {
 
+    public static int STANDARD_DAMAGE_INCREASE = 1;
+    public static int CHARGE_SHOT_DAMAGE_INCREASE = 1;
+
     /* creature_cards Format:
      * CreatureName: profile_file_name ID/stars/atk/def/special/ description
     */

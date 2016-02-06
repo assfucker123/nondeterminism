@@ -84,12 +84,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9102690c1288c44805252efe78bb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: -210}
+  startPosition: {x: 0, y: -230}
   openDuration: 0.167
   closeDuration: 0.167
   textSpeed: 30
   textDisplayDelay: 0.05
-  openedMinDuration: 2
+  openedMinDuration: 4
   openedMaxDuration: 10
   creatureID: -1
   firstTime: 0
@@ -187,7 +187,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startPosition.y
-      value: -210
+      value: -230
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: openedMinDuration
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

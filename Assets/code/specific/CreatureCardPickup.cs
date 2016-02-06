@@ -29,6 +29,8 @@ public class CreatureCardPickup : MonoBehaviour {
     public float particleExplodeSpeed = 300;
     public float frontShownDelay = 1.0f;
     public GameObject textBoxGameObject;
+    public AudioClip firstSound;
+    public AudioClip finalSound;
 
     public enum State {
         NOT_FOUND,
@@ -54,11 +56,13 @@ public class CreatureCardPickup : MonoBehaviour {
             }
             if (value == State.COLLECTED) {
                 spriteRenderer.material = grayscaleMaterial;
+                spriteRenderer.enabled = false;
                 Vars.creatureCardFind(creatureID);
                 Vars.currentNodeData.creatureCardCollect(creatureID);
             }
             if (_state == State.COLLECTED) {
                 spriteRenderer.material = defaultMaterial;
+                spriteRenderer.enabled = true;
                 Vars.currentNodeData.creatureCardCollectUndo(creatureID);
             }
 
@@ -113,7 +117,6 @@ public class CreatureCardPickup : MonoBehaviour {
         }
 
         canvas = GameObject.FindGameObjectWithTag("Canvas");
-
     }
 	
 	void Update() {
@@ -140,7 +143,7 @@ public class CreatureCardPickup : MonoBehaviour {
                 }
                 break;
             case AnimationState.FLIP1:
-                float scale = Utilities.easeInQuadClamp(animationTime, 1, -1, flipDuration/2);
+                float scale = Utilities.easeInCircClamp(animationTime, 1, -1, flipDuration/2);
                 creatureCard.GetComponent<RectTransform>().localScale = new Vector3(scale, 1, 1);
                 if (animationTime >= flipDuration/2) {
                     animationTime -= flipDuration/2;
@@ -157,10 +160,12 @@ public class CreatureCardPickup : MonoBehaviour {
                         part.velocity.Normalize();
                         part.velocity *= particleExplodeSpeed;
                     }
+                    // sound
+                    SoundManager.instance.playSFX(finalSound);
                 }
                 break;
             case AnimationState.FLIP2:
-                scale = Utilities.easeInQuadClamp(animationTime, 0, 1, flipDuration/2);
+                scale = Utilities.easeInCircClamp(animationTime, 0, 1, flipDuration/2);
                 creatureCard.GetComponent<RectTransform>().localScale = new Vector3(scale, 1, 1);
                 if (animationTime >= flipDuration / 2) {
                     animationTime -= flipDuration / 2;
@@ -306,13 +311,14 @@ public class CreatureCardPickup : MonoBehaviour {
                 particles.Add(part);
             }
         }
-
+        
         // create creature card animation
         creatureCard = GameObject.Instantiate(hudCardGameObject).GetComponent<CreatureCard>();
         creatureCard.transform.SetParent(canvas.transform, false);
         creatureCard.GetComponent<RectTransform>().localPosition = new Vector3(cardStartPos.x, cardStartPos.y);
         creatureCard.showBack();
 
+        SoundManager.instance.playSFX(firstSound);
     }
 
     void OnDestroy() {

@@ -110,4 +110,33 @@ public static class Utilities {
         return easeInOutCubic(t, b, c, d);
     }
 
+    public static float easeInCirc(float t, float b, float c, float d) {
+        t /= d;
+        return -c * (Mathf.Sqrt(1 - t * t) - 1) + b;
+    }
+    public static float easeInCircClamp(float t, float b, float c, float d) {
+        t = Mathf.Min(d, Mathf.Max(0, t));
+        return easeInCirc(t, b, c, d);
+    }
+    public static float easeOutCirc(float t, float b, float c, float d) {
+        t /= d;
+        t--;
+        return c * Mathf.Sqrt(1 - t * t) + b;
+    }
+    public static float easeOutCircClamp(float t, float b, float c, float d) {
+        t = Mathf.Min(d, Mathf.Max(0, t));
+        return easeOutCirc(t, b, c, d);
+    }
+    public static float easeInOutCirc(float t, float b, float c, float d) {
+        t /= d / 2;
+        if (t < 1) return -c / 2 * (Mathf.Sqrt(1 - t * t) - 1) + b;
+        t -= 2;
+        return c / 2 * (Mathf.Sqrt(1 - t * t) + 1) + b;
+    }
+    public static float easeInOutCircClamp(float t, float b, float c, float d) {
+        t = Mathf.Min(d, Mathf.Max(0, t));
+        return easeOutCircClamp(t, b, c, d);
+    }
+
+
 };

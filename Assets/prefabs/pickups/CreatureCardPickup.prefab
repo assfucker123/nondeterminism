@@ -103,7 +103,7 @@ MonoBehaviour:
   flash2Color: {r: 1, g: 1, b: 1, a: 0.419}
   flash2ColorDuration: 2
   cardStartPos: {x: 0, y: -500}
-  cardFinalPos: {x: 0, y: 100}
+  cardFinalPos: {x: 0, y: 65}
   cardMoveDuration: 1
   midDelayDuration: 0.5
   flipDuration: 0.2
@@ -117,6 +117,8 @@ MonoBehaviour:
   particleExplodeSpeed: 800
   frontShownDelay: 1
   textBoxGameObject: {fileID: 147730, guid: 10419b30d72616f4f9e889466a4ec557, type: 2}
+  firstSound: {fileID: 8300000, guid: 8ae3d268041f2674b8779eeaf29a4337, type: 3}
+  finalSound: {fileID: 8300000, guid: b2f52eb03f3c2394fba9ed94e415e1b5, type: 3}
 --- !u!114 &11481812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!212 &21244440
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -175,8 +178,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cardFinalPos.y
-      value: 100
+      value: 65
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: firstSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8ae3d268041f2674b8779eeaf29a4337, type: 3}
+    - target: {fileID: 0}
+      propertyPath: finalSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b2f52eb03f3c2394fba9ed94e415e1b5, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174140}

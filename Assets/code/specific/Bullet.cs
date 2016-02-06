@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour {
     public float radius = 0; // set to 0 for raycast, positive number for circlecast
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
     public bool breaksChargeShotBarriers = false;
+    public bool shotByOracle = false;
     public GameObject bulletFadeGameObject;
     public GameObject bulletExplosionGameObject;
     public AudioClip hitSound; // can be null for no sound
@@ -82,6 +83,19 @@ public class Bullet : MonoBehaviour {
             if (rd != null && rd.health > 0) {
                 AttackInfo ai = new AttackInfo();
                 ai.damage = damage;
+                if (shotByOracle) {
+                    EnemyInfo ei = rd.gameObject.GetComponent<EnemyInfo>();
+                    if (ei != null) {
+                        // check to see if damage is boosted by creature card
+                        if (Vars.creatureCardFound(ei.creatureID)) {
+                            if (breaksChargeShotBarriers) {
+                                ai.damage += CreatureCard.CHARGE_SHOT_DAMAGE_INCREASE;
+                            } else {
+                                ai.damage += CreatureCard.STANDARD_DAMAGE_INCREASE;
+                            }
+                        }
+                    }
+                }
                 ai.impactHeading = heading;
                 ai.impactPoint = rh2d.point;
                 ai.breaksChargeShotBarriers = breaksChargeShotBarriers;
