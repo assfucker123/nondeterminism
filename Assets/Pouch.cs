@@ -5,13 +5,14 @@ public class Pouch : MonoBehaviour {
 
     public PickupSpawner.BurstSize burstSize = PickupSpawner.BurstSize.SMALL;
     public Vector2 burstPosition = new Vector2();
+    public float burstVelocityMultiplier = .2f;
     public AudioClip burstSound;
 
     public void burst() {
         if (bursted) return;
 
         Vector2 pos = Utilities.rotateAroundPoint(burstPosition, Vector2.zero, rb2d.rotation * Mathf.PI / 180);
-        pickupSpawner.burstSpawn(rb2d.position + pos, burstSize);
+        pickupSpawner.burstSpawn(rb2d.position + pos, burstSize, burstVelocityMultiplier, Utilities.get2DRot(transform.localRotation));
         animator.Play("open");
         gameObject.layer = LayerMask.NameToLayer("HitNothing");
         SoundManager.instance.playSFXRandPitchBend(burstSound);

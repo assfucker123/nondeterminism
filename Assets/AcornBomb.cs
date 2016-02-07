@@ -11,6 +11,7 @@ public class AcornBomb : MonoBehaviour {
     public float spinSpeed = 50;
     public bool spinCW = true;
     public GameObject explosionGameObject;
+    public AudioClip explodeSound;
 
     void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
@@ -58,6 +59,9 @@ public class AcornBomb : MonoBehaviour {
         le.damage = explosionDamage;
         if (visionUser.isVision) {
             explosionGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+        }
+        if (!visionUser.isVision) {
+            SoundManager.instance.playSFXRandPitchBend(explodeSound);
         }
 
         timeUser.timeDestroy();

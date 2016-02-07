@@ -37,6 +37,7 @@ public class Dummy : MonoBehaviour {
         visionUser = GetComponent<VisionUser>();
         defaultDeath = GetComponent<DefaultDeath>();
         enemyInfo = GetComponent<EnemyInfo>();
+        playerAwareness = GetComponent<PlayerAwareness>();
 	}
 
     void Start() {
@@ -72,7 +73,7 @@ public class Dummy : MonoBehaviour {
         x = segment.travelClamp(rb2d.position.x, speed, Time.fixedDeltaTime);
         rb2d.MovePosition(new Vector2(x, rb2d.position.y));
         */
-		
+
         // create a vision:
         /*
         GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
@@ -91,6 +92,12 @@ public class Dummy : MonoBehaviour {
         }
         */
 
+        // aware of player
+        /*
+        if (playerAwareness.awareOfPlayer) { }
+
+        */
+
     }
 
     /* called when this becomes a vision */
@@ -105,6 +112,9 @@ public class Dummy : MonoBehaviour {
 
     /* called when this takes damage */
     void OnDamage(AttackInfo ai) {
+        // be aware of player
+        playerAwareness.alwaysAware = true;
+        // die
         if (receivesDamage.health <= 0) {
             flippedHoriz = ai.impactToRight();
             //animator.Play("damage");
@@ -136,5 +146,6 @@ public class Dummy : MonoBehaviour {
     VisionUser visionUser;
     DefaultDeath defaultDeath;
     EnemyInfo enemyInfo;
+    PlayerAwareness playerAwareness;
 
 }

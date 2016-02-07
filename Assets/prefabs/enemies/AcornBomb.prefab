@@ -90,11 +90,12 @@ MonoBehaviour:
   initialYVelocity: 15
   gravity: 80
   finalX: 0
-  xDuration: 1.1
+  xDuration: 0.7
   explosionDamage: 2
   spinSpeed: 650
   spinCW: 1
   explosionGameObject: {fileID: 189924, guid: 2765738eff7a5034fb692e17d4068ee5, type: 2}
+  explodeSound: {fileID: 8300000, guid: 55fee0ed7ce02ad46b8b8beb9171e4ef, type: 3}
 --- !u!114 &11466288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,8 +178,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: xDuration
-      value: 1.1
+      value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explodeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 55fee0ed7ce02ad46b8b8beb9171e4ef, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120132}

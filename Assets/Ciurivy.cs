@@ -16,6 +16,8 @@ public class Ciurivy : MonoBehaviour {
     public float throwMinXDistance = 3;
     public float throwMaxXDistance = 8;
     public float playerLeadMaxOffset = 1; // adjusting throw distance based on player speed
+    public float sightRange = 30;
+    public float sightSpread = 80;
     public AudioClip throwSound;
     public AudioClip stepSound;
     public float stepSoundOffset = .091f;
@@ -56,6 +58,7 @@ public class Ciurivy : MonoBehaviour {
         visionUser = GetComponent<VisionUser>();
         defaultDeath = GetComponent<DefaultDeath>();
         enemyInfo = GetComponent<EnemyInfo>();
+        playerAwareness = GetComponent<PlayerAwareness>();
     }
 
     void Start() {
@@ -79,6 +82,8 @@ public class Ciurivy : MonoBehaviour {
         duration = timeUser.randomValue() * (idleDurationMax - idleDurationMin) + idleDurationMin;
 
         runAfterIdle = Mathf.Abs(getNextRunPosition().x - rb2d.position.x) > .5f;
+        if (!playerAwareness.awareOfPlayer)
+            runAfterIdle = true;
     }
 
     void runState() {
@@ -96,6 +101,8 @@ public class Ciurivy : MonoBehaviour {
 
         // getting ready to throw bomb
         throwBombAfterRun = duration + getBombDuration > VisionUser.VISION_DURATION + .1f;
+        if (!playerAwareness.awareOfPlayer)
+            throwBombAfterRun = false;
         
     }
 
@@ -112,7 +119,12 @@ public class Ciurivy : MonoBehaviour {
 
     Vector2 getNextRunPosition() {
         Vector2 ret = new Vector2();
-        bool toRight = Player.instance.rb2d.position.x > (segment.p1.x + segment.p0.x) / 2;
+        bool toRight = false;
+        if (playerAwareness.awareOfPlayer) {
+            toRight = Player.instance.rb2d.position.x > (segment.p1.x + segment.p0.x) / 2;
+        } else {
+            toRight = rb2d.position.x < (segment.p1.x + segment.p0.x) / 2;
+        }
         if (toRight) {
             ret.x = segment.p1.x;
         } else {
@@ -284,6 +296,9 @@ public class Ciurivy : MonoBehaviour {
 
     /* called when this takes damage */
     void OnDamage(AttackInfo ai) {
+        // become always aware of player
+        playerAwareness.alwaysAware = true;
+        // death
         if (receivesDamage.health <= 0) {
             flippedHoriz = ai.impactToRight();
             animator.Play("damage");
@@ -338,5 +353,6 @@ public class Ciurivy : MonoBehaviour {
     VisionUser visionUser;
     DefaultDeath defaultDeath;
     EnemyInfo enemyInfo;
+    PlayerAwareness playerAwareness;
 
 }

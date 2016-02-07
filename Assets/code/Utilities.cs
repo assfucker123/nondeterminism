@@ -48,6 +48,23 @@ public static class Utilities {
         return x - Mathf.Floor(x / y) * y;
     }
 
+    /* returns if v2 is positioned clockwise to v1 */
+    public static bool isClockwise(Vector2 v1, Vector2 v2) {
+        return -v1.x * v2.y + v1.y * v2.x > 0;
+    }
+
+    /* returns if point is contained in sector (angleSpread must be less than PI)  */
+    public static bool pointInSector(Vector2 point, Vector2 center, float radius, float centerAngleRadians, float angleSpreadRadians) {
+        Vector2 vPoint = point - center;
+        if (vPoint.x*vPoint.x + vPoint.y+vPoint.y > radius * radius)
+            return false;
+        float a = centerAngleRadians - angleSpreadRadians / 2;
+        Vector2 sectorStart = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+        a = centerAngleRadians + angleSpreadRadians / 2;
+        Vector2 sectorEnd = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+        return !isClockwise(sectorStart, vPoint) && isClockwise(sectorEnd, vPoint);
+    }
+    
     public static float easeLinear(float t, float b, float c, float d){
         return c*t/d + b;
     }
@@ -81,7 +98,6 @@ public static class Utilities {
         t = Mathf.Min(d, Mathf.Max(0, t));
         return easeInOutQuad(t, b, c, d);
     }
-
     public static float easeInCubic(float t, float b, float c, float d) {
         t /= d;
 	    return c*t*t*t + b;

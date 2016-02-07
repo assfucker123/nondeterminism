@@ -51,6 +51,7 @@ GameObject:
   - 114: {fileID: 11493246}
   - 114: {fileID: 11490588}
   - 114: {fileID: 11476096}
+  - 114: {fileID: 11441728}
   - 114: {fileID: 11439110}
   - 114: {fileID: 11464750}
   m_Layer: 9
@@ -195,7 +196,28 @@ MonoBehaviour:
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
   pickupSize: 2
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
-  deathSound2: {fileID: 0}
+  deathSound2: {fileID: 8300000, guid: cb197b57d821c514e90164dcb1c7a7c9, type: 3}
+--- !u!114 &11441728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0b2baaabf573e4b91b1c80052f1b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightEyesPosition: {x: 0.7, y: 0}
+  sightEyesAngle: 0
+  sightRange: 30
+  sightAngleSpread: 70
+  sightLayers:
+  - Default
+  awareBoxWidth: 8
+  awareBoxHeight: 6
+  hiddenPlayerAwareDuration: 1
+  recordInspectorValuesInTimeUser: 0
 --- !u!114 &11464750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,16 +230,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  idleDurationMin: 1.3
-  idleDurationMax: 2
-  runSpeed: 2.5
+  idleDurationMin: 1
+  idleDurationMax: 1.5
+  runSpeed: 3.5
   getBombDuration: 0.2
   throwBombDuration: 0.2
-  postThrowBombDuration: 0.6
+  postThrowBombDuration: 0.5
   throwPosition: {x: 0.45, y: 0.25}
   throwInitialYVelocity: 20
   throwMinXDistance: 3
   throwMaxXDistance: 16
+  playerLeadMaxOffset: 4
+  sightRange: 30
+  sightSpread: 80
+  throwSound: {fileID: 8300000, guid: 8362fe0acfc65804fa5630e23db3cb89, type: 3}
+  stepSound: {fileID: 8300000, guid: 87ed43f3157c78449bf1bd8b8925be1d, type: 3}
+  stepSoundOffset: 0.091
+  stepSoundPeriod: 0.455
   acornBombGameObject: {fileID: 120132, guid: a773d422cfe90b24e9ba4a4a7b76d092, type: 2}
 --- !u!114 &11476096
 MonoBehaviour:
@@ -276,7 +305,7 @@ MonoBehaviour:
   creatureName: Ciurivy
   danger: 5
   spawnLocation: 0
-  spawnDist: 0
+  spawnDist: 1.2
   score: 10
   waveSpanwerRef: {fileID: 0}
 --- !u!114 &11493246
@@ -376,7 +405,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: runSpeed
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: acornBombGameObject
@@ -404,11 +433,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: idleDurationMin
-      value: 1.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: idleDurationMax
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: getBombDuration
@@ -416,7 +445,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: postThrowBombDuration
-      value: 0.6
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: playerLeadMaxOffset
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: cb197b57d821c514e90164dcb1c7a7c9, type: 3}
+    - target: {fileID: 0}
+      propertyPath: stepSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 87ed43f3157c78449bf1bd8b8925be1d, type: 3}
+    - target: {fileID: 0}
+      propertyPath: throwSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8362fe0acfc65804fa5630e23db3cb89, type: 3}
+    - target: {fileID: 0}
+      propertyPath: spawnDist
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sightEyesPosition.x
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

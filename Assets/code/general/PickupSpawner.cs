@@ -30,7 +30,7 @@ public class PickupSpawner : MonoBehaviour {
     public static float HEALTH_RARITY = .4f;
 
     /* Pickups that spawn are dependant on Player's health and phase */
-    public void burstSpawn(Vector2 position, BurstSize burstSize) {
+    public void burstSpawn(Vector2 position, BurstSize burstSize, float velocityMultiplier = 1, float velocityRotation = 0) {
         if (burstSize == BurstSize.NONE)
             return;
         
@@ -155,6 +155,9 @@ public class PickupSpawner : MonoBehaviour {
                     v.y = 10 + 5 * (timeUser.randomValue() * 2 - 1);
                 }
             }
+
+            v *= velocityMultiplier;
+            v = Utilities.rotateAroundPoint(v, Vector2.zero, velocityRotation * Mathf.PI / 180);
 
             rb2d.velocity = v;
         }

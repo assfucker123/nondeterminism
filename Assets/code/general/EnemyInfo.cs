@@ -75,4 +75,7 @@ public class EnemyInfo : MonoBehaviour {
 
     private int cachedCreatureID = -1;
     VisionUser visionUser = null; // not required
+
+    
+
 }
