@@ -37,10 +37,13 @@ public class NeedWeaponParticle : MonoBehaviour {
 
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
+        fi.floats["x"] = transform.localPosition.x;
+        fi.floats["y"] = transform.localPosition.y;
     }
 
     void OnRevert(FrameInfo fi) {
-        fi.floats["t"] = time;
+        time = fi.floats["t"];
+        transform.localPosition = new Vector3(fi.floats["x"], fi.floats["y"]);
     }
 
     TimeUser timeUser;

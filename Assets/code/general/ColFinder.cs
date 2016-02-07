@@ -96,6 +96,15 @@ public class ColFinder : MonoBehaviour {
         }
         return mask;
     }
+    /* Gets an int that contains only the Players and Enemies layers */
+    public static int getPlayerEnemyCollisionMask() {
+        int players = LayerMask.NameToLayer("Players");
+        int enemies = LayerMask.NameToLayer("Enemies");
+        int ret = 0;
+        ret |= (1 << players);
+        ret |= (1 << enemies);
+        return ret;
+    }
 
     /* Call to check if the object is about to walk off a platform (flat platforms only) */
     public bool onRightEdge() {

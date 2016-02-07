@@ -97,7 +97,10 @@ MonoBehaviour:
   damage: 2
   heading: 0
   radius: 0.5
+  playerEnemyRadius: 0.5
   maxDistance: -1
+  breaksChargeShotBarriers: 0
+  shotByOracle: 0
   bulletFadeGameObject: {fileID: 0}
   bulletExplosionGameObject: {fileID: 145072, guid: 882f89e9f8af4fa4fb7079dffedb22a0,
     type: 2}
@@ -113,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!212 &21216902
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -177,6 +181,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: playerEnemyRadius
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

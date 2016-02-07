@@ -8,6 +8,7 @@ public class LethalExplosion : MonoBehaviour {
     public float endRadius = 1;
     public float duration = .2f;
     public float impactMagnitude = 10; // value given in AttackInfo.impactMagnitude
+    public bool breaksChargeShotBarriers = true;
 	
 	void Awake() {
         timeUser = GetComponent<TimeUser>();
@@ -54,6 +55,7 @@ public class LethalExplosion : MonoBehaviour {
                     ai.impactHeading = Mathf.Atan2(cRB2D.position.y - transform.localPosition.y, cRB2D.position.x - transform.localPosition.x) * 180/Mathf.PI;
                 }
                 ai.impactMagnitude = impactMagnitude;
+                ai.breaksChargeShotBarriers = breaksChargeShotBarriers;
 
                 rd.dealDamage(ai);
 

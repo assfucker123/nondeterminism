@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burstSize: 1
-  burstPosition: {x: 0, y: 0}
+  burstPosition: {x: 0, y: 0.5}
   burstSound: {fileID: 8300000, guid: e9f8bfe2216cffc4287d57cab09fd62b, type: 3}
 --- !u!114 &11440766
 MonoBehaviour:
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!114 &11467216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
+  defense: 0
   autoHitFlash: 1
   autoActivateDefaultDeath: 0
   useCustomFlashColor: 0
@@ -204,6 +206,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: burstPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
