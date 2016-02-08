@@ -19,6 +19,7 @@ GameObject:
   - 114: {fileID: 11450160}
   - 114: {fileID: 11418164}
   - 114: {fileID: 11493374}
+  - 114: {fileID: 11487270}
   - 114: {fileID: 11465938}
   m_Layer: 9
   m_Name: Dummy
@@ -217,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!114 &11422962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,6 +291,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+--- !u!114 &11487270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0b2baaabf573e4b91b1c80052f1b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightEyesPosition: {x: 0, y: 0}
+  sightEyesAngle: 0
+  sightRange: 30
+  sightAngleSpread: 70
+  awareBoxWidth: 8
+  awareBoxHeight: 6
+  hiddenPlayerAwareDuration: 1
+  recordAboveInspectorValuesInTimeUser: 0
+  sightLayers:
+  - Default
+  alwaysAware: 0
 --- !u!114 &11493374
 MonoBehaviour:
   m_ObjectHideFlags: 1

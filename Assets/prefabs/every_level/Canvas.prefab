@@ -84,6 +84,8 @@ MonoBehaviour:
     type: 2}
   controlsMessageSpawnerGameObject: {fileID: 188306, guid: f57bae9412352c745ad41c6a90159008,
     type: 2}
+  notificationGameObject: {fileID: 148276, guid: f7a57879eff6c8f44a8bced6bcff02ef,
+    type: 2}
   bossHealthBarGameObject: {fileID: 178912, guid: b42c888fc11dab849aad750b25f1a9e8,
     type: 2}
   flashbackArtifactsGameObject: {fileID: 145208, guid: 498d1c9c90a16c440b2d66f4b223b40a,
@@ -190,6 +192,10 @@ Prefab:
       propertyPath: bossHealthBarGameObject
       value: 
       objectReference: {fileID: 178912, guid: b42c888fc11dab849aad750b25f1a9e8, type: 2}
+    - target: {fileID: 0}
+      propertyPath: notificationGameObject
+      value: 
+      objectReference: {fileID: 148276, guid: f7a57879eff6c8f44a8bced6bcff02ef, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162694}

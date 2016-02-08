@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b4fc3c04eb17ded4cbf5d0735545f3a4
-timeCreated: 1452647007
+timeCreated: 1454902062
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
@@ -23,6 +23,8 @@ MonoImporter:
   - textBoxGameObject: {fileID: 165702, guid: ecafba7fa63b0d0409ba6901d27d10c5, type: 2}
   - cutsceneBarsGameObject: {instanceID: 0}
   - controlsMessageSpawnerGameObject: {instanceID: 0}
+  - notificationGameObject: {fileID: 148276, guid: f7a57879eff6c8f44a8bced6bcff02ef,
+      type: 2}
   - bossHealthBarGameObject: {fileID: 178912, guid: b42c888fc11dab849aad750b25f1a9e8,
       type: 2}
   - flashbackArtifactsGameObject: {instanceID: 0}

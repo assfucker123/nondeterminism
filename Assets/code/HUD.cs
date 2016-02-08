@@ -17,7 +17,7 @@ public class HUD : MonoBehaviour {
     public GameObject textBoxGameObject;
     public GameObject cutsceneBarsGameObject;
     public GameObject controlsMessageSpawnerGameObject;
-
+    public GameObject notificationGameObject;
     public GameObject bossHealthBarGameObject;
 
     public GameObject flashbackArtifactsGameObject;
@@ -44,6 +44,7 @@ public class HUD : MonoBehaviour {
     public CutsceneBars cutsceneBars {  get { return _cutsceneBars; } }
     public BossHealthBar bossHealthBar {  get { return _bossHealthBar; } }
     public ControlsMessageSpawner controlsMessageSpawner {  get { return _controlsMessageSpawner; } }
+    public Notification notification {  get { return _notification; } }
     
     public FlashbackArtifacts flashbackArtifacts { get { return _flashbackArtifacts; } }
 
@@ -159,10 +160,8 @@ public class HUD : MonoBehaviour {
         GameObject pmGO = GameObject.Instantiate(phaseMeterGameObject) as GameObject;
         pmGO.transform.SetParent(canvas.transform, false);
         _phaseMeter = pmGO.GetComponent<PhaseMeter>();
-
-
-
         _phaseMeter.setUp();
+
         //create Black Screen
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
         bsGO.transform.SetParent(canvas.transform, false);
@@ -180,9 +179,14 @@ public class HUD : MonoBehaviour {
         ctGO.transform.SetParent(canvas.transform, false);
         _countdownTimer = ctGO.GetComponent<CountdownTimer>();
         _countdownTimer.setUp();
-        
+
 
         // (not creating Game Over screen unitl needed)
+
+        // create Notification
+        GameObject nGO = GameObject.Instantiate(notificationGameObject) as GameObject;
+        nGO.transform.SetParent(canvas.transform, false);
+        _notification = nGO.GetComponent<Notification>();
 
         // create Text Box
         GameObject tbGO = GameObject.Instantiate(textBoxGameObject) as GameObject;
@@ -297,6 +301,7 @@ public class HUD : MonoBehaviour {
     private MapUI _mapUI;
     private GameOverScreen _gameOverScreen;
     private TextBox _textBox;
+    private Notification _notification;
     private CutsceneBars _cutsceneBars;
     private BossHealthBar _bossHealthBar;
     private ControlsMessageSpawner _controlsMessageSpawner;

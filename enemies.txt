@@ -139,6 +139,9 @@ Special Enemy Attacks:
 	- Sonata's design based off a moth?
 	- Background looks like a musical staff.
 		- A vertical line periodically moves from left to right on the beat of the song.
+	- Screen does a blackout partway through, making it impossible to see visions.
+		- Visions stop being made.
+		- Need to use audio tells.
 	- Rhythm attacks have audio tells.  Loud noises happens on certain beats.
 		- Tells are synced up to the background music and the vertical line in the background.
 		- Next measure the actual attack happens, with large columns of distortion effects happening on the same beats of the song.

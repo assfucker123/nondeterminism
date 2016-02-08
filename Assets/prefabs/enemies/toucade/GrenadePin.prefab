@@ -40,9 +40,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113288}
-  m_Mass: .00999999978
+  m_UseAutoMass: 0
+  m_Mass: 0.01
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 3
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -56,18 +57,19 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113288}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: d2aa576d357d2264bae1069bf8da8af0, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -.137192726, y: .320420265}
-      - {x: -.153515816, y: -.146264076}
-      - {x: -.0056180954, y: -.308608055}
-      - {x: .164073944, y: -.134292603}
-      - {x: .0538139343, y: .0209035873}
-      - {x: -.0896244049, y: .0440635681}
+    - - {x: -0.13719273, y: 0.32042027}
+      - {x: -0.15351582, y: -0.14626408}
+      - {x: -0.0056180954, y: -0.30860806}
+      - {x: 0.16407394, y: -0.1342926}
+      - {x: 0.053813934, y: 0.020903587}
+      - {x: -0.089624405, y: 0.044063568}
 --- !u!114 &11460362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6650749ae990204448678990d5393c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPos: {x: -.119999997, y: -.219999999}
+  spawnPos: {x: -0.12, y: -0.22}
   spawnRot: -90
   duration: 1.5
 --- !u!114 &11474034
@@ -93,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickerPeriod: .200000003
-  flickerAlpha: .600000024
+  flickerPeriod: 0.2
+  flickerAlpha: 0.6
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
 --- !u!114 &11477826
@@ -108,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!212 &21221930
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -126,14 +129,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 06cd9dd5dcee4624f922823439bc2d0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

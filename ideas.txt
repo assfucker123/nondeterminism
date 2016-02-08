@@ -490,3 +490,6 @@ o Idea to fill "secret areas": moving to a location just adds a conversation wit
 o Puzzle where need to kill an enemy to get through an area.  But the enemy appears to be invincible.  Need to find its creature card nearby to weaken it so that it can be killed.
 o Secret language is based on Enochian
 	- Enochian is written from right to left, so flip symbols
+o One ambush is impossible to beat at first.  Need to escape.
+	- Can only escape in the direction player entered from.
+	- However, come back here later with a new weapon and the ambush can be defeated.  Then player can progress forward there.

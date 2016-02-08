@@ -212,12 +212,13 @@ MonoBehaviour:
   sightEyesAngle: 0
   sightRange: 30
   sightAngleSpread: 70
+  awareBoxWidth: 12
+  awareBoxHeight: 40
+  hiddenPlayerAwareDuration: 1
+  recordAboveInspectorValuesInTimeUser: 0
   sightLayers:
   - Default
-  awareBoxWidth: 8
-  awareBoxHeight: 6
-  hiddenPlayerAwareDuration: 1
-  recordInspectorValuesInTimeUser: 0
+  alwaysAware: 0
 --- !u!114 &11464750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,6 +471,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: sightEyesPosition.x
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: awareBoxWidth
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: awareBoxHeight
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
