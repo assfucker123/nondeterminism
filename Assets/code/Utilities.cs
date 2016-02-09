@@ -64,6 +64,16 @@ public static class Utilities {
         Vector2 sectorEnd = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
         return !isClockwise(sectorStart, vPoint) && isClockwise(sectorEnd, vPoint);
     }
+
+    /* returns projection of x onto v */
+    public static Vector2 vectorProjection(Vector2 v, Vector2 x) {
+        return v * Vector2.Dot(x, v) / Vector2.Dot(v, v);
+    }
+
+    /* returns the point on line defined by lineP0 and lineP1 that is closest to the given point */
+    public static Vector2 closestPointOnLineToPoint(Vector2 lineP0, Vector2 lineP1, Vector2 point) {
+        return vectorProjection(lineP1 - lineP0, point - lineP0);
+    }
     
     public static float easeLinear(float t, float b, float c, float d){
         return c*t/d + b;

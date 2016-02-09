@@ -123,6 +123,9 @@ public class HUD : MonoBehaviour {
         if (bossHealthBar != null) {
             bossHealthBar.hide();
         }
+        if (notification != null) {
+            notification.clearAll();
+        }
     }
 	
 	void Awake() {

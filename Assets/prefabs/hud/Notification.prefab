@@ -84,6 +84,8 @@ MonoBehaviour:
   preDisplayDelay: 0.2
   textSpeed: 30
   postDisplayDelay: 3
+  bgXBorder: 3
+  bgYBorder: 1
   textSound: {fileID: 8300000, guid: 78275ddef4ef2784daafafda5d75922d, type: 3}
   textSoundPeriod: 0.08
   maxQueueSize: 5
@@ -148,6 +150,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: postDisplayDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bgXBorder
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []

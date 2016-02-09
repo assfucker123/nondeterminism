@@ -35,6 +35,7 @@ GameObject:
   - 114: {fileID: 11401806}
   - 114: {fileID: 11478958}
   - 114: {fileID: 11409206}
+  - 114: {fileID: 11489688}
   - 114: {fileID: 11419440}
   m_Layer: 9
   m_Name: Vengemole
@@ -108,7 +109,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.27, y: 11.13, z: 0}
+  m_LocalPosition: {x: 44.35, y: 6.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 420700}
@@ -170,9 +171,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.40266228}
+  m_Offset: {x: 0, y: -0.4562688}
   serializedVersion: 2
-  m_Size: {x: 1.51, y: 1.2768171}
+  m_Size: {x: 1.51, y: 1.3840303}
 --- !u!61 &6174988
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -233,11 +234,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 10
-  variations: 0b000000
+  variations: 0a000000
   creatureName: Vengemole
   danger: 5
   spawnLocation: 0
-  spawnDist: 0
+  spawnDist: 1.1
   score: 10
   waveSpanwerRef: {fileID: 0}
 --- !u!114 &11409206
@@ -274,6 +275,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  idleMinDuration: 0.5
+  idleMaxDuration: 4
+  undergroundMaxDuration: 3
+  undergroundGetHammerMinDuration: 2
+  undergroundGetHammerMaxDuration: 4
+  throwHammerChance: 0.7
+  riseSwingDelay: 0.2
+  throwDelay: 0.08
+  postSwingDuration: 0.9
   hammerGameObject: {fileID: 169810, guid: fe332387f46e615498a15ae9c9d0eb86, type: 2}
 --- !u!114 &11420452
 MonoBehaviour:
@@ -333,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!114 &11450314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,6 +376,28 @@ MonoBehaviour:
   autoActivateDefaultDeath: 1
   useCustomFlashColor: 0
   customFlashColor: {r: 0.89, g: 0, b: 0, a: 1}
+--- !u!114 &11489688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0b2baaabf573e4b91b1c80052f1b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightEyesPosition: {x: 0.5, y: 0.7}
+  sightEyesAngle: 0
+  sightRange: 30
+  sightAngleSpread: 70
+  awareBoxWidth: 20
+  awareBoxHeight: 20
+  hiddenPlayerAwareDuration: 5
+  recordAboveInspectorValuesInTimeUser: 0
+  sightLayers:
+  - Default
+  alwaysAware: 0
 --- !u!212 &21257020
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -443,6 +476,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: creatureName
       value: Vengemole
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: postSwingDuration
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnDist
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: variations.Array.data[0]
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

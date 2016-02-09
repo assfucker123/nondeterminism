@@ -106,6 +106,21 @@ public class Segment {
         });
     }
 
+    /* returns the Segment from the given list that is closest to the given point */
+    public static Segment segmentClosestToPoint(List<Segment> segments, Vector2 pt) {
+        if (segments.Count < 1) return null;
+        Segment seg = segments[0];
+        float dist = seg.distanceFromPoint(pt);
+        foreach (Segment s in segments) {
+            float d = s.distanceFromPoint(pt);
+            if (d < dist) {
+                seg = s;
+                dist = d;
+            }
+        }
+        return seg;
+    }
+
     /* Attempts to add segment to one of the above lists.
      * Prereq: apply snapToWall() beforehand. */
     public static bool addSegment(Segment seg) {
@@ -310,6 +325,19 @@ public class Segment {
     /* val is in [0, 1] */
     public Vector2 interpolate(float val) {
         return p0 + (p1 - p0) * val;
+    }
+
+    /* returns the shortest distance from the segment to the given point */
+    public float distanceFromPoint(Vector2 pt) {
+        Vector2 closestPt = Utilities.closestPointOnLineToPoint(p0, p1, pt);
+        if (Mathf.Min(p0.x, p1.x) - .0001f < closestPt.x && closestPt.x < Mathf.Max(p0.x, p1.x) + .0001f &&
+            Mathf.Min(p0.y, p1.y) - .0001f < closestPt.y && closestPt.y < Mathf.Max(p0.y, p1.y) + .0001f) {
+            // closest point is contained in the segment
+            return Vector2.Distance(closestPt, pt);
+        }
+        float d0 = Vector2.SqrMagnitude(pt - p0);
+        float d1 = Vector2.SqrMagnitude(pt - p1);
+        return Mathf.Sqrt(Mathf.Min(d0, d1));
     }
 
     /* Attempts to make segment perfectly horizontal or vertical.
