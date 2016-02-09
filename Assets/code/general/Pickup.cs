@@ -37,6 +37,7 @@ public class Pickup : MonoBehaviour {
 
     void Start() {
         setSpinSpeed();
+        amountUsed = amount;
     }
 	
 	void Update() {
@@ -99,10 +100,10 @@ public class Pickup : MonoBehaviour {
         case Type.HEALTH:
             if (plr.health >= plr.maxHealth)
                 return;
-            plr.healthPickup(Mathf.RoundToInt(amount));
+            amountUsed = plr.healthPickup(Mathf.RoundToInt(amount));
             break;
         case Type.PHASE:
-            plr.phasePickup(amount);
+            amountUsed = plr.phasePickup(amount);
             break;
         }
 
@@ -135,7 +136,7 @@ public class Pickup : MonoBehaviour {
         if (prevPickedUp && !pickedUp && type == Type.PHASE) {
             //went back before phase was picked up, need to remove the phase gained
             //(phase is special because it does not go back to a previous value when reverting)
-            Player.instance.revertBeforePhasePickup(amount);
+            Player.instance.revertBeforePhasePickup(amountUsed);
         }
     }
 
@@ -147,7 +148,7 @@ public class Pickup : MonoBehaviour {
     bool _pickedUp = false;
     float fadeTime = 0;
     bool _faded = false;
-    
+    float amountUsed = 0;
 	
 	// components
     Rigidbody2D rb2d;

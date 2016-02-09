@@ -190,19 +190,25 @@ public class Player : MonoBehaviour {
     //////////////////////
 
 
-    public void healthPickup(int health) {
+    public int healthPickup(int health) {
+        int amountUsed = health;
         int h = this.health + health;
-        if (h > maxHealth)
+        if (h > maxHealth) {
             h = maxHealth;
+            amountUsed = maxHealth - this.health;
+        }
         receivesDamage.health = h;
         HUD.instance.setHealth(receivesDamage.health);
         healthFlashTime = 0;
+        return amountUsed;
     }
 
     /* Called by Pickup when picking up a phase pickup */
-    public void phasePickup(float phase) {
+    public float phasePickup(float phase) {
+        float amountUsed = Mathf.Min(phase, HUD.instance.phaseMeter.maxPhase - HUD.instance.phaseMeter.phase);
         HUD.instance.phaseMeter.increasePhase(phase);
         phaseFlashTime = 0;
+        return amountUsed;
     }
     /* When reverting to before a phase pickup was collected, need to lose the phase gained.
      * This doesn't have to be done for other pickups because health etc. already reverts correctly.

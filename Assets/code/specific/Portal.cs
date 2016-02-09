@@ -56,6 +56,7 @@ public class Portal : MonoBehaviour {
         TimeUser sTU = sGO.GetComponent<TimeUser>();
         sTU.setRandSeed((int)(int.MaxValue * timeUser.randomValue()));
         EnemyInfo eI = sGO.GetComponent<EnemyInfo>();
+        eI.id = spawnInfo.variation;
         eI.waveSpanwerRef = waveSpawnerRef;
         
         sGO.SendMessage("OnSpawn", spawnInfo, SendMessageOptions.DontRequireReceiver);

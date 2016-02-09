@@ -82,7 +82,7 @@ public class Ciurivy : MonoBehaviour {
         duration = timeUser.randomValue() * (idleDurationMax - idleDurationMin) + idleDurationMin;
 
         runAfterIdle = Mathf.Abs(getNextRunPosition().x - rb2d.position.x) > .5f;
-        if (!playerAwareness.awareOfPlayer)
+        if (!playerAwareness.awareOfPlayer || enemyInfo.id == EnemyInfo.ID.CIURIVY_PASSIVE)
             runAfterIdle = true;
     }
 
@@ -101,7 +101,7 @@ public class Ciurivy : MonoBehaviour {
 
         // getting ready to throw bomb
         throwBombAfterRun = duration + getBombDuration > VisionUser.VISION_DURATION + .1f;
-        if (!playerAwareness.awareOfPlayer)
+        if (!playerAwareness.awareOfPlayer || enemyInfo.id == EnemyInfo.ID.CIURIVY_PASSIVE)
             throwBombAfterRun = false;
         
     }
@@ -120,7 +120,7 @@ public class Ciurivy : MonoBehaviour {
     Vector2 getNextRunPosition() {
         Vector2 ret = new Vector2();
         bool toRight = false;
-        if (playerAwareness.awareOfPlayer) {
+        if (playerAwareness.awareOfPlayer && enemyInfo.id != EnemyInfo.ID.CIURIVY_PASSIVE) {
             toRight = Player.instance.rb2d.position.x > (segment.p1.x + segment.p0.x) / 2;
         } else {
             toRight = rb2d.position.x < (segment.p1.x + segment.p0.x) / 2;
