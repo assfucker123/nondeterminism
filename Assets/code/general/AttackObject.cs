@@ -37,6 +37,7 @@ public class AttackObject : MonoBehaviour {
             return;
         if (defaultDeath != null && defaultDeath.activated) //don't deal damage while dying
             return;
+        if (!enabled) return;
         GameObject gO = c2d.gameObject;
         Rigidbody2D gOrb2d = gO.GetComponent<Rigidbody2D>();
         ReceivesDamage rd = gO.GetComponent<ReceivesDamage>();

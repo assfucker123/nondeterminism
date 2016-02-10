@@ -27,6 +27,8 @@ Vengemole plan:
     public float undergroundGetHammerMaxDuration = 4f;
     public float throwHammerChance = .7f;
     public float riseSwingDelay = .2f;
+    public float hammerHitboxDelay = .25f;
+    public float hammerHitboxDuration = .1f;
     public float throwDelay = .08f;
     public float postSwingDuration = .6f;
 
@@ -67,9 +69,11 @@ Vengemole plan:
         defaultDeath = GetComponent<DefaultDeath>();
         enemyInfo = GetComponent<EnemyInfo>();
         playerAwareness = GetComponent<PlayerAwareness>();
-
-        holeObject = transform.Find("hole").gameObject;
-        holeAnimator = holeObject.GetComponent<Animator>();
+        attackObject = transform.Find("attackObject").GetComponent<AttackObject>();
+        colliders = GetComponents<Collider2D>();
+        leftAttack = transform.Find("hammerLeftAttack").GetComponent<AttackObject>();
+        rightAttack = transform.Find("hammerRightAttack").GetComponent<AttackObject>();
+        
     }
 
     void Start() {
@@ -98,7 +102,7 @@ Vengemole plan:
         if (attackingPlayer) {
             nextSegment = Segment.segmentClosestToPoint(Segment.bottomSegments, plrPos);
             posAfterUnderground = nextSegment.interpolate(timeUser.randomValue());
-            flippedHorizAfterUnderground = (posAfterUnderground.x < plrPos.x);
+            flippedHorizAfterUnderground = (posAfterUnderground.x > plrPos.x);
         } else {
             List<Segment> segs = Segment.bottomSegments;
             if (segs.Count > 1 && segment != null) {
@@ -133,6 +137,8 @@ Vengemole plan:
             animator.Play("fall_nohammer");
         }
         state = State.UNDERGROUND;
+        attackObject.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Visions");
 
         // how long underground?
         if (hasHammer) {
@@ -150,6 +156,10 @@ Vengemole plan:
         flippedHoriz = flippedHorizAfterUnderground;
         hasHammer = true;
         state = stateAfterUnderground;
+        attackObject.enabled = true;
+        if (!visionUser.isVision) {
+            gameObject.layer = LayerMask.NameToLayer("Enemies");
+        }
         switch (state) {
         case State.RISE:
             idleState();
@@ -173,7 +183,7 @@ Vengemole plan:
         flippedHoriz = !si.faceRight;
     }
 
-    void Update() {
+    void FixedUpdate() {
 
         if (timeUser.shouldNotUpdate)
             return;
@@ -216,6 +226,20 @@ Vengemole plan:
                     animator.Play("swing");
                 } else {
                     animator.Play("throw");
+                }
+            }
+            // swinging hammer hitboxes
+            if (state == State.RISE_SWING && !visionUser.isVision) {
+                if (hammerHitboxDelay <= time && time <= hammerHitboxDelay + hammerHitboxDuration) {
+                    if (flippedHoriz)
+                        leftAttack.enabled = true;
+                    else
+                        rightAttack.enabled = true;
+                } else {
+                    if (flippedHoriz)
+                        leftAttack.enabled = false;
+                    else
+                        rightAttack.enabled = false;
                 }
             }
             // throwing hammer
@@ -290,6 +314,9 @@ Vengemole plan:
         fi.ints["sau"] = (int)stateAfterUnderground;
         fi.bools["fhau"] = flippedHorizAfterUnderground;
         fi.bools["hh"] = hasHammer;
+        fi.bools["aoe"] = attackObject.enabled;
+        fi.bools["rae"] = rightAttack.enabled;
+        fi.bools["lae"] = leftAttack.enabled;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
@@ -300,6 +327,9 @@ Vengemole plan:
         stateAfterUnderground = (State)fi.ints["sau"];
         flippedHorizAfterUnderground = fi.bools["fhau"];
         hasHammer = fi.bools["hh"];
+        attackObject.enabled = fi.bools["aoe"];
+        rightAttack.enabled = fi.bools["rae"];
+        leftAttack.enabled = fi.bools["lae"];
     }
 
     float time = 0;
@@ -322,8 +352,9 @@ Vengemole plan:
     DefaultDeath defaultDeath;
     EnemyInfo enemyInfo;
     PlayerAwareness playerAwareness;
-
-    GameObject holeObject;
-    Animator holeAnimator;
+    AttackObject attackObject;
+    Collider2D[] colliders;
+    AttackObject leftAttack;
+    AttackObject rightAttack;
 
 }
