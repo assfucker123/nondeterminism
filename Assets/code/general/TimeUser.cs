@@ -131,6 +131,7 @@ public class TimeUser : MonoBehaviour {
         return fis[fis.Count - 1];
     }
     public bool updateAnimatorInfo = true; // set to false to not record or update animator info when using Flashback
+    public bool updatePositionFromTransform = false; // highly recommended to leave false (update from rigidBody2d instead)
     
     ///////////////
     // FUNCTIONS //
@@ -201,6 +202,9 @@ public class TimeUser : MonoBehaviour {
             rb2d.rotation = fiRevert.rotation;
             rb2d.angularVelocity = fiRevert.angularVelocity;
         }
+        if (updatePositionFromTransform) {
+            transform.localPosition = fiRevert.position;
+        }
         if (transformSelf || spriteRenderer == null) {
             transform.localScale = new Vector3(
                 fiRevert.spriteRendererLocalScaleX,
@@ -248,6 +252,9 @@ public class TimeUser : MonoBehaviour {
             fi.velocity = rb2d.velocity;
             fi.rotation = rb2d.rotation;
             fi.angularVelocity = rb2d.angularVelocity;
+        }
+        if (updatePositionFromTransform) {
+            fi.position.Set(transform.localPosition.x, transform.localPosition.y);
         }
         if (transformSelf || spriteRenderer == null) {
             fi.spriteRendererLocalScaleX = transform.localScale.x;

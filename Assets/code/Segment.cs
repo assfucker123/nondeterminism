@@ -15,11 +15,11 @@ public class Segment {
 
     /* Finds bottomSegment that most closely matches the position.
      * Returns null if none found. */
-    public static Segment findBottom(Vector2 pos) {
+    public static Segment findBottom(Vector2 pos, float flexibility = 1) {
         Segment ret = null;
         float dist = 0;
         foreach (Segment seg in bottomSegments) {
-            if (seg.p0.x <= pos.x && pos.x <= seg.p1.x) {
+            if (seg.p0.x - flexibility <= pos.x && pos.x <= seg.p1.x + flexibility) {
                 if (ret == null ||
                     (Mathf.Abs(pos.y - seg.p0.y) < dist)) {
                     ret = seg;

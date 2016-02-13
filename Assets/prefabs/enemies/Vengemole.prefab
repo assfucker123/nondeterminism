@@ -189,7 +189,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.4}
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.83
 --- !u!61 &6100720
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -231,7 +231,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: -0.40436316}
   serializedVersion: 2
-  m_Size: {x: 1.51, y: 1.2802191}
+  m_Size: {x: 1.69, y: 1.2802191}
 --- !u!61 &6174988
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 10
-  variations: 0a000000
+  variations: 0b000000
   creatureName: Vengemole
   danger: 5
   spawnLocation: 0
@@ -309,13 +309,13 @@ MonoBehaviour:
   explosionSpawnWidth: 1
   explosionSpawnHeight: 2
   explosionDensity: 20
-  velocity: {x: 0, y: 0}
+  velocity: {x: 1, y: 0}
   gravity: 0
   setColor: 1
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
-  pickupSize: 2
+  pickupSize: 1
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
-  deathSound2: {fileID: 0}
+  deathSound2: {fileID: 8300000, guid: fa005b8200d1b8647a0e16bd5b2daa84, type: 3}
 --- !u!114 &11419440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,17 +329,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   idleMinDuration: 0.5
-  idleMaxDuration: 4
-  undergroundMaxDuration: 3
-  undergroundGetHammerMinDuration: 2
-  undergroundGetHammerMaxDuration: 4
+  idleMaxDuration: 3
+  undergroundMaxDuration: 2
+  undergroundGetHammerMinDuration: 1.5
+  undergroundGetHammerMaxDuration: 2.5
   throwHammerChance: 0.7
   riseSwingDelay: 0.1
   hammerHitboxDelay: 0.25
   hammerHitboxDuration: 0.08
   throwDelay: 0.08
   postSwingDuration: 0.9
+  hammerSwingDuration: 0.25
+  hammerParticleCenter: {x: 3.6, y: -1.5}
+  hammerNumParticles: 7
+  hammerParticleXSpread: 0.4
+  hammerParticleAngleSpread: 15
+  hammerParticleVelocityMin: 6
+  hammerParticleVelocityMax: 9
+  hammerParticleFadeDurationRandIncrease: 0.2
+  hammerCamShakeMagnitude: 0.5
+  hammerCamShakeDuration: 0.5
+  hammerParticleGameObject: {fileID: 109696, guid: 67adb53b7c4953649b51bfea0c369a0b,
+    type: 2}
+  hammerSwingSound: {fileID: 8300000, guid: c4506d0cdf37acc4d93ff842a0439f4c, type: 3}
+  hammerSlamSound: {fileID: 8300000, guid: f445b5f7e71d0294797cc32e61d6aaae, type: 3}
+  burrowSound: {fileID: 8300000, guid: 733cf4bba24819c4eb7ba428c3ea4744, type: 3}
+  burrowUpSound: {fileID: 8300000, guid: ec67289b30fe90a4b9dad6605d52d6dd, type: 3}
   hammerGameObject: {fileID: 169810, guid: fe332387f46e615498a15ae9c9d0eb86, type: 2}
+  hammerSpawnPos: {x: 1.8, y: 0}
+  hammerSpawnRotation: -20
 --- !u!114 &11420452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -411,6 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11450314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 8
+  health: 12
   defense: 0
   autoHitFlash: 1
   autoActivateDefaultDeath: 1
@@ -524,7 +543,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: variations.Array.data[0]
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: riseSwingDelay
@@ -537,6 +556,102 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: hammerHitboxDuration
       value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: fa005b8200d1b8647a0e16bd5b2daa84, type: 3}
+    - target: {fileID: 0}
+      propertyPath: velocity.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: idleMaxDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: undergroundMaxDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: undergroundGetHammerMaxDuration
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: undergroundGetHammerMinDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pickupSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleCenter.x
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleCenter.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleGameObject
+      value: 
+      objectReference: {fileID: 109696, guid: 67adb53b7c4953649b51bfea0c369a0b, type: 2}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleXSpread
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleVelocityMin
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerSwingDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerNumParticles
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleVelocityMax
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleAngleSpread
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerParticleFadeDurationRandIncrease
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hammerSlamSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f445b5f7e71d0294797cc32e61d6aaae, type: 3}
+    - target: {fileID: 0}
+      propertyPath: hammerSwingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c4506d0cdf37acc4d93ff842a0439f4c, type: 3}
+    - target: {fileID: 0}
+      propertyPath: hammerCamShakeMagnitude
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: burrowSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 733cf4bba24819c4eb7ba428c3ea4744, type: 3}
+    - target: {fileID: 0}
+      propertyPath: burrowUpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ec67289b30fe90a4b9dad6605d52d6dd, type: 3}
+    - target: {fileID: 0}
+      propertyPath: hammerSpawnPos.x
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

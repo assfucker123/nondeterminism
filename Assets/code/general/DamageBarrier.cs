@@ -39,7 +39,8 @@ public class DamageBarrier : MonoBehaviour {
         case Type.CHARGE_SHOT:
             if (!ai.breaksChargeShotBarriers) {
                 ai.damage = 0;
-                spawnParticles(needChargeShotGameObject, ai.impactPoint);
+                if (ai.fromPlayer)
+                    spawnParticles(needChargeShotGameObject, ai.impactPoint);
             }
             break;
         case Type.GRENADE:

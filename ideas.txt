@@ -493,3 +493,6 @@ o Secret language is based on Enochian
 o One ambush is impossible to beat at first.  Need to escape.
 	- Can only escape in the direction player entered from.
 	- However, come back here later with a new weapon and the ambush can be defeated.  Then player can progress forward there.
+o "Glitch" walls that prevent progress until the glitch is defeated can be extended to glitch platforms that help the player.
+	- After glitch is defeated, platforms go away, and need a different strategy to get through a room.
+	- MIGHT BE A BAD IDEA: fastest route cannot be using the glitch platforms

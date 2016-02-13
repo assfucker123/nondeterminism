@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
     public float airFriction = 50;
     public float gravity = 100;
     public float terminalVelocity = 30;
+    public float fastFallVelocity = -20;
     public float jumpSpeed = 20;
     public float jumpMinDuration = .8f;
     public float jumpMaxDuration = 1.5f;
@@ -394,6 +395,7 @@ public class Player : MonoBehaviour {
         }
         jumpPressed = CutsceneKeys.jumpPressed;
         jumpHeld = CutsceneKeys.jumpHeld;
+        downPressed = CutsceneKeys.downPressed;
 
         //control reverting
         timeReverting();
@@ -869,6 +871,11 @@ public class Player : MonoBehaviour {
             }
         }
 
+        // fast fall
+        if (v.y < 0 && downPressed) {
+            v.y = Mathf.Min(v.y, fastFallVelocity);
+        }
+
         if (state == State.AIR) {
             //animation
             if ((isAnimatorCurrentState("idle_to_rising" + aimSuffix) || isAnimatorCurrentState("rising" + aimSuffix)) &&
@@ -1264,6 +1271,7 @@ public class Player : MonoBehaviour {
     bool rightHeld;
     bool jumpPressed;
     bool jumpHeld;
+    bool downPressed;
 
     //collision stuff
     private float SLOPE_RUN_MODIFIER = 1f;

@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 4
+  defense: 0
   autoHitFlash: 0
   autoActivateDefaultDeath: 0
   useCustomFlashColor: 0
@@ -220,6 +221,7 @@ MonoBehaviour:
   airFriction: 70
   gravity: 110
   terminalVelocity: 30
+  fastFallVelocity: -30
   jumpSpeed: 19.5
   jumpMinDuration: 0.04
   jumpMaxDuration: 0.22
@@ -244,8 +246,8 @@ MonoBehaviour:
   visionsPhase: 20
   startPhase: 1
   phaseDecreaseSpeed: 0
-  phaseRevertingDecreaseSpeed: 7
-  postRevertDuration: 0.5
+  phaseRevertingDecreaseSpeed: 8.5
+  postRevertDuration: 0.9
   idlePhaseReplenishDelay: 2
   idlePhaseReplenishSpeed: 5
   idlePhaseReplenishMax: 20
@@ -290,6 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!114 &11451260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,6 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
 --- !u!114 &11462322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -514,7 +518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseRevertingDecreaseSpeed
-      value: 7
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: phaseDecreaseSpeed
@@ -675,6 +679,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: idlePhaseReplenishDelay
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fastFallVelocity
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: postRevertDuration
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -31,8 +31,25 @@ Vengemole plan:
     public float hammerHitboxDuration = .1f;
     public float throwDelay = .08f;
     public float postSwingDuration = .6f;
+    public float hammerSwingDuration = .1f;
+    public Vector2 hammerParticleCenter = new Vector2();
+    public int hammerNumParticles = 15;
+    public float hammerParticleXSpread = 4;
+    public float hammerParticleAngleSpread = 30;
+    public float hammerParticleVelocityMin = 10;
+    public float hammerParticleVelocityMax = 20;
+    public float hammerParticleFadeDurationRandIncrease = .2f;
+    public float hammerCamShakeMagnitude = .5f;
+    public float hammerCamShakeDuration = .5f;
+    public GameObject hammerParticleGameObject;
+    public AudioClip hammerSwingSound;
+    public AudioClip hammerSlamSound;
+    public AudioClip burrowSound;
+    public AudioClip burrowUpSound;
 
     public GameObject hammerGameObject;
+    public Vector2 hammerSpawnPos = new Vector2();
+    public float hammerSpawnRotation = -20f;
 
     public enum State {
         IDLE,
@@ -95,6 +112,7 @@ Vengemole plan:
     }
 
     void undergroundState() {
+        if (state == State.UNDERGROUND) return;
         // decide where to rise next
         bool attackingPlayer = playerAwareness.awareOfPlayer;
         Vector2 plrPos = Player.instance.rb2d.position;
@@ -139,6 +157,8 @@ Vengemole plan:
         state = State.UNDERGROUND;
         attackObject.enabled = false;
         gameObject.layer = LayerMask.NameToLayer("Visions");
+        if (!visionUser.isVision)
+            SoundManager.instance.playSFXRandPitchBend(burrowSound);
 
         // how long underground?
         if (hasHammer) {
@@ -159,6 +179,7 @@ Vengemole plan:
         attackObject.enabled = true;
         if (!visionUser.isVision) {
             gameObject.layer = LayerMask.NameToLayer("Enemies");
+            SoundManager.instance.playSFXRandPitchBend(burrowUpSound);
         }
         switch (state) {
         case State.RISE:
@@ -174,7 +195,23 @@ Vengemole plan:
     }
 
     void hammerThrow() {
-        Debug.Log("Throw hammer");
+        // create hammer
+        Vector3 hamPos = transform.localPosition;
+        hamPos.y += hammerSpawnPos.y;
+        float hamRotation = hammerSpawnRotation;
+        if (flippedHoriz) {
+            hamRotation *= -1;
+            hamPos.x -= hammerSpawnPos.x;
+        } else {
+            hamPos.x += hammerSpawnPos.x;
+        }
+        GameObject hammerGO = GameObject.Instantiate(hammerGameObject, hamPos, Utilities.setQuat(hamRotation)) as GameObject;
+        VengemoleHammer vm = hammerGO.GetComponent<VengemoleHammer>();
+        vm.flingRight = !flippedHoriz;
+        if (visionUser.isVision) {
+            hammerGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+        }
+
         hasHammer = false;
     }
 
@@ -227,6 +264,9 @@ Vengemole plan:
                 } else {
                     animator.Play("throw");
                 }
+                if (!visionUser.isVision) {
+                    SoundManager.instance.playSFXRandPitchBend(hammerSwingSound);
+                }
             }
             // swinging hammer hitboxes
             if (state == State.RISE_SWING && !visionUser.isVision) {
@@ -247,6 +287,39 @@ Vengemole plan:
                 time-Time.deltaTime < riseSwingDelay+throwDelay && time >= riseSwingDelay + throwDelay) {
                 hammerThrow();
             }
+            // hammer hitting the ground after swing
+            if (state == State.RISE_SWING && time-Time.deltaTime < hammerSwingDuration && hammerSwingDuration <= time) {
+                float centerY = rb2d.position.y + hammerParticleCenter.y;
+                float centerX = rb2d.position.x;
+                Vector2 raycastPt = new Vector2(0, centerY);
+                if (flippedHoriz) {
+                    centerX -= hammerParticleCenter.x;
+                    raycastPt.x = centerX + hammerParticleXSpread;
+                } else {
+                    centerX += hammerParticleCenter.x;
+                    raycastPt.x = centerX - hammerParticleXSpread;
+                }
+                // do raycas=t to see if hammer hit the ground
+                raycastPt.y += 1f;
+                RaycastHit2D rh2d = Physics2D.Raycast(raycastPt, new Vector2(0,-1), 1.1f, 1 << LayerMask.NameToLayer("Default"));
+                if (rh2d.collider != null && !visionUser.isVision) {
+                    // spawn particles
+                    for (int i = 0; i < hammerNumParticles; i++) {
+                        float inter = i / (hammerNumParticles - 1.0f)*2 - 1; // in [-1, 1]
+                        float magnitude = timeUser.randomValue() * (hammerParticleVelocityMax - hammerParticleVelocityMin) + hammerParticleVelocityMin;
+                        Vector2 pos = new Vector2(centerX + inter*hammerParticleXSpread, centerY);
+                        float angle = Mathf.PI/2 - inter * hammerParticleAngleSpread *Mathf.PI/180;
+                        ImpactShard impactShard = (GameObject.Instantiate(hammerParticleGameObject,pos,Quaternion.identity) as GameObject).GetComponent<ImpactShard>();
+                        impactShard.initialVelocity.Set(magnitude * Mathf.Cos(angle), magnitude * Mathf.Sin(angle));
+                        impactShard.GetComponent<VisualEffect>().duration += timeUser.randomValue() * hammerParticleFadeDurationRandIncrease;
+                    }
+                    // shake ground
+                    CameraControl.instance.shake(hammerCamShakeMagnitude, hammerCamShakeDuration);
+                    //
+                    SoundManager.instance.playSFXRandPitchBend(hammerSlamSound);
+                }
+            }
+
             // going back underground
             if (time >= postSwingDuration) {
                 undergroundState();
@@ -298,9 +371,12 @@ Vengemole plan:
 
     /* called when this takes damage */
     void OnDamage(AttackInfo ai) {
+        playerAwareness.alwaysAware = true;
         if (receivesDamage.health <= 0) {
             flippedHoriz = ai.impactToRight();
-            //animator.Play("damage");
+            animator.Play("damage");
+        } else if (state == State.IDLE) {
+            undergroundState();
         }
     }
 

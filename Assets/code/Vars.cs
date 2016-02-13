@@ -390,11 +390,12 @@ public class Vars {
         // for testing
 #if UNITY_EDITOR
 
-        //collectDecryptor(Decryptor.ID.CHARGE_SHOT);
-        //creatureCardFind("Sealime");
+        collectDecryptor(Decryptor.ID.CHARGE_SHOT);
+        creatureCardFind("Sealime");
         //creatureCardFind("Magoom");
         creatureCardFind("Sherivice");
         creatureCardFind("Pengrunt");
+        eventHappen(AdventureEvent.Info.FOUND_CREATURE_CARD);
 
         #endif
 

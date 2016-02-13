@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11461272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -94,7 +95,7 @@ MonoBehaviour:
   explosionDamage: 2
   spinSpeed: 650
   spinCW: 1
-  explosionGameObject: {fileID: 189924, guid: 2765738eff7a5034fb692e17d4068ee5, type: 2}
+  explosionGameObject: {fileID: 158332, guid: 2349bb1e82cd22f4aa7cf92771a5af90, type: 2}
   explodeSound: {fileID: 8300000, guid: 55fee0ed7ce02ad46b8b8beb9171e4ef, type: 3}
 --- !u!114 &11466288
 MonoBehaviour:
@@ -163,7 +164,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: explosionGameObject
       value: 
-      objectReference: {fileID: 189924, guid: 2765738eff7a5034fb692e17d4068ee5, type: 2}
+      objectReference: {fileID: 158332, guid: 2349bb1e82cd22f4aa7cf92771a5af90, type: 2}
     - target: {fileID: 0}
       propertyPath: gravity
       value: 80

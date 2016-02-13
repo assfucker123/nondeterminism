@@ -11,6 +11,11 @@ GameObject:
   - 212: {fileID: 21268194}
   - 50: {fileID: 5083568}
   - 60: {fileID: 6083902}
+  - 60: {fileID: 6084634}
+  - 114: {fileID: 11484062}
+  - 114: {fileID: 11405178}
+  - 114: {fileID: 11461386}
+  - 114: {fileID: 11433714}
   m_Layer: 11
   m_Name: VengemoleHammer
   m_TagString: Untagged
@@ -25,7 +30,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.672356, y: 17.408499, z: 0}
+  m_LocalPosition: {x: 47.796413, y: 7.92633, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,7 +60,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 169810}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 39dc6b036227cb14686c8679b4116929, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -70,6 +75,81 @@ PolygonCollider2D:
       - {x: 0.50920486, y: 0.22041702}
       - {x: 0.9303627, y: 0.7724838}
       - {x: 0.5221367, y: 1.3151836}
+--- !u!60 &6084634
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169810}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 39dc6b036227cb14686c8679b4116929, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0.038475037, y: 0.9468665}
+      - {x: -0.7101517, y: 0.55450964}
+      - {x: -0.1822586, y: 0.23004866}
+      - {x: 0.029212952, y: -0.78730774}
+      - {x: 0.23147583, y: 0.20745134}
+      - {x: 0.7527008, y: 0.5651994}
+--- !u!114 &11405178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerPeriod: 0.2
+  flickerAlpha: 0.6
+  material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
+  visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
+--- !u!114 &11433714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0dfa7c8492dc78488631139cd6dcdad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitFadeDuration: 0.8
+  initialVelocity: {x: 25, y: 1}
+  initialAngularVelocity: 800
+  flingRight: 1
+--- !u!114 &11461386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab9b924bddccc940addfdd00eddf172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 3
+--- !u!114 &11484062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!212 &21268194
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -110,6 +190,26 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialVelocity.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialAngularVelocity
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialVelocity.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

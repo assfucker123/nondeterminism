@@ -12,6 +12,7 @@ public class AttackInfo {
     public bool breaksGrenadeBarriers = false;
     public bool breaksMissileBarriers = false;
     public bool breaksFlareDiveBarriers = false;
+    public bool fromPlayer = false;
     public string message = "";
 
     public AttackInfo clone() {
@@ -25,6 +26,7 @@ public class AttackInfo {
         ret.breaksGrenadeBarriers = breaksGrenadeBarriers;
         ret.breaksMissileBarriers = breaksMissileBarriers;
         ret.breaksFlareDiveBarriers = breaksFlareDiveBarriers;
+        ret.fromPlayer = fromPlayer;
         ret.message = message;
         return ret;
     }

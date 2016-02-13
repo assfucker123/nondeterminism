@@ -72,7 +72,7 @@ public static class Utilities {
 
     /* returns the point on line defined by lineP0 and lineP1 that is closest to the given point */
     public static Vector2 closestPointOnLineToPoint(Vector2 lineP0, Vector2 lineP1, Vector2 point) {
-        return vectorProjection(lineP1 - lineP0, point - lineP0);
+        return lineP0 + vectorProjection(lineP1 - lineP0, point - lineP0);
     }
     
     public static float easeLinear(float t, float b, float c, float d){

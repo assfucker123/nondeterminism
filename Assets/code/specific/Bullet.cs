@@ -82,7 +82,7 @@ public class Bullet : MonoBehaviour {
         } else {
             rh2dPlayerEnemy = Physics2D.CircleCast(
                 rb2d.position,
-                radius,
+                playerEnemyRadius,
                 direction,
                 distance,
                 layerMask & playerEnemyLayerMask);
@@ -127,6 +127,7 @@ public class Bullet : MonoBehaviour {
                             }
                         }
                     }
+                    ai.fromPlayer = true;
                 }
                 ai.impactHeading = heading;
                 ai.impactPoint = rh2d.point;
