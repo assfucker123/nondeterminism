@@ -25,6 +25,8 @@ Vengemole plan:
     public float undergroundMaxDuration = 3f; // min duration is VISION_DURATION
     public float undergroundGetHammerMinDuration = 2f;
     public float undergroundGetHammerMaxDuration = 4f;
+    public float fallChangeLayerDuration = .2f;
+    public float riseChangeLayerDuration = .1f;
     public float throwHammerChance = .7f;
     public float riseSwingDelay = .2f;
     public float hammerHitboxDelay = .25f;
@@ -148,7 +150,7 @@ Vengemole plan:
         }
 
         // state transition
-        time -= duration;
+        time = 0;
         if (hasHammer) {
             animator.Play("fall");
         } else {
@@ -156,7 +158,6 @@ Vengemole plan:
         }
         state = State.UNDERGROUND;
         attackObject.enabled = false;
-        gameObject.layer = LayerMask.NameToLayer("Visions");
         if (!visionUser.isVision)
             SoundManager.instance.playSFXRandPitchBend(burrowSound);
 
@@ -178,7 +179,6 @@ Vengemole plan:
         state = stateAfterUnderground;
         attackObject.enabled = true;
         if (!visionUser.isVision) {
-            gameObject.layer = LayerMask.NameToLayer("Enemies");
             SoundManager.instance.playSFXRandPitchBend(burrowUpSound);
         }
         switch (state) {
@@ -233,29 +233,37 @@ Vengemole plan:
 
         switch (state) {
         case State.IDLE:
+            if (!visionUser.isVision && time >= riseChangeLayerDuration) {
+                gameObject.layer = LayerMask.NameToLayer("Enemies");
+            }
             if (time >= duration) {
                 // go underground
                 undergroundState();
-                
             }
             break;
         case State.UNDERGROUND:
 
+            // changing layer to remove hitboxes
+            if (time >= fallChangeLayerDuration) {
+                gameObject.layer = LayerMask.NameToLayer("Visions");
+            }
             // creating vision of rising
             if (visionUser.shouldCreateVisionThisFrame(time-Time.deltaTime, time, duration, VisionUser.VISION_DURATION)) {
                 visionUser.createVision(VisionUser.VISION_DURATION);
-
             }
 
             if (time >= duration) {
                 // rise from the ground
                 riseState(); // uses properties already set when undergroundState() was called
             }
-
             break;
         case State.RISE:
         case State.RISE_SWING:
         case State.RISE_THROW:
+            // changing layer to add hitboxes
+            if (!visionUser.isVision && time >= riseChangeLayerDuration) {
+                gameObject.layer = LayerMask.NameToLayer("Enemies");
+            }
             // swinging hammer
             if ((state == State.RISE_SWING || state == State.RISE_THROW) &&
                 time-Time.deltaTime < riseSwingDelay && time >= riseSwingDelay) {
@@ -331,30 +339,6 @@ Vengemole plan:
 
         rb2d.velocity = v;
 
-        // travel across a segment:
-        /*
-        x = segment.travelClamp(rb2d.position.x, speed, Time.fixedDeltaTime);
-        rb2d.MovePosition(new Vector2(x, rb2d.position.y));
-        */
-
-        // create a vision:
-        /*
-        GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
-        */
-
-        // spawn a bullet:
-        /*
-        GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
-            rb2d.position + relSpawnPosition,
-            Utilities.setQuat(heading)) as GameObject;
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.heading = heading;
-        if (visionUser.isVision) { //make bullet a vision if this is also a vision
-            VisionUser bvu = bullet.GetComponent<VisionUser>();
-            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
-        }
-        */
-
     }
 
     /* called when this becomes a vision */
@@ -393,6 +377,7 @@ Vengemole plan:
         fi.bools["aoe"] = attackObject.enabled;
         fi.bools["rae"] = rightAttack.enabled;
         fi.bools["lae"] = leftAttack.enabled;
+        fi.ints["gol"] = gameObject.layer;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
@@ -406,6 +391,7 @@ Vengemole plan:
         attackObject.enabled = fi.bools["aoe"];
         rightAttack.enabled = fi.bools["rae"];
         leftAttack.enabled = fi.bools["lae"];
+        gameObject.layer = fi.ints["gol"];
     }
 
     float time = 0;

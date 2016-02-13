@@ -71,7 +71,7 @@ public class CreatureCard : MonoBehaviour {
                 return i;
             }
         }
-        Debug.LogWarning("No id could be found for creature " + cardName);
+        //Debug.LogWarning("No id could be found for creature " + cardName);
         return 0;
     }
     public static int getNumCardsTotal() {
