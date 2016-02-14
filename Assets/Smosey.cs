@@ -1,19 +1,73 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/* Three types:
+ * SMOSEY: Default Smosey, just idles around and doesn't attack
+ * SMOSEY_BULLET: Will begin to fire bullets at player if they see player or take damage
+ * SMOSEY_SWARM: Acts like SMOSEY, but when attacked will swarm the player and also call swarm() for nearby SMOSEY_SWARMs and startFiringBullet() for nearby SMOSEY_BULLETs
+*/
+
 public class Smosey : MonoBehaviour {
     
     public State state = State.IDLE;
     public float idleXDist = 4;
     public float idleYDist = 2;
     public float idlePeriod = 1;
-    public float bulletPeriod = 1.5f;
+    public float bulletMinDuration = 1.5f;
+    public float bulletMaxDuraiton = 2;
     public Vector2 bulletSpawnPos = new Vector2(0, 0);
     public GameObject bulletGameObject;
+    public GameObject bulletMuzzleGameObject;
+    public AudioClip bulletSound;
+    public float swarmAccel = 30;
+    public float swarmMaxSpeed = 25;
+    public float swarmOffsetMax = 2;
+    public float swarmOffsetChangePeriod = 1.2f;
+    public float callSwarmRadius = 8;
+
 
     public enum State {
         IDLE,
+        SWARM, // going to player
         DEAD //don't do anything; DefaultDeath takes care of this
+    }
+
+    public void startFiringBullet() {
+        if (firingBullet)
+            return;
+        if (enemyInfo.id != EnemyInfo.ID.SMOSEY_BULLET)
+            return;
+        firingBullet = true;
+        firingBulletTime = 0;
+        bulletDuration = timeUser.randomValue() * (bulletMaxDuraiton - bulletMinDuration) + bulletMinDuration;
+        playerAwareness.alwaysAware = true;
+    }
+
+    public void swarm() {
+        if (state == State.SWARM)
+            return;
+        if (enemyInfo.id != EnemyInfo.ID.SMOSEY_SWARM)
+            return;
+        state = State.SWARM;
+        time = 0;
+        swarmPosOffset.Set((timeUser.randomValue() * 2 - 1) * swarmOffsetMax, (timeUser.randomValue() * 2 - 1) * swarmOffsetMax);
+    }
+
+    // calls swarm or startFiringBullet of all Smoseys nearby
+    void callSwarm() {
+        if (enemyInfo.id != EnemyInfo.ID.SMOSEY_SWARM)
+            return;
+        Smosey[] smoseys = GameObject.FindObjectsOfType<Smosey>();
+        foreach (Smosey smosey in smoseys) {
+            if ((smosey.rb2d.position - rb2d.position).sqrMagnitude > callSwarmRadius * callSwarmRadius)
+                continue;
+            if (smosey.enemyInfo.id == EnemyInfo.ID.SMOSEY_BULLET) {
+                smosey.startFiringBullet();
+            }
+            if (smosey.enemyInfo.id == EnemyInfo.ID.SMOSEY_SWARM) {
+                smosey.swarm();
+            }
+        }
     }
 
     public bool flippedHoriz {
@@ -28,7 +82,7 @@ public class Smosey : MonoBehaviour {
         }
     }
 
-    public bool passive {  get { return enemyInfo.id == EnemyInfo.ID.SMOSEY_PASSIVE; } }
+    public bool passive {  get { return enemyInfo.id == EnemyInfo.ID.SMOSEY; } }
 
     void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
@@ -47,10 +101,9 @@ public class Smosey : MonoBehaviour {
     void Start() {
         if (!visionUser.isVision) {
             idleCenter = rb2d.position;
+            time = idlePeriod * timeUser.randomValue(); // offset for idle movement
         }
         
-        // attach to Segment
-        /* segment = Segment.findBottom(rb2d.position); */
     }
 
     /* Called when being spawned from a Portal */
@@ -89,7 +142,7 @@ public class Smosey : MonoBehaviour {
             // firing bullet
             if (firingBullet) {
                 firingBulletTime += Time.deltaTime;
-                if (visionUser.shouldCreateVisionThisFrame(firingBulletTime - Time.deltaTime, firingBulletTime, bulletPeriod, VisionUser.VISION_DURATION) && !visionUser.isVision) {
+                if (visionUser.shouldCreateVisionThisFrame(firingBulletTime - Time.deltaTime, firingBulletTime, bulletDuration, VisionUser.VISION_DURATION) && !visionUser.isVision) {
                     // set aim position
                     if (Player.instance != null)
                         bulletAimPos = Player.instance.rb2d.position;
@@ -97,7 +150,8 @@ public class Smosey : MonoBehaviour {
                     GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
                     vGO.GetComponent<Smosey>().idleCenter = idleCenter;
                 }
-                if (firingBulletTime >= bulletPeriod) {
+                if (firingBulletTime >= bulletDuration) {
+                    // spawn bullet
                     Vector2 spawnPos = pos;
                     if (flippedHoriz) {
                         spawnPos.x -= bulletSpawnPos.x;
@@ -111,19 +165,37 @@ public class Smosey : MonoBehaviour {
                         Utilities.setQuat(heading)) as GameObject;
                     Bullet bullet = bulletGO.GetComponent<Bullet>();
                     bullet.heading = heading;
+                    GameObject bulletMuzzleGO = GameObject.Instantiate(bulletMuzzleGameObject, spawnPos, Utilities.setQuat(heading)) as GameObject;
                     if (visionUser.isVision) { // make bullet a vision if this is also a vision
                         VisionUser bvu = bullet.GetComponent<VisionUser>();
                         bvu.becomeVisionNow(visionUser.timeLeft, visionUser);
+                        bulletMuzzleGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+                    } else {
+                        SoundManager.instance.playSFXRandPitchBend(bulletSound);
                     }
-
-                    firingBulletTime -= bulletPeriod;
+                    
+                    firingBulletTime -= bulletDuration;
+                    bulletDuration = timeUser.randomValue() * (bulletMaxDuraiton - bulletMinDuration) + bulletMinDuration;
                 }
             } else {
-                if (!passive && playerAwareness.awareOfPlayer) {
-                    firingBullet = true;
-                    firingBulletTime = 0;
-                    playerAwareness.alwaysAware = true;
+                if (enemyInfo.id == EnemyInfo.ID.SMOSEY_BULLET && playerAwareness.awareOfPlayer) {
+                    startFiringBullet();
                 }
+            }
+            break;
+        case State.SWARM:
+            Vector2 swarmPos = Player.instance.rb2d.position;
+            swarmPos += swarmPosOffset;
+            float angle = Mathf.Atan2(swarmPos.y-rb2d.position.y, swarmPos.x-rb2d.position.x);
+            v += swarmAccel * Time.deltaTime * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            if (v.sqrMagnitude > swarmMaxSpeed * swarmMaxSpeed) {
+                v.Normalize();
+                v *= swarmMaxSpeed;
+            }
+            flippedHoriz = (rb2d.position.x > swarmPos.x);
+            if (time >= swarmOffsetChangePeriod) {
+                swarmPosOffset.Set((timeUser.randomValue() * 2 - 1) * swarmOffsetMax, (timeUser.randomValue() * 2 - 1) * swarmOffsetMax);
+                time -= swarmOffsetChangePeriod;
             }
             break;
         }
@@ -174,10 +246,14 @@ public class Smosey : MonoBehaviour {
     void OnDamage(AttackInfo ai) {
         // be aware of player
         playerAwareness.alwaysAware = true;
+        if (enemyInfo.id == EnemyInfo.ID.SMOSEY_SWARM && state != State.SWARM) {
+            swarm();
+            callSwarm();
+        }
         // die
         if (receivesDamage.health <= 0) {
             flippedHoriz = ai.impactToRight();
-            //animator.Play("damage");
+            animator.Play("damage");
         }
     }
 
@@ -189,6 +265,9 @@ public class Smosey : MonoBehaviour {
         fi.floats["fbt"] = firingBulletTime;
         fi.floats["bapx"] = bulletAimPos.x;
         fi.floats["bapy"] = bulletAimPos.y;
+        fi.floats["bd"] = bulletDuration;
+        fi.floats["spox"] = swarmPosOffset.x;
+        fi.floats["spoy"] = swarmPosOffset.y;
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
@@ -197,6 +276,8 @@ public class Smosey : MonoBehaviour {
         firingBullet = fi.bools["fb"];
         firingBulletTime = fi.floats["fbt"];
         bulletAimPos.Set(fi.floats["bapx"], fi.floats["bapy"]);
+        bulletDuration = fi.floats["bd"];
+        swarmPosOffset.Set(fi.floats["spox"], fi.floats["spoy"]);
     }
 
     float time;
@@ -204,6 +285,8 @@ public class Smosey : MonoBehaviour {
     bool firingBullet = false;
     float firingBulletTime = 0;
     Vector2 bulletAimPos = new Vector2();
+    float bulletDuration = 0;
+    Vector2 swarmPosOffset = new Vector2();
 
     // components
     Rigidbody2D rb2d;

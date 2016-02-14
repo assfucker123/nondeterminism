@@ -22,7 +22,7 @@ public class EnemyInfo : MonoBehaviour {
         CIURIVY,
         CIURIVY_PASSIVE,
         SMOSEY,
-        SMOSEY_PASSIVE,
+        SMOSEY_BULLET,
         SMOSEY_SWARM
     }
 

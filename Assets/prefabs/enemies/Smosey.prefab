@@ -230,9 +230,18 @@ MonoBehaviour:
   idleXDist: 0.6
   idleYDist: 0.3
   idlePeriod: 1.9
-  bulletPeriod: 1.5
-  bulletSpawnPos: {x: 0, y: 0}
+  bulletMinDuration: 1.3
+  bulletMaxDuraiton: 1.8
+  bulletSpawnPos: {x: 0, y: -0.3}
   bulletGameObject: {fileID: 157014, guid: 7cca9caf54beeaf48bcebdd2f747f7bf, type: 2}
+  bulletMuzzleGameObject: {fileID: 123904, guid: 7234c6d4267ab7a43a0b1e3db9db83ee,
+    type: 2}
+  bulletSound: {fileID: 8300000, guid: 4ae2b939df325504f97c68c2b32c1f58, type: 3}
+  swarmAccel: 40
+  swarmMaxSpeed: 25
+  swarmOffsetMax: 3
+  swarmOffsetChangePeriod: 1.2
+  callSwarmRadius: 8
 --- !u!114 &11441604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,16 +305,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.6
-  explosionSpawnWidth: 1
-  explosionSpawnHeight: 2
-  explosionDensity: 20
+  explosionSpawnWidth: 0.5
+  explosionSpawnHeight: 1
+  explosionDensity: 5
   velocity: {x: 3, y: 3.5}
   gravity: 10
   setColor: 1
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
   pickupSize: 0
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
-  deathSound2: {fileID: 0}
+  deathSound2: {fileID: 8300000, guid: 1c72808e06c62984ebc551ba5196070e, type: 3}
 --- !u!114 &11466498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -398,6 +407,50 @@ Prefab:
       propertyPath: bulletGameObject
       value: 
       objectReference: {fileID: 157014, guid: 7cca9caf54beeaf48bcebdd2f747f7bf, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bulletMinDuration
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletMaxDuraiton
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletMuzzleGameObject
+      value: 
+      objectReference: {fileID: 123904, guid: 7234c6d4267ab7a43a0b1e3db9db83ee, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bulletSpawnPos.y
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: swarmAccel
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c72808e06c62984ebc551ba5196070e, type: 3}
+    - target: {fileID: 0}
+      propertyPath: swarmOffsetMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ae2b939df325504f97c68c2b32c1f58, type: 3}
+    - target: {fileID: 0}
+      propertyPath: explosionSpawnWidth
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosionSpawnHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosionDensity
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 154548}
