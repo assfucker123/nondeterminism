@@ -26,8 +26,9 @@ public class PlayerAwareness : MonoBehaviour {
         if (!Utilities.pointInSector(point, center, rangeOfVision, centerAngleDegrees * Mathf.PI / 180, angleSpreadDegrees * Mathf.PI / 180))
             return false;
         // check that point isn't behind a wall
+        float ptDist = Vector2.Distance(point, center);
         RaycastHit2D rh2d = Physics2D.Raycast(center, point - center, rangeOfVision, layerMask);
-        if (rh2d.collider != null)
+        if (rh2d.distance < ptDist)
             return false;
         // point is seen
         return true;
@@ -36,6 +37,9 @@ public class PlayerAwareness : MonoBehaviour {
 
     void Awake() {
         timeUser = GetComponent<TimeUser>(); // optional
+        Transform trans = transform.Find("spriteObject"); // optional
+        if (trans)
+            childSpriteObject = trans.gameObject;
 	}
 
     void Start() {
@@ -67,8 +71,14 @@ public class PlayerAwareness : MonoBehaviour {
             float angleRad = sightEyesAngle * Mathf.PI / 180;
             Vector3 center3 = sightEyesPosition;
             Vector3 angle3 = center3 + new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
-            center3 = transform.TransformPoint(center3);
-            angle3 = transform.TransformPoint(angle3);
+            if (childSpriteObject == null) {
+                center3 = transform.TransformPoint(center3);
+                angle3 = transform.TransformPoint(angle3);
+            } else {
+                // this else seems weird to me.  I feel like I should use transform again, but not is the accurate choice
+                center3 = childSpriteObject.transform.TransformPoint(center3);
+                angle3 = childSpriteObject.transform.TransformPoint(angle3);
+            }
             angleRad = Mathf.Atan2(angle3.y - center3.y, angle3.x - center3.x);
             seesPlayerFromSight = seesPoint(plrPos, new Vector2(center3.x, center3.y), sightRange, angleRad * 180 / Mathf.PI, sightAngleSpread, sightLayerMask);
         }
@@ -126,5 +136,6 @@ public class PlayerAwareness : MonoBehaviour {
     bool _awareOfPlayer = false;
 
     TimeUser timeUser;
+    GameObject childSpriteObject;
 
 }

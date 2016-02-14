@@ -66,6 +66,7 @@ public class NodeData {
     public void creatureCardCollect(int creatureID) {
         if (creatureCardCollected(creatureID)) return;
         creatureCards.Add(creatureID);
+        Vars.creatureCardFind(creatureID);
     }
     public void creatureCardCollectUndo(string creatureName) {
         creatureCardCollectUndo(CreatureCard.getIDFromCardName(creatureName));

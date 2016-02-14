@@ -88,7 +88,7 @@ public class Dummy : MonoBehaviour {
         bullet.heading = heading;
         if (visionUser.isVision) { //make bullet a vision if this is also a vision
             VisionUser bvu = bullet.GetComponent<VisionUser>();
-            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+            bvu.becomeVisionNow(visionUser.timeLeft, visionUser);
         }
         */
 

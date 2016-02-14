@@ -20,7 +20,10 @@ public class EnemyInfo : MonoBehaviour {
         VENGEMOLE,
         VENGEMOLE_CAN_THROW,
         CIURIVY,
-        CIURIVY_PASSIVE
+        CIURIVY_PASSIVE,
+        SMOSEY,
+        SMOSEY_PASSIVE,
+        SMOSEY_SWARM
     }
 
     public enum SpawnLocation {

@@ -333,6 +333,8 @@ MonoBehaviour:
   undergroundMaxDuration: 2
   undergroundGetHammerMinDuration: 1.5
   undergroundGetHammerMaxDuration: 2.5
+  fallChangeLayerDuration: 0.15
+  riseChangeLayerDuration: 0.08
   throwHammerChance: 0.7
   riseSwingDelay: 0.1
   hammerHitboxDelay: 0.25
@@ -652,6 +654,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: hammerSpawnPos.x
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fallChangeLayerDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: riseChangeLayerDuration
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

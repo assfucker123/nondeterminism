@@ -391,10 +391,13 @@ public class Vars {
 #if UNITY_EDITOR
 
         collectDecryptor(Decryptor.ID.CHARGE_SHOT);
-        creatureCardFind("Sealime");
-        //creatureCardFind("Magoom");
-        creatureCardFind("Sherivice");
-        creatureCardFind("Pengrunt");
+        currentNodeData.creatureCardCollect("Sealime");
+        currentNodeData.creatureCardCollect("Ciurivy");
+        currentNodeData.creatureCardCollect("Magoom");
+        currentNodeData.creatureCardCollect("Pengrunt");
+        creatureCardFind("Vengemole");
+        currentNodeData.creatureCardCollect("Toucade");
+        currentNodeData.creatureCardCollect("Sherivice");
         eventHappen(AdventureEvent.Info.FOUND_CREATURE_CARD);
 
         #endif
