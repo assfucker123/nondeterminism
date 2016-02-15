@@ -393,6 +393,7 @@ public class Vars {
         collectDecryptor(Decryptor.ID.CHARGE_SHOT);
         currentNodeData.creatureCardCollect("Sealime");
         currentNodeData.creatureCardCollect("Ciurivy");
+        currentNodeData.creatureCardCollect("Smosey");
         currentNodeData.creatureCardCollect("Magoom");
         currentNodeData.creatureCardCollect("Pengrunt");
         creatureCardFind("Vengemole");

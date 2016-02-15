@@ -1,7 +1,8 @@
 Sealime: card_sealime 001/1/2/2/1/ -- While Sealimes are usually timid, they become hostile after consuming a large meal and will hurl clots of food at observers.
 Ciurivy: card_ciurivy 002/1/2/1/1/ -- Ciurivys amass supplies of massive Seudar Acorns.  Some are injected with Ciurivy's natural toxins to become explosive weapons.
-Magoom: card_magoom 003/1/0/1/2/ -- Magooms are astute creatures that study ancient Seudarian scripts to push what their feeble bodies are capable of.
-Pengrunt: card_pengrunt 004/1/3/1/1/ It's Pengrunt.
-Vengemole: card_vengemole 005/1/4/2/1/ It's Vengemole.
-Toucade: card_toucade 006/1/3/3/3/ It's Toucade.
-Sherivice: card_sherivice 007/2/3/5/3/ It's Sherivice.
+Smosey: card_smosey 003/1/1/0/1/ It's Smosey.
+Magoom: card_magoom 004/1/0/1/2/ -- Magooms are astute creatures that study ancient Seudarian scripts to push what their feeble bodies are capable of.
+Pengrunt: card_pengrunt 005/1/3/1/1/ It's Pengrunt.
+Vengemole: card_vengemole 006/1/4/2/1/ It's Vengemole.
+Toucade: card_toucade 007/1/3/3/3/ It's Toucade.
+Sherivice: card_sherivice 008/2/3/5/3/ It's Sherivice.

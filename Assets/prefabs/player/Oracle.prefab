@@ -248,8 +248,8 @@ MonoBehaviour:
   phaseDecreaseSpeed: 0
   phaseRevertingDecreaseSpeed: 8.5
   postRevertDuration: 0.9
-  idlePhaseReplenishDelay: 2
-  idlePhaseReplenishSpeed: 5
+  idlePhaseReplenishDelay: 1.2
+  idlePhaseReplenishSpeed: 4
   idlePhaseReplenishMax: 20
   damageSpeed: 14
   damageFriction: 40
@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11451260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11462322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -674,11 +676,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: idlePhaseReplenishSpeed
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: idlePhaseReplenishDelay
-      value: 2
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fastFallVelocity
