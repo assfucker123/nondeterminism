@@ -24,7 +24,6 @@ public class BrambleSensor : MonoBehaviour {
             return;
         if (!enabled) return;
         GameObject gO = c2d.gameObject;
-        Rigidbody2D gOrb2d = gO.GetComponent<Rigidbody2D>();
         ReceivesDamage rd = gO.GetComponent<ReceivesDamage>();
         if (rd == null)
             return;

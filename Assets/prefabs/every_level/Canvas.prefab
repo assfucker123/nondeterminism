@@ -196,6 +196,10 @@ Prefab:
       propertyPath: notificationGameObject
       value: 
       objectReference: {fileID: 148276, guid: f7a57879eff6c8f44a8bced6bcff02ef, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162694}

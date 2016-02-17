@@ -650,9 +650,7 @@
  </tileset>
  <tileset firstgid="445" source="img/tundra_1.tsx"/>
  <tileset firstgid="711" source="img/tree_1_tundra.tsx"/>
- <tileset firstgid="777" name="bramble" tilewidth="16" tileheight="16" tilecount="20">
-  <image source="img/bramble.png" width="64" height="80"/>
- </tileset>
+ <tileset firstgid="777" source="img/bramble.tsx"/>
  <layer name="bg" width="82" height="23">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

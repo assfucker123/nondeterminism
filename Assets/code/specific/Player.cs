@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     public float jumpSpeed = 20;
     public float jumpMinDuration = .8f;
     public float jumpMaxDuration = 1.5f;
+    public float jumpReleaseSpeed = 5;
     public float idleGunDownDuration = .8f;
     public GameObject bulletGameObject;
     public GameObject bulletMuzzleGameObject;
@@ -334,6 +335,9 @@ public class Player : MonoBehaviour {
         //testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             phasePickup(maxPhase);
+        }
+        if (Input.GetKey(KeyCode.Alpha2)) {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, 20);
         }
 
         // getting input
@@ -859,8 +863,11 @@ public class Player : MonoBehaviour {
             if (jumpTime > jumpMinDuration) {
                 if (jumpTime >= jumpMaxDuration || !jumpHeld ||
                     colFinder.hitTop) {
-                    //end jump
+                    // end jump
                     jumpTime = jumpMaxDuration + 1;
+                    if (!jumpHeld) {
+                        v.y = Mathf.Min(v.y, jumpReleaseSpeed);
+                    }
                 }
             }
 
