@@ -3,6 +3,7 @@ using System.Collections;
 
 /* Hides when player is inside it, shows when player is outside */
 
+[RequireComponent(typeof(Rigidbody2D))] // also requires some collider2d
 public class FadingForeground : MonoBehaviour {
 
     public float fadeDuration = .4f;

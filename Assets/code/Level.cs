@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/* add this PreFab to every level */
+/* add this PreFab to every level.
+ * Its position in the scene is the default start position for Oracle when testing the level. */
 public class Level : MonoBehaviour {
 
     public int mapX = 0;
     public int mapY = 0;
     public int mapWidth = 1;
     public int mapHeight = 1;
-    public Vector2 debugStartPosition = new Vector2(); // player starts here when just testing the level
     public bool showOnMap = true;
     public bool bobbingCamera = false;
 
@@ -26,7 +26,7 @@ public class Level : MonoBehaviour {
         // If currentNodeData hasn't been created yet (it should be created if game started at the title screen), then create something
         if (Vars.currentNodeData == null) {
             Vars.currentNodeData = NodeData.createNodeData(null, true);
-            Vars.currentNodeData.position = debugStartPosition;
+            Vars.currentNodeData.position = new Vector2(transform.localPosition.x, transform.localPosition.y);
             Vars.levelStartNodeData = NodeData.createNodeData(null, true);
             Vars.levelStartNodeData.copyFrom(Vars.currentNodeData);
         }

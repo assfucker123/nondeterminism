@@ -221,7 +221,7 @@ MonoBehaviour:
   airFriction: 70
   gravity: 100
   terminalVelocity: 30
-  fastFallVelocity: -30
+  fastFallVelocity: 0
   jumpSpeed: 19
   jumpMinDuration: 0.06
   jumpMaxDuration: 0.22
@@ -685,7 +685,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fastFallVelocity
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: postRevertDuration

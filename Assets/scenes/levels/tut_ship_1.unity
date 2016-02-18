@@ -690,6 +690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!212 &606481365
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -741,11 +743,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485602, guid: adcfa817722367346958dd11bda1ea91, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 30.3
       objectReference: {fileID: 0}
     - target: {fileID: 485602, guid: adcfa817722367346958dd11bda1ea91, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 14.8
       objectReference: {fileID: 0}
     - target: {fileID: 485602, guid: adcfa817722367346958dd11bda1ea91, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1052,6 +1054,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!1001 &1100605812
 Prefab:
   m_ObjectHideFlags: 0
@@ -1584,6 +1588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!58 &1633600496
 CircleCollider2D:
   m_ObjectHideFlags: 0
