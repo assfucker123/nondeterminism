@@ -265,6 +265,7 @@ public class WaveSpawner : MonoBehaviour {
 
                 } else {
                     Debug.Log("Spawning without a portal is not supported yet.");
+                    // remember: set recordDestroyed.enabled to false for spawned enemies
                 }
 
                 // increase amount of danger

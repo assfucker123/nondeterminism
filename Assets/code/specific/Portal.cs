@@ -65,6 +65,11 @@ public class Portal : MonoBehaviour {
             VisionUser sV = sGO.GetComponent<VisionUser>();
             sV.becomeVisionNow(visionDuration, visionUser);
         }
+        // don't record when spawned objects are destroyed
+        RecordDestroyed rd = sGO.GetComponent<RecordDestroyed>();
+        if (rd != null) {
+            rd.enabled = false;
+        }
     }
 	
 	void Awake() {

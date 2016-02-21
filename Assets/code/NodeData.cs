@@ -42,16 +42,15 @@ public class NodeData {
     public bool ambushDefeated(string levelName) {
         return levelsAmbushesDefeated.IndexOf(levelName) != -1;
     }
-    public List<string> damageBarriersDestroyed = new List<string>();
-    public void destroyDamageBarrier(string levelName, string objectName) {
-        if (damageBarrierDestroyed(levelName, objectName)) return;
-        damageBarriersDestroyed.Add(damageBarrierCode(levelName, objectName));
+    public Dictionary<string, bool> objectsDestroyed = new Dictionary<string, bool>();
+    public void objectDestroy(string levelName, string objectName) {
+        objectsDestroyed[destroyedObjectCode(levelName, objectName)] = true;
     }
-    public void destroyDamageBarrierUndo(string levelName, string objectName) {
-        damageBarriersDestroyed.Remove(damageBarrierCode(levelName, objectName));
+    public void objectDestroyUndo(string levelName, string objectName) {
+        objectsDestroyed.Remove(destroyedObjectCode(levelName, objectName));
     }
-    public bool damageBarrierDestroyed(string levelName, string objectName) {
-        return (damageBarriersDestroyed.IndexOf(damageBarrierCode(levelName, objectName)) != -1);
+    public bool objectDestroyed(string levelName, string objectName) {
+        return objectsDestroyed.ContainsKey(destroyedObjectCode(levelName, objectName));
     }
     public List<int> creatureCards = new List<int>();
     public bool creatureCardCollected(string creatureName) {
@@ -99,8 +98,10 @@ public class NodeData {
         physicalEvents.AddRange(nodeData.physicalEvents);
         levelsAmbushesDefeated.Clear();
         levelsAmbushesDefeated.AddRange(nodeData.levelsAmbushesDefeated);
-        damageBarriersDestroyed.Clear();
-        damageBarriersDestroyed.AddRange(nodeData.damageBarriersDestroyed);
+        objectsDestroyed.Clear();
+        foreach (string key in nodeData.objectsDestroyed.Keys) {
+            objectsDestroyed.Add(key, nodeData.objectsDestroyed[key]);
+        }
         parent = nodeData.parent;
         children.Clear();
         children.AddRange(nodeData.children);
@@ -143,12 +144,12 @@ public class NodeData {
         foreach (string levelName in nodeData.levelsAmbushesDefeated) {
             if (levelsAmbushesDefeated.IndexOf(levelName) == -1) return false;
         }
-        // compare damage barriers
-        foreach (string db in damageBarriersDestroyed) {
-            if (nodeData.damageBarriersDestroyed.IndexOf(db) == -1) return false;
+        // compare objects destroyed
+        foreach (string key in objectsDestroyed.Keys) {
+            if (!nodeData.objectsDestroyed.ContainsKey(key)) return false;
         }
-        foreach (string db in nodeData.damageBarriersDestroyed) {
-            if (damageBarriersDestroyed.IndexOf(db) == -1) return false;
+        foreach (string key in nodeData.objectsDestroyed.Keys) {
+            if (!objectsDestroyed.ContainsKey(key)) return false;
         }
 
         return true;
@@ -200,22 +201,25 @@ public class NodeData {
             children.Add(nodeDataFromID(int.Parse(childrenStrs[i])));
         }
         // physical events
+        physicalEvents.Clear();
         string[] physStrs = strs[13].Split(delims2);
         for (int i = 0; i < physStrs.Length; i++) {
             if (physStrs[i] == "") continue;
             physicalEvents.Add((AdventureEvent.Physical)int.Parse(physStrs[i]));
         }
         // ambushes defeated
+        levelsAmbushesDefeated.Clear();
         string[] ambushStrs = strs[14].Split(delims2);
         for (int i = 0; i < ambushStrs.Length; i++) {
             if (ambushStrs[i] == "") continue;
             levelsAmbushesDefeated.Add(ambushStrs[i]);
         }
-        // damage barriers destroyed
-        string[] dbStrs = strs[15].Split(delims2);
-        for (int i=0; i<dbStrs.Length; i++) {
-            if (dbStrs[i] == "") continue;
-            damageBarriersDestroyed.Add(dbStrs[i]);
+        // objects destroyed
+        objectsDestroyed.Clear();
+        string[] odStrs = strs[15].Split(delims2);
+        for (int i=0; i<odStrs.Length; i++) {
+            if (odStrs[i] == "") continue;
+            objectsDestroyed[odStrs[i]] = true;
         }
 
     }
@@ -272,10 +276,9 @@ public class NodeData {
             if (i < levelsAmbushesDefeated.Count - 1) ret += "?";
         }
         ret += ">";
-        // damage barriers destroyed (15)
-        for (int i = 0; i < damageBarriersDestroyed.Count; i++) {
-            ret += damageBarriersDestroyed[i];
-            if (i < damageBarriersDestroyed.Count - 1) ret += "?";
+        // objects destroyed (15)
+        foreach (string key in objectsDestroyed.Keys) {
+            ret += key + "?";
         }
 
         return ret;
@@ -410,6 +413,9 @@ public class NodeData {
     /////////////
 
     string damageBarrierCode(string levelName, string objectName) {
+        return levelName + "." + objectName;
+    }
+    string destroyedObjectCode(string levelName, string objectName) {
         return levelName + "." + objectName;
     }
 

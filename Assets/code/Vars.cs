@@ -360,7 +360,7 @@ public class Vars {
         currentNodeData.phaseReplacements = 0;
         currentNodeData.physicalEvents.Clear();
         currentNodeData.levelsAmbushesDefeated.Clear();
-        currentNodeData.damageBarriersDestroyed.Clear();
+        currentNodeData.objectsDestroyed.Clear();
         // decryptors
         decryptors.Clear();
         // info events
