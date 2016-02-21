@@ -19,6 +19,7 @@ public class AutoBackground : MonoBehaviour {
     }
 
     void spawnBGObjects() {
+        int prevSeed = Random.seed;
         Random.seed = randSeed;
         Rect bounds = CameraControl.getMapBounds();
         foreach (BGObject bgo in bgObjects) {
@@ -31,6 +32,7 @@ public class AutoBackground : MonoBehaviour {
                 x += bgo.spacing + bgo.spacingVariability * (Random.value * 2 - 1);
             }
         }
+        Random.seed = prevSeed;
     }
 
 	void Awake() {

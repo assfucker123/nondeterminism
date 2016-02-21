@@ -649,3 +649,7 @@ t-W: Just spit-balling ideas here.  Sorry I'm not being especially helpful.  Aga
 t-W: Hey, is this why you can't see yourself finding the origin of the giant phase crystal?
 t-O: Well I kind of perceive something... possibly?  I cannot say for sure...
 t-W: I think it just means your mortal like the rest of us.  I wouldn't stress over it Oracle.
+
+Motivation to go to the island:
+- Find the second half to a giant phase crystal that Wally has.  It's on Seudar Isle.
+- At the beginning, Oracle confirms she already knows where it is and what she does to get it.  But Wally refuses to let Oracle tell him to keep it a surprise.

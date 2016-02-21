@@ -390,7 +390,10 @@ public class Vars {
         // for testing
 #if UNITY_EDITOR
 
+        ///*
         collectDecryptor(Decryptor.ID.CHARGE_SHOT);
+        
+        /*
         currentNodeData.creatureCardCollect("Sealime");
         currentNodeData.creatureCardCollect("Ciurivy");
         currentNodeData.creatureCardCollect("Smosey");
@@ -399,6 +402,7 @@ public class Vars {
         creatureCardFind("Vengemole");
         currentNodeData.creatureCardCollect("Toucade");
         currentNodeData.creatureCardCollect("Sherivice");
+        */
         eventHappen(AdventureEvent.Info.FOUND_CREATURE_CARD);
 
         #endif

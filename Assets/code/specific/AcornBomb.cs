@@ -12,6 +12,9 @@ public class AcornBomb : MonoBehaviour {
     public bool spinCW = true;
     public GameObject explosionGameObject;
     public AudioClip explodeSound;
+    public bool hangingMode = false;
+    public float hangingSwayPeriod = 2;
+    public float hangingSwayRotation = 20;
 
     void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
@@ -22,8 +25,13 @@ public class AcornBomb : MonoBehaviour {
     void Start() {
         pos0 = rb2d.position;
         yVel = initialYVelocity;
-        if (finalX == 0) { // just for testing
+        if (finalX == 0) {
             finalX = rb2d.position.x;
+        }
+        if (hangingMode) {
+            initialYVelocity = 0;
+            yVel = 0;
+            gameObject.layer = LayerMask.NameToLayer("Enemies");
         }
     }
 	
@@ -34,19 +42,24 @@ public class AcornBomb : MonoBehaviour {
 
         time += Time.deltaTime;
 
-        Vector2 pos = rb2d.position;
-        if (Mathf.Abs(xDuration) < .0001f) {
-            pos.x = finalX;
+        if (hangingMode) {
+            rb2d.rotation = Mathf.Sin(time / hangingSwayPeriod * Mathf.PI * 2) * hangingSwayRotation;
+            
         } else {
-            pos.x = Utilities.easeOutQuadClamp(time, pos0.x, finalX - pos0.x, xDuration);
-        }
-        yVel -= gravity * Time.deltaTime;
-        pos.y += yVel * Time.deltaTime;
-        rb2d.MovePosition(pos);
-        if (spinCW) {
-            rb2d.rotation -= spinSpeed * Time.deltaTime;
-        } else {
-            rb2d.rotation += spinSpeed * Time.deltaTime;
+            Vector2 pos = rb2d.position;
+            if (Mathf.Abs(xDuration) < .0001f) {
+                pos.x = finalX;
+            } else {
+                pos.x = Utilities.easeOutQuadClamp(time, pos0.x, finalX - pos0.x, xDuration);
+            }
+            yVel -= gravity * Time.deltaTime;
+            pos.y += yVel * Time.deltaTime;
+            rb2d.MovePosition(pos);
+            if (spinCW) {
+                rb2d.rotation -= spinSpeed * Time.deltaTime;
+            } else {
+                rb2d.rotation += spinSpeed * Time.deltaTime;
+            }
         }
         
 	}
@@ -70,19 +83,37 @@ public class AcornBomb : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D c2d) {
-        explode();
+        if (timeUser.shouldNotUpdate)
+            return;
+        if (!hangingMode) {
+            explode();
+        }
+    }
+
+    // triggers returning from hanging mode
+    void OnDamage(AttackInfo ai) {
+        if (!hangingMode) return;
+
+        gameObject.layer = LayerMask.NameToLayer("EnemyAttacks");
+        hangingMode = false;
     }
 
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
         fi.bools["e"] = exploded;
         fi.floats["yVel"] = yVel;
+        fi.bools["hm"] = hangingMode;
     }
 
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
         exploded = fi.bools["e"];
         yVel = fi.floats["yVel"];
+        bool prevHangingMode = hangingMode;
+        hangingMode = fi.bools["hm"];
+        if (!prevHangingMode && hangingMode) {
+            gameObject.layer = LayerMask.NameToLayer("Enemies");
+        }
     }
 
     Rigidbody2D rb2d;

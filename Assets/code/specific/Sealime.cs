@@ -52,11 +52,15 @@ public class Sealime : MonoBehaviour {
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
         defaultDeath = GetComponent<DefaultDeath>();
+        enemyInfo = GetComponent<EnemyInfo>();
     }
 
     void Start() {
         // attach to Segment
         segment = Segment.findBottom(rb2d.position);
+        if (enemyInfo.id == EnemyInfo.ID.SEALIME_PASSIVE) {
+            firesBullets = false;
+        }
     }
 
     /* Called when being spawned from a Portal */
@@ -253,31 +257,7 @@ public class Sealime : MonoBehaviour {
             }
             break;
         }
-
-        // travel across a segment:
-        /*
-        x = segment.travelClamp(rb2d.position.x, speed, Time.fixedDeltaTime);
-        rb2d.MovePosition(new Vector2(x, rb2d.position.y));
-        */
-
-        // create a vision:
-        /*
-        GameObject vGO = visionUser.createVision(VisionUser.VISION_DURATION);
-        */
-
-        // spawn a bullet:
-        /*
-        GameObject bulletGO = GameObject.Instantiate(bulletGameObject,
-            rb2d.position + relSpawnPosition,
-            Utilities.setQuat(heading)) as GameObject;
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.heading = heading;
-        if (visionUser.isVision) { //make bullet a vision if this is also a vision
-            VisionUser bvu = bullet.GetComponent<VisionUser>();
-            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
-        }
-        */
-
+        
     }
 
     /* called when this becomes a vision */
@@ -371,5 +351,6 @@ public class Sealime : MonoBehaviour {
     ReceivesDamage receivesDamage;
     VisionUser visionUser;
     DefaultDeath defaultDeath;
+    EnemyInfo enemyInfo;
 
 }

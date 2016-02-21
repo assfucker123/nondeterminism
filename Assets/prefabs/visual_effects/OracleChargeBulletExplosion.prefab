@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.6900005, y: -5.65999985, z: 0}
+  m_LocalPosition: {x: -26.69, y: -5.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -60,7 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa31e6d6a8df4545bcf57bb11d38a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: .239999995
+  duration: 0.24
+  fadeOut: 0
 --- !u!114 &11447952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,6 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1f0d47fbfe449a45d446a673bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flickerPeriod: 0.2
+  flickerAlpha: 0.6
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 0}
 --- !u!114 &11494326
@@ -85,6 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!212 &21240556
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -103,21 +108,29 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 75cdbfdc82950154ca8fe32115e7218c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 110428}

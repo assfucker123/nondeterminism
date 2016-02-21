@@ -13,6 +13,7 @@ GameObject:
   - 58: {fileID: 5853054}
   - 114: {fileID: 11426052}
   - 114: {fileID: 11466288}
+  - 114: {fileID: 11481356}
   - 114: {fileID: 11461272}
   m_Layer: 11
   m_Name: AcornBomb
@@ -97,6 +98,9 @@ MonoBehaviour:
   spinCW: 1
   explosionGameObject: {fileID: 158332, guid: 2349bb1e82cd22f4aa7cf92771a5af90, type: 2}
   explodeSound: {fileID: 8300000, guid: 55fee0ed7ce02ad46b8b8beb9171e4ef, type: 3}
+  hangingMode: 0
+  hangingSwayPeriod: 2
+  hangingSwayRotation: 10
 --- !u!114 &11466288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,6 +116,23 @@ MonoBehaviour:
   flickerAlpha: 0.6
   material: {fileID: 2100000, guid: ac52d265a1d67fd498c44c5b94a75d59, type: 2}
   visionSound: {fileID: 8300000, guid: f064d3f34675d1142a467320df91ed37, type: 3}
+--- !u!114 &11481356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2281967acb6fe43a87ae69bb383f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 999999
+  defense: 0
+  autoHitFlash: 0
+  autoActivateDefaultDeath: 0
+  useCustomFlashColor: 0
+  customFlashColor: {r: 0.89, g: 0, b: 0, a: 1}
 --- !u!212 &21285914
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -185,6 +206,22 @@ Prefab:
       propertyPath: explodeSound
       value: 
       objectReference: {fileID: 8300000, guid: 55fee0ed7ce02ad46b8b8beb9171e4ef, type: 3}
+    - target: {fileID: 0}
+      propertyPath: hangingSwayRotation
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: autoHitFlash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: autoActivateDefaultDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 999999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120132}
