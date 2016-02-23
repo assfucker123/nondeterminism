@@ -28,7 +28,7 @@ public class PlayerAwareness : MonoBehaviour {
         // check that point isn't behind a wall
         float ptDist = Vector2.Distance(point, center);
         RaycastHit2D rh2d = Physics2D.Raycast(center, point - center, rangeOfVision, layerMask);
-        if (rh2d.distance < ptDist)
+        if (rh2d.collider != null && rh2d.distance < ptDist)
             return false;
         // point is seen
         return true;

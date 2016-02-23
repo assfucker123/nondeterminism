@@ -51,6 +51,7 @@ GameObject:
   - 114: {fileID: 11417490}
   - 114: {fileID: 11457440}
   - 114: {fileID: 11427088}
+  - 114: {fileID: 11428248}
   - 114: {fileID: 11437970}
   m_Layer: 9
   m_Name: Sealime
@@ -236,6 +237,17 @@ MonoBehaviour:
   pickupSize: 1
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
   deathSound2: {fileID: 8300000, guid: 647897ec52927c54daefa080e1eab76e, type: 3}
+--- !u!114 &11428248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9728539bb7fba8045962072194a55265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11430450
 MonoBehaviour:
   m_ObjectHideFlags: 1

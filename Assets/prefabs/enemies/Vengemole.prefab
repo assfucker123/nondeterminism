@@ -19,6 +19,7 @@ GameObject:
   - 114: {fileID: 11478958}
   - 114: {fileID: 11409206}
   - 114: {fileID: 11489688}
+  - 114: {fileID: 11429482}
   - 114: {fileID: 11419440}
   m_Layer: 9
   m_Name: Vengemole
@@ -393,6 +394,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
+--- !u!114 &11429482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9728539bb7fba8045962072194a55265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11434870
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,19 +21,24 @@ public class RecordDestroyed : MonoBehaviour {
     }
 
     void Awake() {
+        visionUser = GetComponent<VisionUser>();
         if (enabled && isDestroyed) {
             GameObject.Destroy(gameObject);
         }
     }
 
     void OnRevertExist() {
-        if (enabled)
+        if (enabled && !isVision)
             destroyObjectUndo();
     }
 
     void OnTimeDestroy() {
-        if (enabled)
+        if (enabled && !isVision)
             destroyObject();
     }
+
+    VisionUser visionUser;
+
+    bool isVision {  get { return visionUser != null && visionUser.isVision; } }
 
 }

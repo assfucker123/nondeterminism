@@ -53,6 +53,7 @@ GameObject:
   - 114: {fileID: 11476096}
   - 114: {fileID: 11441728}
   - 114: {fileID: 11439110}
+  - 114: {fileID: 11493558}
   - 114: {fileID: 11464750}
   m_Layer: 9
   m_Name: Ciurivy
@@ -278,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11483858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +332,17 @@ MonoBehaviour:
     type: 2}
   phaseBigPickupGameObject: {fileID: 191378, guid: 0a4a7d3598a8768458bf49d3c18ff8f6,
     type: 2}
+--- !u!114 &11493558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9728539bb7fba8045962072194a55265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11494046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -483,6 +496,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: pickupSize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sightRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sightAngleSpread
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
