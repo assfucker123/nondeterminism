@@ -236,15 +236,33 @@ public class Vars {
     public static void saveData() {
         string path = Application.persistentDataPath + "/data" + saveFileIndex + ".sav";
 
-        byte[] bArr = Utilities.stringToBytes(saveDataToString());
+        string content = "";
+
+        // find checksum
+        string data = saveDataToString();
+        int checksum = 0;
+        for (int i=0; i<data.Length; i++) {
+            checksum += data[i];
+        }
+        // add data and checksum
+        content += data;
+        content += checksum;
+        // encrypt
+        string encrypted = StringEncrypt.encrypt(content);
+        // add bonus text
+        Properties propAsset = new Properties(Resources.Load<TextAsset>("save_data_bonus").text);
+        content = propAsset.getString("Default") + "\n" + propAsset.getString("Divider") + "\n" + encrypted;
+
+        byte[] bArr = Utilities.stringToBytes(content);
 
         #if !UNITY_WEBPLAYER
         File.WriteAllBytes(path, bArr);
         #endif
     }
 
-    /* Load data from a file */
-    public static void loadData(int saveFileIndex = 0) {
+    /* Load data from a file.
+     * Returns false if there was a problem. */
+    public static bool loadData(int saveFileIndex = 0) {
 
         if (saveFileIndex != saveFileIndexLastUsed) {
             saveFileIndexLastUsed = saveFileIndex;
@@ -253,7 +271,7 @@ public class Vars {
 
         #if UNITY_WEBPLAYER
         loadDefaultData(saveFileIndex);
-        return;
+        return true;
         #endif
 
         #if !UNITY_WEBPLAYER
@@ -262,10 +280,33 @@ public class Vars {
 
         if (!File.Exists(path)) {
             loadDefaultData(saveFileIndex);
-            return;
+            return true;
         }
+
         byte[] bArr = File.ReadAllBytes(path);
+        string content = Utilities.bytesToString(bArr);
+        // strip away bonus text and divider
+        int index = content.IndexOf('\n', content.IndexOf('\n'));
+        content = content.Substring(index + 1);
+        // decrypt
+        string decrypted = StringEncrypt.decrypt(content);
+        // trim checksum
+        index = decrypted.LastIndexOf('\n');
+        if (index == -1) return false;
+        string checksumStr = decrypted.Substring(index+1).Trim();
+        decrypted = decrypted.Substring(0, index);
+        // validate checksum
+        int checksum = 0;
+        bool worked = int.TryParse(checksumStr, out checksum);
+        if (!worked) return false;
+        int test = 0;
+        for (int i=0; i<decrypted.Length; i++) {
+            test += decrypted[i];
+        }
+        if (test != checksum) return false;
+        
         loadDataFromString(Utilities.bytesToString(bArr));
+        return true;
 
         #endif
     }
