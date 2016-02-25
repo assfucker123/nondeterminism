@@ -283,6 +283,7 @@ public class Vars {
             return true;
         }
 
+        Debug.Log("loading encrypted data has not been tested yet");
         byte[] bArr = File.ReadAllBytes(path);
         string content = Utilities.bytesToString(bArr);
         // strip away bonus text and divider
