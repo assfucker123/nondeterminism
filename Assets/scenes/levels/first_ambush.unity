@@ -1588,9 +1588,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.23241425, y: -0.29692268}
+  m_Offset: {x: 1.3502693, y: -0.29692268}
   serializedVersion: 2
-  m_Size: {x: 6.702991, y: 10.597691}
+  m_Size: {x: 6.746854, y: 10.597691}
 --- !u!50 &1049576745
 Rigidbody2D:
   serializedVersion: 2
@@ -1645,7 +1645,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1049576742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.73, y: 18.09, z: 0}
+  m_LocalPosition: {x: 63.84, y: 18.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
