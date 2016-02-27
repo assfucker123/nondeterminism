@@ -45,6 +45,33 @@ public class WaveSpawner : MonoBehaviour {
         newWave(0);
         
     }
+
+    /* Finishes the wave spawner immediately.
+     * Will destroy all the spawned enemies only if parameter is set to true. */
+    public void finishSpawner(bool destroyAllSpawnedEnemies = false) {
+        _waveIndex = enemyWaves.Count; // sets finished to true
+
+        if (destroyAllSpawnedEnemies) {
+            EnemyInfo[] enemyInfos = GameObject.FindObjectsOfType<EnemyInfo>();
+            foreach (EnemyInfo ei in enemyInfos) {
+                if (ei.waveSpanwerRef == this) {
+                    TimeUser enemyTU = ei.GetComponent<TimeUser>();
+                    if (enemyTU == null) {
+                        GameObject.Destroy(ei.gameObject);
+                    } else {
+                        enemyTU.timeDestroy();
+                    }
+                }
+            }
+            Portal[] portals = GameObject.FindObjectsOfType<Portal>();
+            foreach (Portal p in portals) {
+                if (p.waveSpawnerRef == this) {
+                    p.GetComponent<TimeUser>().timeDestroy();
+                }
+            }
+        }
+
+    }
     
     /////////////
     // PRIVATE //

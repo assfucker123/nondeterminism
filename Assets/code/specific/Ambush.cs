@@ -9,16 +9,29 @@ public class Ambush : MonoBehaviour {
     public float spearFallDelay = .3f;
     public float waveSpawnDelay = 0;
     public float waveSpawnFinishedDelay = .4f;
+    public float spearRiseDelay = .4f;
     public float notificationDelay = .5f;
+    public float escapedNotificationDelay = 1.0f;
     public bool useIncludedSensor = false; // it's preferred to use AmbushTrigger
     public List<GameObject> ambushSpearRefs = new List<GameObject>(); // if null, will just activate all of them in a room
+    public AudioClip startSound;
+    public Color startFlashColor = new Color(0, 0, 0, .3f);
+    public AudioClip defeatedSound;
+    public Color defeatedFlashColor = new Color(0, .9f, .1f, .4f);
+    public AudioClip escapedSound;
+    public Color escapedFlashColor = new Color(.5f, .5f, .5f, 1);
+    public TextAsset textAsset;
+    public float bgOverlayFadeInDuration = .4f;
+    public float bgOverlayFadeOutDuration = .4f;
+    public GameObject bgOverlayGameObject;
 
-    public bool activated {  get { return state != State.NOT_ACTIVE; } }
+    public bool activated {  get { return state == State.ACTIVATED || state == State.DEFEATED; } }
 
     public enum State {
         NOT_ACTIVE,
         ACTIVATED,
-        DEFEATED
+        DEFEATED,
+        ESCAPED
     }
 
     public void activate() {
@@ -27,7 +40,9 @@ public class Ambush : MonoBehaviour {
         // move camera
         CameraControl.instance.moveToPosition(new Vector2(transform.localPosition.x, transform.localPosition.y), camMoveDuration);
 
-        HUD.instance.speedLines.flash(new Color(0, 0, 0, 0f), new Color(0, 0, 0, .3f), .3f);
+        HUD.instance.speedLines.flash(Color.clear, startFlashColor, .3f);
+        bgOverlay.fadeIn(bgOverlayFadeInDuration);
+        SoundManager.instance.playSFX(startSound);
 
         state = State.ACTIVATED;
         time = 0;
@@ -41,24 +56,46 @@ public class Ambush : MonoBehaviour {
         // move camera back to following player
         CameraControl.instance.followPlayer(camResumeDuration);
 
-        // raise spears
-        foreach (GameObject spearGO in ambushSpearRefs) {
-            spearGO.GetComponent<AmbushSpear>().rise();
-        }
-
         // record that ambush was defeated
         Vars.currentNodeData.defeatAmbush(Vars.currentLevel);
 
-        Debug.Log("Ambush defeated.  Now need to add sound effects, escaping an ambush, etc.");
+        SoundManager.instance.playSFX(defeatedSound);
+        bgOverlay.fadeOut(bgOverlayFadeOutDuration);
+        HUD.instance.speedLines.flash(Color.clear, defeatedFlashColor, .4f);
 
         state = State.DEFEATED;
         time = 0;
         toDisplayNotification = true;
+        toRiseSpears = true;
+    }
+
+    public void ambushEscaped() {
+        if (state != State.ACTIVATED) return;
+
+        // very "bright" flash to hide enemies being destroyed
+        HUD.instance.speedLines.flash(Color.clear, escapedFlashColor, .8f);
+        bgOverlay.fadeOut(bgOverlayFadeOutDuration);
+        SoundManager.instance.playSFX(escapedSound);
+
+        // end spawner and destroy all spawned enemies
+        waveSpawner.finishSpawner(true);
+        CameraControl.instance.followPlayer(camResumeDuration);
+        // raise spears
+        foreach (GameObject spearGO in ambushSpearRefs) {
+            spearGO.GetComponent<AmbushSpear>().riseImmediately();
+        }
+        
+        state = State.ESCAPED;
+        time = 0;
+        toDisplayNotification = true;
+        toRiseSpears = false;
     }
 
 	void Awake() {
         waveSpawner = GetComponent<WaveSpawner>();
         timeUser = GetComponent<TimeUser>();
+        propAsset = new Properties(textAsset.text);
+        bgOverlay = GameObject.Instantiate(bgOverlayGameObject).GetComponent<AmbushBGOverlay>();
 	}
 
     void Start() {
@@ -98,14 +135,31 @@ public class Ambush : MonoBehaviour {
                 if (waveSpawnFinishedTime > waveSpawnFinishedDelay) {
                     ambushDefeated();
                 }
+            } else {
+                // detect if player has escaped
+                if (!CameraControl.pointContainedInScreen(Player.instance.rb2d.position, -1f)) {
+                    ambushEscaped();
+                }
             }
             break;
         case State.DEFEATED:
-            time += Time.deltaTime;
+            // rise spears
+            if (toRiseSpears && time >= spearRiseDelay) {
+                // raise spears
+                foreach (GameObject spearGO in ambushSpearRefs) {
+                    spearGO.GetComponent<AmbushSpear>().rise();
+                }
+                toRiseSpears = false;
+            }
             // display notification that ambush was defeated
             if (toDisplayNotification && time >= notificationDelay) {
-                Notification.instance.displayNotification("Ambush defeated.", Notification.NotifType.DEFAULT);
+                Notification.instance.displayNotification(propAsset.getString("defeated"), Notification.NotifType.DEFAULT);
                 toDisplayNotification = false;
+            }
+            break;
+        case State.ESCAPED:
+            if (time >= escapedNotificationDelay && time - Time.deltaTime < escapedNotificationDelay) {
+                Notification.instance.displayNotification(propAsset.getString("escaped"), Notification.NotifType.DEFAULT);
             }
             break;
         }
@@ -115,6 +169,7 @@ public class Ambush : MonoBehaviour {
         fi.state = (int)state;
         fi.floats["t"] = time;
         fi.bools["tdn"] = toDisplayNotification;
+        fi.bools["trs"] = toRiseSpears;
     }
 
     void OnRevert(FrameInfo fi) {
@@ -126,6 +181,7 @@ public class Ambush : MonoBehaviour {
         }
         time = fi.floats["t"];
         toDisplayNotification = fi.bools["tdn"];
+        toRiseSpears = fi.bools["trs"];
     }
 
     void OnTriggerEnter2D(Collider2D c2d) {
@@ -136,11 +192,21 @@ public class Ambush : MonoBehaviour {
         activate();
     }
 
+    void OnDestroy() {
+        if (bgOverlay != null) {
+            GameObject.Destroy(bgOverlay.gameObject);
+            bgOverlay = null;
+        }
+    }
+
     WaveSpawner waveSpawner;
     TimeUser timeUser;
+    Properties propAsset;
 
     State state = State.NOT_ACTIVE;
     float time = 0;
     float waveSpawnFinishedTime = 0;
+    bool toRiseSpears = false;
     bool toDisplayNotification = false;
+    AmbushBGOverlay bgOverlay;
 }

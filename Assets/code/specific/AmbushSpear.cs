@@ -7,8 +7,10 @@ public class AmbushSpear : MonoBehaviour {
     public float fallDuration = .8f;
     public float bounceDist = .5f;
     public float bounceDuration = .3f;
+    public float riseDuration = .8f;
     public AudioClip dropSound1;
     public AudioClip dropSound2;
+    public AudioClip riseSound;
 
     public void fall() {
         if (state == State.FALLING) return;
@@ -22,6 +24,13 @@ public class AmbushSpear : MonoBehaviour {
         if (state == State.RISING) return;
         rb2d.position = fellPos;
         state = State.RISING;
+        if (!SoundManager.instance.isSFXPlaying(riseSound)) {
+            SoundManager.instance.playSFX(riseSound);
+        }
+    }
+    public void riseImmediately() {
+        if (state == State.RAISED) return;
+        state = State.RAISED;
     }
 
     public enum State {
@@ -101,9 +110,9 @@ public class AmbushSpear : MonoBehaviour {
             }
             break;
         case State.RISING:
-            if (time < fallDuration) {
+            if (time < riseDuration) {
                 float t = 0;
-                t = Utilities.easeLinearClamp(time, 1, -1, fallDuration);
+                t = Utilities.easeLinearClamp(time, 1, -1, riseDuration);
                 rb2d.MovePosition(raisedPos + (fellPos - raisedPos) * t);
             } else {
                 state = State.RAISED;

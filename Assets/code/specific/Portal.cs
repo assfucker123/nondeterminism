@@ -206,6 +206,10 @@ public class Portal : MonoBehaviour {
             fi.floats["fsaNormalizedTime"]);
     }
 
+    void OnTimeDestroy() {
+        frontSpriteRenderer.enabled = false;
+    }
+
     private float time = 0;
 
 	// components

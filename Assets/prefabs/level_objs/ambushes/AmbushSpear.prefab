@@ -96,8 +96,10 @@ MonoBehaviour:
   fallDuration: 0.5
   bounceDist: 0.5
   bounceDuration: 0.2
+  riseDuration: 0.8
   dropSound1: {fileID: 8300000, guid: dea901d6fae957a46a365944c768d5fd, type: 3}
   dropSound2: {fileID: 8300000, guid: 4a32cd783b60f6c43a7707d96b0cc386, type: 3}
+  riseSound: {fileID: 8300000, guid: a80c93f4bf7125744af69db90bbb3608, type: 3}
 --- !u!212 &21207124
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -143,6 +145,10 @@ Prefab:
       propertyPath: dropSound2
       value: 
       objectReference: {fileID: 8300000, guid: 4a32cd783b60f6c43a7707d96b0cc386, type: 3}
+    - target: {fileID: 0}
+      propertyPath: riseSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a80c93f4bf7125744af69db90bbb3608, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177228}

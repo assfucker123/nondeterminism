@@ -89,9 +89,22 @@ MonoBehaviour:
   camResumeDuration: 0.5
   spearFallDelay: 0.4
   waveSpawnDelay: 0
-  waveSpawnFinishedDelay: 0.4
+  waveSpawnFinishedDelay: 0.3
+  spearRiseDelay: 0.1
+  notificationDelay: 1.5
+  escapedNotificationDelay: 1.5
   useIncludedSensor: 0
   ambushSpearRefs: []
+  startSound: {fileID: 8300000, guid: c40a3de8622b0c242a7a0c869ffea296, type: 3}
+  startFlashColor: {r: 0, g: 0, b: 0, a: 0.031}
+  defeatedSound: {fileID: 8300000, guid: eef9d70e3b19abb49971aedd9180a0c3, type: 3}
+  defeatedFlashColor: {r: 0, g: 0.9, b: 0.1, a: 0.4}
+  escapedSound: {fileID: 8300000, guid: 1bfd0e0d72d748241b2b288fadf8b696, type: 3}
+  escapedFlashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  textAsset: {fileID: 4900000, guid: a3708e5aa1ba01c47adfedcf8f9c2d61, type: 3}
+  bgOverlayFadeInDuration: 0.4
+  bgOverlayFadeOutDuration: 0.4
+  bgOverlayGameObject: {fileID: 111964, guid: 0df25db94574d5a45b60a1fda837028c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -118,6 +131,46 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: spearFallDelay
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c40a3de8622b0c242a7a0c869ffea296, type: 3}
+    - target: {fileID: 0}
+      propertyPath: defeatedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eef9d70e3b19abb49971aedd9180a0c3, type: 3}
+    - target: {fileID: 0}
+      propertyPath: waveSpawnFinishedDelay
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: notificationDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spearRiseDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: escapedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1bfd0e0d72d748241b2b288fadf8b696, type: 3}
+    - target: {fileID: 0}
+      propertyPath: escapedNotificationDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: textAsset
+      value: 
+      objectReference: {fileID: 4900000, guid: a3708e5aa1ba01c47adfedcf8f9c2d61, type: 3}
+    - target: {fileID: 0}
+      propertyPath: bgOverlayGameObject
+      value: 
+      objectReference: {fileID: 111964, guid: 0df25db94574d5a45b60a1fda837028c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: startFlashColor.a
+      value: 0.031
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

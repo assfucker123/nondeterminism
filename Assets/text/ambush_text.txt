@@ -1,0 +1,2 @@
+defeated: Ambush defeated.
+escaped: Escaped from ambush.
