@@ -58,6 +58,10 @@ public class Portal : MonoBehaviour {
         EnemyInfo eI = sGO.GetComponent<EnemyInfo>();
         eI.id = spawnInfo.variation;
         eI.waveSpanwerRef = waveSpawnerRef;
+        PlayerAwareness pA = sGO.GetComponent<PlayerAwareness>();
+        if (pA != null) {
+            pA.alwaysAware = true;
+        }
         
         sGO.SendMessage("OnSpawn", spawnInfo, SendMessageOptions.DontRequireReceiver);
 

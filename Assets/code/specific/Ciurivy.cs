@@ -4,7 +4,7 @@ using System.Collections;
 public class Ciurivy : MonoBehaviour {
 
 
-    public State state = State.IDLE;
+    public State state = State.START;
     public float idleDurationMin = .7f;
     public float idleDurationMax = 1.5f;
     public float runSpeed = 10f;
@@ -26,6 +26,7 @@ public class Ciurivy : MonoBehaviour {
     public GameObject acornBombGameObject;
 
     public enum State {
+        START,
         IDLE,
         RUN,
         GET_BOMB,
@@ -64,8 +65,8 @@ public class Ciurivy : MonoBehaviour {
     void Start() {
         // attach to Segment
         segment = Segment.findBottom(rb2d.position);
-
-        if (!visionUser.isVision) {
+        
+        if (!visionUser.isVision || state == State.START) {
             idleState();
         }
     }
@@ -280,7 +281,7 @@ public class Ciurivy : MonoBehaviour {
 
     /* called when this becomes a vision */
     void TimeSkip(float timeInFuture) {
-
+        
         // Start() hasn't been called yet
 
         // at position moving towards

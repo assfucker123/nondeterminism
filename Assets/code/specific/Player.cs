@@ -439,11 +439,13 @@ public class Player : MonoBehaviour {
         }
 
         // apply gravity
-        Vector2 v = rb2d.velocity;
-        v.y -= gravity * Time.deltaTime;
-        v.y = Mathf.Max(-terminalVelocity, v.y);
-        rb2d.velocity = v;
-
+        if (state != State.DEAD) {
+            Vector2 v = rb2d.velocity;
+            v.y -= gravity * Time.deltaTime;
+            v.y = Mathf.Max(-terminalVelocity, v.y);
+            rb2d.velocity = v;
+        }
+        
         // fire bullets
         bulletTime += Time.deltaTime;
         if (canFireBullet) {

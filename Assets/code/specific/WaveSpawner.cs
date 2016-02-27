@@ -88,9 +88,6 @@ public class WaveSpawner : MonoBehaviour {
                 // wave has no more enemies to spawn, so wait until all enemies die
                 if (currentDanger < .0001f) {
                     newWave(waveIndex + 1);
-                    if (finished) {
-                        Debug.Log("Wave spawner finished");
-                    }
                 }
                 break;
             }
@@ -190,7 +187,7 @@ public class WaveSpawner : MonoBehaviour {
                     if (seg != null) {
                         // spawning with segment, find spawn position
                         segmentsSpawnedOnThisFrame.Add(seg);
-                        spawnPos = seg.interpolate(timeUser.randomValue());
+                        spawnPos = seg.interpolate(.2f + timeUser.randomValue()*.6f);
                         switch (seg.wall) {
                         case Segment.Wall.BOTTOM:
                             spawnPos.y += ei.spawnDist;

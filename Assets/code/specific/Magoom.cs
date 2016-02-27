@@ -142,6 +142,13 @@ public class Magoom : MonoBehaviour {
                         if (bottomSeg != null) {
                             segs.Remove(bottomSeg);
                         }
+                        // remove segments that are offscreen
+                        for (int i=0; i<segs.Count; i++) {
+                            if (!segs[i].isOnScreen()) {
+                                segs.RemoveAt(i);
+                                i--;
+                            }
+                        }
                     }
                     Segment.sortOnY(segs);
                     segs.RemoveRange(0, segs.Count / 2);

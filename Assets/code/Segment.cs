@@ -340,6 +340,12 @@ public class Segment {
         return Mathf.Sqrt(Mathf.Min(d0, d1));
     }
 
+    /* returns if a given segment is on screen or not */
+    public bool isOnScreen() {
+        Rect bounds = CameraControl.instance.viewport;
+        return bounds.Contains(p0) || bounds.Contains(p1);
+    }
+
     /* Attempts to make segment perfectly horizontal or vertical.
      * Also goes left->right and down->up. */
     public bool smoothen() {
