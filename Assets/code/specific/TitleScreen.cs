@@ -195,8 +195,10 @@ public class TitleScreen : MonoBehaviour {
     void playGameSelected() {
         // this SHOULD be creating node data from save file, not currentNodeData
         Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData, true); // creating new node to save info to.  new node if child of the old node
-        Vars.loadLevel(Vars.currentNodeData.level);
-        //Vars.loadLevel("calm_tundra_1");
+        //Vars.loadLevel(Vars.currentNodeData.level);
+        Vars.currentNodeData.position.x = 76;
+        Vars.currentNodeData.position.y = 9;
+        Vars.loadLevel("first_ambush");
         //Vars.loadLevel("mapScene");
     }
 

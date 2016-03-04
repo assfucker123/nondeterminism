@@ -52,6 +52,7 @@ public class Notification : MonoBehaviour {
     public void clearAll() {
         textBox.setPlainText("");
         notifs.Clear();
+        updateBGs();
     }
     
     class Notif {

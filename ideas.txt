@@ -496,3 +496,4 @@ o One ambush is impossible to beat at first.  Need to escape.
 o "Glitch" walls that prevent progress until the glitch is defeated can be extended to glitch platforms that help the player.
 	- After glitch is defeated, platforms go away, and need a different strategy to get through a room.
 	- MIGHT BE A BAD IDEA: fastest route cannot be using the glitch platforms
+o Use the energy grenades to destroy platforms below enemies, causing them to fall into spikes, etc.

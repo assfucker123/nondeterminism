@@ -214,7 +214,7 @@ MonoBehaviour:
   sightRange: 30
   sightAngleSpread: 70
   awareBoxWidth: 12
-  awareBoxHeight: 40
+  awareBoxHeight: 20
   hiddenPlayerAwareDuration: 1
   recordAboveInspectorValuesInTimeUser: 0
   sightLayers:
@@ -491,7 +491,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: awareBoxHeight
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: pickupSize

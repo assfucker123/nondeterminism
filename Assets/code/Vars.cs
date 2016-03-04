@@ -434,7 +434,8 @@ public class Vars {
 
         ///*
         collectDecryptor(Decryptor.ID.CHARGE_SHOT);
-        
+        //collectDecryptor(Decryptor.ID.ALTERED_SHOT);
+
         /*
         currentNodeData.creatureCardCollect("Sealime");
         currentNodeData.creatureCardCollect("Ciurivy");

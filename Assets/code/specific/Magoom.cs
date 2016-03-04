@@ -240,7 +240,7 @@ public class Magoom : MonoBehaviour {
             float gravity = 100;
             float a = colFinder.normalBottom - Mathf.PI / 2;
             v.y = v.x * Mathf.Atan(a) * SLOPE_RUN_MODIFIER;
-            float g = gravity * Time.fixedDeltaTime;
+            float g = gravity * Time.deltaTime;
             v.y -= g;
 
             //offset v.x to match gravity so object doesn't slide down when still

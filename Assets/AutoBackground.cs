@@ -24,7 +24,7 @@ public class AutoBackground : MonoBehaviour {
         Rect bounds = CameraControl.getMapBounds();
         foreach (BGObject bgo in bgObjects) {
             float x = bounds.xMin - bgo.spacing * Random.value;
-            for (; x < bounds.xMax; ) {
+            for (; x < bounds.xMax + bgo.spacing; ) {
                 float y = bgo.position + bgo.positionVariability * (Random.value * 2 - 1);
                 GameObject.Instantiate(bgo.gameObject, new Vector3(x, y), Quaternion.identity);
 

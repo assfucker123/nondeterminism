@@ -25,3 +25,9 @@ EditorBuildSettings:
     path: Assets/scenes/levels/first_sealime.unity
   - enabled: 1
     path: Assets/scenes/levels/first_ambush.unity
+  - enabled: 1
+    path: Assets/scenes/levels/ciurivy_puzzle.unity
+  - enabled: 1
+    path: Assets/scenes/levels/above_ciurivy_puzzle.unity
+  - enabled: 1
+    path: Assets/scenes/levels/under_ciurivy.unity

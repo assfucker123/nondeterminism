@@ -1,0 +1,201 @@
+fileFormatVersion: 2
+guid: 49db652586a417041a79e68f0cf77838
+timeCreated: 1456643162
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: omega_crystal_0
+    21300002: omega_crystal_1
+    21300004: omega_crystal_2
+    21300006: omega_crystal_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 16
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: omega_crystal_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 129, y: -45.5}
+        - {x: 139, y: -1.5}
+        - {x: 140, y: 6.5}
+        - {x: 137, y: 10.5}
+        - {x: 39, y: 112.5}
+        - {x: 14, y: 138.5}
+        - {x: -9, y: 161.5}
+        - {x: -11, y: 161.5}
+        - {x: -16, y: 157.5}
+        - {x: -47, y: 119.5}
+        - {x: -57, y: 104.5}
+        - {x: -138, y: 3.5}
+        - {x: -138, y: -7.5}
+        - {x: -127, y: -43.5}
+        - {x: -106, y: -121.5}
+        - {x: -99, y: -145.5}
+        - {x: -89, y: -147.5}
+        - {x: -34, y: -155.5}
+        - {x: -7, y: -160.5}
+        - {x: 3, y: -160.5}
+        - {x: 16, y: -159.5}
+        - {x: 102, y: -143.5}
+        - {x: 107, y: -141.5}
+        - {x: 108, y: -137.5}
+    - name: omega_crystal_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 300
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 129, y: -45.5}
+        - {x: 139, y: -1.5}
+        - {x: 140, y: 6.5}
+        - {x: 137, y: 10.5}
+        - {x: 39, y: 112.5}
+        - {x: 14, y: 138.5}
+        - {x: -9, y: 161.5}
+        - {x: -11, y: 161.5}
+        - {x: -16, y: 157.5}
+        - {x: -47, y: 119.5}
+        - {x: -57, y: 104.5}
+        - {x: -138, y: 3.5}
+        - {x: -138, y: -7.5}
+        - {x: -127, y: -43.5}
+        - {x: -106, y: -121.5}
+        - {x: -99, y: -145.5}
+        - {x: -89, y: -147.5}
+        - {x: -34, y: -155.5}
+        - {x: -7, y: -160.5}
+        - {x: 3, y: -160.5}
+        - {x: 16, y: -159.5}
+        - {x: 102, y: -143.5}
+        - {x: 107, y: -141.5}
+        - {x: 108, y: -137.5}
+    - name: omega_crystal_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 300
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 129, y: -45.5}
+        - {x: 139, y: -1.5}
+        - {x: 140, y: 6.5}
+        - {x: 137, y: 10.5}
+        - {x: 39, y: 112.5}
+        - {x: 14, y: 138.5}
+        - {x: -9, y: 161.5}
+        - {x: -11, y: 161.5}
+        - {x: -16, y: 157.5}
+        - {x: -47, y: 119.5}
+        - {x: -57, y: 104.5}
+        - {x: -138, y: 3.5}
+        - {x: -138, y: -7.5}
+        - {x: -127, y: -43.5}
+        - {x: -106, y: -121.5}
+        - {x: -99, y: -145.5}
+        - {x: -89, y: -147.5}
+        - {x: -34, y: -155.5}
+        - {x: -7, y: -160.5}
+        - {x: 3, y: -160.5}
+        - {x: 16, y: -159.5}
+        - {x: 102, y: -143.5}
+        - {x: 107, y: -141.5}
+        - {x: 108, y: -137.5}
+    - name: omega_crystal_3
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 0
+        width: 300
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 129, y: -45.5}
+        - {x: 139, y: -1.5}
+        - {x: 140, y: 6.5}
+        - {x: 137, y: 10.5}
+        - {x: 39, y: 112.5}
+        - {x: 14, y: 138.5}
+        - {x: -9, y: 161.5}
+        - {x: -11, y: 161.5}
+        - {x: -16, y: 157.5}
+        - {x: -47, y: 119.5}
+        - {x: -57, y: 104.5}
+        - {x: -138, y: 3.5}
+        - {x: -138, y: -7.5}
+        - {x: -127, y: -43.5}
+        - {x: -106, y: -121.5}
+        - {x: -99, y: -145.5}
+        - {x: -89, y: -147.5}
+        - {x: -34, y: -155.5}
+        - {x: -7, y: -160.5}
+        - {x: 3, y: -160.5}
+        - {x: 16, y: -159.5}
+        - {x: 102, y: -143.5}
+        - {x: 107, y: -141.5}
+        - {x: 108, y: -137.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

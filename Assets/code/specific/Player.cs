@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
     public Vector2 bulletSpawnDown = new Vector2();
     public float bulletSpread = 3.0f;
     public float bulletMinDuration = 0.3f; //prevents Player from shooting too fast
+    public float alteredShotDist = .3f;
 
     public GameObject chargeBulletGameObject;
     public float chargeDuration = .6f;
@@ -185,6 +186,20 @@ public class Player : MonoBehaviour {
         FORWARD,
         UP,
         DOWN
+    }
+
+    enum FireBulletFlag:int {
+        ALTERED_1,
+        ALTERED_2,
+        SPLIT_1,
+        SPLIT_2,
+        DO_NOT_PLAY_SOUND
+    }
+    bool fbfContains(FireBulletFlag flag, FireBulletFlag[] fbFlags) {
+        if (fbFlags == null) return false;
+        foreach (FireBulletFlag f in fbFlags)
+            if (f == flag) return true;
+        return false;
     }
 
     //////////////////////
@@ -453,7 +468,13 @@ public class Player : MonoBehaviour {
                 bulletPrePress = true;
             }
             if (bulletPrePress && bulletTime >= bulletMinDuration) {
-                fireBullet(false, aimDirection);
+                alteredShotCount++;
+                if (Vars.abilityKnown(Decryptor.ID.ALTERED_SHOT) && alteredShotCount % 2 == 0) {
+                    fireBullet(false, aimDirection, FireBulletFlag.ALTERED_1);
+                    fireBullet(false, aimDirection, FireBulletFlag.ALTERED_2, FireBulletFlag.DO_NOT_PLAY_SOUND);
+                } else {
+                    fireBullet(false, aimDirection);
+                }
                 bulletTime = 0;
                 bulletPrePress = false;
             }
@@ -544,6 +565,7 @@ public class Player : MonoBehaviour {
         fi.bools["pd"] = pitfallDeath;
         fi.bools["mtx"] = movingToX;
         fi.floats["xmt"] = xMovingTo;
+        fi.ints["asc"] = alteredShotCount;
     }
     void OnRevert(FrameInfo fi) {
         state = (State) fi.state;
@@ -573,6 +595,7 @@ public class Player : MonoBehaviour {
         pitfallDeath = fi.bools["pd"];
         movingToX = fi.bools["mtx"];
         xMovingTo = fi.floats["xmt"];
+        alteredShotCount = fi.ints["asc"];
         HUD.instance.setHealth(receivesDamage.health); //update health on HUD
         bulletTime = 0;
         bulletPrePress = false; //so doesn't bizarrely shoot immediately after revert
@@ -1121,17 +1144,19 @@ public class Player : MonoBehaviour {
     }
 
     // fire a bullet
-    void fireBullet(bool charged, AimDirection direction) {
+    void fireBullet(bool charged, AimDirection direction, params FireBulletFlag[] fireBulletFlags) {
 
         //animation
         idleGunTime = 0;
         if (isAnimatorCurrentState("gun_to_idle") || isAnimatorCurrentState("idle")) {
             animator.Play("gun");
         }
-        if (charged) {
-            SoundManager.instance.playSFXRandPitchBend(chargeBulletSound);
-        } else {
-            SoundManager.instance.playSFXRandPitchBend(bulletSound);
+        if (!fbfContains(FireBulletFlag.DO_NOT_PLAY_SOUND, fireBulletFlags)) {
+            if (charged) {
+                SoundManager.instance.playSFXRandPitchBend(chargeBulletSound);
+            } else {
+                SoundManager.instance.playSFXRandPitchBend(bulletSound);
+            }
         }
         
         //spawning bullet
@@ -1145,14 +1170,32 @@ public class Player : MonoBehaviour {
             } else {
                 heading = 0;
             }
+            if (fbfContains(FireBulletFlag.ALTERED_1, fireBulletFlags)) {
+                relSpawnPosition.y += alteredShotDist / 2;
+            }
+            if (fbfContains(FireBulletFlag.ALTERED_2, fireBulletFlags)) {
+                relSpawnPosition.y -= alteredShotDist / 2;
+            }
             break;
         case AimDirection.UP:
             relSpawnPosition = bulletSpawnUp;
             heading = 90;
+            if (fbfContains(FireBulletFlag.ALTERED_1, fireBulletFlags)) {
+                relSpawnPosition.x += alteredShotDist / 2;
+            }
+            if (fbfContains(FireBulletFlag.ALTERED_2, fireBulletFlags)) {
+                relSpawnPosition.x -= alteredShotDist / 2;
+            }
             break;
         case AimDirection.DOWN:
             relSpawnPosition = bulletSpawnDown;
             heading = -90;
+            if (fbfContains(FireBulletFlag.ALTERED_1, fireBulletFlags)) {
+                relSpawnPosition.x += alteredShotDist / 2;
+            }
+            if (fbfContains(FireBulletFlag.ALTERED_2, fireBulletFlags)) {
+                relSpawnPosition.x -= alteredShotDist / 2;
+            }
             break;
         }
         relSpawnPosition.x *= spriteRenderer.transform.localScale.x;
@@ -1245,6 +1288,7 @@ public class Player : MonoBehaviour {
     float chargeTime = 0;
     AimDirection _aimDirection = AimDirection.FORWARD;
     bool pitfallDeath = false;
+    int alteredShotCount = 0;
 
     bool repositionOnLevelLoad = false;
     bool determineNewPositionFromLastLevel = false;

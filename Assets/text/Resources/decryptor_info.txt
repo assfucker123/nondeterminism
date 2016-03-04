@@ -2,3 +2,5 @@
 1description: Hold down the shoot button and release to fire a powerful attack.
 2name: Charge Magnet
 2description: Holding down the shoot button will also attract nearby pickups.
+3name: Altered Shot
+3description: Alternates between firing one and two bullets simultaneously.

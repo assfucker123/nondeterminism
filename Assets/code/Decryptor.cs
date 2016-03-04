@@ -5,14 +5,15 @@ using System.Collections.Generic;
 public class Decryptor {
     
     public enum ID {
-        NONE,
-        CHARGE_SHOT, // required
-        CHARGE_MAGNET,
+        NONE = 0,
+        CHARGE_SHOT = 1, // required
+        CHARGE_MAGNET = 2,
+        ALTERED_SHOT = 3,
         BLINK_DODGE, // required
         BLINK_SLIDE,
         SAFETY_GRENADE,
         ENERGY_GRENADE, // required
-        MULTI_SHOT,
+        SPLIT_SHOT,
         NATIVE_VISION,
         WALL_RUN, // required
         INTERMEDIATE_FLASHBACK,
