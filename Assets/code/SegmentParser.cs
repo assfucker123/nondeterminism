@@ -6,6 +6,7 @@ using System.Collections;
  * Each EdgeCollider2D should have 2 points and be horizontal or vertical.
  * */
 
+[RequireComponent(typeof(EdgeCollider2D))]
 public class SegmentParser : MonoBehaviour {
 	
 	void Awake() {

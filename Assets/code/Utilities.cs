@@ -74,6 +74,49 @@ public static class Utilities {
     public static Vector2 closestPointOnLineToPoint(Vector2 lineP0, Vector2 lineP1, Vector2 point) {
         return lineP0 + vectorProjection(lineP1 - lineP0, point - lineP0);
     }
+
+    /// <summary>
+    /// Given a bezier curve defined by a start point p0, control point, and end point p2, find the point on the curve at t in [0,1]
+    /// </summary>
+    /// /// <param name="t">in [0,1]</param>
+    public static Vector2 quadraticBezier(Vector2 p0, Vector2 controlPoint, Vector2 p2, float t) {
+        return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * controlPoint + t * t * p2;
+    }
+    /// <summary>
+    /// Given a bezier curve defined by a start point p0, control point, and end point p2, find the derivative on the curve at t in [0,1]
+    /// </summary>
+    /// <param name="t">in [0,1]</param>
+    public static Vector2 quadraticBezierDerivative(Vector2 p0, Vector2 controlPoint, Vector2 p2, float t) {
+        return 2 * (1 - t) * (controlPoint - p0) + 2 * t * (p2 - controlPoint);
+    }
+    /// <summary>
+    /// Given a bezier curve defined by a start point p0, two control points, and end point p3, find the point on the curve at t in [0,1]
+    /// </summary>
+    /// /// <param name="t">in [0,1]</param>
+    public static Vector2 cubicBezier(Vector2 p0, Vector2 controlPoint1, Vector2 controlPoint2, Vector2 p3, float t) {
+        return (1 - t) * quadraticBezier(p0, controlPoint1, controlPoint2, t) + t * quadraticBezier(controlPoint1, controlPoint2, p3, t);
+    }
+    /// <summary>
+    /// Given a bezier curve defined by a start point p0, two control points, and end point p3, find the derivative on the curve at t in [0,1]
+    /// </summary>
+    /// /// <param name="t">in [0,1]</param>
+    public static Vector2 cubicBezierDerivative(Vector2 p0, Vector2 controlPoint1, Vector2 controlPoint2, Vector2 p3, float t) {
+        return 3 * (1 - t) * (1 - t) * (controlPoint1 - p0) + 6 * (1 - t) * t * (controlPoint2 - controlPoint1) + 3 * t * t * (p3 - controlPoint2);
+    }
+
+    /// <summary>
+    /// Given a line segment and a point on the line, what interpolation value is needed to get that point?
+    /// </summary>
+    /// <param name="performClosestPointOnLineFirst">If true, will call closestPointOnLineToPoint(lineP0, lineP1, point) first to ensure the point is on the line.</param>
+    /// <returns>t</returns>
+    public static float inverseInterpolate(Vector2 lineP0, Vector2 lineP1, Vector2 point, bool performClosestPointOnLineFirst = true) {
+        Vector2 pt = point;
+        if (performClosestPointOnLineFirst) pt = closestPointOnLineToPoint(lineP0, lineP1, point);
+        if (Mathf.Abs(lineP1.x-lineP0.x) < .001f) {
+            return (pt.y - lineP0.y) / (lineP1.y - lineP0.y);
+        }
+        return (pt.x - lineP0.x) / (lineP1.x - lineP0.x);
+    }
     
     public static float easeLinear(float t, float b, float c, float d){
         return c*t/d + b;

@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour {
     public float radius = 0; // set to 0 for raycast, positive number for circlecast
     public float playerEnemyRadius = 0; // radius when detecting to hit enemies or players
     public float maxDistance = -1; //set to negative number to have bullet travel "forever"
+    public float spinSpeed = 0;
     public bool breaksChargeShotBarriers = false;
     public bool shotByOracle = false;
     public GameObject bulletFadeGameObject;
@@ -39,6 +40,9 @@ public class Bullet : MonoBehaviour {
 
         if (timeUser.shouldNotUpdate)
             return;
+
+        // spinning
+        transform.localRotation = Utilities.setQuat(Utilities.get2DRot(transform.localRotation) + spinSpeed * Time.deltaTime);
 
         // collision
         float distance = speed * Time.deltaTime;

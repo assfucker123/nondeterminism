@@ -32,11 +32,11 @@ public class Segment {
 
     /* Finds topSegment that most closely matches the position.
      * Returns null if none found. */
-    public static Segment findTop(Vector2 pos) {
+    public static Segment findTop(Vector2 pos, float flexibility=1) {
         Segment ret = null;
         float dist = 0;
         foreach (Segment seg in topSegments) {
-            if (seg.p0.x <= pos.x && pos.x <= seg.p1.x) {
+            if (seg.p0.x - flexibility <= pos.x && pos.x <= seg.p1.x + flexibility) {
                 if (ret == null ||
                     (Mathf.Abs(pos.y - seg.p0.y) < dist)) {
                     ret = seg;
@@ -49,11 +49,11 @@ public class Segment {
 
     /* Finds leftSegment that most closely matches the position.
      * Returns null if none found. */
-    public static Segment findLeft(Vector2 pos) {
+    public static Segment findLeft(Vector2 pos, float flexibility=1) {
         Segment ret = null;
         float dist = 0;
         foreach (Segment seg in leftSegments) {
-            if (seg.p0.y <= pos.y && pos.y <= seg.p1.y) {
+            if (seg.p0.y - flexibility <= pos.y && pos.y <= seg.p1.y + flexibility) {
                 if (ret == null ||
                     (Mathf.Abs(pos.x - seg.p0.x) < dist)) {
                     ret = seg;
@@ -66,11 +66,55 @@ public class Segment {
 
     /* Finds rightSegment that most closely matches the position.
      * Returns null if none found. */
-    public static Segment findRight(Vector2 pos) {
+    public static Segment findRight(Vector2 pos, float flexibility=1) {
         Segment ret = null;
         float dist = 0;
         foreach (Segment seg in rightSegments) {
-            if (seg.p0.y <= pos.y && pos.y <= seg.p1.y) {
+            if (seg.p0.y - flexibility <= pos.y && pos.y <= seg.p1.y + flexibility) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.x - seg.p0.x) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.x - seg.p0.x);
+                }
+            }
+        }
+        return ret;
+    }
+
+    /* Finds any Segment that most closely matches the position.
+     * Returns null if none found */
+    public static Segment findAny(Vector2 pos, float flexibility = 1) {
+        Segment ret = null;
+        float dist = 0;
+        foreach (Segment seg in bottomSegments) {
+            if (seg.p0.x - flexibility <= pos.x && pos.x <= seg.p1.x + flexibility) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.y - seg.p0.y) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.y - seg.p0.y);
+                }
+            }
+        }
+        foreach (Segment seg in topSegments) {
+            if (seg.p0.x - flexibility <= pos.x && pos.x <= seg.p1.x + flexibility) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.y - seg.p0.y) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.y - seg.p0.y);
+                }
+            }
+        }
+        foreach (Segment seg in leftSegments) {
+            if (seg.p0.y - flexibility <= pos.y && pos.y <= seg.p1.y + flexibility) {
+                if (ret == null ||
+                    (Mathf.Abs(pos.x - seg.p0.x) < dist)) {
+                    ret = seg;
+                    dist = Mathf.Abs(pos.x - seg.p0.x);
+                }
+            }
+        }
+        foreach (Segment seg in rightSegments) {
+            if (seg.p0.y - flexibility <= pos.y && pos.y <= seg.p1.y + flexibility) {
                 if (ret == null ||
                     (Mathf.Abs(pos.x - seg.p0.x) < dist)) {
                     ret = seg;
@@ -182,6 +226,19 @@ public class Segment {
                 return Mathf.Abs(p0.y - p1.y);
             } else {
                 return Vector2.Distance(p0, p1);
+            }
+        }
+    }
+    public Vector2 normal {
+        get {
+            if (horizontal) {
+                return new Vector2(0, 1);
+            } else if (vertical) {
+                return new Vector2(1, 0);
+            } else {
+                Vector2 n = new Vector2(p0.y-p1.y,p1.x-p0.x);
+                n.Normalize();
+                return n;
             }
         }
     }
@@ -325,6 +382,20 @@ public class Segment {
     /* val is in [0, 1] */
     public Vector2 interpolate(float val) {
         return p0 + (p1 - p0) * val;
+    }
+
+    /// <summary>
+    /// Given a point on the Segment, find the value t where interpolate(t) is as close as possible to the given point
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    public float inverseInterpolate(Vector2 point) {
+        if (horizontal) {
+            return (point.x - p0.x) / (p1.x - p0.x);
+        } else if (vertical) {
+            return (point.y - p0.y) / (p1.y - p0.y);
+        }
+        return Utilities.inverseInterpolate(p0, p1, point, true);
     }
 
     /* returns the shortest distance from the segment to the given point */

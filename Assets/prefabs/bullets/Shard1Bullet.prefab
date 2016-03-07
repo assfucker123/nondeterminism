@@ -106,12 +106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca97bba936e80b4d8ea8b09430667d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 45
-  damage: 1
+  speed: 30
+  damage: 2
   heading: 0
   radius: 0.4
   playerEnemyRadius: 0.4
   maxDistance: -1
+  spinSpeed: 700
   breaksChargeShotBarriers: 0
   shotByOracle: 0
   bulletFadeGameObject: {fileID: 0}
@@ -154,7 +155,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spinSpeed
+      value: 700
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189994}

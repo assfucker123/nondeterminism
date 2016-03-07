@@ -23,7 +23,8 @@ public class EnemyInfo : MonoBehaviour {
         CIURIVY_PASSIVE,
         SMOSEY,
         SMOSEY_BULLET,
-        SMOSEY_SWARM
+        SMOSEY_SWARM,
+        MIDOW
     }
 
     public enum SpawnLocation {

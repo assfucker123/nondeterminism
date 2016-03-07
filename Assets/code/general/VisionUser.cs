@@ -268,4 +268,179 @@ public class VisionUser : MonoBehaviour {
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     TimeUser timeUser;
+
+    public class StateQueue {
+
+        /// <summary>
+        /// Pass in a unique id to separate it from other StateStacks when saving in TimeUser
+        /// </summary>
+        public StateQueue(int uniqueID = 0) {
+            this.uniqueID = uniqueID;
+        }
+
+        public void addState(int state, float duration, float x, float y, bool shouldCreateVision, float[] floatVals=null) {
+            StateObject stateObject = new StateObject();
+            stateObject.state = state;
+            stateObject.duration = duration;
+            stateObject.x = x;
+            stateObject.y = y;
+            stateObject.shouldCreateVision = shouldCreateVision;
+            if (floatVals != null) {
+                stateObject.floatVals = new float[floatVals.Length];
+                for (int i=0; i<floatVals.Length; i++) {
+                    stateObject.floatVals[i] = floatVals[i];
+                }
+            }
+            stateObjects.Add(stateObject);
+            queueDurationSum += stateObject.duration;
+        }
+
+        /// <summary>
+        /// Manually removes a state from the queue.  Not recommended.
+        /// </summary>
+        public void removeState(int queueIndex) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return;
+            queueDurationSum -= stateObjects[queueIndex].duration;
+            stateObjects.RemoveAt(queueIndex);
+        }
+
+        /// <summary>
+        /// time is always 0 if queue is empty
+        /// </summary>
+        public float time { get; private set; }
+        public bool empty {  get { return queueCount == 0; } }
+        public int queueCount {  get { return stateObjects.Count; } }
+        public float queueDurationSum { get; private set; }
+        public float planAheadDuration {  get { return Mathf.Max(0, queueDurationSum - time); } }
+        public int getState(int queueIndex=0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
+            return stateObjects[queueIndex].state;
+        }
+        public float getDuration(int queueIndex = 0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
+            return stateObjects[queueIndex].duration;
+        }
+        public float getX(int queueIndex = 0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
+            return stateObjects[queueIndex].x;
+        }
+        public float getY(int queueIndex = 0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
+            return stateObjects[queueIndex].y;
+        }
+        public bool getShouldCreateVision(int queueIndex = 0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return false;
+            return stateObjects[queueIndex].shouldCreateVision;
+        }
+        public int getFloatValsLength(int queueIndex = 0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
+            return stateObjects[queueIndex].floatVals.Length;
+        }
+        public float getFloatVal(int floatValIndex, int queueIndex = 0) {
+            if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
+            return stateObjects[queueIndex].floatVals[floatValIndex];
+        }
+        /// <summary>
+        /// Increments time by given amount, and pops states off queue as necessary.  Should be called in update, with additionalTime being Time.deltaTime
+        /// </summary>
+        public void incrementTime(float additionalTime) {
+            time += additionalTime;
+            while (stateObjects.Count > 0 && time >= stateObjects[0].duration) {
+                time -= stateObjects[0].duration;
+                // pop state from queue
+                removeState(0);
+            }
+            if (stateObjects.Count == 0)
+                time = 0;
+        }
+        /// <summary>
+        /// Gets the number of states that would be popped off the queue if the given time was added
+        /// </summary>
+        public int numStatesPoppedByIncrementingTime(float additionalTime) {
+            int count=0;
+            float totalTime = time + additionalTime;
+            for (int i=0; i<stateObjects.Count; i++) {
+                totalTime -= stateObjects[i].duration;
+                if (totalTime < 0)
+                    return count;
+                count++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Call within TimeUser's OnSaveFrame()
+        /// </summary>
+        public void OnSaveFrame(FrameInfo fi) {
+            string prefix = "ss"+uniqueID+"_";
+            fi.floats[prefix + "t"] = time;
+            fi.ints[prefix + "qc"] = queueCount;
+            for (int i = 0; i < queueCount; i++) {
+                string objPrefix = prefix + "q" + i + "_";
+                StateObject so = stateObjects[i];
+                fi.ints[objPrefix + "s"] = so.state;
+                fi.floats[objPrefix + "d"] = so.duration;
+                fi.floats[objPrefix + "x"] = so.x;
+                fi.floats[objPrefix + "y"] = so.y;
+                fi.bools[objPrefix + "scv"] = so.shouldCreateVision;
+                if (so.floatVals == null)
+                    fi.ints[objPrefix + "fvl"] = 0;
+                else {
+                    fi.ints[objPrefix + "fvl"] = so.floatVals.Length;
+                    for (int j=0; j<so.floatVals.Length; j++) {
+                        fi.floats[objPrefix + "fv" + j] = so.floatVals[j];
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Call within TimeUser's OnRevert()
+        /// </summary>
+        public void OnRevert(FrameInfo fi) {
+            string prefix = "ss"+uniqueID+"_";
+            time = fi.floats[prefix + "t"];
+            // resize stateObjects
+            int soCount = fi.ints[prefix + "qc"];
+            while (stateObjects.Count > soCount) stateObjects.RemoveAt(stateObjects.Count - 1);
+            while (stateObjects.Count < soCount) stateObjects.Add(new StateObject());
+            // fill stateObjects
+            queueDurationSum = 0;
+            for (int i=0; i<soCount; i++) {
+                string objPrefix = prefix + "q" + i + "_";
+                StateObject so = stateObjects[i];
+                so.state = fi.ints[objPrefix + "s"];
+                so.duration = fi.floats[objPrefix + "d"];
+                so.x = fi.floats[objPrefix + "x"];
+                so.y = fi.floats[objPrefix + "y"];
+                so.shouldCreateVision = fi.bools[objPrefix + "scv"];
+                queueDurationSum += so.duration;
+                int floatValsLength = fi.ints[objPrefix + "fvl"];
+                if (floatValsLength == 0)
+                    so.floatVals = null;
+                else {
+                    so.floatVals = new float[floatValsLength];
+                    for (int j=0; j<floatValsLength; j++) {
+                        so.floatVals[j] = fi.floats[objPrefix + "fv" + j];
+                    }
+                }
+            }
+        }
+
+        int uniqueID = 0;
+
+        List<StateObject> stateObjects = new List<StateObject>();
+
+        protected class StateObject {
+            public StateObject() { }
+            public int state;
+            public float duration;
+            public float x;
+            public float y;
+            public bool shouldCreateVision;
+            public float[] floatVals = null;
+        }
+        
+
+    }
+
 }

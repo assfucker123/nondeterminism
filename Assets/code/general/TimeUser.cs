@@ -306,6 +306,12 @@ public class TimeUser : MonoBehaviour {
         _randSeed = (int) (int.MaxValue * val);
         return val;
     }
+    /// <summary>
+    /// Uses randomValue() to calculate a random float between the specified range.
+    /// </summary>
+    public float randomRange(float min, float max) {
+        return min + randomValue() * (max - min);
+    }
 
     public void setRandSeed(int seed) {
         _randSeed = seed;
