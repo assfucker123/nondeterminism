@@ -76,7 +76,10 @@ public class VisionUser : MonoBehaviour {
 
     /* Creates a clone of this gameObject, converted into a vision. */
     public GameObject createVision(float timeInFuture, float visionDuration) {
-        if (isVision) return null; //visions cannot create visions of themselves
+        if (isVision) {
+            Debug.LogError("ERROR: Visions cannot make visions of themselves");
+            return null; //visions cannot create visions of themselves
+        }
         if (timeUser.getLastFrameInfo() == null) { //this should only happen if this hasn't existed for more than 1 frame
             Debug.Log("ERROR: This timeUser must exist for more than 1 frame to create a vision");
             return null;
@@ -302,6 +305,27 @@ public class VisionUser : MonoBehaviour {
             if (queueIndex < 0 || queueIndex >= stateObjects.Count) return;
             queueDurationSum -= stateObjects[queueIndex].duration;
             stateObjects.RemoveAt(queueIndex);
+        }
+
+        /// <summary>
+        /// Returns if a vision should be created this frame.  It's expected that incrementTime() is called before calling this function.
+        /// It's true if the time an attack happens - visionDuration is in (this.time-deltaTime, this.time]
+        /// </summary>
+        /// <param name="deltaTime"></param>
+        /// <param name="visionDuration"></param>
+        /// <returns>-1 if should not create vision.  If should, then return is the queueIndex of the event that has the vision </returns>
+        public int shouldCreateVisionThisFrame(float deltaTime, float visionDuration) {
+            float totalDuration = 0;
+            for (int i=0; i<stateObjects.Count; i++) {
+                StateObject so = stateObjects[i];
+                if (so.shouldCreateVision) {
+                    if (time - deltaTime < totalDuration - visionDuration && totalDuration - visionDuration <= time) {
+                        return i;
+                    }
+                }
+                totalDuration += so.duration;
+            }
+            return -1;
         }
 
         /// <summary>

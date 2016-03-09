@@ -14,6 +14,7 @@ public class Midow : MonoBehaviour {
     public float bulletRightHeading = 70;
     public float bulletSlowSpeedMultiplier = .3f;
     public GameObject bulletGameObject;
+    public AudioClip shootSound;
     public State state = State.IDLE;
     public bool flippedOnSegment = false;
 
@@ -90,6 +91,9 @@ public class Midow : MonoBehaviour {
 
         shootBullets(false);
         shootBullets(true);
+        if (!visionUser.isVision) {
+            SoundManager.instance.playSFXRandPitchBend(shootSound, .02f);
+        }
     }
 
     void shootBullets(bool slow) {
@@ -322,6 +326,12 @@ public class Midow : MonoBehaviour {
         // increment time
         stateQueue.incrementTime(deltaTime);
 
+        // create visions if needed
+        if (!visionUser.isVision && stateQueue.shouldCreateVisionThisFrame(deltaTime, VisionUser.VISION_DURATION) != -1) {
+            timeUser.addCurrentFrameInfo();
+            Midow vMidow = visionUser.createVision(VisionUser.VISION_DURATION).GetComponent<Midow>();
+        }
+
         // plan ahead stateQueue
         float planDuration = VisionUser.VISION_DURATION * 2;
         bool testDone = false;
@@ -340,10 +350,13 @@ public class Midow : MonoBehaviour {
                     stateQueue.addState((int)State.MOVE, getTravelDuration(lastInter, nextInter), nextInter, lastInter, false);
                     break;
                 case State.MOVE:
-                    // adding idle state
-                    //stateQueue.addState((int)State.IDLE, timeUser.randomRange(idleDurationMin, idleDurationMax), lastInter, 0, false);
-                    // aadding shoot state
-                    stateQueue.addState((int)State.SHOOTING, shootingDuration, lastInter, 0, true);
+                    if (stateQueue.planAheadDuration < VisionUser.VISION_DURATION + .2f) { // don't add shoot state too early or else there won't be a vision for it
+                        // adding idle state
+                        stateQueue.addState((int)State.IDLE, timeUser.randomRange(idleDurationMin, idleDurationMax), lastInter, 0, false);
+                    } else {
+                        // aadding shoot state
+                        stateQueue.addState((int)State.SHOOTING, shootingDuration, lastInter, 0, true);
+                    }
                     break;
                 case State.SHOOTING:
                     // adding idle state
@@ -360,9 +373,23 @@ public class Midow : MonoBehaviour {
 
         // Start() hasn't been called yet
         //Start();
+        attachToSegment();
 
         // increment time
         time += timeInFuture;
+        int statesPopped = stateQueue.numStatesPoppedByIncrementingTime(timeInFuture);
+        if (statesPopped >= 1) {
+            State nextState = (State)stateQueue.getState(statesPopped);
+            if (nextState == State.SHOOTING) {
+                interpolation = stateQueue.getX(statesPopped);
+                setRB2D(true);
+                shoot();
+            } else {
+                Debug.Log("Something's wrong, this state should be SHOOTING");
+            }
+        }
+        stateQueue.incrementTime(timeInFuture);
+
     }
 
     /* called when this takes damage */
