@@ -7,6 +7,7 @@ public class Midow : MonoBehaviour {
     public float segmentEdgePadding = 1.5f;
     public float idleDurationMin = .4f;
     public float idleDurationMax = 1.5f;
+    public float weakIdleDurationMultiplier = 2.1f;
     public Vector2 bulletSpawnPos = new Vector2();
     public float shootingDuration = .3f;
     public float bulletLeftHeading = -70;
@@ -89,7 +90,9 @@ public class Midow : MonoBehaviour {
         state = State.SHOOTING;
         time = 0;
 
-        shootBullets(false);
+        if (enemyInfo.id == EnemyInfo.ID.MIDOW) {
+            shootBullets(false);
+        }
         shootBullets(true);
         if (!visionUser.isVision) {
             SoundManager.instance.playSFXRandPitchBend(shootSound, .02f);
@@ -336,8 +339,13 @@ public class Midow : MonoBehaviour {
         float planDuration = VisionUser.VISION_DURATION * 2;
         bool testDone = false;
         while (stateQueue.planAheadDuration < planDuration && !testDone) {
+            float idleDur;
             if (stateQueue.empty) {
-                stateQueue.addState((int)State.IDLE, timeUser.randomRange(idleDurationMin, idleDurationMax), interpolation, 0, false);
+                // adding idle state
+                idleDur = timeUser.randomRange(idleDurationMin, idleDurationMax);
+                if (enemyInfo.id == EnemyInfo.ID.MIDOW_WEAK)
+                    idleDur *= weakIdleDurationMultiplier;
+                stateQueue.addState((int)State.IDLE, idleDur, interpolation, 0, false);
             } else {
                 State lastState = (State)stateQueue.getState(stateQueue.queueCount-1);
                 float lastInter = stateQueue.getX(stateQueue.queueCount-1);
@@ -352,7 +360,10 @@ public class Midow : MonoBehaviour {
                 case State.MOVE:
                     if (stateQueue.planAheadDuration < VisionUser.VISION_DURATION + .2f) { // don't add shoot state too early or else there won't be a vision for it
                         // adding idle state
-                        stateQueue.addState((int)State.IDLE, timeUser.randomRange(idleDurationMin, idleDurationMax), lastInter, 0, false);
+                        idleDur = timeUser.randomRange(idleDurationMin, idleDurationMax);
+                        if (enemyInfo.id == EnemyInfo.ID.MIDOW_WEAK)
+                            idleDur *= weakIdleDurationMultiplier;
+                        stateQueue.addState((int)State.IDLE, idleDur, lastInter, 0, false);
                     } else {
                         // aadding shoot state
                         stateQueue.addState((int)State.SHOOTING, shootingDuration, lastInter, 0, true);
@@ -360,7 +371,10 @@ public class Midow : MonoBehaviour {
                     break;
                 case State.SHOOTING:
                     // adding idle state
-                    stateQueue.addState((int)State.IDLE, timeUser.randomRange(idleDurationMin, idleDurationMax), lastInter, 0, false);
+                    idleDur = timeUser.randomRange(idleDurationMin, idleDurationMax);
+                    if (enemyInfo.id == EnemyInfo.ID.MIDOW_WEAK)
+                        idleDur *= weakIdleDurationMultiplier;
+                    stateQueue.addState((int)State.IDLE, idleDur, lastInter, 0, false);
                     break;
                 }
             }
@@ -399,7 +413,7 @@ public class Midow : MonoBehaviour {
         // die
         if (receivesDamage.health <= 0) {
             flippedHoriz = ai.impactToRight();
-            //animator.Play("damage");
+            animator.Play("damage");
         }
     }
 

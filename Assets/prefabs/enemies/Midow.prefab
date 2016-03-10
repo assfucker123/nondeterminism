@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 17
-  variations: 
+  variations: 12000000
   creatureName: Midow
   danger: 5
   spawnLocation: 0
@@ -247,13 +247,15 @@ MonoBehaviour:
   segmentEdgePadding: 1.5
   idleDurationMin: 0.3
   idleDurationMax: 0.8
+  weakIdleDurationMultiplier: 2.1
   bulletSpawnPos: {x: 0, y: 0.6}
   shootingDuration: 0.3
   bulletLeftHeading: 160
   bulletCenterHeading: 90
   bulletRightHeading: 20
-  bulletSlowSpeedMultiplier: 0.3
+  bulletSlowSpeedMultiplier: 0.5
   bulletGameObject: {fileID: 189994, guid: 81d6211c315c08f46867c5a84083aab9, type: 2}
+  shootSound: {fileID: 8300000, guid: dd625eeb1bd34ed4585f3bcc6cbfdaaa, type: 3}
   state: 0
   flippedOnSegment: 0
 --- !u!114 &11440322
@@ -366,7 +368,7 @@ MonoBehaviour:
   explosionGameObject: {fileID: 169640, guid: 0e224b2b600dd944fa04568a1e81c6fb, type: 2}
   pickupSize: 2
   deathSound1: {fileID: 8300000, guid: 04cc32e5da2b2494cb42c582fc9e7b88, type: 3}
-  deathSound2: {fileID: 0}
+  deathSound2: {fileID: 8300000, guid: 8827ff9020b4bdb41bfb021eb9374711, type: 3}
 --- !u!114 &11487874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,6 +421,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: variations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: spawnDist
       value: 0.94
       objectReference: {fileID: 0}
@@ -453,6 +459,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bulletRightHeading
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dd625eeb1bd34ed4585f3bcc6cbfdaaa, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: 8827ff9020b4bdb41bfb021eb9374711, type: 3}
+    - target: {fileID: 0}
+      propertyPath: variations.Array.data[0]
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletSlowSpeedMultiplier
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
