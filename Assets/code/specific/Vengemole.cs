@@ -159,7 +159,7 @@ Vengemole plan:
         state = State.UNDERGROUND;
         attackObject.enabled = false;
         if (!visionUser.isVision)
-            SoundManager.instance.playSFXRandPitchBend(burrowSound);
+            SoundManager.instance.playSFXIfOnScreenRandPitchBend(burrowSound, rb2d.position);
 
         // how long underground?
         if (hasHammer) {
@@ -179,7 +179,7 @@ Vengemole plan:
         state = stateAfterUnderground;
         attackObject.enabled = true;
         if (!visionUser.isVision) {
-            SoundManager.instance.playSFXRandPitchBend(burrowUpSound);
+            SoundManager.instance.playSFXIfOnScreenRandPitchBend(burrowUpSound, rb2d.position);
         }
         switch (state) {
         case State.RISE:
@@ -273,7 +273,7 @@ Vengemole plan:
                     animator.Play("throw");
                 }
                 if (!visionUser.isVision) {
-                    SoundManager.instance.playSFXRandPitchBend(hammerSwingSound);
+                    SoundManager.instance.playSFXIfOnScreenRandPitchBend(hammerSwingSound, rb2d.position);
                 }
             }
             // swinging hammer hitboxes
@@ -324,7 +324,7 @@ Vengemole plan:
                     // shake ground
                     CameraControl.instance.shake(hammerCamShakeMagnitude, hammerCamShakeDuration);
                     //
-                    SoundManager.instance.playSFXRandPitchBend(hammerSlamSound);
+                    SoundManager.instance.playSFXIfOnScreenRandPitchBend(hammerSlamSound, rb2d.position);
                 }
             }
 

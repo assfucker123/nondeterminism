@@ -15,6 +15,14 @@ public class SoundManager : MonoBehaviour {
     public void playSFXRandPitchBend(AudioClip clip, float pitchBendMagnitude = .05f, float volume = 1.0f) {
         playSFXRandPitchBendIgnoreVolumeScale(clip, pitchBendMagnitude, volume * volumeScale);
     }
+    public void playSFXIfOnScreen(AudioClip clip, Vector2 position, float volume = 1.0f) {
+        if (!CameraControl.pointContainedInScreen(position)) return;
+        playSFX(clip, volume);
+    }
+    public void playSFXIfOnScreenRandPitchBend(AudioClip clip, Vector2 position, float pitchBendMagnitude = .05f, float volume = 1.0f) {
+        if (!CameraControl.pointContainedInScreen(position)) return;
+        playSFXRandPitchBend(clip, pitchBendMagnitude, volume);
+    }
     public void playSFXIgnoreVolumeScale(AudioClip clip, float volume = 1.0f) {
         playSFXF(clip, volume, 1);
     }

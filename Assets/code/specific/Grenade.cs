@@ -83,7 +83,7 @@ public class Grenade : MonoBehaviour {
         if (visionUser.isVision) {
             gpGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
         } else {
-            SoundManager.instance.playSFX(pinSound);
+            SoundManager.instance.playSFXIfOnScreen(pinSound, rb2d.position);
         }
 
         pinPopped = true;
@@ -140,7 +140,7 @@ public class Grenade : MonoBehaviour {
             if (visionUser.isVision) {
                 eGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
             } else {
-                SoundManager.instance.playSFX(explodeSound);
+                SoundManager.instance.playSFXIfOnScreen(explodeSound, rb2d.position);
             }
             // destroy this
             timeUser.timeDestroy();

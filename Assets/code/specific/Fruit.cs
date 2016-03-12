@@ -63,7 +63,7 @@ public class Fruit : MonoBehaviour {
             expGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
         } else {
             if (!SoundManager.instance.isSFXPlaying(explodeSound)) {
-                SoundManager.instance.playSFX(explodeSound);
+                SoundManager.instance.playSFXIfOnScreen(explodeSound, rb2d.position);
             }
         }
         timeUser.timeDestroy();

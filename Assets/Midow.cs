@@ -95,7 +95,7 @@ public class Midow : MonoBehaviour {
         }
         shootBullets(true);
         if (!visionUser.isVision) {
-            SoundManager.instance.playSFXRandPitchBend(shootSound, .02f);
+            SoundManager.instance.playSFXIfOnScreenRandPitchBend(shootSound, rb2d.position, .02f);
         }
     }
 

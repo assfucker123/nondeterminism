@@ -57,10 +57,10 @@ public class DefaultDeath : MonoBehaviour {
 
         //death sound
         if (deathSound1 != null) {
-            SoundManager.instance.playSFX(deathSound1);
+            SoundManager.instance.playSFXIfOnScreen(deathSound1, rb2d.position);
         }
         if (deathSound2 != null) {
-            SoundManager.instance.playSFXRandPitchBend(deathSound2);
+            SoundManager.instance.playSFXIfOnScreenRandPitchBend(deathSound2, rb2d.position);
         }
 
         // update score (arcade mode only)

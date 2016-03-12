@@ -52,7 +52,7 @@ public class VengemoleHammer : MonoBehaviour {
         }
         hitHappened();
         if (c2d.relativeVelocity.magnitude > 20 && !visionUser.isVision) {
-            SoundManager.instance.playSFXRandPitchBend(hitSound, .02f);
+            SoundManager.instance.playSFXIfOnScreenRandPitchBend(hitSound, rb2d.position, .02f);
         }
     }
 

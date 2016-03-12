@@ -31,3 +31,5 @@ EditorBuildSettings:
     path: Assets/scenes/levels/above_ciurivy_puzzle.unity
   - enabled: 1
     path: Assets/scenes/levels/under_ciurivy.unity
+  - enabled: 1
+    path: Assets/scenes/levels/return_up.unity

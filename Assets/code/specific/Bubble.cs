@@ -59,7 +59,7 @@ public class Bubble : MonoBehaviour {
                 transform.localPosition,
                 Quaternion.identity);
             if (!visionUser.isVision)
-                SoundManager.instance.playSFX(popSound);
+                SoundManager.instance.playSFXIfOnScreen(popSound, rb2d.position);
             // destroy this
             timeUser.timeDestroy();
         }

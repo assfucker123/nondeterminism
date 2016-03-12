@@ -216,7 +216,7 @@ public class Ciurivy : MonoBehaviour {
 
             // step sound
             if (!visionUser.isVision && visionUser.shouldHaveEventThisFrame(time - Time.deltaTime + stepSoundOffset, time + stepSoundOffset, stepSoundPeriod)) {
-                SoundManager.instance.playSFXRandPitchBend(stepSound);
+                SoundManager.instance.playSFXIfOnScreenRandPitchBend(stepSound, rb2d.position);
             }
             
             if (time >= duration) {
@@ -257,7 +257,7 @@ public class Ciurivy : MonoBehaviour {
                     ab.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
                 }
                 if (!visionUser.isVision) {
-                    SoundManager.instance.playSFXRandPitchBend(throwSound);
+                    SoundManager.instance.playSFXIfOnScreenRandPitchBend(throwSound, rb2d.position);
                 }
                 
                 // go to post throw state

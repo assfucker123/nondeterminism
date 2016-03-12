@@ -74,7 +74,7 @@ public class AcornBomb : MonoBehaviour {
             explosionGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
         }
         if (!visionUser.isVision) {
-            SoundManager.instance.playSFXRandPitchBend(explodeSound);
+            SoundManager.instance.playSFXIfOnScreenRandPitchBend(explodeSound, rb2d.position);
         }
 
         timeUser.timeDestroy();

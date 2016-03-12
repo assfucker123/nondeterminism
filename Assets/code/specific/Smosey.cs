@@ -171,7 +171,7 @@ public class Smosey : MonoBehaviour {
                         bvu.becomeVisionNow(visionUser.timeLeft, visionUser);
                         bulletMuzzleGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
                     } else {
-                        SoundManager.instance.playSFXRandPitchBend(bulletSound);
+                        SoundManager.instance.playSFXIfOnScreenRandPitchBend(bulletSound, rb2d.position);
                     }
                     
                     firingBulletTime -= bulletDuration;

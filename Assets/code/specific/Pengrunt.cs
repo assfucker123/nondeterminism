@@ -160,7 +160,7 @@ public class Pengrunt : MonoBehaviour {
                     bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
                 } else {
                     // not vision, make sound effect
-                    SoundManager.instance.playSFXRandPitchBend(bulletSound);
+                    SoundManager.instance.playSFXIfOnScreenRandPitchBend(bulletSound, rb2d.position);
                 }
 
                 bulletTime -= bulletPeriod;

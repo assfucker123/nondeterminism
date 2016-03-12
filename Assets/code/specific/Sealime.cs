@@ -205,7 +205,7 @@ public class Sealime : MonoBehaviour {
                                 VisionUser bvu = bullet.GetComponent<VisionUser>();
                                 bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
                             } else { // not a vision
-                                SoundManager.instance.playSFXRandPitchBend(bulletSound);
+                                SoundManager.instance.playSFXIfOnScreenRandPitchBend(bulletSound, rb2d.position);
                             }
 
                             bulletTime -= bulletPeriod;
