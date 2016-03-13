@@ -50,8 +50,16 @@ public class TalkPage : MonoBehaviour {
         }
     }
     public static string currentObjectiveFile {  get { return _currentObjectiveFile; } }
-    
+
     public static void addConversation(string name, string scriptFile, bool important, bool tutorial, int order = 0) {
+        addConversationNoAlert(name, scriptFile, important, tutorial, order);
+        manualAlert(1);
+    }
+    public static void addConversation(TalkConversation conversation) {
+        addConversationNoAlert(conversation);
+        manualAlert(1);
+    }
+    public static void addConversationNoAlert(string name, string scriptFile, bool important, bool tutorial, int order = 0) {
         TalkConversation tc = new TalkConversation();
         tc.name = name;
         tc.scriptFile = scriptFile;
@@ -59,13 +67,28 @@ public class TalkPage : MonoBehaviour {
         tc.important = important;
         tc.tutorial = tutorial;
         tc.order = order;
-        addConversation(tc);
+        addConversationNoAlert(tc);
     }
-    public static void addConversation(TalkConversation conversation) {
+    public static void addConversationNoAlert(TalkConversation conversation) {
         if (hasConversation(conversation.name))
             return;
         conversations.Add(conversation);
     }
+    public static void manualAlert(int numberOfConversationsAdded) {
+        if (Notification.instance == null) return;
+        if (numberOfConversationsAdded <= 0) return;
+        if (s_propAsset == null) {
+            TextAsset textAsset = Resources.Load("talk_page") as TextAsset;
+            s_propAsset = new Properties(textAsset.text);
+        }
+        if (numberOfConversationsAdded == 1) {
+            Notification.instance.displayNotification(s_propAsset.getString("conversation_add"), Notification.NotifType.DEFAULT);
+        } else {
+            Notification.instance.displayNotification(numberOfConversationsAdded + " " + s_propAsset.getString("conversation_multi_add"), Notification.NotifType.DEFAULT);
+        }
+    }
+    private static Properties s_propAsset;
+
 
     public static bool hasConversation(string conversationName) {
         foreach (TalkConversation tc in conversations) {

@@ -1,0 +1,10 @@
+t-W: You found a |Seudar Creature Card|!  Now you have a nice souvenir of the island.
+t-O: A snapshot of something that tried to kill me... how amusing.
+t-O: There is a detailed description of the creature featured on the card as well.
+t-W: Scientists used to come to Seudar Isle often to study its fauna.
+t-W: The cards are probably research notes they left behind.
+t-O: I am thankful for the information on these cards; it gives me an advantage in combat.
+t-O: Basically |I can deal additional damage to every creature whose card I find|.
+t-W: Sounds useful.  Try to find as many as you can!
+
+closeText block

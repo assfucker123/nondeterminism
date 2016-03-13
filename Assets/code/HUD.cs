@@ -165,6 +165,11 @@ public class HUD : MonoBehaviour {
         _phaseMeter = pmGO.GetComponent<PhaseMeter>();
         _phaseMeter.setUp();
 
+        // create Notification
+        GameObject nGO = GameObject.Instantiate(notificationGameObject) as GameObject;
+        nGO.transform.SetParent(canvas.transform, false);
+        _notification = nGO.GetComponent<Notification>();
+
         //create Black Screen
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
         bsGO.transform.SetParent(canvas.transform, false);
@@ -184,13 +189,8 @@ public class HUD : MonoBehaviour {
         _countdownTimer.setUp();
 
 
-        // (not creating Game Over screen unitl needed)
-
-        // create Notification
-        GameObject nGO = GameObject.Instantiate(notificationGameObject) as GameObject;
-        nGO.transform.SetParent(canvas.transform, false);
-        _notification = nGO.GetComponent<Notification>();
-
+        // (not creating Game Over screen until needed)
+        
         // create Text Box
         GameObject tbGO = GameObject.Instantiate(textBoxGameObject) as GameObject;
         tbGO.transform.SetParent(canvas.transform, false);

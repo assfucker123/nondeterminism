@@ -1,2 +1,0 @@
-current_objective: (Current Objective)
-divider: -------

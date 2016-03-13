@@ -1,0 +1,4 @@
+current_objective: (Current Objective)
+divider: -------
+conversation_add: New conversation added to Talk Menu.
+conversation_multi_add: new conversations added to Talk Menu.

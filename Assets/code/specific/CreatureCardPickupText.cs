@@ -79,13 +79,15 @@ public class CreatureCardPickupText : MonoBehaviour {
                 time -= openDuration;
                 state = State.OPENED;
                 // set text
-                if (firstTime) {
+                description.setText(CreatureCard.getCardDescription(creatureID), 0);
+                // we're not doing the "intro" portion of the cards anymore
+                lineIndex = numLines;
+                /*if (firstTime) {
                     lineIndex = 0;
                     description.setText(prop.getString("line" + lineIndex), 0);
                 } else {
                     description.setText(CreatureCard.getCardDescription(creatureID), 0);
-                }
-                
+                }*/
             }
             break;
         case State.OPENED:
@@ -108,6 +110,11 @@ public class CreatureCardPickupText : MonoBehaviour {
             if (description.visibleChars >= description.totalChars) {
                 if (Keys.instance.confirmPressed || Keys.instance.backPressed || time >= openedMaxDuration) {
                     toCloseState = true;
+                }
+            } else {
+                // speeding up text scroll
+                if (Keys.instance.confirmPressed || Keys.instance.backPressed) {
+                    time = Mathf.Max(time, description.totalChars / textSpeed);
                 }
             }
             if (toCloseState) {
@@ -133,6 +140,9 @@ public class CreatureCardPickupText : MonoBehaviour {
                 image.enabled = false;
                 state = State.CLOSED;
                 time = 0;
+                if (firstTime) {
+                    TalkPage.addConversation("Seudar Creature Cards", "c_creature_cards", false, false);
+                }
             }
             break;
         }
