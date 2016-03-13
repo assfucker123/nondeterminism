@@ -361,6 +361,10 @@ Prefab:
       propertyPath: m_Name
       value: Midow (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11479132, guid: 33f31c4a9d927bd45b2de77d805e42a2, type: 2}
+      propertyPath: pickupSize
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33f31c4a9d927bd45b2de77d805e42a2, type: 2}
   m_IsPrefabParent: 0
@@ -616,6 +620,10 @@ Prefab:
     - target: {fileID: 6158478, guid: 9ba879ed7f68b1d44a8002f50f7e069d, type: 2}
       propertyPath: m_Offset.y
       value: -1.4235573
+      objectReference: {fileID: 0}
+    - target: {fileID: 11460336, guid: 9ba879ed7f68b1d44a8002f50f7e069d, type: 2}
+      propertyPath: levelTo
+      value: first_chamber
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ba879ed7f68b1d44a8002f50f7e069d, type: 2}
