@@ -1,19 +1,70 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CountdownTimer : MonoBehaviour {
 
     public float time = 0; // in seconds (as usual)
-    public bool countUp = false;
-    public Format format = Format.SECONDS;
     public Vector2 position = new Vector2(532, -49);
-    public int score = 0;
+    public Rect dotBox = new Rect(-66, -17, 132, 34);
+    public float dotPeriod = 60;
+    public Sprite normalSprite;
+    public Color normalColor = Color.white;
+    public Sprite meltdownSprite;
+    public Color meltdownColor = new Color(253f/255, 1, 138f/255);
+    public Sprite meltdownPerilSprite;
+    public Color meltdownPerilColor = Color.red;
+    public Sprite weirdSprite;
+    public Color weirdColor = Color.magenta;
+    public float flashPeriodVisible = .5f;
+    public float flashPeriodInvisible = .2f;
+
+    public static float MELTDOWN_DURATION {
+        get {
+            return 30 * 60;
+        }
+    }
+    public static float MELTDOWN_PERIL_DURATION {
+        get {
+            return 5 * 60;
+        }
+    }
     
-    public enum Format {
-        SECONDS,
-        CENTISECONDS,
-        SCORE
+    public enum Mode {
+        NORMAL,
+        MELTDOWN,
+        MELTDOWN_PERIL,
+        WEIRD
+    }
+
+    public Mode mode {
+        get { return _mode; }
+        set {
+            if (_mode == value) return;
+            _mode = value;
+            switch (mode) {
+            case Mode.NORMAL:
+                image.sprite = normalSprite;
+                glyphBox.setColor(normalColor);
+                break;
+            case Mode.MELTDOWN:
+                image.sprite = meltdownSprite;
+                glyphBox.setColor(meltdownColor);
+                break;
+            case Mode.MELTDOWN_PERIL:
+                image.sprite = meltdownPerilSprite;
+                glyphBox.setColor(meltdownPerilColor);
+                break;
+            case Mode.WEIRD:
+                image.sprite = weirdSprite;
+                glyphBox.setColor(weirdColor);
+                break;
+            }
+            foreach (CountdownTimerDot dot in dots) {
+                dot.mode = mode;
+            }
+        }
     }
 
     public bool visible {
@@ -21,138 +72,179 @@ public class CountdownTimer : MonoBehaviour {
         set {
             if (value == visible) return;
             _visible = value;
-            text.enabled = visible;
-            textDrop.enabled = visible;
+            image.enabled = visible;
+            if (visible) {
+                glyphBox.makeAllCharsVisible();
+            } else {
+                glyphBox.makeAllCharsInvisible();
+            }
+            foreach (CountdownTimerDot dot in dots) {
+                dot.GetComponent<UnityEngine.UI.Image>().enabled = visible;
+            }
+        }
+    }
+    public bool flashing {
+        get { return _flashing; }
+        set {
+            if (flashing == value) return;
+            _flashing = value;
+        }
+    }
+    /// <summary>
+    /// When frozen, time won't increase
+    /// </summary>
+    public bool frozen {
+        get { return _frozen; }
+        set { _frozen = value; }
+    }
+
+    public float dotBoxPerimeter {
+        get {
+            return dotBox.width * 2 + dotBox.height * 2;
         }
     }
 
     public void setUp() {
-        rt.anchorMin = new Vector2(.5f, 1);
-        rt.anchorMax = new Vector2(.5f, 1);
-        rt.anchoredPosition = position;
-        if (Vars.arcadeMode) {
-            //visible = false;
-            format = Format.SCORE;
+        //rt.anchorMin = new Vector2(.5f, 1);
+        //rt.anchorMax = new Vector2(.5f, 1);
+        //rt.anchoredPosition = position;
+        foreach (CountdownTimerDot dot in dots) {
+            dot.mode = Mode.NORMAL;
         }
+        glyphBox.setColor(normalColor);
     }
 
 	void Awake() {
         rt = GetComponent<RectTransform>();
-		text = transform.Find("Text").GetComponent<Text>();
-        textDrop = transform.Find("TextDrop").GetComponent<Text>();
+        image = GetComponent<Image>();
+		glyphBox = transform.Find("GlyphBox").GetComponent<GlyphBox>();
         timeUser = GetComponent<TimeUser>();
+
+        dots = transform.GetComponentsInChildren<CountdownTimerDot>();
 	}
 	
 	void Update() {
-
-        //temporary until i make a better countdownTimer
-        visible = false;
-
+        
         if (timeUser.shouldNotUpdate)
             return;
 
-        if (countUp)
+        if (!frozen) {
             time += Time.deltaTime;
-        else
-            time -= Time.deltaTime;
-        if (format == Format.SCORE) {
-            if (score > Vars.highScore) {
-                Vars.highScore = score;
-            }
-            displayScore(score, Vars.highScore);
-        } else {
-            displayTime(time);
         }
+        flashTime += Time.deltaTime;
+        displayTime(time);
 	}
 
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
-        fi.ints["score"] = score;
-        fi.ints["highScore"] = Vars.highScore;
+        fi.floats["ft"] = flashTime;
     }
     void OnRevert(FrameInfo fi) {
         time = fi.floats["t"];
-        score = fi.ints["score"];
-        Vars.highScore = fi.ints["highScore"];
-        if (format == Format.SCORE) {
-            displayScore(score, Vars.highScore);
-        } else {
-            displayTime(time);
-        }
-    }
-
-    void displayScore(int score, int highScore) {
-        string str = scoreToStr(score, highScore);
-        text.text = str;
-        textDrop.text = str;
-    }
-
-    string scoreToStr(int score, int highScore = 0) {
-        string str = "" + score;
-        while (str.Length < 5) {
-            str = "0" + str;
-        }
-        str = "SCORE: " + str;
-        string str2 = "" + highScore;
-        while (str2.Length < 5) {
-            str2 = "0" + str2;
-        }
-        str2 = "HIGH: " + str2;
-
-        return str + "\n" + str2;
+        flashTime = fi.floats["ft"];
+        displayTime(time);
     }
 
     void displayTime(float time) {
+        // detect switching mode from MELTDOWN to MELTDOWN_PERIL
+        if (mode == Mode.MELTDOWN && time > MELTDOWN_DURATION - MELTDOWN_PERIL_DURATION) {
+            mode = Mode.MELTDOWN_PERIL;
+        } else if (mode == Mode.MELTDOWN_PERIL && time <= MELTDOWN_DURATION - MELTDOWN_PERIL_DURATION) {
+            mode = Mode.MELTDOWN;
+        }
+        // displaying time
         string str = timeToStr(time);
-        text.text = str;
-        textDrop.text = str;
+        glyphBox.setPlainText(str);
+        moveDots(time);
+        // flashing
+        if (flashing) {
+            bool vis = Utilities.fmod(flashTime, flashPeriodVisible+flashPeriodInvisible) > flashPeriodInvisible;
+            if (vis && glyphBox.visibleChars == 0) {
+                glyphBox.makeAllCharsVisible();
+            }
+            if (!vis && glyphBox.visibleChars > 0) {
+                glyphBox.makeAllCharsInvisible();
+            }
+        }
+    }
+
+    void moveDots(float time) {
+        time *= -1; // for reverse direction
+        float widthPerim = dotBox.width / dotBoxPerimeter;
+        for (int i=0; i<dots.Length; i++) {
+            Vector2 pos = new Vector2();
+            CountdownTimerDot dot = dots[i];
+            float t = time + i * dotPeriod / dots.Length;
+            t = Utilities.fmod(t, dotPeriod) / dotPeriod; // t in [0, 1)
+            if (t < widthPerim) {
+                pos.x = dotBox.x + dotBox.width * (t / widthPerim);
+                pos.y = dotBox.y;
+            } else if (t < .5f) {
+                t -= widthPerim;
+                pos.x = dotBox.x + dotBox.width;
+                pos.y = dotBox.y + dotBox.height * (t / (.5f - widthPerim));
+            } else if (t < .5f + widthPerim) {
+                t -= .5f;
+                pos.x = dotBox.x + dotBox.width * (1 - t / widthPerim);
+                pos.y = dotBox.y + dotBox.height;
+            } else {
+                t -= widthPerim + .5f;
+                pos.x = dotBox.x;
+                pos.y = dotBox.y + dotBox.height * (1 - t / (.5f - widthPerim));
+            }
+            dot.GetComponent<RectTransform>().localPosition = pos;
+        }
     }
 
     string timeToStr(float time) {
-        
-        if (time < 0){
-            switch (format) {
-            case Format.SECONDS: return "00:00";
-            case Format.CENTISECONDS: return "00:00.00";
-            }
-        }
-        if (time >= 100*60){
-            switch (format) {
-            case Format.SECONDS: return "99:99";
-            case Format.CENTISECONDS: return "99:99.99";
-            }
-        }
 
         string str = "";
-        int mins = Mathf.FloorToInt(time / 60);
-        time -= mins * 60;
-        int secs = Mathf.FloorToInt(time);
-        time -= secs;
-        int centiseconds = Mathf.FloorToInt(time * 100);
-        if (mins < 10)
-            str = "0" + mins;
-        else
-            str = "" + mins;
-        str += ":";
-        if (secs < 10)
-            str += "0" + secs;
-        else
-            str += "" + secs;
-        if (format == Format.CENTISECONDS) {
-            str += ".";
-            if (centiseconds < 10)
-                str += "0" + centiseconds;
-            else
-                str += "" + centiseconds;
+        float t = time;
+        bool meltdownInvert = false;
+        if (mode == Mode.MELTDOWN || mode == Mode.MELTDOWN_PERIL) {
+            t = MELTDOWN_DURATION - time;
+            if (t < 0) {
+                t *= -1;
+                meltdownInvert = true;
+            }
+        }
+        int mins = 0;
+        int secs = 0;
+        if (t <= 0) {
+            str = "00:00";
+        } else if (t >= 100 * 60) {
+            str = "99:59";
+        } else {
+            mins = Mathf.FloorToInt(t / 60);
+            secs = Mathf.FloorToInt(t - mins * 60);
+            if (mins < 10) str += "0";
+            str += mins + ":";
+            if (secs < 10) str += "0";
+            str += secs;
+        }
+        if (mode == Mode.MELTDOWN || mode == Mode.MELTDOWN_PERIL) {
+            if (meltdownInvert) {
+                str = "+" + str;
+            } else {
+                str = "-" + str;
+            }
+            //str = "¦" + str + "¦";
+        } else {
+            str = "¦" + str + "¦"; // this character maps to a space in the font
         }
         return str;
     }
 
     bool _visible = true;
+    Mode _mode = Mode.NORMAL;
+    bool _flashing = false;
+    float flashTime = 0;
+    bool _frozen = false;
 
-	// components
-    RectTransform rt;
-    Text text;
-    Text textDrop;
+    CountdownTimerDot[] dots;
+
+	RectTransform rt;
+    Image image;
+    GlyphBox glyphBox;
     TimeUser timeUser;
 }

@@ -132,6 +132,10 @@ Prefab:
       propertyPath: alwaysAware
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11464750, guid: ec61a61942572524eb6eb03f61512848, type: 2}
+      propertyPath: neverChangeDirection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec61a61942572524eb6eb03f61512848, type: 2}
   m_IsPrefabParent: 0
@@ -1166,6 +1170,10 @@ Prefab:
     - target: {fileID: 11439110, guid: ec61a61942572524eb6eb03f61512848, type: 2}
       propertyPath: pickupSize
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11464750, guid: ec61a61942572524eb6eb03f61512848, type: 2}
+      propertyPath: startFacingLeft
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec61a61942572524eb6eb03f61512848, type: 2}

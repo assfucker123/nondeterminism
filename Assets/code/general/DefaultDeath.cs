@@ -62,17 +62,7 @@ public class DefaultDeath : MonoBehaviour {
         if (deathSound2 != null) {
             SoundManager.instance.playSFXIfOnScreenRandPitchBend(deathSound2, rb2d.position);
         }
-
-        // update score (arcade mode only)
-        if (Vars.arcadeMode) {
-            int score = 0;
-            EnemyInfo ei = GetComponent<EnemyInfo>();
-            if (ei != null) {
-                score = ei.score;
-            }
-            HUD.instance.countdownTimer.score += score;
-        }
-
+        
         _activated = true;
     }
 

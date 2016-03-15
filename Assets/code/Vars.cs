@@ -7,9 +7,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class Vars {
-
-    public static bool arcadeMode = false;
-    public static int highScore = 0;
+    
     public static bool screenshotMode = false;
 
     // TIME-INDEPENDENT

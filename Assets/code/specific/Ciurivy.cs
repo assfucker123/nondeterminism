@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Ciurivy : MonoBehaviour {
 
-
+    public bool startFacingLeft = false;
+    public bool neverChangeDirection = false;
     public State state = State.START;
     public float idleDurationMin = .7f;
     public float idleDurationMax = 1.5f;
@@ -69,6 +70,10 @@ public class Ciurivy : MonoBehaviour {
         if (!visionUser.isVision || state == State.START) {
             idleState();
         }
+
+        if (!visionUser.isVision && startFacingLeft) {
+            flippedHoriz = true;
+        }
     }
 
     /* Called when being spawned from a Portal */
@@ -121,7 +126,9 @@ public class Ciurivy : MonoBehaviour {
     Vector2 getNextRunPosition() {
         Vector2 ret = new Vector2();
         bool toRight = false;
-        if (playerAwareness.awareOfPlayer && enemyInfo.id != EnemyInfo.ID.CIURIVY_PASSIVE) {
+        if (neverChangeDirection) {
+            toRight = !flippedHoriz;
+        } else if (playerAwareness.awareOfPlayer && enemyInfo.id != EnemyInfo.ID.CIURIVY_PASSIVE) {
             toRight = Player.instance.rb2d.position.x > (segment.p1.x + segment.p0.x) / 2;
         } else {
             toRight = rb2d.position.x < (segment.p1.x + segment.p0.x) / 2;

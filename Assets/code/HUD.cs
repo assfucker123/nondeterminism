@@ -170,6 +170,12 @@ public class HUD : MonoBehaviour {
         nGO.transform.SetParent(canvas.transform, false);
         _notification = nGO.GetComponent<Notification>();
 
+        //create Countdown Timer
+        GameObject ctGO = GameObject.Instantiate(countdownTimerGameObject) as GameObject;
+        ctGO.transform.SetParent(canvas.transform, false);
+        _countdownTimer = ctGO.GetComponent<CountdownTimer>();
+        _countdownTimer.setUp();
+
         //create Black Screen
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
         bsGO.transform.SetParent(canvas.transform, false);
@@ -182,13 +188,7 @@ public class HUD : MonoBehaviour {
         muGO.transform.SetParent(canvas.transform, false);
         _mapUI = muGO.GetComponent<MapUI>();
         _mapUI.hideMap();
-        //create Countdown Timer
-        GameObject ctGO = GameObject.Instantiate(countdownTimerGameObject) as GameObject;
-        ctGO.transform.SetParent(canvas.transform, false);
-        _countdownTimer = ctGO.GetComponent<CountdownTimer>();
-        _countdownTimer.setUp();
-
-
+        
         // (not creating Game Over screen until needed)
         
         // create Text Box

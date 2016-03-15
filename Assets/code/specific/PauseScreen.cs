@@ -157,13 +157,11 @@ public class PauseScreen : MonoBehaviour {
 
     void show(Page page) {
         image.enabled = true;
-        if (!Vars.arcadeMode) { // arcade mode only lets options window be shown
-            mapPageText.makeAllCharsVisible();
-            timeTreePageText.makeAllCharsVisible();
-            talkPageText.makeAllCharsVisible();
-            progressPageText.makeAllCharsVisible();
-            switchPagesText.makeAllCharsVisible();
-        }
+        mapPageText.makeAllCharsVisible();
+        timeTreePageText.makeAllCharsVisible();
+        talkPageText.makeAllCharsVisible();
+        progressPageText.makeAllCharsVisible();
+        switchPagesText.makeAllCharsVisible();
         optionsPageText.makeAllCharsVisible();
         pageSelection.enabled = true;
         
@@ -398,8 +396,7 @@ public class PauseScreen : MonoBehaviour {
         }
 
         // detect switching page
-        if (!Vars.arcadeMode &&  // can only be on options page in arcade mode
-            !ScriptRunner.scriptsPreventPausing &&
+        if (!ScriptRunner.scriptsPreventPausing &&
             !TextBox.instance.isBeingUsed) {
             if (Keys.instance.pageLeftPressed) {
                 Page pageTo = page;

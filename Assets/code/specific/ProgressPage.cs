@@ -94,18 +94,20 @@ public class ProgressPage : MonoBehaviour {
         list.Add(orbKeyItem);
 
         // add boost upgrade item
-        ProgressItem boostUpgradeItem = new ProgressItem();
-        boostUpgradeItem.type = ProgressItem.Type.BOOST_UPGRADE;
-        boostUpgradeItem.name = propAsset.getString("boost_upgrade") + " ";
-        if (Vars.currentNodeData.hasBooster) {
-            boostUpgradeItem.name += propAsset.getString("boost_upgrade_yes");
-        } else {
-            boostUpgradeItem.name += propAsset.getString("boost_upgrade_no");
+        if (Vars.boosterFound) {
+            ProgressItem boostUpgradeItem = new ProgressItem();
+            boostUpgradeItem.type = ProgressItem.Type.BOOST_UPGRADE;
+            boostUpgradeItem.name = propAsset.getString("boost_upgrade") + " ";
+            if (Vars.currentNodeData.hasBooster) {
+                boostUpgradeItem.name += propAsset.getString("boost_upgrade_yes");
+            } else {
+                boostUpgradeItem.name += propAsset.getString("boost_upgrade_no");
+            }
+            boostUpgradeItem.description = propAsset.getString("boost_description");
+            boostUpgradeItem.found = true;
+            list.Add(boostUpgradeItem);
         }
-        boostUpgradeItem.description = propAsset.getString("boost_description");
-        boostUpgradeItem.found = true;
-        list.Add(boostUpgradeItem);
-
+        
         // add health upgrade item
         int numHUsTotal = (int)PhysicalUpgrade.HealthUpgrade.TOTAL_HEALTH_UPGRADES;
         int numHUsCollected = Vars.currentNodeData.healthUpgrades.Count;
