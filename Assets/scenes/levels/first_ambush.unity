@@ -454,7 +454,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2393128, guid: e1aa2afbb6d28b14394fac28b48a29a4, type: 2}
       propertyPath: m_SortingLayerID
-      value: 1772338085
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2321288, guid: e1aa2afbb6d28b14394fac28b48a29a4, type: 2}
       propertyPath: m_SortingLayerID

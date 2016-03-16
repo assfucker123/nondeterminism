@@ -78,15 +78,19 @@ public class GlyphBox : MonoBehaviour {
         get { return _alignment; }
         set {
             if (alignment == value) return;
-            if (glyphs.Count < 1 || glyphs[0].Count < 1) {
+            if (glyphs.Count < 1) {
                 _alignment = value;
                 return;
             }
-            Vector2 pos0 = getNormalPostion(glyphs[0][0], 0, 0);
-            _alignment = value;
-            Vector2 pos1 = getNormalPostion(glyphs[0][0], 0, 0);
-            Vector2 diff = pos1 - pos0;
-            foreach (List<GlyphSprite> row in glyphs) {
+            Alignment prevAlignment = _alignment;
+            for (int r=0; r<glyphs.Count; r++) {
+                if (glyphs[r].Count < 1) continue;
+                _alignment = prevAlignment;
+                Vector2 pos0 = getNormalPostion(glyphs[r][0], 0, r);
+                _alignment = value;
+                Vector2 pos1 = getNormalPostion(glyphs[r][0], 0, r);
+                Vector2 diff = pos1 - pos0;
+                List<GlyphSprite> row = glyphs[r];
                 foreach (GlyphSprite gs in row) {
                     gs.position += diff;
                 }
