@@ -1,5 +1,12 @@
-chamber: CHAMBER
-chamber_save: CHAMBER SAVE
-wait: WAIT
-delete_nodes: DELETE TIME TREE NODES
-back: BACK
+chamber: Chamber
+chamber_save: Chamber Save
+wait: Wait
+delete_nodes: Delete Time Tree Nodes
+back: Back
+branch_added: Branch added:
+no_branch_added: No branch added (redundant)
+time_tree_updated: Time tree updated.
+game_saved: Game saved.
+game_save_error: Error when saving game.
+resume: Resume
+wait_text: Wait until what time?

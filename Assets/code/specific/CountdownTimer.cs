@@ -12,13 +12,13 @@ public class CountdownTimer : MonoBehaviour {
     public Sprite normalSprite;
     public Color normalColor = Color.white;
     public Sprite meltdownSprite;
-    public Color meltdownColor = new Color(253f/255, 1, 138f/255);
     public Sprite meltdownPerilSprite;
-    public Color meltdownPerilColor = Color.red;
     public Sprite weirdSprite;
     public Color weirdColor = Color.magenta;
     public float flashPeriodVisible = .5f;
     public float flashPeriodInvisible = .2f;
+
+    public static CountdownTimer instance { get; private set; }
 
     public static float MELTDOWN_DURATION {
         get {
@@ -30,6 +30,9 @@ public class CountdownTimer : MonoBehaviour {
             return 5 * 60;
         }
     }
+
+    public static Color MELTDOWN_COLOR = new Color(253/255f, 255/255f, 138/255f);
+    public static Color MELTDOWN_PERIL_COLOR = new Color(234/255f, 0, 0);
     
     public enum Mode {
         NORMAL,
@@ -50,11 +53,11 @@ public class CountdownTimer : MonoBehaviour {
                 break;
             case Mode.MELTDOWN:
                 image.sprite = meltdownSprite;
-                glyphBox.setColor(meltdownColor);
+                glyphBox.setColor(MELTDOWN_COLOR);
                 break;
             case Mode.MELTDOWN_PERIL:
                 image.sprite = meltdownPerilSprite;
-                glyphBox.setColor(meltdownPerilColor);
+                glyphBox.setColor(MELTDOWN_PERIL_COLOR);
                 break;
             case Mode.WEIRD:
                 image.sprite = weirdSprite;
@@ -115,6 +118,11 @@ public class CountdownTimer : MonoBehaviour {
     }
 
 	void Awake() {
+        if (instance != null) {
+            GameObject.Destroy(instance.gameObject);
+        }
+        instance = this;
+
         rt = GetComponent<RectTransform>();
         image = GetComponent<Image>();
 		glyphBox = transform.Find("GlyphBox").GetComponent<GlyphBox>();
@@ -145,6 +153,12 @@ public class CountdownTimer : MonoBehaviour {
         displayTime(time);
     }
 
+    void OnDestroy() {
+        if (instance == this) {
+            instance = null;
+        }
+    }
+
     void displayTime(float time) {
         // detect switching mode from MELTDOWN to MELTDOWN_PERIL
         if (mode == Mode.MELTDOWN && time > MELTDOWN_DURATION - MELTDOWN_PERIL_DURATION) {
@@ -153,7 +167,7 @@ public class CountdownTimer : MonoBehaviour {
             mode = Mode.MELTDOWN;
         }
         // displaying time
-        string str = timeToStr(time);
+        string str = timeToStr(time, mode);
         glyphBox.setPlainText(str);
         moveDots(time);
         // flashing
@@ -196,7 +210,7 @@ public class CountdownTimer : MonoBehaviour {
         }
     }
 
-    string timeToStr(float time) {
+    public static string timeToStr(float time, Mode mode) {
 
         string str = "";
         float t = time;
