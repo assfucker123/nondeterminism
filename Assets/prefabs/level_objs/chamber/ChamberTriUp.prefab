@@ -1,98 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &156674
+--- !u!1 &110786
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 417914}
-  - 212: {fileID: 21229322}
-  - 50: {fileID: 5024672}
-  - 60: {fileID: 6042448}
-  - 114: {fileID: 11476012}
+  - 4: {fileID: 496564}
+  - 212: {fileID: 21228728}
+  - 114: {fileID: 11442696}
+  - 114: {fileID: 11456008}
   m_Layer: 0
-  m_Name: ShipCover
+  m_Name: ChamberTriUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &417914
+--- !u!4 &496564
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156674}
+  m_GameObject: {fileID: 110786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 49, y: 26, z: 0}
+  m_LocalPosition: {x: 98.61, y: 10.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5024672
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156674}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!60 &6042448
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156674}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: 24.167744, y: 4.6329956}
-      - {x: 33.22559, y: 6.541828}
-      - {x: 35.5134, y: 4.1853733}
-      - {x: 37.12846, y: -4.6321135}
-      - {x: 28.159351, y: -11.745805}
-      - {x: 27.940624, y: -15.562217}
-      - {x: 19.252243, y: -15.493352}
-      - {x: 18.29705, y: -11.697323}
-      - {x: -3.1430244, y: -11.71329}
-      - {x: -3.3090248, y: -5.4682474}
-      - {x: -5.077587, y: -5.4682465}
-      - {x: -10.989578, y: 4.5446835}
---- !u!114 &11476012
+--- !u!114 &11442696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156674}
+  m_GameObject: {fileID: 110786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af6a711f0b06bce4b850670604e3e85d, type: 3}
+  m_Script: {fileID: 11500000, guid: fbea6b640f407d143b313d4ca766f9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 0.4
-  playerInside: 0
---- !u!212 &21229322
+  xFactor: 0
+  yFactor: 0
+  position: {x: 0, y: 0}
+--- !u!114 &11456008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22e5c7dde0223e4f8729984e1491aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 3.125
+  height: 2.625
+  up: 1
+  targetPos: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+--- !u!212 &21228728
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156674}
+  m_GameObject: {fileID: 110786}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -111,9 +84,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: b33ffd6e39c2b2d489fbd71fd4cd8303, type: 3}
+  m_SortingLayerID: 1772338085
+  m_SortingOrder: 1000
+  m_Sprite: {fileID: 21300000, guid: b034d3c84903c2c4ba7079869f06da2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,13 +99,9 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_SortingOrder
-      value: 10
+      value: 1772338085
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 156674}
+  m_RootGameObject: {fileID: 110786}
   m_IsPrefabParent: 1

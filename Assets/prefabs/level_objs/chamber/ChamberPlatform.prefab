@@ -14,6 +14,7 @@ GameObject:
   - 60: {fileID: 6095400}
   - 114: {fileID: 11476192}
   - 114: {fileID: 11483344}
+  - 114: {fileID: 11419696}
   m_Layer: 0
   m_Name: ChamberPlatform
   m_TagString: Untagged
@@ -87,6 +88,26 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11419696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45937dddce8ebec4281b3a8e5ebfcb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  widthUnits: 40.625
+  triFlyInDelay: 0.0018
+  triFlyInDuration: 0.5
+  maxLevel: 9
+  flyInStateDuration: 999
+  startDist: 8
+  startAngleOffset: 60
+  upTriGameObject: {fileID: 110786, guid: ec43b1f9d9edd204aa9edddb62bf75ac, type: 2}
+  downTriGameObject: {fileID: 133844, guid: fcefd42472d94794c8023a25a93645f5, type: 2}
 --- !u!114 &11476192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,6 +185,38 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: upTriGameObject
+      value: 
+      objectReference: {fileID: 110786, guid: ec43b1f9d9edd204aa9edddb62bf75ac, type: 2}
+    - target: {fileID: 0}
+      propertyPath: downTriGameObject
+      value: 
+      objectReference: {fileID: 133844, guid: fcefd42472d94794c8023a25a93645f5, type: 2}
+    - target: {fileID: 0}
+      propertyPath: flyInStateDuration
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startAngleOffset
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: triFlyInDelay
+      value: 0.0018
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxLevel
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: triFlyInDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startDist
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

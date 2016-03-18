@@ -172,11 +172,9 @@ public class ChamberScreen : MonoBehaviour {
         glyphBoxWait.setText(propAsset.getString("wait_text"));
 
         // times (only use times past the current time)
-        glyphBoxSmall.clearText();
-        glyphBoxSmall.setColor(DEFAULT_COLOR);
         float currentTime = 0;
         if (CountdownTimer.instance != null) {
-            currentTime = CountdownTimer.instance.time;                 currentTime = 30 * 60;
+            currentTime = CountdownTimer.instance.time;
         }
         string str = "";
         int perilTimes = 0;
@@ -200,7 +198,11 @@ public class ChamberScreen : MonoBehaviour {
             str += CountdownTimer.timeToStr(waitTimes[i], CountdownTimer.Mode.MELTDOWN) + "\n";
         }
         str += propAsset.getString("back");
+        glyphBoxSmall.alignment = GlyphBox.Alignment.LEFT;
+        glyphBoxSmall.clearText();
+        glyphBoxSmall.setColor(DEFAULT_COLOR);
         glyphBoxSmall.setText(str);
+        glyphBoxSmall.alignment = GlyphBox.Alignment.CENTER;
         for (int i = indexMin; i < indexMax; i++) {
             if (i < indexMax - perilTimes) {
                 glyphBoxSmall.setColor(CountdownTimer.MELTDOWN_COLOR, i, 0, glyphBoxSmall.width);
@@ -306,7 +308,15 @@ public class ChamberScreen : MonoBehaviour {
                 //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
             if (confirmPressed || backPressed) {
-                Debug.Log("actions on small select not implemented yet");
+                if (backPressed || currentSmallIndex == indexMax) {
+                    // go back
+                    //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+                    setMainMenu(Option.WAIT);
+                } else {
+                    // wait until specified time
+                    float timeSelected = waitTimes[waitTimes.Length - (indexMax - currentSmallIndex)];
+                    Debug.Log("wait until " + timeSelected);
+                }
             }
         }
         
