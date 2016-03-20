@@ -5,9 +5,7 @@ public class Player : MonoBehaviour {
 
     public static Player instance { get { return _instance; } }
 
-    ///////////////////////
-    // PUBLIC PROPERTIES //
-    ///////////////////////
+    #region INSPECTOR FIELDS
 
     public float groundAccel = 100;
     public float groundStartSpeed = 6;
@@ -50,7 +48,6 @@ public class Player : MonoBehaviour {
     public float idlePhaseReplenishDelay = 1.5f;
     public float idlePhaseReplenishSpeed = 1.0f;
     public float idlePhaseReplenishMax = 20; // should be same as visionsPhase
-
     
     public float damageSpeed = 10;
     public float damageFriction = 20;
@@ -75,6 +72,10 @@ public class Player : MonoBehaviour {
     public AudioClip larvaScreamSound;
     public AudioClip flashbackBeginSound;
     public AudioClip flashbackEndSound;
+
+    #endregion
+
+    #region PUBLIC PROPERTIES (STATES, ETC.)
 
     public Rigidbody2D rb2d { get { return _rb2d; } }
     public bool flippedHoriz {
@@ -179,7 +180,8 @@ public class Player : MonoBehaviour {
         GROUND,
         AIR,
         DAMAGE,
-        DEAD
+        DEAD,
+        KNEEL
     }
 
     public enum AimDirection:int {
@@ -188,24 +190,9 @@ public class Player : MonoBehaviour {
         DOWN
     }
 
-    enum FireBulletFlag:int {
-        ALTERED_1,
-        ALTERED_2,
-        SPLIT_1,
-        SPLIT_2,
-        DO_NOT_PLAY_SOUND
-    }
-    bool fbfContains(FireBulletFlag flag, FireBulletFlag[] fbFlags) {
-        if (fbFlags == null) return false;
-        foreach (FireBulletFlag f in fbFlags)
-            if (f == flag) return true;
-        return false;
-    }
+    #endregion
 
-    //////////////////////
-    // PUBLIC FUNCTIONS //
-    //////////////////////
-
+    #region PUBLIC - PICKUPS
 
     public int healthPickup(int health) {
         int amountUsed = health;
@@ -234,6 +221,9 @@ public class Player : MonoBehaviour {
         HUD.instance.phaseMeter.setPhase(this.phase - phase);
     }
 
+    #endregion
+
+    #region PUBLIC - LEVEL MANAGEMENT
     /* lets Player know that it should be repositioned when starting a new level (called in OnLevelWasLoaded()).
      * first function directly gives Player its new position in the next level.
      * second function gives Player its position etc. in the current level, which will be used to determine where the new position should be. */
@@ -262,6 +252,9 @@ public class Player : MonoBehaviour {
         frameInfoOnLevelLoad = timeUser.getLastFrameInfo();
         frameInfoOnLevelLoad.preserve = true;
     }
+    #endregion
+
+    #region PUBLIC - CUTSCENE RELATED
 
     public bool receivePlayerInput {
         get { return _receivePlayerInput; }
@@ -287,10 +280,33 @@ public class Player : MonoBehaviour {
         }
         return false;
     }
-        
-    /////////////////////
-    // EVENT FUNCTIONS //
-    /////////////////////
+
+    // to kneeling on the ground (also makes animator update in unscaled time)
+    public void toKneel() {
+
+        state = State.KNEEL;
+        rb2d.velocity = Vector2.zero;
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+        animator.Play("kneel_down");
+
+    }
+
+    public void outOfKneel() {
+        state = State.KNEEL;
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+        animator.Play("kneel_up");
+    }
+
+    public void resumeFromKneel() {
+        animator.updateMode = AnimatorUpdateMode.Normal;
+        toGroundState(false, false);
+    }
+
+    #endregion
+
+    #region PRIVATE - EVENT FUNCTIONS
 
     void Awake() {
         _instance = this;
@@ -308,21 +324,22 @@ public class Player : MonoBehaviour {
         //need to call this with a title screen
         Vars.startGame();
     }
+
     void Start() {
         if (receivesDamage.health > maxHealth) receivesDamage.health = maxHealth;
         HUD.instance.setMaxHealth(maxHealth);
         HUD.instance.setHealth(receivesDamage.health);
         HUD.instance.phaseMeter.setMaxPhase(maxPhase);
-        HUD.instance.phaseMeter.setPhase(maxPhase*startPhase);
+        HUD.instance.phaseMeter.setPhase(maxPhase * startPhase);
 
-	}
-    
+    }
+
     void OnLevelWasLoaded(int level) {
 
         if (HUD.instance != null && HUD.instance.phaseMeter != null) {
             HUD.instance.phaseMeter.endPulse();
         }
-        
+
         if (repositionOnLevelLoad) {
             if (determineNewPositionFromLastLevel) {
                 Vector2 absPosition = lastLevelPosition;
@@ -334,15 +351,15 @@ public class Player : MonoBehaviour {
             } else {
                 rb2d.position = newPosition;
             }
-            
+
             Vars.updateNodeData(Vars.currentNodeData);
             Vars.updateNodeData(Vars.levelStartNodeData);
-            
+
             repositionOnLevelLoad = false;
         }
 
         saveFrameInfoOnLevelLoad();
-        
+
     }
 
     void Update() {
@@ -422,8 +439,8 @@ public class Player : MonoBehaviour {
         if (timeUser.shouldNotUpdate) {
             return;
         }
-        
-        
+
+
         //aiming
         switch (state) {
         case State.GROUND:
@@ -451,6 +468,9 @@ public class Player : MonoBehaviour {
         case State.DEAD:
             stateDead();
             break;
+        case State.KNEEL:
+            stateKneel();
+            break;
         }
 
         // apply gravity
@@ -460,7 +480,7 @@ public class Player : MonoBehaviour {
             v.y = Mathf.Max(-terminalVelocity, v.y);
             rb2d.velocity = v;
         }
-        
+
         // fire bullets
         bulletTime += Time.deltaTime;
         if (canFireBullet) {
@@ -535,18 +555,26 @@ public class Player : MonoBehaviour {
         // update camera position
         setCameraPosition();
 
-	}
+    }
 
     void LateUpdate() {
 
         if (timeUser.shouldNotUpdate)
             return;
 
-        
+
     }
-    
+
+    void OnDestroy() {
+        _instance = null;
+    }
+
+    #endregion
+
+    #region PRIVATE - TIME USER FUNCTIONS
+
     void OnSaveFrame(FrameInfo fi) {
-        fi.state = (int) state;
+        fi.state = (int)state;
         fi.floats["jumpTime"] = jumpTime;
         fi.floats["idleGunTime"] = idleGunTime;
         fi.floats["damageTime"] = damageTime;
@@ -568,7 +596,7 @@ public class Player : MonoBehaviour {
         fi.ints["asc"] = alteredShotCount;
     }
     void OnRevert(FrameInfo fi) {
-        state = (State) fi.state;
+        state = (State)fi.state;
         jumpTime = fi.floats["jumpTime"];
         idleGunTime = fi.floats["idleGunTime"];
         damageTime = fi.floats["damageTime"];
@@ -603,19 +631,19 @@ public class Player : MonoBehaviour {
         setCameraPosition();
     }
 
-    void OnDestroy() {
-        _instance = null;
-    }
+    #endregion
+
+    #region PRIVATE - STATE FUNCTIONS (CALLED EACH FRAME BY UPDATE())
 
     // control time reverting (called each frame)
     void timeReverting() {
 
         // inversion used when The Salesman reverts
         bool useInversion = false;
-        
+
         if (TimeUser.reverting) {
             revertTime += Time.deltaTime;
-            
+
             TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
 
             if (useInversion) {
@@ -646,7 +674,8 @@ public class Player : MonoBehaviour {
                 postRevertTime = 0;
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
             }
-        } else if (!PauseScreen.paused && !(GameOverScreen.instance != null && GameOverScreen.instance.cannotRevert)) {
+        } else if (!PauseScreen.paused && !(GameOverScreen.instance != null && GameOverScreen.instance.cannotRevert)
+            && state != State.KNEEL) {
             if ((Keys.instance.flashbackPressed || flashbackNextFrameFlag) &&
                 Time.timeSinceLevelLoad > .1f) {
                 if (phase > 0) {
@@ -691,7 +720,7 @@ public class Player : MonoBehaviour {
                 SoundManager.instance.stopSFX(chargingStartSound);
                 SoundManager.instance.stopSFX(chargingLoopSound);
             }
-            
+
         } else { // not currently charging
 
             if (Vars.abilityKnown(Decryptor.ID.CHARGE_SHOT)) {
@@ -714,7 +743,7 @@ public class Player : MonoBehaviour {
     void stateGround() {
         Vector2 v = rb2d.velocity;
         bool stillAnim = false;
-        
+
         if (leftHeld) {
 
             //movement
@@ -827,7 +856,7 @@ public class Player : MonoBehaviour {
         // step sounds
         if (state == State.GROUND && isAnimatorCurrentState("run" + aimSuffix)) {
             stepSoundPlayTime += Time.deltaTime;
-            if (stepSoundPlayTime > .25f){
+            if (stepSoundPlayTime > .25f) {
                 SoundManager.instance.playSFXRandPitchBend(stepSound);
                 stepSoundPlayTime = 0;
             }
@@ -932,7 +961,7 @@ public class Player : MonoBehaviour {
             }
 
         }
-        
+
         rb2d.velocity = v;
     }
 
@@ -966,7 +995,7 @@ public class Player : MonoBehaviour {
         rb2d.velocity = Vector2.zero;
 
         if (exploded) {
-            
+
         } else {
 
             // apply friction like stateDamage()
@@ -986,17 +1015,32 @@ public class Player : MonoBehaviour {
 
     }
 
+    void stateKneel() {
+        
+    }
+
+    #endregion
+    
+    #region PRIVATE - STATE TRANSITIONS
+
     // going to ground state
-    void toGroundState() {
+    void toGroundState(bool gunOut = true, bool playStepSound = true) {
         state = State.GROUND;
-        if (leftHeld || rightHeld) {
-            animator.Play("run" + aimSuffix);
+        animator.updateMode = AnimatorUpdateMode.Normal; // for when coming from KNEEL
+        if (gunOut) {
+            if (leftHeld || rightHeld) {
+                animator.Play("run" + aimSuffix);
+            } else {
+                animator.Play("gun" + aimSuffix);
+                idleGunTime = 0;
+            }
         } else {
-            animator.Play("gun" + aimSuffix);
-            idleGunTime = 0;
+            animator.Play("idle");
         }
-        SoundManager.instance.playSFXRandPitchBend(stepSound);
-        stepSoundPlayTime = 0;
+        if (playStepSound) {
+            SoundManager.instance.playSFXRandPitchBend(stepSound);
+            stepSoundPlayTime = 0;
+        }
     }
 
     // going to air state
@@ -1085,7 +1129,7 @@ public class Player : MonoBehaviour {
         dLO = dLGO.GetComponent<DeathLarvaOracle>();
         dLO.mercyFlashTime = receivesDamage.mercyInvincibilityTime;
         dLO.flippedHoriz = flippedHoriz;
-        
+
         // stop Player from moving
         rb2d.velocity.Set(0, 0);
 
@@ -1097,6 +1141,12 @@ public class Player : MonoBehaviour {
         _exploded = true;
 
     }
+
+    
+
+    #endregion
+
+    #region PRIVATE - RECEIVES DAMAGE FUNCTIONS
 
     // taking damage
     void PreDamage(AttackInfo ai) { //(before damage is taken from health)
@@ -1140,9 +1190,13 @@ public class Player : MonoBehaviour {
         } else {
             HUD.instance.speedLines.flashRed();
         }
-        
+
     }
 
+    #endregion
+
+    #region PRIVATE - FIRING BULLETS
+    
     // fire a bullet
     void fireBullet(bool charged, AimDirection direction, params FireBulletFlag[] fireBulletFlags) {
 
@@ -1158,7 +1212,7 @@ public class Player : MonoBehaviour {
                 SoundManager.instance.playSFXRandPitchBend(bulletSound);
             }
         }
-        
+
         //spawning bullet
         Vector2 relSpawnPosition = bulletSpawn;
         float heading = 0;
@@ -1232,22 +1286,24 @@ public class Player : MonoBehaviour {
         }
     }
 
-    // setting camera position
-    void setCameraPosition() {
-        /*
-        CameraControl cameraControl = CameraControl.instance;
-        if (cameraControl == null) return;
-        
-
-        Vector2 pos = rb2d.position;
-        if (TimeUser.reverting) {
-            pos += rb2d.velocity * Time.deltaTime;
-        }
-        cameraControl.moveToPosition(pos);
-        */
+    enum FireBulletFlag : int {
+        ALTERED_1,
+        ALTERED_2,
+        SPLIT_1,
+        SPLIT_2,
+        DO_NOT_PLAY_SOUND
+    }
+    bool fbfContains(FireBulletFlag flag, FireBulletFlag[] fbFlags) {
+        if (fbFlags == null) return false;
+        foreach (FireBulletFlag f in fbFlags)
+            if (f == flag) return true;
+        return false;
     }
 
-    // helper function
+    #endregion
+
+    #region PRIVATE - HELPER FUNCTIONS
+
     bool isAnimatorCurrentState(string stateString) {
         return animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(stateString);
     }
@@ -1263,6 +1319,26 @@ public class Player : MonoBehaviour {
             }
         }
     }
+
+    #endregion
+
+    
+    // setting camera position
+    void setCameraPosition() {
+        /*
+        CameraControl cameraControl = CameraControl.instance;
+        if (cameraControl == null) return;
+        
+
+        Vector2 pos = rb2d.position;
+        if (TimeUser.reverting) {
+            pos += rb2d.velocity * Time.deltaTime;
+        }
+        cameraControl.moveToPosition(pos);
+        */
+    }
+
+    
 
     // PRIVATE
 

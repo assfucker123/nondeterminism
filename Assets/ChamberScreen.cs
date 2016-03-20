@@ -17,9 +17,11 @@ public class ChamberScreen : MonoBehaviour {
 
     public bool simplifiedOptions {
         get {
-            return false;
+            return true;
         }
     }
+
+    public bool quitNow { get; private set; }
 
     public enum Option {
         NONE,
@@ -262,17 +264,18 @@ public class ChamberScreen : MonoBehaviour {
                 } else {
                     setMainSelection(indexToOptionMain(currentMainIndex + 1), false);
                 }
-                //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             } else if (upPressed) {
                 if (currentMainIndex <= indexMin) {
                     setMainSelection(indexToOptionMain(indexMax), false);
                 } else {
                     setMainSelection(indexToOptionMain(currentMainIndex - 1), false);
                 }
-                //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
             if (confirmPressed || backPressed) {
                 Option option = indexToOptionMain(currentMainIndex);
+                //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
                 if (backPressed || option == Option.BACK) {
                     // back pressed
                     if (saveSure) {
@@ -298,19 +301,19 @@ public class ChamberScreen : MonoBehaviour {
                 } else {
                     setSmallSelection(currentSmallIndex+1, false);
                 }
-                //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             } else if (upPressed) {
                 if (currentSmallIndex <= indexMin) {
                     setSmallSelection(indexMax, false);
                 } else {
                     setSmallSelection(currentSmallIndex-1, false);
                 }
-                //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+                SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
             if (confirmPressed || backPressed) {
                 if (backPressed || currentSmallIndex == indexMax) {
                     // go back
-                    //SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
+                    SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
                     setMainMenu(Option.WAIT);
                 } else {
                     // wait until specified time
@@ -342,7 +345,7 @@ public class ChamberScreen : MonoBehaviour {
     }
 
     void quit() {
-        Debug.Log("menu quit (not implemented)");
+        quitNow = true; // ChamberScreen will be destroyed by ChamberPlatform, as it detects when quitNow is set to true
     }
 
     bool downPressed { get { return Input.GetKeyDown(KeyCode.DownArrow); } }

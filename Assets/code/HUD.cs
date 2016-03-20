@@ -30,7 +30,8 @@ public class HUD : MonoBehaviour {
                 !PauseScreen.paused &&
                 !TimeUser.reverting &&
                 !(GameOverScreen.instance != null && GameOverScreen.instance.activated) &&
-                !ScriptRunner.scriptsPreventPausing);
+                !ScriptRunner.scriptsPreventPausing &&
+                (ChamberPlatform.instance == null || ChamberPlatform.instance.state != ChamberPlatform.State.PAUSED));
         }
     }
     public UnityEngine.UI.Image blackScreen { get { return _blackScreen; } }

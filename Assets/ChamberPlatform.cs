@@ -13,6 +13,30 @@ public class ChamberPlatform : MonoBehaviour {
     public float rayPeriodMax = 1.5f;
     public float rayScaleCenter = 1;
     public float rayScaleRange = .5f;
+    public GameObject chamberScreenGameObject;
+
+    public static ChamberPlatform instance { get; private set; }
+
+    public State state { get; private set; }
+
+    public enum State {
+        IDLE,
+        PAUSED
+    }
+
+    public void toChamberScreen() {
+        if (state != State.IDLE) return;
+
+        Player.instance.toKneel();
+
+        // going to chamber screen requires game to be paused
+        Time.timeScale = 0;
+
+        chamberBackground.flyIn();
+
+        state = State.PAUSED;
+    }
+    
 
     public bool playerIsOnPlatform {
         get {
@@ -26,8 +50,10 @@ public class ChamberPlatform : MonoBehaviour {
     }
 
 	void Awake() {
+        instance = this;
         pc2d = GetComponent<PolygonCollider2D>();
         timeUser = GetComponent<TimeUser>();
+        chamberBackground = GetComponent<ChamberBackground>();
         createRays();
 	}
 
@@ -55,6 +81,50 @@ public class ChamberPlatform : MonoBehaviour {
         time += Time.deltaTime;
         updateRays();
         
+        switch (state) {
+        case State.IDLE:
+
+            // detect when going to chamber platform
+            if (playerIsOnPlatform &&
+                (Keys.instance.upPressed || Keys.instance.downPressed)) {
+                toChamberScreen();
+            }
+
+            break;
+        case State.PAUSED:
+
+            // bring up menu when chamberBackground is done with the animation
+            if (screenUp) {
+                // detect quitting
+                if (chamberScreenRef != null && chamberScreenRef.quitNow) {
+                    // get rid of chamber screen
+                    GameObject.Destroy(chamberScreenRef.gameObject);
+                    chamberScreenRef = null;
+                    screenUp = false;
+                    // change player animation
+                    Player.instance.outOfKneel();
+                    // fly out
+                    chamberBackground.flyOut();
+                }
+
+            } else {
+                if (chamberBackground.state == ChamberBackground.State.IN) {
+                    // bring up chamber screen
+                    GameObject canvasGO = GameObject.FindGameObjectWithTag("Canvas");
+                    GameObject csGO = GameObject.Instantiate(chamberScreenGameObject);
+                    csGO.transform.SetParent(canvasGO.transform, false);
+                    chamberScreenRef = csGO.GetComponent<ChamberScreen>();
+                    screenUp = true;
+                } else if (chamberBackground.state == ChamberBackground.State.OUT) {
+                    // chamber background has flown out, resume game
+                    Time.timeScale = 1;
+                    Player.instance.resumeFromKneel();
+                    state = State.IDLE;
+                }
+            }
+
+            break;
+        }
 
 	}
 
@@ -64,6 +134,9 @@ public class ChamberPlatform : MonoBehaviour {
             float t = time + ray.timeOffset;
             float scale = ray.scaleCenter + Mathf.Sin(t / ray.period * Mathf.PI*2) * ray.scaleRange;
             ray.gameObject.transform.localScale = new Vector3(1, scale, 1);
+            Color color = ray.gameObject.GetComponent<SpriteRenderer>().color;
+            color.a = 1 - chamberBackground.fadeInter;
+            ray.gameObject.GetComponent<SpriteRenderer>().color = color;
         }
 
     }
@@ -86,6 +159,8 @@ public class ChamberPlatform : MonoBehaviour {
     }
 
     void OnDestroy() {
+        if (instance == this)
+            instance = null;
         foreach (Ray ray in rays) {
             GameObject.Destroy(ray.gameObject);
         }
@@ -96,5 +171,9 @@ public class ChamberPlatform : MonoBehaviour {
 
     PolygonCollider2D pc2d;
     TimeUser timeUser;
+    ChamberBackground chamberBackground;
     float time = 0;
+    bool screenUp = false;
+    ChamberScreen chamberScreenRef = null;
+    
 }

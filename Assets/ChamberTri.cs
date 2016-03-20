@@ -10,6 +10,7 @@ public class ChamberTri : MonoBehaviour {
 
     public Vector2 targetPos = new Vector2();
     public Vector2 startPos = new Vector2();
+    public float timeOffset = 0;
 
     public float alpha {
         get { return _alpha; }
@@ -18,6 +19,16 @@ public class ChamberTri : MonoBehaviour {
             spriteRenderer.enabled = (_alpha > 0);
             Color c = spriteRenderer.color;
             c.a = _alpha;
+            spriteRenderer.color = c;
+        }
+    }
+
+    public Color color {
+        get { return spriteRenderer.color; }
+        set {
+            float a = alpha;
+            Color c = value;
+            c.a = a;
             spriteRenderer.color = c;
         }
     }

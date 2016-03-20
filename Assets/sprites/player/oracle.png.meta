@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 776a90524ce3ed347b8118f9107bd9e1
-timeCreated: 1450373116
+timeCreated: 1458417415
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -80,6 +80,16 @@ TextureImporter:
     21300146: oracle_73
     21300148: oracle_74
     21300150: oracle_75
+    21300152: oracle_76
+    21300154: oracle_77
+    21300156: oracle_78
+    21300158: oracle_79
+    21300160: oracle_80
+    21300162: oracle_81
+    21300164: oracle_82
+    21300166: oracle_83
+    21300168: oracle_84
+    21300170: oracle_85
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -93,7 +103,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -118,7 +128,7 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 16
   alphaIsTransparency: 1
@@ -130,613 +140,1287 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 20}
+        - {x: -4, y: 20}
+        - {x: -13, y: 15}
+        - {x: -13, y: -20}
+        - {x: 16, y: -20}
+        - {x: 17, y: -17}
+        - {x: 17, y: 14}
     - name: oracle_1
       rect:
         serializedVersion: 2
         x: 36
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17, y: -4}
+        - {x: 17, y: 10}
+        - {x: 11, y: 20}
+        - {x: -4, y: 20}
+        - {x: -13, y: 16}
+        - {x: -13, y: -20}
+        - {x: 12, y: -20}
     - name: oracle_2
       rect:
         serializedVersion: 2
         x: 72
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 20}
+        - {x: -13, y: 18}
+        - {x: -13, y: -20}
+        - {x: 11, y: -20}
+        - {x: 16, y: -8}
+        - {x: 16, y: 14}
+        - {x: 8, y: 20}
     - name: oracle_3
       rect:
         serializedVersion: 2
         x: 108
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 13, y: -20}
+        - {x: 13, y: 4}
+        - {x: 11, y: 20}
     - name: oracle_4
       rect:
         serializedVersion: 2
         x: 144
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 13, y: -20}
+        - {x: 13, y: 4}
+        - {x: 11, y: 20}
     - name: oracle_5
       rect:
         serializedVersion: 2
         x: 180
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 13, y: -20}
+        - {x: 13, y: 4}
+        - {x: 11, y: 20}
     - name: oracle_6
       rect:
         serializedVersion: 2
         x: 216
-        y: 360
+        y: 400
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 13, y: -20}
+        - {x: 13, y: 4}
+        - {x: 11, y: 20}
     - name: oracle_7
       rect:
         serializedVersion: 2
         x: 252
+        y: 400
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 13, y: -20}
+        - {x: 13, y: 4}
+        - {x: 11, y: 20}
+    - name: oracle_8
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 320
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -8, y: 19}
+        - {x: -8, y: -20}
+        - {x: 8, y: -20}
+        - {x: 18, y: -14}
+        - {x: 18, y: 20}
     - name: oracle_9
       rect:
         serializedVersion: 2
         x: 36
-        y: 320
+        y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -13, y: 5}
+        - {x: -13, y: -17}
+        - {x: 12, y: -17}
+        - {x: 18, y: 2}
+        - {x: 18, y: 13}
+        - {x: 11, y: 20}
     - name: oracle_10
       rect:
         serializedVersion: 2
         x: 72
-        y: 320
+        y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 20}
+        - {x: -14, y: 15}
+        - {x: -15, y: 6}
+        - {x: -15, y: -17}
+        - {x: 18, y: -17}
+        - {x: 18, y: 13}
+        - {x: 12, y: 20}
     - name: oracle_11
       rect:
         serializedVersion: 2
         x: 108
-        y: 320
+        y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -12, y: 9}
+        - {x: -12, y: -17}
+        - {x: -8, y: -20}
+        - {x: 17, y: -20}
+        - {x: 18, y: -14}
+        - {x: 18, y: 15}
+        - {x: 10, y: 20}
     - name: oracle_12
       rect:
         serializedVersion: 2
         x: 144
-        y: 320
+        y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -8, y: 19}
+        - {x: -8, y: -20}
+        - {x: 8, y: -20}
+        - {x: 18, y: -14}
+        - {x: 18, y: 20}
     - name: oracle_13
       rect:
         serializedVersion: 2
         x: 180
-        y: 320
+        y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -13, y: 5}
+        - {x: -13, y: -17}
+        - {x: 12, y: -17}
+        - {x: 18, y: 2}
+        - {x: 18, y: 13}
+        - {x: 11, y: 20}
     - name: oracle_14
       rect:
         serializedVersion: 2
         x: 216
-        y: 320
+        y: 360
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 20}
+        - {x: -14, y: 15}
+        - {x: -15, y: 6}
+        - {x: -15, y: -17}
+        - {x: 18, y: -17}
+        - {x: 18, y: 13}
+        - {x: 12, y: 20}
     - name: oracle_15
       rect:
         serializedVersion: 2
         x: 252
+        y: 360
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -12, y: 9}
+        - {x: -12, y: -17}
+        - {x: -8, y: -20}
+        - {x: 17, y: -20}
+        - {x: 18, y: -14}
+        - {x: 18, y: 15}
+        - {x: 10, y: 20}
+    - name: oracle_16
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_16
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 280
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 20}
+        - {x: -13, y: 15}
+        - {x: -13, y: -19}
+        - {x: 11, y: -19}
+        - {x: 17, y: 2}
+        - {x: 17, y: 13}
+        - {x: 10, y: 20}
     - name: oracle_17
       rect:
         serializedVersion: 2
         x: 36
-        y: 280
+        y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -12, y: 15}
+        - {x: -12, y: -18}
+        - {x: 3, y: -18}
+        - {x: 14, y: -14}
+        - {x: 17, y: 1}
+        - {x: 17, y: 18}
+        - {x: 10, y: 20}
     - name: oracle_18
       rect:
         serializedVersion: 2
         x: 72
-        y: 280
+        y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 20}
+        - {x: -14, y: 14}
+        - {x: -14, y: 13}
+        - {x: -13, y: -5}
+        - {x: -10, y: -6}
+        - {x: -5, y: -2}
+        - {x: -9, y: -6}
+        - {x: -14, y: -8}
+        - {x: -14, y: -12}
+        - {x: -11, y: -16}
+        - {x: 1, y: -18}
+        - {x: 8, y: -18}
+        - {x: 10, y: -17}
+        - {x: 17, y: 4}
+        - {x: 17, y: 14}
+        - {x: 12, y: 20}
     - name: oracle_19
       rect:
         serializedVersion: 2
         x: 108
-        y: 280
+        y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 20}
+        - {x: -15, y: 6}
+        - {x: -15, y: -2}
+        - {x: -9, y: -3}
+        - {x: -13, y: -3}
+        - {x: -15, y: -6}
+        - {x: -15, y: -10}
+        - {x: 0, y: -20}
+        - {x: 12, y: -20}
+        - {x: 17, y: -5}
+        - {x: 17, y: 15}
+        - {x: 9, y: 20}
     - name: oracle_20
       rect:
         serializedVersion: 2
         x: 144
-        y: 280
+        y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: -2}
+        - {x: -1, y: -8}
+        - {x: 1, y: -12}
+        - {x: 5, y: -12}
+        - {x: 12, y: -8}
+        - {x: 12, y: 1}
+        - {x: 9, y: 7}
+        - {x: 2, y: 7}
+        - {x: -2, y: 3}
     - name: oracle_21
       rect:
         serializedVersion: 2
         x: 180
-        y: 280
+        y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2, y: -2}
+        - {x: -3, y: -7}
+        - {x: -3, y: -8}
+        - {x: 3, y: -14}
+        - {x: 10, y: -14}
+        - {x: 12, y: -10}
+        - {x: 12, y: -6}
+        - {x: 7, y: -3}
+      - - {x: -5, y: 15}
+        - {x: -12, y: 15}
+        - {x: -17, y: 13}
+        - {x: -17, y: 9}
+        - {x: -15, y: 4}
+        - {x: -6, y: 4}
+        - {x: -1, y: 9}
+        - {x: -1, y: 12}
     - name: oracle_22
       rect:
         serializedVersion: 2
         x: 216
-        y: 280
+        y: 320
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 4}
+        - {x: -2, y: -5}
+        - {x: 7, y: -5}
+        - {x: 10, y: -3}
+        - {x: 10, y: 1}
+        - {x: 3, y: 9}
+        - {x: -2, y: 9}
+        - {x: -6, y: 7}
     - name: oracle_23
       rect:
         serializedVersion: 2
         x: 252
+        y: 320
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: 1}
+        - {x: -1, y: -8}
+        - {x: 8, y: -8}
+        - {x: 11, y: -6}
+        - {x: 11, y: -2}
+        - {x: 4, y: 6}
+        - {x: -1, y: 6}
+        - {x: -5, y: 4}
+    - name: oracle_24
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_24
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 240
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 17}
+        - {x: -14, y: 16}
+        - {x: -14, y: 1}
+        - {x: -9, y: -20}
+        - {x: 2, y: -20}
+        - {x: 14, y: -13}
+        - {x: 15, y: -12}
+        - {x: 15, y: 3}
+        - {x: 2, y: 17}
     - name: oracle_25
       rect:
         serializedVersion: 2
         x: 36
-        y: 240
+        y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: -10}
+        - {x: -11, y: -19}
+        - {x: 13, y: -19}
+        - {x: 18, y: -17}
+        - {x: 18, y: 10}
+        - {x: -10, y: 10}
+        - {x: -18, y: 9}
     - name: oracle_26
       rect:
         serializedVersion: 2
         x: 72
-        y: 240
+        y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: -20}
+        - {x: 18, y: -20}
+        - {x: 18, y: 10}
+        - {x: 17, y: 12}
+        - {x: -4, y: 12}
+        - {x: -17, y: -2}
     - name: oracle_27
       rect:
         serializedVersion: 2
         x: 108
-        y: 240
+        y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11, y: 14}
+        - {x: -11, y: -4}
+        - {x: -7, y: -20}
+        - {x: 11, y: -20}
+        - {x: 15, y: -9}
+        - {x: 15, y: 14}
     - name: oracle_28
       rect:
         serializedVersion: 2
         x: 144
-        y: 240
+        y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 17}
+        - {x: -17, y: 9}
+        - {x: -17, y: -14}
+        - {x: -10, y: -20}
+        - {x: 15, y: -20}
+        - {x: 15, y: 11}
+        - {x: 9, y: 17}
     - name: oracle_29
       rect:
         serializedVersion: 2
         x: 180
-        y: 240
+        y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1, y: 5}
+        - {x: -9, y: 10}
+        - {x: -14, y: 10}
+        - {x: -15, y: 7}
+        - {x: -15, y: -9}
+        - {x: -12, y: -20}
+        - {x: 5, y: -20}
+        - {x: 18, y: -15}
+        - {x: 18, y: 1}
+        - {x: 13, y: 6}
     - name: oracle_30
       rect:
         serializedVersion: 2
         x: 216
-        y: 240
+        y: 280
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1, y: 11}
+        - {x: -15, y: 5}
+        - {x: -18, y: -4}
+        - {x: -18, y: -12}
+        - {x: -5, y: -20}
+        - {x: 16, y: -20}
+        - {x: 18, y: -11}
+        - {x: 18, y: 11}
     - name: oracle_31
       rect:
         serializedVersion: 2
         x: 252
+        y: 280
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: 3}
+        - {x: -1, y: -6}
+        - {x: 8, y: -6}
+        - {x: 11, y: -4}
+        - {x: 11, y: 0}
+        - {x: 4, y: 8}
+        - {x: -1, y: 8}
+        - {x: -5, y: 6}
+    - name: oracle_32
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_32
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 200
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 18}
+        - {x: -9, y: 18}
+        - {x: -13, y: 14}
+        - {x: -13, y: -11}
+        - {x: 0, y: -20}
+        - {x: 9, y: -20}
+        - {x: 14, y: -11}
+        - {x: 14, y: 5}
+        - {x: 11, y: 9}
     - name: oracle_33
       rect:
         serializedVersion: 2
         x: 36
-        y: 200
+        y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8, y: 14}
+        - {x: 8, y: 12}
+        - {x: 10, y: 10}
+        - {x: 18, y: 10}
+        - {x: 18, y: 16}
+        - {x: 10, y: 16}
     - name: oracle_34
       rect:
         serializedVersion: 2
         x: 72
-        y: 200
+        y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: 2}
+        - {x: -11, y: -5}
+        - {x: -11, y: -9}
+        - {x: -7, y: -13}
+        - {x: 3, y: -13}
+        - {x: 5, y: -11}
+        - {x: 5, y: 0}
+        - {x: 3, y: 2}
+      - - {x: -18, y: 10}
+        - {x: 18, y: 10}
+        - {x: 18, y: 16}
+        - {x: -18, y: 16}
     - name: oracle_35
       rect:
         serializedVersion: 2
         x: 108
-        y: 200
+        y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 2}
+        - {x: -18, y: -5}
+        - {x: -18, y: -9}
+        - {x: -14, y: -13}
+        - {x: -4, y: -13}
+        - {x: -2, y: -11}
+        - {x: -2, y: 0}
+        - {x: -4, y: 2}
+      - - {x: -18, y: 10}
+        - {x: 18, y: 10}
+        - {x: 18, y: 16}
+        - {x: -18, y: 16}
     - name: oracle_36
       rect:
         serializedVersion: 2
         x: 144
-        y: 200
+        y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 10}
+        - {x: 18, y: 10}
+        - {x: 18, y: 16}
+        - {x: -18, y: 16}
     - name: oracle_37
       rect:
         serializedVersion: 2
         x: 180
-        y: 200
+        y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 10}
+        - {x: 18, y: 10}
+        - {x: 18, y: 16}
+        - {x: -18, y: 16}
     - name: oracle_38
       rect:
         serializedVersion: 2
         x: 216
-        y: 200
+        y: 240
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 10}
+        - {x: 18, y: 10}
+        - {x: 18, y: 16}
+        - {x: -18, y: 16}
     - name: oracle_39
       rect:
         serializedVersion: 2
         x: 252
+        y: 240
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: -2}
+        - {x: -16, y: -8}
+        - {x: -14, y: -12}
+        - {x: -10, y: -12}
+        - {x: -3, y: -8}
+        - {x: -3, y: 1}
+        - {x: -6, y: 7}
+        - {x: -13, y: 7}
+        - {x: -17, y: 3}
+      - - {x: -18, y: 16}
+        - {x: -18, y: 10}
+        - {x: 4, y: 10}
+        - {x: 6, y: 12}
+        - {x: 6, y: 14}
+        - {x: 4, y: 16}
+    - name: oracle_40
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_40
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 160
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -11, y: 18}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 20}
     - name: oracle_41
       rect:
         serializedVersion: 2
         x: 36
-        y: 160
+        y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 20}
+        - {x: -4, y: 20}
+        - {x: -13, y: 15}
+        - {x: -13, y: -20}
+        - {x: 16, y: -20}
+        - {x: 17, y: -17}
+        - {x: 17, y: 14}
     - name: oracle_42
       rect:
         serializedVersion: 2
         x: 72
-        y: 160
+        y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 19}
+        - {x: -13, y: 7}
+        - {x: -13, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 19}
     - name: oracle_43
       rect:
         serializedVersion: 2
         x: 108
-        y: 160
+        y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 20}
+        - {x: -4, y: 20}
+        - {x: -13, y: 15}
+        - {x: -13, y: -20}
+        - {x: 16, y: -20}
+        - {x: 17, y: -17}
+        - {x: 17, y: 14}
     - name: oracle_44
       rect:
         serializedVersion: 2
         x: 144
-        y: 160
+        y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: 8}
+        - {x: 4, y: 6}
+        - {x: 6, y: 4}
+        - {x: 18, y: 4}
+        - {x: 18, y: 10}
+        - {x: 6, y: 10}
     - name: oracle_45
       rect:
         serializedVersion: 2
         x: 180
-        y: 160
+        y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 4}
+        - {x: 18, y: 4}
+        - {x: 18, y: 10}
+        - {x: -18, y: 10}
     - name: oracle_46
       rect:
         serializedVersion: 2
         x: 216
-        y: 160
+        y: 200
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 4}
+        - {x: 18, y: 4}
+        - {x: 18, y: 10}
+        - {x: -18, y: 10}
     - name: oracle_47
       rect:
         serializedVersion: 2
         x: 252
+        y: 200
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 10}
+        - {x: -18, y: 4}
+        - {x: 4, y: 4}
+        - {x: 6, y: 6}
+        - {x: 6, y: 8}
+        - {x: 4, y: 10}
+    - name: oracle_48
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_48
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 120
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1, y: 20}
+        - {x: -8, y: 19}
+        - {x: -8, y: -15}
+        - {x: -4, y: -20}
+        - {x: 3, y: -20}
+        - {x: 10, y: -9}
+        - {x: 11, y: 15}
+        - {x: 8, y: 20}
     - name: oracle_49
       rect:
         serializedVersion: 2
         x: 36
-        y: 120
+        y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: -17}
+        - {x: 11, y: -17}
+        - {x: 13, y: -15}
+        - {x: 13, y: 12}
+        - {x: 12, y: 20}
+        - {x: -3, y: 20}
+        - {x: -7, y: 17}
+        - {x: -13, y: 4}
     - name: oracle_50
       rect:
         serializedVersion: 2
         x: 72
-        y: 120
+        y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 20}
+        - {x: -15, y: 9}
+        - {x: -15, y: -17}
+        - {x: 17, y: -17}
+        - {x: 17, y: 1}
+        - {x: 12, y: 14}
+        - {x: 8, y: 20}
     - name: oracle_51
       rect:
         serializedVersion: 2
         x: 108
-        y: 120
+        y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -12, y: 9}
+        - {x: -12, y: -16}
+        - {x: -2, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 19}
+        - {x: 10, y: 20}
     - name: oracle_52
       rect:
         serializedVersion: 2
         x: 144
-        y: 120
+        y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1, y: 20}
+        - {x: -8, y: 19}
+        - {x: -8, y: -15}
+        - {x: -4, y: -20}
+        - {x: 3, y: -20}
+        - {x: 10, y: -9}
+        - {x: 11, y: 15}
+        - {x: 8, y: 20}
     - name: oracle_53
       rect:
         serializedVersion: 2
         x: 180
-        y: 120
+        y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: -17}
+        - {x: 11, y: -17}
+        - {x: 13, y: -15}
+        - {x: 13, y: 12}
+        - {x: 12, y: 20}
+        - {x: -3, y: 20}
+        - {x: -7, y: 17}
+        - {x: -13, y: 4}
     - name: oracle_54
       rect:
         serializedVersion: 2
         x: 216
-        y: 120
+        y: 160
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 20}
+        - {x: -15, y: 9}
+        - {x: -15, y: -17}
+        - {x: 17, y: -17}
+        - {x: 17, y: 1}
+        - {x: 12, y: 14}
+        - {x: 8, y: 20}
     - name: oracle_55
       rect:
         serializedVersion: 2
         x: 252
+        y: 160
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -12, y: 9}
+        - {x: -12, y: -16}
+        - {x: -2, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 19}
+        - {x: 10, y: 20}
+    - name: oracle_56
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 120
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_56
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 80
-        width: 36
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 20}
+        - {x: -12, y: 11}
+        - {x: -13, y: -12}
+        - {x: -13, y: -18}
+        - {x: -12, y: -19}
+        - {x: 9, y: -19}
+        - {x: 13, y: -15}
+        - {x: 13, y: 16}
+        - {x: 10, y: 20}
     - name: oracle_57
       rect:
         serializedVersion: 2
         x: 36
-        y: 80
+        y: 120
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8, y: 20}
+        - {x: -7, y: 20}
+        - {x: -12, y: 19}
+        - {x: -12, y: -18}
+        - {x: -4, y: -18}
+        - {x: 11, y: -12}
+        - {x: 11, y: 13}
     - name: oracle_58
       rect:
         serializedVersion: 2
         x: 72
-        y: 80
+        y: 120
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: 20}
+        - {x: -14, y: 8}
+        - {x: -14, y: -5}
+        - {x: -10, y: -6}
+        - {x: -5, y: -2}
+        - {x: -9, y: -6}
+        - {x: -14, y: -8}
+        - {x: -14, y: -18}
+        - {x: 12, y: -18}
+        - {x: 12, y: 9}
+        - {x: 9, y: 20}
     - name: oracle_59
       rect:
         serializedVersion: 2
         x: 108
-        y: 80
+        y: 120
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 20}
+        - {x: -11, y: 18}
+        - {x: -15, y: 6}
+        - {x: -15, y: -14}
+        - {x: -4, y: -20}
+        - {x: 10, y: -20}
+        - {x: 10, y: 18}
+        - {x: 7, y: 20}
     - name: oracle_60
       rect:
         serializedVersion: 2
         x: 144
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 2}
+        - {x: -8, y: 0}
+        - {x: -6, y: -2}
+        - {x: 18, y: -2}
+        - {x: 18, y: 4}
+        - {x: -6, y: 4}
+    - name: oracle_61
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 4}
+        - {x: -18, y: -2}
+        - {x: 9, y: -2}
+        - {x: 11, y: 0}
+        - {x: 11, y: 2}
+        - {x: 9, y: 4}
+    - name: oracle_62
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 19}
+        - {x: -9, y: -5}
+        - {x: -3, y: -11}
+        - {x: 6, y: -11}
+        - {x: 8, y: -10}
+        - {x: 8, y: 15}
+        - {x: 7, y: 19}
+    - name: oracle_63
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 19}
+        - {x: -9, y: 12}
+        - {x: -9, y: 10}
+        - {x: -8, y: 1}
+        - {x: 0, y: -11}
+        - {x: 8, y: -11}
+        - {x: 8, y: 16}
+        - {x: 7, y: 19}
+    - name: oracle_64
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 80
         width: 36
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_61
+      outline:
+      - - {x: -2, y: 20}
+        - {x: -8, y: 16}
+        - {x: -8, y: -20}
+        - {x: 3, y: -20}
+        - {x: 10, y: -11}
+        - {x: 10, y: 11}
+        - {x: 9, y: 20}
+    - name: oracle_65
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 13}
+        - {x: -7, y: 11}
+        - {x: -13, y: -5}
+        - {x: -13, y: -15}
+        - {x: -10, y: -17}
+        - {x: 9, y: -17}
+        - {x: 13, y: -13}
+        - {x: 13, y: 0}
+        - {x: 9, y: 17}
+        - {x: 8, y: 20}
+        - {x: -2, y: 20}
+    - name: oracle_66
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15, y: -15}
+        - {x: -8, y: -17}
+        - {x: 17, y: -17}
+        - {x: 17, y: -2}
+        - {x: 11, y: 19}
+        - {x: -7, y: 19}
+        - {x: -15, y: 6}
+    - name: oracle_67
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 19}
+        - {x: -8, y: 13}
+        - {x: -12, y: 6}
+        - {x: -12, y: -15}
+        - {x: -7, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 18}
+        - {x: 8, y: 19}
+    - name: oracle_68
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 80
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 20}
+        - {x: -8, y: 16}
+        - {x: -8, y: -20}
+        - {x: 3, y: -20}
+        - {x: 10, y: -11}
+        - {x: 10, y: 11}
+        - {x: 9, y: 20}
+    - name: oracle_69
       rect:
         serializedVersion: 2
         x: 180
@@ -746,7 +1430,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_62
+      outline:
+      - - {x: -7, y: 13}
+        - {x: -7, y: 11}
+        - {x: -13, y: -5}
+        - {x: -13, y: -15}
+        - {x: -10, y: -17}
+        - {x: 9, y: -17}
+        - {x: 13, y: -13}
+        - {x: 13, y: 0}
+        - {x: 9, y: 17}
+        - {x: 8, y: 20}
+        - {x: -2, y: 20}
+    - name: oracle_70
       rect:
         serializedVersion: 2
         x: 216
@@ -756,7 +1452,15 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_63
+      outline:
+      - - {x: -15, y: -15}
+        - {x: -8, y: -17}
+        - {x: 17, y: -17}
+        - {x: 17, y: -2}
+        - {x: 11, y: 19}
+        - {x: -7, y: 19}
+        - {x: -15, y: 6}
+    - name: oracle_71
       rect:
         serializedVersion: 2
         x: 252
@@ -766,7 +1470,16 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_64
+      outline:
+      - - {x: -2, y: 19}
+        - {x: -8, y: 13}
+        - {x: -12, y: 6}
+        - {x: -12, y: -15}
+        - {x: -7, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 18}
+        - {x: 8, y: 19}
+    - name: oracle_72
       rect:
         serializedVersion: 2
         x: 0
@@ -776,7 +1489,15 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_65
+      outline:
+      - - {x: 10, y: 19}
+        - {x: -12, y: 19}
+        - {x: -13, y: 14}
+        - {x: -13, y: -19}
+        - {x: 10, y: -19}
+        - {x: 13, y: -10}
+        - {x: 13, y: 17}
+    - name: oracle_73
       rect:
         serializedVersion: 2
         x: 36
@@ -786,7 +1507,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_66
+      outline:
+      - - {x: 3, y: 19}
+        - {x: -4, y: 19}
+        - {x: -11, y: 13}
+        - {x: -12, y: 0}
+        - {x: -12, y: -18}
+        - {x: -4, y: -18}
+        - {x: 11, y: -12}
+        - {x: 11, y: 5}
+        - {x: 8, y: 17}
+    - name: oracle_74
       rect:
         serializedVersion: 2
         x: 72
@@ -796,7 +1527,21 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_67
+      outline:
+      - - {x: -6, y: 19}
+        - {x: -14, y: 7}
+        - {x: -14, y: -4}
+        - {x: -13, y: -5}
+        - {x: -10, y: -6}
+        - {x: -5, y: -2}
+        - {x: -9, y: -6}
+        - {x: -14, y: -8}
+        - {x: -14, y: -13}
+        - {x: 0, y: -17}
+        - {x: 6, y: -18}
+        - {x: 12, y: -18}
+        - {x: 12, y: 19}
+    - name: oracle_75
       rect:
         serializedVersion: 2
         x: 108
@@ -806,7 +1551,20 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_68
+      outline:
+      - - {x: -6, y: 19}
+        - {x: -15, y: 5}
+        - {x: -15, y: -1}
+        - {x: -9, y: -3}
+        - {x: -13, y: -3}
+        - {x: -15, y: -6}
+        - {x: -15, y: -10}
+        - {x: -2, y: -20}
+        - {x: 10, y: -20}
+        - {x: 10, y: 1}
+        - {x: 8, y: 17}
+        - {x: 6, y: 19}
+    - name: oracle_76
       rect:
         serializedVersion: 2
         x: 144
@@ -816,7 +1574,14 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_69
+      outline:
+      - - {x: -1, y: -1}
+        - {x: -1, y: -3}
+        - {x: 1, y: -5}
+        - {x: 18, y: -5}
+        - {x: 18, y: 1}
+        - {x: 1, y: 1}
+    - name: oracle_77
       rect:
         serializedVersion: 2
         x: 180
@@ -826,7 +1591,12 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_70
+      outline:
+      - - {x: -18, y: -5}
+        - {x: 18, y: -5}
+        - {x: 18, y: 1}
+        - {x: -18, y: 1}
+    - name: oracle_78
       rect:
         serializedVersion: 2
         x: 216
@@ -836,7 +1606,12 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_71
+      outline:
+      - - {x: -18, y: -5}
+        - {x: 18, y: -5}
+        - {x: 18, y: 1}
+        - {x: -18, y: 1}
+    - name: oracle_79
       rect:
         serializedVersion: 2
         x: 252
@@ -846,7 +1621,14 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_72
+      outline:
+      - - {x: -18, y: 1}
+        - {x: -18, y: -5}
+        - {x: -5, y: -5}
+        - {x: -3, y: -3}
+        - {x: -3, y: -1}
+        - {x: -5, y: 1}
+    - name: oracle_80
       rect:
         serializedVersion: 2
         x: 0
@@ -856,7 +1638,14 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_73
+      outline:
+      - - {x: -8, y: 20}
+        - {x: -13, y: 8}
+        - {x: -13, y: -20}
+        - {x: 13, y: -20}
+        - {x: 13, y: 4}
+        - {x: 11, y: 20}
+    - name: oracle_81
       rect:
         serializedVersion: 2
         x: 36
@@ -866,7 +1655,16 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_74
+      outline:
+      - - {x: 9, y: 17}
+        - {x: -5, y: 17}
+        - {x: -11, y: 1}
+        - {x: -11, y: -20}
+        - {x: 10, y: -20}
+        - {x: 13, y: -14}
+        - {x: 13, y: 10}
+        - {x: 11, y: 16}
+    - name: oracle_82
       rect:
         serializedVersion: 2
         x: 72
@@ -876,7 +1674,14 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: oracle_75
+      outline:
+      - - {x: -2, y: 14}
+        - {x: -8, y: 7}
+        - {x: -12, y: -15}
+        - {x: -12, y: -20}
+        - {x: 11, y: -20}
+        - {x: 11, y: 14}
+    - name: oracle_83
       rect:
         serializedVersion: 2
         x: 108
@@ -886,6 +1691,52 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 11, y: 10}
+        - {x: 7, y: 11}
+        - {x: -2, y: 11}
+        - {x: -8, y: 4}
+        - {x: -11, y: -14}
+        - {x: -11, y: -20}
+        - {x: 10, y: -20}
+        - {x: 11, y: -19}
+    - name: oracle_84
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1, y: 10}
+        - {x: -11, y: -6}
+        - {x: -11, y: -20}
+        - {x: 15, y: -20}
+        - {x: 15, y: 1}
+        - {x: 13, y: 10}
+    - name: oracle_85
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: -3}
+        - {x: -5, y: -3}
+        - {x: -11, y: -10}
+        - {x: -11, y: -14}
+        - {x: -8, y: -18}
+        - {x: 2, y: -18}
+        - {x: 5, y: -13}
+        - {x: 5, y: -4}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

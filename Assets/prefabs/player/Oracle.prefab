@@ -235,6 +235,7 @@ MonoBehaviour:
   bulletSpawnDown: {x: 0.2, y: -0.6}
   bulletSpread: 0.5
   bulletMinDuration: 0.18
+  alteredShotDist: 0.3
   chargeBulletGameObject: {fileID: 179616, guid: c8d0d6be73026d94492e7732bb1d9bdc,
     type: 2}
   chargeDuration: 0.8
@@ -694,6 +695,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: jumpReleaseSpeed
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: kneelDelay
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
