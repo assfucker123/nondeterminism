@@ -105,7 +105,7 @@ public class TalkPage : MonoBehaviour {
         for (int i=0; i<strs.Length; i++) {
             TalkConversation tc = new TalkConversation();
             tc.loadFromString(strs[i]);
-            addConversation(tc);
+            addConversationNoAlert(tc);
         }
     }
     public static string saveAllConversationsToString() {

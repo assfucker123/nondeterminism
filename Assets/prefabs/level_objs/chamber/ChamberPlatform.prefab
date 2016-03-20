@@ -111,6 +111,8 @@ MonoBehaviour:
   triColorPeriod: 3
   upTriGameObject: {fileID: 110786, guid: ec43b1f9d9edd204aa9edddb62bf75ac, type: 2}
   downTriGameObject: {fileID: 133844, guid: fcefd42472d94794c8023a25a93645f5, type: 2}
+  flyInSound: {fileID: 8300000, guid: 07feb75e58d45af40877aae4e2b23cc9, type: 3}
+  flyOutSound: {fileID: 8300000, guid: 087923c89c275b1448ccd9da27f56dac, type: 3}
 --- !u!114 &11476192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6a2f4af5be32d4a85242e258ede0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  positionCode: 
   rayGameObject: {fileID: 190742, guid: 78f504a93eea4204c952142eae7ecbf8, type: 2}
   rayCenterPos: {x: 0, y: 0.5}
   raySpread: 0.25
@@ -283,6 +286,14 @@ Prefab:
       propertyPath: fadeAdditionalDuration
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flyInSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 07feb75e58d45af40877aae4e2b23cc9, type: 3}
+    - target: {fileID: 0}
+      propertyPath: flyOutSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 087923c89c275b1448ccd9da27f56dac, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 142890}

@@ -77,9 +77,10 @@ public class ProgressPage : MonoBehaviour {
     public void initializeList() {
         list.Clear();
 
-        if (Vars.currentNodeData == null)
+        if (Vars.currentNodeData == null) {
+            Debug.Log("ERROR: Vars.currentNodeData is null");
             return;
-
+        }
         
 
         // add orb key item

@@ -14,10 +14,14 @@ public class NodeData {
     public int levelMapX = 0;
     public int levelMapY = 0;
     public Vector2 position = new Vector2();
+
+    public string chamberPositionCode = "";
+
     public List<PhysicalUpgrade.Orb> orbs = new List<PhysicalUpgrade.Orb>();
     public bool hasBooster = false;
     public List<PhysicalUpgrade.HealthUpgrade> healthUpgrades = new List<PhysicalUpgrade.HealthUpgrade>();
     public int phaseReplacements = 0; // number of health upgrades replaced with phase upgrades
+    #region Physical Events
     public List<AdventureEvent.Physical> physicalEvents = new List<AdventureEvent.Physical>();
     public void eventHappen(AdventureEvent.Physical eventID) {
         if (eventHappened(eventID)) return;
@@ -31,6 +35,8 @@ public class NodeData {
     public bool eventHappened(AdventureEvent.Physical eventID) {
         return physicalEvents.IndexOf(eventID) != -1;
     }
+    #endregion
+    #region Ambushes
     public List<string> levelsAmbushesDefeated = new List<string>(); // rooms whose ambushes have been defeated
     public void defeatAmbush(string levelName) {
         if (ambushDefeated(levelName)) return;
@@ -42,6 +48,8 @@ public class NodeData {
     public bool ambushDefeated(string levelName) {
         return levelsAmbushesDefeated.IndexOf(levelName) != -1;
     }
+    #endregion
+    #region Objects Destroyed
     public Dictionary<string, bool> objectsDestroyed = new Dictionary<string, bool>();
     public void objectDestroy(string levelName, string objectName) {
         objectsDestroyed[destroyedObjectCode(levelName, objectName)] = true;
@@ -52,6 +60,8 @@ public class NodeData {
     public bool objectDestroyed(string levelName, string objectName) {
         return objectsDestroyed.ContainsKey(destroyedObjectCode(levelName, objectName));
     }
+    #endregion
+    #region Creature Cards
     public List<int> creatureCards = new List<int>();
     public bool creatureCardCollected(string creatureName) {
         return creatureCardCollected(CreatureCard.getIDFromCardName(creatureName));
@@ -65,6 +75,7 @@ public class NodeData {
     public void creatureCardCollect(int creatureID) {
         if (creatureCardCollected(creatureID)) return;
         creatureCards.Add(creatureID);
+        Debug.Log("Creature card found: " + creatureID);
         Vars.creatureCardFind(creatureID);
     }
     public void creatureCardCollectUndo(string creatureName) {
@@ -73,6 +84,7 @@ public class NodeData {
     public void creatureCardCollectUndo(int creatureID) {
         creatureCards.Remove(creatureID);
     }
+    #endregion
     
     public int id = 1; // used to identify this NodeData.  Must be a positive integer
     public NodeData parent = null;
@@ -88,6 +100,7 @@ public class NodeData {
         levelMapX = nodeData.levelMapX;
         levelMapY = nodeData.levelMapY;
         position = nodeData.position;
+        chamberPositionCode = nodeData.chamberPositionCode;
         orbs.Clear();
         orbs.AddRange(nodeData.orbs);
         hasBooster = nodeData.hasBooster;
@@ -101,6 +114,10 @@ public class NodeData {
         objectsDestroyed.Clear();
         foreach (string key in nodeData.objectsDestroyed.Keys) {
             objectsDestroyed.Add(key, nodeData.objectsDestroyed[key]);
+        }
+        creatureCards.Clear();
+        foreach (int cc in nodeData.creatureCards) {
+            creatureCards.Add(cc);
         }
         parent = nodeData.parent;
         children.Clear();
@@ -151,6 +168,13 @@ public class NodeData {
         foreach (string key in nodeData.objectsDestroyed.Keys) {
             if (!objectsDestroyed.ContainsKey(key)) return false;
         }
+        // compare creature cards obtained
+        foreach (int cc in creatureCards) {
+            if (!nodeData.creatureCardCollected(cc)) return false;
+        }
+        foreach (int cc in nodeData.creatureCards) {
+            if (!creatureCardCollected(cc)) return false;
+        }
 
         return true;
     }
@@ -172,54 +196,66 @@ public class NodeData {
         position.Set(float.Parse(strs[4]), float.Parse(strs[5]));
         // time
         time = float.Parse(strs[6]);
+        // chamber position code
+        chamberPositionCode = strs[7];
         // orbs
         orbs.Clear();
-        string[] orbStrs = strs[7].Split(delims2);
+        string[] orbStrs = strs[8].Split(delims2);
         for (int i=0; i<orbStrs.Length; i++) {
             if (orbStrs[i] == "") continue;
             orbs.Add((PhysicalUpgrade.Orb)int.Parse(orbStrs[i]));
         }
         // booster
-        hasBooster = (strs[8] == "1");
+        hasBooster = (strs[9] == "1");
         // health upgrades
         healthUpgrades.Clear();
-        string[] healthStrs = strs[9].Split(delims2);
+        string[] healthStrs = strs[10].Split(delims2);
         for (int i = 0; i < healthStrs.Length; i++) {
             if (healthStrs[i] == "")continue;
             healthUpgrades.Add((PhysicalUpgrade.HealthUpgrade)int.Parse(healthStrs[i]));
         }
         // phase replacements
-        phaseReplacements = int.Parse(strs[10]);
+        phaseReplacements = int.Parse(strs[11]);
         // parent
-        int parentID = int.Parse(strs[11]);
+        int parentID = int.Parse(strs[12]);
         parent = nodeDataFromID(parentID);
         // children
         children.Clear();
-        string[] childrenStrs = strs[12].Split(delims2);
+        string[] childrenStrs = strs[13].Split(delims2);
         for (int i=0; i<childrenStrs.Length; i++) {
             if (childrenStrs[i] == "") continue;
-            children.Add(nodeDataFromID(int.Parse(childrenStrs[i])));
+            NodeData nodeChild = nodeDataFromID(int.Parse(childrenStrs[i]));
+            if (nodeChild != null) {
+                children.Add(nodeChild);
+            }
         }
         // physical events
         physicalEvents.Clear();
-        string[] physStrs = strs[13].Split(delims2);
+        string[] physStrs = strs[14].Split(delims2);
         for (int i = 0; i < physStrs.Length; i++) {
             if (physStrs[i] == "") continue;
             physicalEvents.Add((AdventureEvent.Physical)int.Parse(physStrs[i]));
         }
         // ambushes defeated
         levelsAmbushesDefeated.Clear();
-        string[] ambushStrs = strs[14].Split(delims2);
+        string[] ambushStrs = strs[15].Split(delims2);
         for (int i = 0; i < ambushStrs.Length; i++) {
             if (ambushStrs[i] == "") continue;
             levelsAmbushesDefeated.Add(ambushStrs[i]);
         }
         // objects destroyed
         objectsDestroyed.Clear();
-        string[] odStrs = strs[15].Split(delims2);
+        string[] odStrs = strs[16].Split(delims2);
         for (int i=0; i<odStrs.Length; i++) {
             if (odStrs[i] == "") continue;
             objectsDestroyed[odStrs[i]] = true;
+        }
+        // creature cards obtained
+        creatureCards.Clear();
+        string[] ccs = strs[17].Split(delims2);
+        for (int i=0; i<ccs.Length; i++) {
+            if (ccs[i] == "") continue;
+            creatureCards.Add(int.Parse(ccs[i]));
         }
 
     }
@@ -238,47 +274,54 @@ public class NodeData {
         ret += position.x + ">" + position.y + ">";
         // time (6)
         ret += time + ">";
-        // orbs (7)
+        // chamber position code (7)
+        ret += chamberPositionCode + ">";
+        // orbs (8)
         for (int i=0; i<orbs.Count; i++) {
             ret += (int)orbs[i];
             if (i < orbs.Count - 1) ret += "?";
         }
         ret += ">";
-        // booster (8)
+        // booster (9)
         if (hasBooster) ret += "1>";
         else ret += "0>";
-        // health upgrades (9)
+        // health upgrades (10)
         for (int i = 0; i < healthUpgrades.Count; i++) {
             ret += (int)healthUpgrades[i];
             if (i < healthUpgrades.Count - 1) ret += "?";
         }
         ret += ">";
-        // phase replacements (10)
+        // phase replacements (11)
         ret += phaseReplacements + ">";
-        // parent (11)
+        // parent (12)
         if (parent == null) ret += "0>";
         else ret += parent.id + ">";
-        // children (12)
+        // children (13)
         for (int i = 0; i < children.Count; i++) {
             ret += children[i].id;
             if (i < children.Count - 1) ret += "?";
         }
         ret += ">";
-        // physical events (13)
+        // physical events (14)
         for (int i = 0; i < physicalEvents.Count; i++) {
             ret += (int)physicalEvents[i];
             if (i < physicalEvents.Count - 1) ret += "?";
         }
         ret += ">";
-        // ambushes defeated (14)
+        // ambushes defeated (15)
         for (int i = 0; i < levelsAmbushesDefeated.Count; i++) {
             ret += levelsAmbushesDefeated[i];
             if (i < levelsAmbushesDefeated.Count - 1) ret += "?";
         }
         ret += ">";
-        // objects destroyed (15)
+        // objects destroyed (16)
         foreach (string key in objectsDestroyed.Keys) {
             ret += key + "?";
+        }
+        ret += ">";
+        // creature cards obtained (17)
+        foreach (int cc in creatureCards) {
+            ret += cc + "?";
         }
 
         return ret;
@@ -384,6 +427,7 @@ public class NodeData {
         clearAllNodes();
         char[] delims = {'<'};
         string[] nodeStrs = str.Split(delims);
+        int allNodesIndex = allNodes.Count;
         for (int i=0; i<nodeStrs.Length; i++) {
             if (nodeStrs[i] == "") continue;
             NodeData nd = new NodeData(1);
@@ -391,7 +435,9 @@ public class NodeData {
             allNodes.Add(nd);
         }
         for (int i = 0; i < nodeStrs.Length; i++) {
-            allNodes[i].loadFromString(nodeStrs[i]);
+            if (nodeStrs[i] == "") continue;
+            allNodes[allNodesIndex].loadFromString(nodeStrs[i]);
+            allNodesIndex++;
         }
     }
 

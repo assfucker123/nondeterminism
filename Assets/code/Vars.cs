@@ -9,14 +9,15 @@ using UnityEngine.SceneManagement;
 public class Vars {
     
     public static bool screenshotMode = false;
+    public static bool encryptSaveData = false;
 
     // TIME-INDEPENDENT
     public static int saveFileIndex = 0;
     public static string username = "";
     public static DateTime createdDate = new DateTime();
     public static DateTime modifiedDate = new DateTime();
-    public static float playTime = 0; // this is NOT the same as currentNodeData.time
     public static List<Decryptor.ID> decryptors = new List<Decryptor.ID>();
+    #region Info Events
     public static List<AdventureEvent.Info> infoEvents = new List<AdventureEvent.Info>();
     public static bool eventHappened(AdventureEvent.Info eventID) {
         return infoEvents.IndexOf(eventID) != -1;
@@ -25,6 +26,8 @@ public class Vars {
         if (eventHappened(eventID)) return;
         infoEvents.Add(eventID);
     }
+    #endregion
+    #region Orbs
     public static List<PhysicalUpgrade.Orb> orbsFound = new List<PhysicalUpgrade.Orb>();
     public static bool orbFound(PhysicalUpgrade.Orb orb) {
         return orbsFound.IndexOf(orb) != -1;
@@ -33,7 +36,9 @@ public class Vars {
         if (orbFound(orb)) return;
         orbsFound.Add(orb);
     }
+    #endregion
     public static bool boosterFound = false;
+    #region Health Upgrades
     public static List<PhysicalUpgrade.HealthUpgrade> healthUpgradesFound = new List<PhysicalUpgrade.HealthUpgrade>();
     public static bool healthUpgradeFound(PhysicalUpgrade.HealthUpgrade healthUpgrade) {
         return healthUpgradesFound.IndexOf(healthUpgrade) != -1;
@@ -42,6 +47,8 @@ public class Vars {
         if (healthUpgradeFound(healthUpgrade)) return;
         healthUpgradesFound.Add(healthUpgrade);
     }
+    #endregion
+    #region Creature Cards
     public static List<int> creatureCardsFound = new List<int>();
     public static bool creatureCardFound(string creatureName) {
         return creatureCardFound(CreatureCard.getIDFromCardName(creatureName));
@@ -56,7 +63,9 @@ public class Vars {
         if (creatureCardFound(creatureID)) return;
         creatureCardsFound.Add(creatureID);
     }
-    public static string currentLevel {  get { return SceneManager.GetActiveScene().name; } }
+    #endregion
+    #region Completion Progress
+    public static float playTime = 0; // this is NOT the same as currentNodeData.time
     public static float infoPercentComplete() {
         int stuff = 0;
         int totalStuff = 0;
@@ -101,6 +110,9 @@ public class Vars {
 
         return stuff * 1.0f / totalStuff;
     }
+    #endregion
+    public static string currentLevel {  get { return SceneManager.GetActiveScene().name; } }
+    
 
     // TIME-DEPENDENT
     /* Keeps changing based on what the player does.  Note this is temporary, so it's not part of the time tree.
@@ -111,35 +123,26 @@ public class Vars {
     /* When a level starts, the currentNodeData at the time is copied to this */
     public static NodeData levelStartNodeData = null;
 
-    // SETTINGS
-
+    #region Settings
     public static float sfxVolume = 1;
-    public static float musicVolume { get { return _musicVolume; }
+    public static float musicVolume {
+        get { return _musicVolume; }
         set {
             _musicVolume = value;
         }
     }
     public static int saveFileIndexLastUsed = 0;
-    
     public static void loadDefaultSettings() {
         sfxVolume = 1;
         musicVolume = 1;
         saveFileIndexLastUsed = 0;
     }
-
+    #endregion
+    
     ///////////////
     // FUNCTIONS //
     ///////////////
-
-    public static void startGame() {
-        if (startGameCalled) return;
-        loadSettings();
-        loadData(saveFileIndexLastUsed);
-
-        startGameCalled = true;
-
-    }
-
+    
     /* Loads the given level after doing some stuff first. */
     public static void loadLevel(string name) {
 
@@ -150,12 +153,7 @@ public class Vars {
         }
         Time.timeScale = 1;
         SoundManager.instance.volumeScale = 1;
-
-        // should be called at the title screen
-        if (!startGameCalled) {
-            startGame();
-        }
-
+        
         // have the black screen cover everything temporarily
         if (HUD.instance != null && HUD.instance.blackScreen != null) {
             HUD.instance.blackScreen.color = new Color(0, 0, 0, 1);
@@ -179,6 +177,9 @@ public class Vars {
         if (Player.instance != null) {
             nodeData.position = Player.instance.rb2d.position;
         }
+        if (CountdownTimer.instance != null) {
+            nodeData.time = CountdownTimer.instance.time;
+        }
     }
 
     /* Restart level, using info from levelStartNodeData */
@@ -193,6 +194,9 @@ public class Vars {
         loadLevel(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// This is the first function called in the program, called by FirstScene
+    /// </summary>
     public static void goToTitleScreen() {
         // destroy canvas if leaving main game
         GameObject canvasGO = GameObject.FindGameObjectWithTag("Canvas");
@@ -207,8 +211,8 @@ public class Vars {
         // destroy current node data (which is temporary) if leaving main game
         NodeData.deleteNode(Vars.currentNodeData);
         NodeData.deleteNode(Vars.levelStartNodeData);
-        Vars.currentNodeData = null;
-        Vars.levelStartNodeData = null;
+        currentNodeData = null;
+        levelStartNodeData = null;
 
         TimeUser.onUnloadLevel();
         VisionUser.onUnloadLevel();
@@ -230,8 +234,8 @@ public class Vars {
         #endif
     }
 
-    /* Save data to a file */
-    public static void saveData() {
+    /* Save data to a file.  Returns true if save was successful */
+    public static bool saveData() {
         string path = Application.persistentDataPath + "/data" + saveFileIndex + ".sav";
 
         string content = "";
@@ -244,22 +248,42 @@ public class Vars {
         }
         // add data and checksum
         content += data;
-        content += checksum;
+        content += "\n" + checksum;
         // encrypt
-        string encrypted = StringEncrypt.encrypt(content);
+        string encrypted;
+        if (encryptSaveData) {
+            encrypted = StringEncrypt.encrypt(content);
+        } else {
+            encrypted = content;
+        }
         // add bonus text
         Properties propAsset = new Properties(Resources.Load<TextAsset>("save_data_bonus").text);
         content = propAsset.getString("Default") + "\n" + propAsset.getString("Divider") + "\n" + encrypted;
 
         byte[] bArr = Utilities.stringToBytes(content);
 
-        #if !UNITY_WEBPLAYER
-        File.WriteAllBytes(path, bArr);
-        #endif
+#if UNITY_WEBPLAYER
+        return false;
+#else
+        bool success = true;
+        try {
+            File.WriteAllBytes(path, bArr);
+        } catch (Exception e) {
+            Debug.LogError("ERROR while saving: " + e.Message);
+            success = false;
+        }
+        return success;
+#endif
+
     }
 
-    /* Load data from a file.
-     * Returns false if there was a problem. */
+    /// <summary>
+    /// Loads data from a file.  If no file is present, calls loadDefaultData() instead.
+    /// Also creates Vars.currentNodeData.
+    /// This is called in Start() of TitleScreen and Awake() of Level if currentNodeData is null
+    /// </summary>
+    /// <param name="saveFileIndex">Index of the save file to use.</param>
+    /// <returns>false if there was a problem. </returns>
     public static bool loadData(int saveFileIndex = 0) {
 
         if (saveFileIndex != saveFileIndexLastUsed) {
@@ -281,14 +305,18 @@ public class Vars {
             return true;
         }
 
-        Debug.Log("loading encrypted data has not been tested yet");
         byte[] bArr = File.ReadAllBytes(path);
         string content = Utilities.bytesToString(bArr);
-        // strip away bonus text and divider
-        int index = content.IndexOf('\n', content.IndexOf('\n'));
+        // strip away bonus text and divider (to be more accurate, stripping away the first two lines)
+        int index = content.IndexOf('\n', content.IndexOf('\n')+1);
         content = content.Substring(index + 1);
         // decrypt
-        string decrypted = StringEncrypt.decrypt(content);
+        string decrypted;
+        if (encryptSaveData) {
+            decrypted = StringEncrypt.decrypt(content);
+        } else {
+            decrypted = content;
+        }
         // trim checksum
         index = decrypted.LastIndexOf('\n');
         if (index == -1) return false;
@@ -297,14 +325,21 @@ public class Vars {
         // validate checksum
         int checksum = 0;
         bool worked = int.TryParse(checksumStr, out checksum);
-        if (!worked) return false;
+        if (!worked) {
+            Debug.Log("Extacting checksum didn't work");
+            return false;
+        }
         int test = 0;
         for (int i=0; i<decrypted.Length; i++) {
             test += decrypted[i];
         }
-        if (test != checksum) return false;
+        if (test != checksum) {
+            Debug.Log("Save data does not match checksum");
+            Debug.Log("test: " + test + " checksum: " + checksum);
+            return false;
+        }
         
-        loadDataFromString(Utilities.bytesToString(bArr));
+        loadDataFromString(decrypted);
         return true;
 
         #endif
@@ -370,10 +405,13 @@ public class Vars {
     // PRIVATE //
     /////////////
 
-    private static bool startGameCalled = false;
     private static float _musicVolume = 1;
 
     /* LOADING DEFAULT DATA */
+    /// <summary>
+    /// Loads the default data, what the player gets if no save data is already created.  Should be the start of the game.
+    /// </summary>
+    /// <param name="saveFileIndex"></param>
     static void loadDefaultData(int saveFileIndex = 0) {
         // save file index
         Vars.saveFileIndex = saveFileIndex;
@@ -470,6 +508,9 @@ public class Vars {
         NodeData.loadAllNodesFromString(strs[5]);
         // current node data
         currentNodeData = NodeData.nodeDataFromID(int.Parse(strs[6]));
+        if (currentNodeData == null) {
+            Debug.LogWarning("WARNING: currentNodeData is null");
+        }
         // decryptors
         decryptors.Clear();
         string[] dStrs = strs[7].Split(delims2);
@@ -528,6 +569,7 @@ public class Vars {
         // created date (2)
         ret += createdDate.ToString() + "\n";
         // modified date (3)
+        modifiedDate = DateTime.Now;
         ret += modifiedDate.ToString() + "\n";
         // play time (4)
         ret += playTime + "\n";
@@ -535,17 +577,27 @@ public class Vars {
         ret += NodeData.saveAllNodesToString() + "\n";
         // current node data (6)
         if (currentNodeData == null) ret += "0\n";
-        else ret += currentNodeData.id + "\n";
+        else {
+            if (currentNodeData.temporary) { // temporary node datas aren't saved.  We're interested in its parent
+                if (currentNodeData.parent == null || currentNodeData.parent.temporary) {
+                    Debug.LogError("ERROR: Error saving currentNodeData");
+                } else {
+                    ret += currentNodeData.parent.id + "\n";
+                }
+            } else {
+                ret += currentNodeData.id + "\n";
+            }
+        }
         // decryptors (7)
         for (int i=0; i<decryptors.Count; i++) {
-            ret += decryptors[i];
+            ret += (int)decryptors[i];
             if (i < decryptors.Count - 1)
                 ret += ",";
         }
         ret += "\n";
         // info events (8)
         for (int i = 0; i < infoEvents.Count; i++) {
-            ret += infoEvents[i];
+            ret += (int)infoEvents[i];
             if (i < infoEvents.Count - 1)
                 ret += ",";
         }
@@ -557,8 +609,8 @@ public class Vars {
         ret += TalkPage.saveAllConversationsToString();
         ret += "\n";
         // pause screen lastPageOpened, mode (11)
-        ret += PauseScreen.lastPageOpened + "," + PauseScreen.mode;
-        ret += "/n";
+        ret += (int)PauseScreen.lastPageOpened + "," + (int)PauseScreen.mode;
+        ret += "\n";
         // orbs found (12)
         for (int i = 0; i < orbsFound.Count; i++) {
             ret += ((int)orbsFound[i]);

@@ -84,8 +84,8 @@ public class TitleScreen : MonoBehaviour {
 	}
 
     void Start() {
-        // start game
-        Vars.startGame();
+
+        Vars.loadSettings();
         Vars.loadData(Vars.saveFileIndexLastUsed);
 
         optionsPage.hide();
@@ -192,14 +192,19 @@ public class TitleScreen : MonoBehaviour {
         clockText.text = clock.ToString("HH:mm:ss");
     }
 
+    /// <summary>
+    /// This is called by TitleScreen to begin the game.
+    /// </summary>
     void playGameSelected() {
-        // this SHOULD be creating node data from save file, not currentNodeData
-        Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData, true); // creating new node to save info to.  new node if child of the old node
-        //Vars.loadLevel(Vars.currentNodeData.level);
+
+        // when debugging, can set specific start point
+        /*
+        Vars.currentNodeData.level = "first_ambush";
         Vars.currentNodeData.position.x = 76;
         Vars.currentNodeData.position.y = 9;
-        Vars.loadLevel("first_ambush");
-        //Vars.loadLevel("mapScene");
+        */
+
+        Vars.loadLevel(Vars.currentNodeData.level);
     }
 
     void optionsSelected() {

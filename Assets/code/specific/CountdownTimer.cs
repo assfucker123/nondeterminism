@@ -130,6 +130,12 @@ public class CountdownTimer : MonoBehaviour {
 
         dots = transform.GetComponentsInChildren<CountdownTimerDot>();
 	}
+
+    void Start() {
+        if (Vars.currentNodeData != null) {
+            time = Vars.currentNodeData.time;
+        }
+    }
 	
 	void Update() {
         

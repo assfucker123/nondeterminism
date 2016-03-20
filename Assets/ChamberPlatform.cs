@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class ChamberPlatform : MonoBehaviour {
 
+    public string positionCode = "";
     public GameObject rayGameObject;
     public Vector2 rayCenterPos = new Vector2();
     public float raySpread = 4 / 16f;
@@ -84,6 +85,18 @@ public class ChamberPlatform : MonoBehaviour {
         switch (state) {
         case State.IDLE:
 
+            // detect if platform should refill phase
+            if (playerIsOnPlatform) {
+                if (Player.instance.phase < Player.instance.maxPhase) {
+                    // refill phase
+                    phaseUsed = Player.instance.phasePickup(Player.instance.maxPhase);
+                }
+                if (Player.instance.health < Player.instance.maxHealth) {
+                    Player.instance.healthPickup(Player.instance.maxHealth);
+                }
+            }
+            playerHasMaxPhase = (Player.instance != null && Player.instance.phase >= Player.instance.maxPhase);
+
             // detect when going to chamber platform
             if (playerIsOnPlatform &&
                 (Keys.instance.upPressed || Keys.instance.downPressed)) {
@@ -114,6 +127,8 @@ public class ChamberPlatform : MonoBehaviour {
                     GameObject csGO = GameObject.Instantiate(chamberScreenGameObject);
                     csGO.transform.SetParent(canvasGO.transform, false);
                     chamberScreenRef = csGO.GetComponent<ChamberScreen>();
+                    chamberScreenRef.positionCode = positionCode;
+                    Vars.currentNodeData.chamberPositionCode = positionCode;
                     screenUp = true;
                 } else if (chamberBackground.state == ChamberBackground.State.OUT) {
                     // chamber background has flown out, resume game
@@ -143,9 +158,19 @@ public class ChamberPlatform : MonoBehaviour {
 
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["t"] = time;
+        fi.floats["pu"] = phaseUsed;
+        fi.bools["phmp"] = playerHasMaxPhase;
     }
 
     void OnRevert(FrameInfo fi) {
+        bool prevPlayerHasMaxPhase = playerHasMaxPhase;
+        playerHasMaxPhase = fi.bools["phmp"];
+        if (prevPlayerHasMaxPhase && !playerHasMaxPhase) {
+            // take phase from player
+            Player.instance.revertBeforePhasePickup(phaseUsed);
+        }
+        phaseUsed = fi.floats["pu"];
+
         time = fi.floats["t"];
         updateRays();
     }
@@ -173,7 +198,11 @@ public class ChamberPlatform : MonoBehaviour {
     TimeUser timeUser;
     ChamberBackground chamberBackground;
     float time = 0;
+    float phaseUsed = 0;
+    bool playerHasMaxPhase = false;
+
     bool screenUp = false;
     ChamberScreen chamberScreenRef = null;
+    
     
 }

@@ -341,17 +341,59 @@ public class ChamberScreen : MonoBehaviour {
     void saveGame() {
         Debug.Log("game saving (not implemented)");
 
-        setSaveSure("E1", 0, positionCode, 0, false);
+        bool redundant = false;
+        string positionCodeStart = "";
+        float timeStart = 0;
+        if (Vars.currentNodeData == null) {
+            Debug.LogWarning("WARNING: Vars.currentNodeData is null.");
+        } else {
+            // last minute update to current node data, to ensure that it's current to the second
+            Vars.updateNodeData(Vars.currentNodeData);
+            // see if current node data is redundant
+            if (Vars.currentNodeData.parent == null) {
+                redundant = false;
+            } else {
+                redundant = Vars.currentNodeData.redundant(Vars.currentNodeData.parent);
+            }
+
+            Debug.Log("redundant: " + redundant);
+
+            if (!redundant) {
+                // not redundant, so ensure currentNodeData will get saved (not temporary) and make a new currentNodeData
+                if (Vars.currentNodeData.parent != null) {
+                    positionCodeStart = Vars.currentNodeData.parent.chamberPositionCode;
+                    timeStart = Vars.currentNodeData.parent.time;
+                }
+                Vars.currentNodeData.temporary = false;
+                Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData, true);
+            }
+        }
+
+        // save the game
+        bool errorSaving = !Vars.saveData();
+
+        // go to next screen
+        string currentPositionCode = "";
+        float currentTime = 0;
+        if (Vars.currentNodeData != null) {
+            currentPositionCode = Vars.currentNodeData.chamberPositionCode;
+            currentTime = Vars.currentNodeData.time;
+        }
+        setSaveSure(positionCodeStart, timeStart, currentPositionCode, currentTime, errorSaving);
     }
 
     void quit() {
         quitNow = true; // ChamberScreen will be destroyed by ChamberPlatform, as it detects when quitNow is set to true
     }
 
-    bool downPressed { get { return Input.GetKeyDown(KeyCode.DownArrow); } }
-    bool upPressed { get { return Input.GetKeyDown(KeyCode.UpArrow); } }
-    bool confirmPressed {  get { return Input.GetKeyDown(KeyCode.Z); } }
-    bool backPressed {  get { return Input.GetKeyDown(KeyCode.X); } }
+    //bool downPressed { get { return Input.GetKeyDown(KeyCode.DownArrow); } }
+    //bool upPressed { get { return Input.GetKeyDown(KeyCode.UpArrow); } }
+    //bool confirmPressed {  get { return Input.GetKeyDown(KeyCode.Z); } }
+    //bool backPressed {  get { return Input.GetKeyDown(KeyCode.X); } }
+    bool downPressed { get { return Keys.instance.downPressed; } }
+    bool upPressed { get { return Keys.instance.upPressed; } }
+    bool confirmPressed { get { return Keys.instance.confirmPressed; } }
+    bool backPressed { get { return Keys.instance.backPressed; } }
 
     Vector2 getImagePosition(Image image) {
         return new Vector2(image.GetComponent<RectTransform>().localPosition.x, image.GetComponent<RectTransform>().localPosition.y);

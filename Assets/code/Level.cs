@@ -25,7 +25,13 @@ public class Level : MonoBehaviour {
 
         // If currentNodeData hasn't been created yet (it should be created if game started at the title screen), then create something
         if (Vars.currentNodeData == null) {
-            Vars.currentNodeData = NodeData.createNodeData(null, true);
+
+            // loading data (which would have been done in the title screen)
+            Vars.loadSettings();
+            Vars.loadData(Vars.saveFileIndexLastUsed);
+
+            // making currentNodeData from the level
+            Vars.currentNodeData.level = Vars.currentLevel;
             Vars.currentNodeData.position = new Vector2(transform.localPosition.x, transform.localPosition.y);
             Vars.levelStartNodeData = NodeData.createNodeData(null, true);
             Vars.levelStartNodeData.copyFrom(Vars.currentNodeData);
@@ -60,9 +66,7 @@ public class Level : MonoBehaviour {
             // prevent player from getting destroyed when loading new level
             GameObject.DontDestroyOnLoad(playerGO);
         }
-
-
-
+        
         _currentLoadedLevel = this;
 	}
 

@@ -207,7 +207,7 @@ public class Player : MonoBehaviour {
         return amountUsed;
     }
 
-    /* Called by Pickup when picking up a phase pickup */
+    /* Called by Pickup when picking up a phase pickup.  Returns the actual amount used. */
     public float phasePickup(float phase) {
         float amountUsed = Mathf.Min(phase, HUD.instance.phaseMeter.maxPhase - HUD.instance.phaseMeter.phase);
         HUD.instance.phaseMeter.increasePhase(phase);
@@ -321,8 +321,6 @@ public class Player : MonoBehaviour {
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
 
-        //need to call this with a title screen
-        Vars.startGame();
     }
 
     void Start() {
