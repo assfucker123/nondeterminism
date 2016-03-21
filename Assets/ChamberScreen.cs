@@ -13,6 +13,7 @@ public class ChamberScreen : MonoBehaviour {
     public float selectionDuration = .2f;
     public float[] waitTimes = { (30-25)*60, (30-20)*60, (30-15)*60, (30-10)*60, (30-5)*60, 30*60-15 };
     public AudioClip switchSound;
+    public AudioClip saveGameSound;
     public TextAsset textAsset;
 
     public bool simplifiedOptions {
@@ -181,7 +182,6 @@ public class ChamberScreen : MonoBehaviour {
         string str = "";
         int perilTimes = 0;
         numValidWaitTimes = 0;
-        List<float> times = new List<float>();
         for (int i=0; i<waitTimes.Length; i++) {
             float t = waitTimes[i];
             if (t > currentTime) {
@@ -339,7 +339,6 @@ public class ChamberScreen : MonoBehaviour {
     }
 
     void saveGame() {
-        Debug.Log("game saving (not implemented)");
 
         bool redundant = false;
         string positionCodeStart = "";
@@ -378,6 +377,9 @@ public class ChamberScreen : MonoBehaviour {
         if (Vars.currentNodeData != null) {
             currentPositionCode = Vars.currentNodeData.chamberPositionCode;
             currentTime = Vars.currentNodeData.time;
+        }
+        if (!errorSaving) {
+            SoundManager.instance.playSFXIgnoreVolumeScale(saveGameSound);
         }
         setSaveSure(positionCodeStart, timeStart, currentPositionCode, currentTime, errorSaving);
     }

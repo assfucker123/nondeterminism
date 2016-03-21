@@ -351,6 +351,7 @@ public class Ciurivy : MonoBehaviour {
     Segment segment;
 
     // components
+#pragma warning disable 414
     Rigidbody2D rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
@@ -362,5 +363,6 @@ public class Ciurivy : MonoBehaviour {
     DefaultDeath defaultDeath;
     EnemyInfo enemyInfo;
     PlayerAwareness playerAwareness;
+#pragma warning restore 414
 
 }

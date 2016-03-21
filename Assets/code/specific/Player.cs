@@ -41,6 +41,7 @@ public class Player : MonoBehaviour {
     public int maxHealth = 8;
     public float maxPhase = 100;
     public float visionsPhase = 20;
+    public float roomRestartPhaseLoss = 40;
     public float startPhase = .5f;
     public float phaseDecreaseSpeed = 2.5f;
     public float phaseRevertingDecreaseSpeed = 7.0f;
@@ -72,6 +73,7 @@ public class Player : MonoBehaviour {
     public AudioClip larvaScreamSound;
     public AudioClip flashbackBeginSound;
     public AudioClip flashbackEndSound;
+    public AudioClip roomRestartSound;
 
     #endregion
 
@@ -430,6 +432,7 @@ public class Player : MonoBehaviour {
         jumpPressed = CutsceneKeys.jumpPressed;
         jumpHeld = CutsceneKeys.jumpHeld;
         downPressed = CutsceneKeys.downPressed;
+        dodgePressed = CutsceneKeys.dodgePressed;
 
         //control reverting
         timeReverting();
@@ -612,7 +615,6 @@ public class Player : MonoBehaviour {
         chargeSoundTime = fi.floats["chargeSoundTime"];
         postRevertTime = fi.floats["postRevertTime"];
         aimDirection = (AimDirection)fi.ints["aimDirection"];
-        bool prevReceivePlayerInput = receivePlayerInput;
         receivePlayerInput = fi.bools["rpi"];
         cutsceneKeysInfo = fi.ints["cki"];
         if (!receivePlayerInput) {
@@ -663,6 +665,14 @@ public class Player : MonoBehaviour {
             if (revertTime < minRevertDuration)
                 stopReverting = false;
 
+            // detect activating room restart
+            bool doRoomRestart = false;
+            if (!stopReverting && Vars.abilityKnown(Decryptor.ID.ROOM_RESTART) &&
+                Keys.instance.dodgeHeld && Keys.instance.jumpPressed) {
+                doRoomRestart = true;
+                stopReverting = true;
+            }
+
             if (stopReverting) {
                 TimeUser.endContinuousRevert();
                 HUD.instance.flashbackArtifacts.stop();
@@ -671,7 +681,13 @@ public class Player : MonoBehaviour {
                 CameraControl.instance.disableEffects();
                 postRevertTime = 0;
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
-            }
+
+                // actually do room restart if activated
+                if (doRoomRestart) {
+                    roomRestart();
+                }
+            } 
+
         } else if (!PauseScreen.paused && !(GameOverScreen.instance != null && GameOverScreen.instance.cannotRevert)
             && state != State.KNEEL) {
             if ((Keys.instance.flashbackPressed || flashbackNextFrameFlag) &&
@@ -1140,7 +1156,19 @@ public class Player : MonoBehaviour {
 
     }
 
-    
+    // does the room restart ability (press DODGE and JUMP while doing a flashback
+    void roomRestart() {
+        // lose some phase
+        HUD.instance.phaseMeter.setPhase(this.phase - roomRestartPhaseLoss);
+        // reset input so player doesn't immediately jump upon restart
+        Input.ResetInputAxes();
+        jumpPressed = false;
+        dodgePressed = false;
+
+        SoundManager.instance.playSFXIgnoreVolumeScale(roomRestartSound);
+        Vars.restartLevel();
+        postRevertTime = 0; // loses a bit more phase after restart
+    }
 
     #endregion
 
@@ -1399,6 +1427,7 @@ public class Player : MonoBehaviour {
     bool jumpPressed;
     bool jumpHeld;
     bool downPressed;
+    bool dodgePressed;
 
     //collision stuff
     private float SLOPE_RUN_MODIFIER = 1f;

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public class Decryptor {
     
+    // convention: ID's that are numbered are implemented and functional (but the locations of the decryptor pickups aren't necessarily set)
     public enum ID {
         NONE = 0,
         CHARGE_SHOT = 1, // required
         CHARGE_MAGNET = 2,
         ALTERED_SHOT = 3,
+        ROOM_RESTART = 4,
         BLINK_DODGE, // required
         BLINK_SLIDE,
         SAFETY_GRENADE,
@@ -35,6 +37,7 @@ public class Decryptor {
         GRENADE_FLASHBACK,
         FLARE_DIVE, // required
         NO_OBJECTIONS,
+        
 
         LAST_ID // not a decryptor, keep this as the last one
     }

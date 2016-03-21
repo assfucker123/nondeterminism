@@ -335,7 +335,6 @@ public class ScriptRunner : EventHappener {
         runScript(scriptAsset);
     }
     public void runScript(TextAsset scriptAsset) {
-        scriptName = scriptAsset.name;
         runScript(scriptAsset.text);
     }
     public void runScript(string script) {
@@ -801,7 +800,6 @@ public class ScriptRunner : EventHappener {
     float waitDuration = 0;
     bool blocking = false;
 
-    string scriptName = "";
     string idPrefix = "0";
     List<Instruction> instructions = new List<Instruction>();
 }

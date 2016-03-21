@@ -113,7 +113,6 @@ public class Vars {
     #endregion
     public static string currentLevel {  get { return SceneManager.GetActiveScene().name; } }
     
-
     // TIME-DEPENDENT
     /* Keeps changing based on what the player does.  Note this is temporary, so it's not part of the time tree.
      * When resuming a game after saving or loading, make a new currentNodeData.
@@ -189,6 +188,9 @@ public class Vars {
 
         if (Player.instance != null) {
             Player.instance.revertToFrameInfoOnLevelLoad();
+        }
+        if (CountdownTimer.instance != null) {
+            CountdownTimer.instance.time = currentNodeData.time;
         }
 
         loadLevel(SceneManager.GetActiveScene().name);
@@ -469,8 +471,9 @@ public class Vars {
 #if UNITY_EDITOR
 
         ///*
-        collectDecryptor(Decryptor.ID.CHARGE_SHOT);
+        //collectDecryptor(Decryptor.ID.CHARGE_SHOT);
         //collectDecryptor(Decryptor.ID.ALTERED_SHOT);
+        //collectDecryptor(Decryptor.ID.ROOM_RESTART);
 
         /*
         currentNodeData.creatureCardCollect("Sealime");

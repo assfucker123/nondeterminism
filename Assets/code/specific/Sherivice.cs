@@ -1003,7 +1003,6 @@ public class Sherivice : MonoBehaviour {
             List<GameObject> oldBoulders = new List<GameObject>();
             oldBoulders.AddRange(boulders);
             boulders.Clear();
-            float angle0 = time / boulderRevolvePeriod * Mathf.PI*2;
 
             for (int i=0; i<numBoulders; i++) {
 

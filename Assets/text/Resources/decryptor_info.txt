@@ -4,3 +4,5 @@
 2description: Holding down the shoot button will also attract nearby pickups.
 3name: Altered Shot
 3description: Alternates between firing one and two bullets simultaneously.
+4name: Room Restart
+4description: Hold DODGE and JUMP while doing a Flashback to restart from the beginning of the room.

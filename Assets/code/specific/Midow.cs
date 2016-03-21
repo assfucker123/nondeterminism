@@ -332,7 +332,7 @@ public class Midow : MonoBehaviour {
         // create visions if needed
         if (!visionUser.isVision && stateQueue.shouldCreateVisionThisFrame(deltaTime, VisionUser.VISION_DURATION) != -1) {
             timeUser.addCurrentFrameInfo();
-            Midow vMidow = visionUser.createVision(VisionUser.VISION_DURATION).GetComponent<Midow>();
+            visionUser.createVision(VisionUser.VISION_DURATION).GetComponent<Midow>();
         }
 
         // plan ahead stateQueue

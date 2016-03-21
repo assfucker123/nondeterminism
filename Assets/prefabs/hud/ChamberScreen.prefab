@@ -200,6 +200,7 @@ MonoBehaviour:
   - 1500
   - 1785
   switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  saveGameSound: {fileID: 8300000, guid: 7724bbf712dc3fd4cac6f77b129ee291, type: 3}
   textAsset: {fileID: 4900000, guid: fbd276f993b2cba49bf4779de50f09ac, type: 3}
 --- !u!114 &11474988
 MonoBehaviour:
@@ -401,7 +402,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: saveGameSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7724bbf712dc3fd4cac6f77b129ee291, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 125468}

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Ambush : MonoBehaviour {
 
@@ -137,7 +138,9 @@ public class Ambush : MonoBehaviour {
                 }
             } else {
                 // detect if player has escaped
-                if (!CameraControl.pointContainedInScreen(Player.instance.rb2d.position, -1f)) {
+                if (!CameraControl.pointContainedInScreen(Player.instance.rb2d.position, -1f) &&
+                    SceneManager.GetActiveScene().isDirty) {
+
                     ambushEscaped();
                 }
             }
