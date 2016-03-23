@@ -14,6 +14,8 @@ public class ChamberPlatform : MonoBehaviour {
     public float rayPeriodMax = 1.5f;
     public float rayScaleCenter = 1;
     public float rayScaleRange = .5f;
+    public AudioClip standSound;
+    public float standSoundPlayerOffDuration = 1.0f;
     public GameObject chamberScreenGameObject;
 
     public static ChamberPlatform instance { get; private set; }
@@ -94,8 +96,15 @@ public class ChamberPlatform : MonoBehaviour {
                 if (Player.instance.health < Player.instance.maxHealth) {
                     Player.instance.healthPickup(Player.instance.maxHealth);
                 }
+
+                if (timeSincePlayerOnPlatform > standSoundPlayerOffDuration) {
+                    SoundManager.instance.playSFX(standSound);
+                }
+                timeSincePlayerOnPlatform = 0;
             }
             playerHasMaxPhase = (Player.instance != null && Player.instance.phase >= Player.instance.maxPhase);
+
+            timeSincePlayerOnPlatform += Time.deltaTime;
 
             // detect when going to chamber platform
             if (playerIsOnPlatform &&
@@ -160,6 +169,7 @@ public class ChamberPlatform : MonoBehaviour {
         fi.floats["t"] = time;
         fi.floats["pu"] = phaseUsed;
         fi.bools["phmp"] = playerHasMaxPhase;
+        fi.floats["tspop"] = timeSincePlayerOnPlatform;
     }
 
     void OnRevert(FrameInfo fi) {
@@ -172,6 +182,7 @@ public class ChamberPlatform : MonoBehaviour {
         phaseUsed = fi.floats["pu"];
 
         time = fi.floats["t"];
+        timeSincePlayerOnPlatform = fi.floats["tspop"];
         updateRays();
     }
 
@@ -200,6 +211,7 @@ public class ChamberPlatform : MonoBehaviour {
     float time = 0;
     float phaseUsed = 0;
     bool playerHasMaxPhase = false;
+    float timeSincePlayerOnPlatform = 9999;
 
     bool screenUp = false;
     ChamberScreen chamberScreenRef = null;

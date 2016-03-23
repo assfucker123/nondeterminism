@@ -225,7 +225,6 @@ public class DecryptorAnimation : MonoBehaviour {
 
     float time = 0;
     State state = State.GROW;
-    bool ranScript = false;
     float growDuration = 0; // duration for all rings to grow
     float collapseDuration = 0; // duration for all rings to collapse
     DecryptorText createdDecryptorText = null;

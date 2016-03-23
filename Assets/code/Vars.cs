@@ -10,6 +10,7 @@ public class Vars {
     
     public static bool screenshotMode = false;
     public static bool encryptSaveData = false;
+    public static bool buildIndexLevelIDs = false; // When true: some instances of a level name will be replaced with its build index, which reduces the size of the save file, but can mess things up if a level changes build index
 
     // TIME-INDEPENDENT
     public static int saveFileIndex = 0;
@@ -112,6 +113,7 @@ public class Vars {
     }
     #endregion
     public static string currentLevel {  get { return SceneManager.GetActiveScene().name; } }
+    public static int currentLevelBuildIndex {  get { return SceneManager.GetActiveScene().buildIndex; } }
     
     // TIME-DEPENDENT
     /* Keeps changing based on what the player does.  Note this is temporary, so it's not part of the time tree.
@@ -185,6 +187,7 @@ public class Vars {
     public static void restartLevel() {
 
         currentNodeData.copyFrom(levelStartNodeData);
+        currentNodeData.temporary = true;
 
         if (Player.instance != null) {
             Player.instance.revertToFrameInfoOnLevelLoad();
@@ -194,6 +197,26 @@ public class Vars {
         }
 
         loadLevel(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>
+    /// Restores the last save data and restarts from that level
+    /// </summary>
+    public static void restartFromLastSave() {
+        // restores last node data
+        NodeData parent = currentNodeData.parent;
+        currentNodeData.copyFrom(parent);
+        currentNodeData.parent = parent;
+        currentNodeData.temporary = true;
+        if (CountdownTimer.instance != null) {
+            CountdownTimer.instance.time = currentNodeData.time;
+        }
+        // destroy player so it's cleanly created when the level loads
+        if (Player.instance != null) {
+            GameObject.DestroyImmediate(Player.instance.gameObject);
+        }
+        // goes to the level from the last save
+        loadLevel(currentNodeData.level);
     }
 
     /// <summary>
@@ -510,9 +533,16 @@ public class Vars {
         // all node data
         NodeData.loadAllNodesFromString(strs[5]);
         // current node data
-        currentNodeData = NodeData.nodeDataFromID(int.Parse(strs[6]));
-        if (currentNodeData == null) {
+        NodeData savedCurrentNodeData = NodeData.nodeDataFromID(int.Parse(strs[6]));
+        if (savedCurrentNodeData == null) {
+            currentNodeData = null;
             Debug.LogWarning("WARNING: currentNodeData is null");
+        } else {
+            // make currentNodeData a temporary clone of the saved current node data
+            if (currentNodeData != null && currentNodeData != savedCurrentNodeData) {
+                NodeData.deleteNode(currentNodeData);
+            }
+            currentNodeData = NodeData.createNodeData(savedCurrentNodeData, true);
         }
         // decryptors
         decryptors.Clear();

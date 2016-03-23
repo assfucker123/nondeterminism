@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 /* Time-dependent save data.  */
 public class NodeData {
@@ -459,9 +460,13 @@ public class NodeData {
     /////////////
 
     string damageBarrierCode(string levelName, string objectName) {
+        if (Vars.buildIndexLevelIDs)
+            return "" + SceneManager.GetSceneByName(levelName).buildIndex + "." + objectName;
         return levelName + "." + objectName;
     }
     string destroyedObjectCode(string levelName, string objectName) {
+        if (Vars.buildIndexLevelIDs)
+            return "" + SceneManager.GetSceneByName(levelName).buildIndex + "." + objectName;
         return levelName + "." + objectName;
     }
 

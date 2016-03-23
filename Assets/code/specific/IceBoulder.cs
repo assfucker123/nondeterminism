@@ -69,7 +69,6 @@ public class IceBoulder : MonoBehaviour {
         receivesDamage = GetComponent<ReceivesDamage>();
         rb2d = GetComponent<Rigidbody2D>();
         timeUser = GetComponent<TimeUser>();
-        visionUser = GetComponent<VisionUser>();
         pickupSpawner = GetComponent<PickupSpawner>();
 	}
 	
@@ -186,7 +185,6 @@ public class IceBoulder : MonoBehaviour {
     ReceivesDamage receivesDamage;
     Rigidbody2D rb2d;
     TimeUser timeUser;
-    VisionUser visionUser;
     PickupSpawner pickupSpawner;
 
     Vector2 throwDirection = new Vector2();

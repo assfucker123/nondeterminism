@@ -208,7 +208,6 @@ public class PhaseMeter : MonoBehaviour {
 
     private float _maxPhase = 1;
     private float _phase = 0;
-    private float warningTime = 0;
 
     // components
     Image bgExtendLeft;

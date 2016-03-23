@@ -11,11 +11,17 @@ public class Level : MonoBehaviour {
     public int mapHeight = 1;
     public bool showOnMap = true;
     public bool bobbingCamera = false;
+    public RestartOnDeathAction restartOnDeathAction = RestartOnDeathAction.LAST_SAVE;
 
     public GameObject keysGameObject;
     public GameObject soundManagerGameObject;
     public GameObject canvasGameObject;
     public GameObject playerGameObject;
+
+    public enum RestartOnDeathAction {
+        LAST_SAVE,
+        ROOM_ENTRANCE
+    }
 
     public static Level currentLoadedLevel {  get { return _currentLoadedLevel; } } // reference to the last Level created
 	

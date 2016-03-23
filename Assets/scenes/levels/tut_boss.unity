@@ -324,6 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!1001 &520318926
 Prefab:
   m_ObjectHideFlags: 0
@@ -552,6 +554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!212 &841374914
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -976,6 +980,10 @@ Prefab:
       propertyPath: bobbingCamera
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
+      propertyPath: restartOnDeathAction
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: adcfa817722367346958dd11bda1ea91, type: 2}
   m_IsPrefabParent: 0
@@ -1083,6 +1091,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!212 &2097885818
 SpriteRenderer:
   m_ObjectHideFlags: 0

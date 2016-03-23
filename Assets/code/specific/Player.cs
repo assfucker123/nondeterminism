@@ -241,7 +241,14 @@ public class Player : MonoBehaviour {
         this.lastLevelMapY = lastLevelMapY;
         this.lastLevelPosition = lastLevelPosition;
     }
-
+    /// <summary>
+    /// Prevents player from repositioning itself when the level starts
+    /// </summary>
+    public void doNotReposition() {
+        repositionOnLevelLoad = false;
+        determineNewPositionFromLastLevel = false;
+    }
+    
     /* Brings player back to how it was when the level was loaded.
      * this is called by Vars when the level is about to restart */
     public void revertToFrameInfoOnLevelLoad() {
@@ -1427,7 +1434,9 @@ public class Player : MonoBehaviour {
     bool jumpPressed;
     bool jumpHeld;
     bool downPressed;
+#pragma warning disable 414
     bool dodgePressed;
+#pragma warning restore 414
 
     //collision stuff
     private float SLOPE_RUN_MODIFIER = 1f;

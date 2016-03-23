@@ -473,10 +473,24 @@ public class GameOverScreen : MonoBehaviour {
 
             if (selectionIndex == 0) { // continue
 
-                // when restarting, refill Phase for mercy
-                HUD.instance.phaseMeter.setPhase(Player.instance.maxPhase);
+                Level.RestartOnDeathAction action = Level.RestartOnDeathAction.LAST_SAVE;
+                if (Level.currentLoadedLevel == null) {
+                    Debug.LogWarning("WARNING: Level.currentLoadedLevel is null during GameOverScreen");
+                } else {
+                    action = Level.currentLoadedLevel.restartOnDeathAction;
+                }
 
-                Vars.restartLevel();
+                switch (action) {
+                case Level.RestartOnDeathAction.LAST_SAVE:
+                    Vars.restartFromLastSave();
+                    break;
+                case Level.RestartOnDeathAction.ROOM_ENTRANCE:
+                    // when restarting, refill Phase for mercy
+                    HUD.instance.phaseMeter.setPhase(Player.instance.maxPhase);
+                    Vars.restartLevel();
+                    break;
+                }
+                
             } else if (selectionIndex == 1) { // quit game
                 Vars.goToTitleScreen();
             }

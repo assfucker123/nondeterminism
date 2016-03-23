@@ -175,10 +175,10 @@ public class MovedByPlatforms : MonoBehaviour {
 
 
     // PRIVATE PROPERTIES
-#pragma warning disable CS0414
+#pragma warning disable 414
     private Rigidbody2D rb2d = null;
 	private ColFinder colFinder = null;
-#pragma warning restore CS0414
+#pragma warning restore 414
 
     private bool _clingsBottom = true;
 	private bool _clingsLeft = false;

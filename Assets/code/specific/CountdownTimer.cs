@@ -123,7 +123,6 @@ public class CountdownTimer : MonoBehaviour {
         }
         instance = this;
 
-        rt = GetComponent<RectTransform>();
         image = GetComponent<Image>();
 		glyphBox = transform.Find("GlyphBox").GetComponent<GlyphBox>();
         timeUser = GetComponent<TimeUser>();
@@ -263,7 +262,6 @@ public class CountdownTimer : MonoBehaviour {
 
     CountdownTimerDot[] dots;
 
-	RectTransform rt;
     Image image;
     GlyphBox glyphBox;
     TimeUser timeUser;

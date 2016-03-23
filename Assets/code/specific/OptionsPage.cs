@@ -59,10 +59,6 @@ public class OptionsPage : MonoBehaviour {
             if (option == resumeText) {
                 // resume game
                 PauseScreen.instance.unpauseGame();
-            } else if (option == restartText) {
-                // restart game
-                PauseScreen.instance.unpauseGame();
-                Vars.restartLevel();
             } else if (option == fullscreenText) {
                 // toggle fullscreen
 
@@ -134,7 +130,6 @@ public class OptionsPage : MonoBehaviour {
 	void Awake() {
         selection = transform.Find("Selection").GetComponent<Image>();
         resumeText = transform.Find("ResumeText").GetComponent<GlyphBox>();
-        restartText = transform.Find("RestartText").GetComponent<GlyphBox>();
         fullscreenText = transform.Find("FullscreenText").GetComponent<GlyphBox>();
         sfxVolumeText = transform.Find("sfxVolumeText").GetComponent<GlyphBox>();
         musicVolumeText = transform.Find("MusicVolumeText").GetComponent<GlyphBox>();
@@ -149,7 +144,6 @@ public class OptionsPage : MonoBehaviour {
 
     void Start() {
         resumeText.setPlainText(propAsset.getString("resume"));
-        restartText.setPlainText(propAsset.getString("restart"));
         fullscreenText.setPlainText(propAsset.getString("fullscreen"));
         sfxVolumeText.setPlainText(propAsset.getString("sfx_volume"));
         musicVolumeText.setPlainText(propAsset.getString("music_volume"));
@@ -184,10 +178,8 @@ public class OptionsPage : MonoBehaviour {
         selection.enabled = true;
         if (titleMode) {
             resumeText.makeAllCharsInvisible();
-            restartText.makeAllCharsInvisible();
         } else {
             resumeText.makeAllCharsVisible();
-            restartText.makeAllCharsVisible();
         }
         fullscreenText.makeAllCharsVisible();
         sfxVolumeText.makeAllCharsVisible();
@@ -209,7 +201,6 @@ public class OptionsPage : MonoBehaviour {
         } else {
             quitText.setPlainText(propAsset.getString("quit"));
             options.Add(resumeText);
-            options.Add(restartText);
         }
         options.Add(fullscreenText);
         options.Add(sfxVolumeText);
@@ -222,7 +213,6 @@ public class OptionsPage : MonoBehaviour {
     public void hide() {
         selection.enabled = false;
         resumeText.makeAllCharsInvisible();
-        restartText.makeAllCharsInvisible();
         fullscreenText.makeAllCharsInvisible();
         sfxVolumeText.makeAllCharsInvisible();
         musicVolumeText.makeAllCharsInvisible();
@@ -324,7 +314,6 @@ public class OptionsPage : MonoBehaviour {
     Properties propAsset;
     Image selection;
     GlyphBox resumeText;
-    GlyphBox restartText; // only use in Arcade
     GlyphBox fullscreenText;
     GlyphBox sfxVolumeText;
     GlyphBox musicVolumeText;

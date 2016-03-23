@@ -1562,7 +1562,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 485602, guid: adcfa817722367346958dd11bda1ea91, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
       propertyPath: mapWidth
@@ -1579,6 +1579,10 @@ Prefab:
     - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
       propertyPath: mapY
       value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
+      propertyPath: restartOnDeathAction
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: adcfa817722367346958dd11bda1ea91, type: 2}

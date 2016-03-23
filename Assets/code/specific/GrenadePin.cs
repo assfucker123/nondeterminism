@@ -8,7 +8,6 @@ public class GrenadePin : MonoBehaviour {
     public float duration = .5f;
 
     void Awake() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         timeUser = GetComponent<TimeUser>();
     }
 
@@ -41,7 +40,6 @@ public class GrenadePin : MonoBehaviour {
     float time = 0;
 
     // components
-    SpriteRenderer spriteRenderer;
     TimeUser timeUser;
 
 }

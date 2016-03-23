@@ -147,6 +147,8 @@ MonoBehaviour:
   rayPeriodMax: 1.5
   rayScaleCenter: 0.7
   rayScaleRange: 0.12
+  standSound: {fileID: 8300000, guid: 63fc7c48cb08abf4d80481a3ecc4d86d, type: 3}
+  standSoundPlayerOffDuration: 1
   chamberScreenGameObject: {fileID: 125468, guid: 8225af78460860f4d9d5433db23eaa5a,
     type: 2}
 --- !u!212 &21291740
@@ -294,6 +296,10 @@ Prefab:
       propertyPath: flyOutSound
       value: 
       objectReference: {fileID: 8300000, guid: 087923c89c275b1448ccd9da27f56dac, type: 3}
+    - target: {fileID: 0}
+      propertyPath: standSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 63fc7c48cb08abf4d80481a3ecc4d86d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 142890}

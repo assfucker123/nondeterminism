@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour {
 
@@ -204,7 +205,8 @@ public class TitleScreen : MonoBehaviour {
         Vars.currentNodeData.position.y = 9;
         */
 
-        Vars.loadLevel(Vars.currentNodeData.level);
+        string levelName = Vars.currentNodeData.level;
+        Vars.loadLevel(levelName);
     }
 
     void optionsSelected() {
