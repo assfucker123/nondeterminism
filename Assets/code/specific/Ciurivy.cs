@@ -19,6 +19,7 @@ public class Ciurivy : MonoBehaviour {
     public float playerLeadMaxOffset = 1; // adjusting throw distance based on player speed
     public float sightRange = 30;
     public float sightSpread = 80;
+    public float bombExtraVisionDuration = .6f;
     public AudioClip throwSound;
     public AudioClip stepSound;
     public float stepSoundOffset = .091f;
@@ -261,7 +262,7 @@ public class Ciurivy : MonoBehaviour {
                 ab.initialYVelocity = throwInitialYVelocity;
                 ab.finalX = rb2d.position.x + throwXDistance;
                 if (visionUser.isVision) {
-                    ab.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft, visionUser);
+                    ab.GetComponent<VisionUser>().becomeVisionNow(visionUser.timeLeft + bombExtraVisionDuration, visionUser);
                 }
                 if (!visionUser.isVision) {
                     SoundManager.instance.playSFXIfOnScreenRandPitchBend(throwSound, rb2d.position);

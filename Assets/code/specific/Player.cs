@@ -61,6 +61,10 @@ public class Player : MonoBehaviour {
     public GameObject deathLarvaGameObject;
     public GameObject deathExplosionGameObject;
     public State state = State.GROUND;
+
+    public Vector2 turnSparksSpawnPos = new Vector2();
+    public GameObject turnSparksGameObject;
+
     public AudioClip stepSound;
     public AudioClip jumpSound;
     public AudioClip chargingStartSound;
@@ -764,6 +768,7 @@ public class Player : MonoBehaviour {
     void stateGround() {
         Vector2 v = rb2d.velocity;
         bool stillAnim = false;
+        bool prevFlippedHoriz = flippedHoriz;
 
         if (leftHeld) {
 
@@ -786,6 +791,11 @@ public class Player : MonoBehaviour {
                 stillAnim = true;
             }
 
+            if (!prevFlippedHoriz) {
+                // make turn sparks
+                GameObject.Instantiate(turnSparksGameObject, rb2d.position + turnSparksSpawnPos, Quaternion.identity);
+            }
+
         } else if (rightHeld) {
 
             //movement
@@ -805,6 +815,12 @@ public class Player : MonoBehaviour {
                 }
             } else { //still moving left (sliding)
                 stillAnim = true;
+            }
+
+            if (prevFlippedHoriz) {
+                // make turn sparks
+                GameObject tsGO = GameObject.Instantiate(turnSparksGameObject, rb2d.position + new Vector2(-turnSparksSpawnPos.x, turnSparksSpawnPos.y), Quaternion.identity) as GameObject;
+                tsGO.transform.localScale = new Vector3(-1, 1, 1);
             }
 
         } else { //no horiz input

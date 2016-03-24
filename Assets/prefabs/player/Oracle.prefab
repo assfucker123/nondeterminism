@@ -271,6 +271,8 @@ MonoBehaviour:
   deathExplosionGameObject: {fileID: 103476, guid: 761aadc3023c1e34b83281cffc097108,
     type: 2}
   state: 0
+  turnSparksSpawnPos: {x: 0.4, y: 1}
+  turnSparksGameObject: {fileID: 145064, guid: d86210c1835b4be41b0c1006f002ecd1, type: 2}
   stepSound: {fileID: 8300000, guid: 9e2a7c604390ae74bbfc09b342021d3b, type: 3}
   jumpSound: {fileID: 8300000, guid: 639a64b5e89066b49b29e0b5a06120da, type: 3}
   chargingStartSound: {fileID: 8300000, guid: bab86b91bba2145429bf66d2d048b981, type: 3}
@@ -710,6 +712,18 @@ Prefab:
       propertyPath: roomRestartSound
       value: 
       objectReference: {fileID: 8300000, guid: 5ea1538975014a840b550cd937ca6c18, type: 3}
+    - target: {fileID: 0}
+      propertyPath: turnSparksSpawnPos.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: turnSparksSpawnPos.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: turnSparksGameObject
+      value: 
+      objectReference: {fileID: 145064, guid: d86210c1835b4be41b0c1006f002ecd1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102646}

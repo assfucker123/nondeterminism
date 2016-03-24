@@ -231,9 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e86b81bdc269e344839a62e4d001374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startFacingLeft: 0
+  neverChangeDirection: 0
   state: 0
   idleDurationMin: 1
-  idleDurationMax: 1.5
+  idleDurationMax: 1.3
   runSpeed: 3.5
   getBombDuration: 0.2
   throwBombDuration: 0.2
@@ -245,6 +247,7 @@ MonoBehaviour:
   playerLeadMaxOffset: 4
   sightRange: 30
   sightSpread: 80
+  bombExtraVisionDuration: 0.8
   throwSound: {fileID: 8300000, guid: 8362fe0acfc65804fa5630e23db3cb89, type: 3}
   stepSound: {fileID: 8300000, guid: 87ed43f3157c78449bf1bd8b8925be1d, type: 3}
   stepSoundOffset: 0.091
@@ -451,7 +454,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: idleDurationMax
-      value: 1.5
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: getBombDuration
@@ -504,6 +507,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: sightAngleSpread
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: visionDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bombExtraVisionDuration
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -116,12 +116,13 @@ public class VisionUser : MonoBehaviour {
         _isVision = true;
 
         _createdWhenAbilityDeactivated = !VisionUser.abilityActive;
-        _duration = visionDuration;
-
+        
         //be more like the original
         if (currentFI != null) {
             timeUser.revertToFrameInfoUnsafe(currentFI);
         }
+
+        _duration = visionDuration;
 
         //color diffently
         spriteRenderer.material = material;
@@ -203,7 +204,6 @@ public class VisionUser : MonoBehaviour {
             return;
         
         _time += Time.deltaTime;
-
         if (time >= duration) {
             timeUser.timeDestroy();
         }
