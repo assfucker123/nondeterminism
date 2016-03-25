@@ -93,6 +93,39 @@ public class Level : MonoBehaviour {
             CameraControl.instance.bobbing = true;
         }
 
+        // update map grid
+        if (MapUI.instance == null) {
+            Debug.LogWarning("WARNING: MapUI.instance is null");
+        } else {
+            // set entire room
+            if (MapUI.instance.gridIsEmpty(mapX, mapY, mapWidth, mapHeight)) {
+                MapUI.instance.gridAddRoom(mapX, mapY, mapWidth, mapHeight);
+            }
+            // knock down wall player entered from
+            /*
+            if (Player.instance != null) {
+                Vector2 plrPos = Player.instance.rb2d.position;
+                Vector2 mapPlrPos = MapUI.instance.gridPositionFromWorldPosition(mapX, mapY, plrPos, mapBounds.xMin, mapBounds.yMin);
+                int mapPlrPosX = Mathf.RoundToInt(mapPlrPos.x);
+                int mapPlrPosY = Mathf.RoundToInt(mapPlrPos.y);
+                if (plrPos.x - mapBounds.xMin < 2) {
+                    Debug.Log("make left open");
+                    MapUI.instance.gridSetOpenLeftEdge(mapPlrPosX, mapPlrPosY, true);
+                } else if (plrPos.x - mapBounds.yMin < 2) {
+                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapPlrPosY, true);
+                } else if (mapBounds.xMax - plrPos.x < 2) {
+                    MapUI.instance.gridSetOpenRightEdge(mapPlrPosX, mapPlrPosY, true);
+                } else if (mapBounds.yMax - plrPos.y < 2) {
+                    MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapPlrPosY, true);
+                }
+                Debug.Log("x: " + mapPlrPosX + " " + mapX);
+                Debug.Log("y: " + mapPlrPosY + " " + mapY);
+            }
+            */
+
+        }
+
+
     }
 	
 	void Update() {

@@ -35,6 +35,9 @@ public class MapUI : MonoBehaviour {
     public static int CELL_WIDTH = 9; // width of a cell in pixels
     public static int CELL_HEIGHT = 6; // height of a cell in pixels
 
+    public static string tempGridString = ""; // if Vars is being loaded and MapUI.instance doesn't exist, stored grid string will be placed here instead.  Will be automatically used in Awake();
+    public static string tempIconString = "";
+
     public enum Edge : int {
         NO_WALL = 0,
         OPEN = 1,
@@ -172,8 +175,37 @@ public class MapUI : MonoBehaviour {
         playerPosition.GetComponent<Image>().enabled = false;
     }
 
+    /// <summary>
+    /// From a position in a room, returns what its position would be on the grid (returns int Vector2)
+    /// </summary>
+    public Vector2 gridPositionFromWorldPosition(int roomX, int roomY, Vector2 worldPos, float mapBoundsXMin, float mapBoundsYMin) {
+        Vector2 posDiff = worldPos - new Vector2(mapBoundsXMin, mapBoundsYMin);
+        Vector2 ret = new Vector2(roomX, roomY);
+        ret.x += Mathf.FloorToInt(posDiff.x / CameraControl.ROOM_UNIT_WIDTH);
+        ret.y += Mathf.FloorToInt(posDiff.y / CameraControl.ROOM_UNIT_HEIGHT);
+        return ret;
+    }
+    public Vector2 gridPositionFromWorldPosition(int roomX, int roomY, Vector2 worldPos) {
+        Rect bounds = CameraControl.getMapBounds();
+        return gridPositionFromWorldPosition(roomX, roomY, worldPos, bounds.xMin, bounds.yMin);
+    }
+
     public int gridGetCell(int x, int y) {
         return grid[y, x];
+    }
+    public bool gridIsEmpty(int x, int y) {
+        return gridGetCell(x, y) == 0;
+    }
+    public bool gridIsEmpty(int x, int y, int roomWidth, int roomHeight) {
+        for (int iy = 0; iy < roomHeight; iy++) {
+            for (int ix = 0; ix < roomWidth; ix++) {
+                if (!gridIsEmpty(x+ix, y+iy)) return false;
+            }
+        }
+        return true;
+    }
+    public bool gridIsEmpty() {
+        return gridIsEmpty(0, 0, CELL_WIDTH, CELL_HEIGHT);
     }
     public void gridSetCell(int x, int y, int cell, bool applyDrawing = true) {
         grid[y, x] = cell;
@@ -189,8 +221,9 @@ public class MapUI : MonoBehaviour {
         case Edge.OPEN:
             for (int iy = 0; iy < CELL_HEIGHT; iy++) {
                 if ((CELL_HEIGHT - leftOpenGapHeight) / 2 <= iy && iy < (CELL_HEIGHT + leftOpenGapHeight) / 2)
-                    continue;
-                mapTexture.SetPixel(x * CELL_WIDTH, y * CELL_HEIGHT + iy, topEdgeColor);
+                    mapTexture.SetPixel(x * CELL_WIDTH, y * CELL_HEIGHT + iy, Color.clear);
+                else
+                    mapTexture.SetPixel(x * CELL_WIDTH, y * CELL_HEIGHT + iy, topEdgeColor);
             }
             break;
         }
@@ -203,8 +236,9 @@ public class MapUI : MonoBehaviour {
         case Edge.OPEN:
             for (int ix = 0; ix < CELL_WIDTH; ix++) {
                 if ((CELL_WIDTH - topOpenGapWidth) / 2 <= ix && ix < (CELL_WIDTH + topOpenGapWidth) / 2)
-                    continue;
-                mapTexture.SetPixel(x * CELL_WIDTH + ix, (y + 1) * CELL_HEIGHT - 1, topEdgeColor);
+                    mapTexture.SetPixel(x * CELL_WIDTH + ix, (y + 1) * CELL_HEIGHT - 1, Color.clear);
+                else
+                    mapTexture.SetPixel(x * CELL_WIDTH + ix, (y + 1) * CELL_HEIGHT - 1, topEdgeColor);
             }
             break;
         }
@@ -217,8 +251,9 @@ public class MapUI : MonoBehaviour {
         case Edge.OPEN:
             for (int iy = 0; iy < CELL_HEIGHT; iy++) {
                 if ((CELL_HEIGHT - leftOpenGapHeight) / 2 <= iy && iy < (CELL_HEIGHT + leftOpenGapHeight) / 2)
-                    continue;
-                mapTexture.SetPixel((x + 1) * CELL_WIDTH - 1, y * CELL_HEIGHT + iy, bottomEdgeColor);
+                    mapTexture.SetPixel((x + 1) * CELL_WIDTH - 1, y * CELL_HEIGHT + iy, Color.clear);
+                else
+                    mapTexture.SetPixel((x + 1) * CELL_WIDTH - 1, y * CELL_HEIGHT + iy, bottomEdgeColor);
             }
             break;
         }
@@ -231,8 +266,9 @@ public class MapUI : MonoBehaviour {
         case Edge.OPEN:
             for (int ix = 0; ix < CELL_WIDTH; ix++) {
                 if ((CELL_WIDTH - topOpenGapWidth) / 2 <= ix && ix < (CELL_WIDTH + topOpenGapWidth) / 2)
-                    continue;
-                mapTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT, bottomEdgeColor);
+                    mapTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT, Color.clear);
+                else
+                    mapTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT, bottomEdgeColor);
             }
             break;
         }
@@ -248,21 +284,48 @@ public class MapUI : MonoBehaviour {
         }
 
     }
-    
+
+    public void gridSetOpenLeftEdge(int x, int y, bool applyDrawing = false) {
+        int cell = gridGetCell(x, y);
+        int newCell = makeCell(Edge.OPEN, topEdge(cell), rightEdge(cell), bottomEdge(cell));
+        gridSetCell(x, y, newCell, applyDrawing);
+    }
+    public void gridSetOpenTopEdge(int x, int y, bool applyDrawing = false) {
+        int cell = gridGetCell(x, y);
+        int newCell = makeCell(leftEdge(cell), Edge.OPEN, rightEdge(cell), bottomEdge(cell));
+        gridSetCell(x, y, newCell, applyDrawing);
+    }
+    public void gridSetOpenRightEdge(int x, int y, bool applyDrawing = false) {
+        int cell = gridGetCell(x, y);
+        int newCell = makeCell(leftEdge(cell), topEdge(cell), Edge.OPEN, bottomEdge(cell));
+        gridSetCell(x, y, newCell, applyDrawing);
+    }
+    public void gridSetOpenBottomEdge(int x, int y, bool applyDrawing = false) {
+        int cell = gridGetCell(x, y);
+        int newCell = makeCell(leftEdge(cell), topEdge(cell), rightEdge(cell), Edge.OPEN);
+        gridSetCell(x, y, newCell, applyDrawing);
+    }
+
     public string gridToString() {
         string str = "";
         for (int i = 0; i < grid.Length; i++) {
-            str = str + grid[i / GRID_HEIGHT, i % GRID_HEIGHT] + ",";
+            str = str + grid[i / GRID_WIDTH, i % GRID_WIDTH] + ",";
         }
         return str;
     }
 
     public void gridFromString(string str) {
-        char[] delims = {','};
-        string[] cells = str.Split(delims);
         clearMapTextures(false);
-        for (int i = 0; i < grid.Length; i++) {
-            gridSetCell(i % GRID_HEIGHT, i / GRID_HEIGHT, int.Parse(cells[i]), false);
+        if (str == "") {
+            for (int i = 0; i < grid.Length; i++) {
+                gridSetCell(i % GRID_WIDTH, i / GRID_WIDTH, 0, false);
+            }
+        } else {
+            char[] delims = {','};
+            string[] cells = str.Split(delims);
+            for (int i = 0; i < grid.Length; i++) {
+                gridSetCell(i % GRID_WIDTH, i / GRID_WIDTH, int.Parse(cells[i]), false);
+            }
         }
         mapTexture.Apply();
         mapFillTexture.Apply();
@@ -305,6 +368,35 @@ public class MapUI : MonoBehaviour {
             Destroy(icon.gameObject);
         }
         icons.Clear();
+    }
+
+    /// <summary>
+    /// Simply makes an empty room with walls on the border
+    /// </summary>
+    public void gridAddRoom(
+        int x,
+        int y,
+        int roomWidth,
+        int roomHeight) {
+        if (roomWidth < 1 || roomHeight < 1) {
+            Debug.LogError("Room invalid dimensions");
+            return;
+        }
+        int[,] cells = new int[roomHeight, roomWidth];
+        Edge le;
+        Edge te;
+        Edge re;
+        Edge be;
+        for (int iy = 0; iy < roomHeight; iy++) {
+            for (int ix = 0; ix < roomWidth; ix++) {
+                le = ix == 0 ? Edge.WALL : Edge.NO_WALL;
+                te = iy == roomHeight - 1 ? Edge.WALL : Edge.NO_WALL;
+                re = ix == roomWidth - 1 ? Edge.WALL : Edge.NO_WALL;
+                be = iy == 0 ? Edge.WALL : Edge.NO_WALL;
+                cells[iy, ix] = makeCell(le, te, re, be);
+            }
+        }
+        gridAddRoom(x, y, roomWidth, roomHeight, cells);
     }
 
     public void gridAddRoom(
@@ -451,6 +543,7 @@ public class MapUI : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         } else if (_instance != this) {
             Destroy(this);
+            return;
         }
         rectTransform = GetComponent<RectTransform>();
         // create map textures
@@ -470,12 +563,15 @@ public class MapUI : MonoBehaviour {
         playerPosition.GetComponent<Image>().enabled = false;
         setPlayerPosition(0, 0);
 
+        // set map from temp strings
+        gridFromString(tempGridString);
+        iconsFromString(tempIconString);
     }
 
     void Start() {
 
         // all for testing
-
+        /*
         gridAddRoom(30, 10, 1, 1,
             new int[,] { { makeCell(Edge.WALL, Edge.WALL, Edge.WALL, Edge.WALL) } });
 
@@ -505,6 +601,8 @@ public class MapUI : MonoBehaviour {
         addIcon(Icon.BOOSTER, 30, 30, true);
 
         setPlayerPosition(11, 10);
+
+        */
 
         // saves icon locations in iconsStr
         hideMap();

@@ -488,6 +488,14 @@ public class Vars {
         healthUpgradesFound.Clear();
         // creature cards found
         creatureCardsFound.Clear();
+        // map and map icons
+        if (MapUI.instance == null) {
+            MapUI.tempGridString = "";
+            MapUI.tempIconString = "";
+        } else {
+            MapUI.instance.gridFromString("");
+            MapUI.instance.iconsFromString("");
+        }
 
 
         // for testing
@@ -509,6 +517,7 @@ public class Vars {
         currentNodeData.creatureCardCollect("Sherivice");
         */
         //eventHappen(AdventureEvent.Info.FOUND_CREATURE_CARD);
+        PauseScreen.mode = PauseScreen.Mode.NORMAL;
 
         #endif
 
@@ -589,6 +598,18 @@ public class Vars {
             if (ccStrs[i] == "") continue;
             creatureCardsFound.Add(int.Parse(ccStrs[i]));
         }
+        // map
+        if (MapUI.instance == null) {
+            MapUI.tempGridString = strs[16];
+        } else {
+            MapUI.instance.gridFromString(strs[16]);
+        }
+        // map icons
+        if (MapUI.instance == null) {
+            MapUI.tempIconString = strs[17];
+        } else {
+            MapUI.instance.iconsFromString(strs[17]);
+        }
 
     }
 
@@ -667,7 +688,20 @@ public class Vars {
             if (i < creatureCardsFound.Count - 1)
                 ret += ",";
         }
-
+        ret += "\n";
+        // map (16)
+        if (MapUI.instance == null) {
+            ret += "";
+        } else {
+            ret += MapUI.instance.gridToString();
+        }
+        ret += "\n";
+        // map icons (17)
+        if (MapUI.instance == null) {
+            ret += "";
+        } else {
+            ret += MapUI.instance.iconsToString();
+        }
 
         return ret;
     }
