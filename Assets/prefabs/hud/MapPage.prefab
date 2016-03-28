@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11425600}
   - 114: {fileID: 11443102}
   m_Layer: 5
-  m_Name: SampleText
+  m_Name: GlyphBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11443102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,8 +60,8 @@ MonoBehaviour:
   glyphGameObjects:
   - {fileID: 198674, guid: f003a3a41b346b448ac9b0f89d79dbf0, type: 2}
   width: 20
-  height: 1
-  initialText: Look at the map
+  height: 3
+  initialText: Chamber A1
   initialAlignment: 0
   defaultStyle:
     color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
@@ -76,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87b3740a2f3d2548b6322ed34694814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAsset: {fileID: 0}
+  textAsset: {fileID: 4900000, guid: 491ec03aafc2924488f45e62b6ce23dd, type: 3}
 --- !u!224 &22446422
 RectTransform:
   m_ObjectHideFlags: 1
@@ -109,8 +111,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -601, y: 80}
-  m_SizeDelta: {x: 175, y: 16}
+  m_AnchoredPosition: {x: -562, y: 250}
+  m_SizeDelta: {x: 175, y: 37}
   m_Pivot: {x: 0, y: 1.0000001}
 --- !u!1001 &100100000
 Prefab:

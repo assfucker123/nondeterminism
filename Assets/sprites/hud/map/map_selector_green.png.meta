@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: bc03daa3277453c4b9048b2bc7c54688
-timeCreated: 1458967444
+guid: 1eabab2cfebb1094982018536e45c0ce
+timeCreated: 1459087282
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: map_player_position_0
-    21300002: map_player_position_1
-    21300004: map_player_position_2
-    21300006: map_player_position_3
+    21300000: map_selector_green_0
+    21300002: map_selector_green_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -27,7 +25,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
+  cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
@@ -54,46 +52,24 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: map_player_position_0
+    - name: map_selector_green_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9
-        height: 6
+        width: 13
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: map_player_position_1
+    - name: map_selector_green_1
       rect:
         serializedVersion: 2
-        x: 9
+        x: 13
         y: 0
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: map_player_position_2
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 0
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: map_player_position_3
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 0
-        width: 9
-        height: 6
+        width: 13
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

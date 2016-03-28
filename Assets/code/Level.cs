@@ -9,6 +9,10 @@ public class Level : MonoBehaviour {
     public int mapY = 0;
     public int mapWidth = 1;
     public int mapHeight = 1;
+    public int[] openLeftEdges = new int[0];
+    public int[] openBottomEdges = new int[0];
+    public int[] openRightEdges = new int[0];
+    public int[] openTopEdges = new int[0];
     public bool showOnMap = true;
     public bool bobbingCamera = false;
     public RestartOnDeathAction restartOnDeathAction = RestartOnDeathAction.LAST_SAVE;
@@ -99,29 +103,28 @@ public class Level : MonoBehaviour {
         } else {
             // set entire room
             if (MapUI.instance.gridIsEmpty(mapX, mapY, mapWidth, mapHeight)) {
-                MapUI.instance.gridAddRoom(mapX, mapY, mapWidth, mapHeight);
+                MapUI.instance.gridAddRoom(mapX, mapY, mapWidth, mapHeight,
+                    openLeftEdges, openTopEdges, openRightEdges, openBottomEdges);
             }
             // knock down wall player entered from
-            /*
+            
             if (Player.instance != null) {
                 Vector2 plrPos = Player.instance.rb2d.position;
                 Vector2 mapPlrPos = MapUI.instance.gridPositionFromWorldPosition(mapX, mapY, plrPos, mapBounds.xMin, mapBounds.yMin);
                 int mapPlrPosX = Mathf.RoundToInt(mapPlrPos.x);
                 int mapPlrPosY = Mathf.RoundToInt(mapPlrPos.y);
                 if (plrPos.x - mapBounds.xMin < 2) {
-                    Debug.Log("make left open");
-                    MapUI.instance.gridSetOpenLeftEdge(mapPlrPosX, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenLeftEdge(mapX, mapPlrPosY, true);
                 } else if (plrPos.x - mapBounds.yMin < 2) {
-                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapY, true);
                 } else if (mapBounds.xMax - plrPos.x < 2) {
-                    MapUI.instance.gridSetOpenRightEdge(mapPlrPosX, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenRightEdge(mapX + mapWidth-1, mapPlrPosY, true);
                 } else if (mapBounds.yMax - plrPos.y < 2) {
-                    MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapPlrPosY, true);
+                    // need to explicitly exit off the top of the room for this
+                    //MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapY + mapHeight-1, true);
                 }
-                Debug.Log("x: " + mapPlrPosX + " " + mapX);
-                Debug.Log("y: " + mapPlrPosY + " " + mapY);
             }
-            */
+            
 
         }
 

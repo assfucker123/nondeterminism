@@ -125,6 +125,12 @@ public static class Utilities {
         t = Mathf.Min(d, Mathf.Max(0, t));
         return easeLinear(t, b, c, d);
     }
+    public static Vector2 easeLinear(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeLinear(t, b.x, c.x, d), easeLinear(t, b.y, c.y, d));
+    }
+    public static Vector2 easeLinearClamp(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeLinearClamp(t, b.x, c.x, d), easeLinear(t, b.y, c.y, d));
+    }
     public static float easeInQuad(float t, float b, float c, float d){
         t /= d;
         return c*t*t + b;

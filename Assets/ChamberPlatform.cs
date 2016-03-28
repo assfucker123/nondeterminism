@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class ChamberPlatform : MonoBehaviour {
 
-    public string positionCode = "";
     public GameObject rayGameObject;
     public Vector2 rayCenterPos = new Vector2();
     public float raySpread = 4 / 16f;
@@ -20,7 +19,25 @@ public class ChamberPlatform : MonoBehaviour {
 
     public static ChamberPlatform instance { get; private set; }
 
+    public static string positionCodeFromMapPosition(int x, int y) {
+        char xChar = (char)('A' + (x / 2));
+        char[] xChars = { xChar };
+        int yInt = (y + 1) / 5 + 1;
+        return new string(xChars) + yInt;
+    }
+
     public State state { get; private set; }
+    public string positionCode {
+        get {
+            if (MapUI.instance == null) {
+                return "";
+            } else {
+                Vector2 gridPos = MapUI.instance.gridPositionFromWorldPosition(Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapY,
+                new Vector2(transform.localPosition.x, transform.localPosition.y));
+                return positionCodeFromMapPosition(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+            }
+        }
+    }
 
     public enum State {
         IDLE,
@@ -59,6 +76,19 @@ public class ChamberPlatform : MonoBehaviour {
         chamberBackground = GetComponent<ChamberBackground>();
         createRays();
 	}
+
+    void Start() {
+        // add chamber icon to map
+        if (MapUI.instance != null) {
+            Vector2 gridPos = MapUI.instance.gridPositionFromWorldPosition(Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapY,
+                new Vector2(transform.localPosition.x, transform.localPosition.y));
+            int gridX = Mathf.RoundToInt(gridPos.x);
+            int gridY = Mathf.RoundToInt(gridPos.y);
+            if (!MapUI.instance.iconInPosition(MapUI.Icon.CHAMBER, gridX, gridY)) {
+                MapUI.instance.addIcon(MapUI.Icon.CHAMBER, gridX, gridY);
+            }
+        }
+    }
 
     void createRays() {
         for (int i=0; i<rayCount; i++) {

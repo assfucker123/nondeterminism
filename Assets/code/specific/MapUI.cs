@@ -26,7 +26,7 @@ public class MapUI : MonoBehaviour {
      * 
      * */
 
-    // PUBLIC STATIC
+    #region Public Static Properties/Functions
 
     public static MapUI instance { get { return _instance; } }
 
@@ -37,14 +37,14 @@ public class MapUI : MonoBehaviour {
 
     public static string tempGridString = ""; // if Vars is being loaded and MapUI.instance doesn't exist, stored grid string will be placed here instead.  Will be automatically used in Awake();
     public static string tempIconString = "";
-
-    public enum Edge : int {
-        NO_WALL = 0,
-        OPEN = 1,
-        WALL = 2
-    }
-
+    public static bool canDisplayMapInHUD = true;
+    
+    // will automatically determine if there should be a fill or not
     public static int makeCell(Edge leftEdge, Edge topEdge, Edge rightEdge, Edge bottomEdge) {
+        return makeCell(leftEdge, topEdge, rightEdge, bottomEdge,
+            leftEdge != Edge.NO_WALL || topEdge != Edge.NO_WALL || rightEdge != Edge.NO_WALL || bottomEdge != Edge.NO_WALL);
+    }
+    public static int makeCell(Edge leftEdge, Edge topEdge, Edge rightEdge, Edge bottomEdge, bool fill) {
         int ret = 0;
         if (leftEdge != Edge.NO_WALL) {
             ret |= 1 << ((int)leftEdge - 1);
@@ -58,8 +58,13 @@ public class MapUI : MonoBehaviour {
         if (bottomEdge != Edge.NO_WALL) {
             ret |= 1 << 6 + ((int)bottomEdge - 1);
         }
+        if (fill) {
+            ret |= 1 << 8;
+        }
         return ret;
     }
+    
+    // extracting properties from an int cell
     public static Edge leftEdge(int cell) {
         if ((cell & 1) != 0) return Edge.OPEN;
         if ((cell & 2) != 0) return Edge.WALL;
@@ -80,6 +85,19 @@ public class MapUI : MonoBehaviour {
         if ((cell & 128) != 0) return Edge.WALL;
         return Edge.NO_WALL;
     }
+    public static bool fill(int cell) {
+        return (cell & 256) != 0;
+    }
+    
+    #endregion
+
+    #region Public Enums
+
+    public enum Edge : int {
+        NO_WALL = 0,
+        OPEN = 1,
+        WALL = 2
+    }
 
     public enum Icon {
         NONE,
@@ -89,20 +107,36 @@ public class MapUI : MonoBehaviour {
         ORB0
     }
 
-    ////////////
-    // PUBLIC //
-    ////////////
+    public enum DisplayMode {
+        MAP_PAGE,
+        HUD_SLIDE_IN,
+        HUD,
+        HUD_SLIDE_OUT
+    }
+
+    #endregion
+
+    #region Inspector Properties
 
     public Color topEdgeColor = Color.white;
     public Color bottomEdgeColor = Color.black;
     public Color fillColor = Color.magenta;
     public int topOpenGapWidth = 3;
     public int leftOpenGapHeight = 2;
+    public Vector2 HUDPos = new Vector2(0, 0);
+    public Vector2 HUDSize = new Vector2(400, 200);
+    public float slideDuration = .5f;
     public GameObject iconChamberGameObject;
     public GameObject iconHealthUpgradeGameObject;
     public GameObject iconBoosterGameObject;
     public GameObject iconOrb0GameObject;
     public GameObject playerPositionGameObject;
+    public GameObject selectorGreenGameObject;
+    public AudioClip chamberSwitchSound;
+
+    #endregion
+
+    #region Public Properties/Functions
 
     public bool mapShowing { get { return mapRawImage.enabled; } }
     public bool mapFillShowing { get { return mapFillRawImage.enabled; } }
@@ -131,6 +165,8 @@ public class MapUI : MonoBehaviour {
         maskSize = new Vector2(GRID_WIDTH * CELL_WIDTH * 2, GRID_HEIGHT * CELL_HEIGHT * 2);
     }
 
+    public string iconsStr { get; private set; }
+
     // sets which cell coordinates are at the center of the map
     public void setMapCenter(int x, int y) {
         Vector2 pos0 = mapRawImage.GetComponent<RectTransform>().localPosition;
@@ -147,13 +183,10 @@ public class MapUI : MonoBehaviour {
         }
 
     }
-
-
-    ///////////////
-    // FUNCTIONS //
-    ///////////////
-
+    
     public void setPlayerPosition(int x, int y) {
+        playerPositionGridX = x;
+        playerPositionGridY = y;
         if (playerPosition == null) return;
         playerPosition.transform.localPosition = 
             (new Vector3((x + .5f) * CELL_WIDTH * 2, (y + .5f) * CELL_HEIGHT * 2)) +
@@ -162,7 +195,14 @@ public class MapUI : MonoBehaviour {
 
     public void showMap(bool showFill = true) {
         mapRawImage.enabled = true;
-        mapFillRawImage.enabled = showFill;
+        //mapFillRawImage.enabled = showFill;
+        mapFillRawImage.enabled = true;
+        if (showFill) {
+            mapFillRawImage.color = new Color(1, 1, 1, 1);
+        } else {
+            mapFillRawImage.color = new Color(1, 1, 1, .3f);
+        }
+        
         playerPosition.GetComponent<Image>().enabled = true;
         iconsFromString(iconsStr);
     }
@@ -173,7 +213,18 @@ public class MapUI : MonoBehaviour {
         iconsStr = iconsToString();
         clearIcons();
         playerPosition.GetComponent<Image>().enabled = false;
+        selectorGreen.GetComponent<Image>().enabled = false;
     }
+    public bool mapShown {  get { return mapRawImage.enabled; } }
+
+    public void setMapPagePosition() {
+        position = new Vector2(0, 0);
+        fullMask();
+        setMapCenter(GRID_WIDTH / 2, GRID_HEIGHT / 2);
+        displayMode = DisplayMode.MAP_PAGE;
+    }
+
+    public DisplayMode displayMode { get; private set; }
 
     /// <summary>
     /// From a position in a room, returns what its position would be on the grid (returns int Vector2)
@@ -272,9 +323,11 @@ public class MapUI : MonoBehaviour {
             }
             break;
         }
-        for (int iy=0; iy < CELL_HEIGHT; iy++){
-            for (int ix=0; ix < CELL_WIDTH; ix++){
-                mapFillTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT + iy, fillColor);
+        if (fill(cell)) {
+            for (int iy = 0; iy < CELL_HEIGHT; iy++) {
+                for (int ix = 0; ix < CELL_WIDTH; ix++) {
+                    mapFillTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT + iy, fillColor);
+                }
             }
         }
         
@@ -341,9 +394,14 @@ public class MapUI : MonoBehaviour {
         }
         return str;
     }
+    public string iconsAppendToString(string str, MapIcon icon) {
+        if (str == "")
+            return icon.toString();
+        return str + "," + icon.toString();
+    }
     public void iconsFromString(string str) {
         clearIcons();
-        if (str.IndexOf(',') == -1) return;
+        if (str == "") return;
         char[] delims = { ',' };
         string[] iconStrs = str.Split(delims);
         for (int i = 0; i < iconStrs.Length; i++) {
@@ -373,11 +431,7 @@ public class MapUI : MonoBehaviour {
     /// <summary>
     /// Simply makes an empty room with walls on the border
     /// </summary>
-    public void gridAddRoom(
-        int x,
-        int y,
-        int roomWidth,
-        int roomHeight) {
+    public void gridAddRoom(int x, int y, int roomWidth, int roomHeight) {
         if (roomWidth < 1 || roomHeight < 1) {
             Debug.LogError("Room invalid dimensions");
             return;
@@ -393,18 +447,13 @@ public class MapUI : MonoBehaviour {
                 te = iy == roomHeight - 1 ? Edge.WALL : Edge.NO_WALL;
                 re = ix == roomWidth - 1 ? Edge.WALL : Edge.NO_WALL;
                 be = iy == 0 ? Edge.WALL : Edge.NO_WALL;
-                cells[iy, ix] = makeCell(le, te, re, be);
+                cells[iy, ix] = makeCell(le, te, re, be, true);
             }
         }
         gridAddRoom(x, y, roomWidth, roomHeight, cells);
     }
 
-    public void gridAddRoom(
-        int x,
-        int y,
-        int roomWidth,
-        int roomHeight,
-        int[,] cells) {
+    public void gridAddRoom(int x, int y, int roomWidth, int roomHeight, int[,] cells) {
         for (int iy = 0; iy < roomHeight; iy++) {
             for (int ix = 0; ix < roomWidth; ix++) {
                 gridSetCell(x + ix, y + iy, cells[iy, ix], false);
@@ -427,15 +476,19 @@ public class MapUI : MonoBehaviour {
         }
     }
 
-    public void gridAddRoom(
-        int x,
-        int y,
-        int roomWidth,
-        int roomHeight,
-        bool[] openLeftEdges,
-        bool[] openTopEdges,
-        bool[] openRightEdges,
-        bool[] openBottomEdges) {
+    /// <summary>
+    /// Adds a rectangular room to the map.
+    /// </summary>
+    /// <param name="x">Grid x coordinate of the lower left of the room.</param>
+    /// <param name="y">Grid y coordinate of the lower left of the room.</param>
+    /// <param name="roomWidth">width of the room, must be >0</param>
+    /// <param name="roomHeight">height of the room, must be >0</param>
+    /// <param name="openLeftEdges">for each iy in this array, cell (x, y+iy) will have an open left edge.</param>
+    /// <param name="openTopEdges">for each ix in this array, cell (x+ix, y+roomHeight-1) will have an open top edge.</param>
+    /// <param name="openRightEdges">for each iy in this array, cell (x+roomWidth-1, y+iy) will have an open right edge.</param>
+    /// <param name="openBottomEdges">for each ix in this array, cell (x+ix, y) will have an open bottom edge.</param>
+    public void gridAddRoom(int x, int y, int roomWidth, int roomHeight,
+        int[] openLeftEdges, int[] openTopEdges, int[] openRightEdges, int[] openBottomEdges) {
         if (roomWidth < 1 || roomHeight < 1) {
             Debug.LogError("Room invalid dimensions");
             return;
@@ -448,27 +501,27 @@ public class MapUI : MonoBehaviour {
                 Edge rightEdge = Edge.NO_WALL;
                 Edge bottomEdge = Edge.NO_WALL;
                 if (ix == 0) {
-                    if (iy < openLeftEdges.Length && openLeftEdges[iy])
+                    if (contains(openLeftEdges, iy))
                         leftEdge = Edge.OPEN;
                     else leftEdge = Edge.WALL;
                 }
                 if (iy == 0) {
-                    if (ix < openBottomEdges.Length && openBottomEdges[ix])
+                    if (contains(openBottomEdges, ix))
                         bottomEdge = Edge.OPEN;
                     else bottomEdge = Edge.WALL;
                 }
                 if (ix == roomWidth - 1) {
-                    if (iy < openRightEdges.Length && openRightEdges[iy])
+                    if (contains(openRightEdges, iy))
                         rightEdge = Edge.OPEN;
                     else rightEdge = Edge.WALL;
                 }
                 if (iy == roomHeight - 1) {
-                    if (ix < openTopEdges.Length && openTopEdges[ix])
+                    if (contains(openTopEdges, ix))
                         topEdge = Edge.OPEN;
                     else topEdge = Edge.WALL;
                 }
                 
-                cells[iy, ix] = makeCell(leftEdge, topEdge, rightEdge, bottomEdge);
+                cells[iy, ix] = makeCell(leftEdge, topEdge, rightEdge, bottomEdge, true);
             }
         }
         gridAddRoom(x, y, roomWidth, roomHeight, cells);
@@ -494,25 +547,23 @@ public class MapUI : MonoBehaviour {
             return mapIcon;
         }
         mapIcon.transform.SetParent(transform, false);
-        mapIcon.transform.SetAsLastSibling();
-        if (playerPosition != null) {
-            playerPosition.transform.SetAsLastSibling();
+        if (icon == Icon.CHAMBER) {
+            mapIcon.transform.SetAsFirstSibling();
+            transform.Find("mapFillRawImage").SetAsFirstSibling();
+        } else {
+            mapIcon.transform.SetAsLastSibling();
+            if (playerPosition != null) {
+                playerPosition.transform.SetAsLastSibling();
+            }
         }
         mapIcon.x = x;
         mapIcon.y = y;
-        if (mapIcon.wideSprite) {
-            mapIcon.transform.localPosition = 
-                (new Vector3((x + 1) * CELL_WIDTH * 2, (y + 1) * CELL_HEIGHT * 2)) +
-                mapRawImage.GetComponent<RectTransform>().localPosition;
-        } else {
-            mapIcon.transform.localPosition =
-                (new Vector3((x + .5f) * CELL_WIDTH * 2, (y + .5f) * CELL_HEIGHT * 2)) +
-                mapRawImage.GetComponent<RectTransform>().localPosition;
-        }
+        mapIcon.transform.localPosition = iconLocalPosition(x, y, mapIcon.wideSprite);
         mapIcon.found = found;
         mapIcon.GetComponent<Image>().enabled = mapShowing;
 
         icons.Add(mapIcon);
+        iconsStr = iconsAppendToString(iconsStr, mapIcon);
         return mapIcon;
     }
     public MapIcon getIcon(Icon icon) {
@@ -531,10 +582,48 @@ public class MapUI : MonoBehaviour {
         }
         return null;
     }
+    public bool iconInPosition(Icon icon, int x, int y, bool checkIconsStr = true) {
 
-    ////////////////////
-    // EVENT MESSAGES //
-    ////////////////////
+        if (getIcon(icon, x, y) != null)
+            return true;
+
+        if (!checkIconsStr) return false;
+
+        string str = iconsStr;
+        if (str == "") return false;
+        char[] delims = { ',' };
+        string[] iconStrs = str.Split(delims);
+        for (int i = 0; i < iconStrs.Length; i++) {
+            string iStr = iconStrs[i];
+            int index0 = iStr.IndexOf("i") + 1;
+            int index1 = iStr.IndexOf("x");
+            Icon iconID = (Icon)(int.Parse(iStr.Substring(index0, index1 - index0)));
+            index0 = iStr.IndexOf("x") + 1;
+            index1 = iStr.IndexOf("y");
+            int iconX = int.Parse(iStr.Substring(index0, index1 - index0));
+            index0 = iStr.IndexOf("y") + 1;
+            index1 = iStr.IndexOf("f");
+            int iconY = int.Parse(iStr.Substring(index0, index1 - index0));
+            index0 = iStr.IndexOf("f") + 1;
+            int iconFound = int.Parse(iStr.Substring(index0));
+
+            if (icon == iconID && x == iconX && y == iconY)
+                return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
+
+
+
+    float slideTime = 0;
+
+
+
+    #region Private Event Funtions
 
     void Awake() {
         // singleton stuff
@@ -558,64 +647,130 @@ public class MapUI : MonoBehaviour {
         mapFillRawImage = transform.Find("mapFillRawImage").GetComponent<RawImage>();
         mapFillRawImage.texture = mapFillTexture;
         // creating player position
+        if (playerPosition != null) {
+            GameObject.Destroy(playerPosition);
+            playerPosition = null;
+        }
         playerPosition = GameObject.Instantiate(playerPositionGameObject) as GameObject;
         playerPosition.transform.SetParent(transform, false);
         playerPosition.GetComponent<Image>().enabled = false;
         setPlayerPosition(0, 0);
+        // creating selector green
+        if (selectorGreen != null) {
+            GameObject.Destroy(selectorGreen);
+            selectorGreen = null;
+        }
+        selectorGreen = GameObject.Instantiate(selectorGreenGameObject) as GameObject;
+        selectorGreen.transform.SetParent(transform, false);
+        selectorGreen.GetComponent<Image>().enabled = false;
 
         // set map from temp strings
         gridFromString(tempGridString);
-        iconsFromString(tempIconString);
+        iconsStr = tempIconString;
+        iconsFromString(iconsStr);
     }
 
     void Start() {
-
-        // all for testing
-        /*
-        gridAddRoom(30, 10, 1, 1,
-            new int[,] { { makeCell(Edge.WALL, Edge.WALL, Edge.WALL, Edge.WALL) } });
-
-        gridAddRoom(10, 10, 2, 1,
-            new bool[] { false },
-            new bool[] { false, true },
-            new bool[] { false },
-            new bool[] { false, false });
-
-        gridAddRoom(30, 30, 2, 2,
-            new bool[] { false, true },
-            new bool[] { false, false },
-            new bool[] { false, false },
-            new bool[] { true, false });
-        gridAddRoom(30, 28, 3, 2,
-            new bool[] { false, false },
-            new bool[] { true, false, false },
-            new bool[] { false, false },
-            new bool[] { false, false, false });
-
-        gridAddRoom(0, 0, 1, 1,
-            new int[,] { { makeCell(Edge.WALL, Edge.WALL, Edge.WALL, Edge.WALL) } });
-        gridAddRoom(59, 49, 1, 1,
-            new int[,] { { makeCell(Edge.OPEN, Edge.OPEN, Edge.OPEN, Edge.OPEN) } });
-
-        addIcon(Icon.CHAMBER, 10, 10);
-        addIcon(Icon.BOOSTER, 30, 30, true);
-
-        setPlayerPosition(11, 10);
-
-        */
-
+        
         // saves icon locations in iconsStr
         hideMap();
 
     }
 	
 	void Update() {
-		
+        
+
+        slideTime += Time.unscaledDeltaTime;
+
+        switch (displayMode) {
+        case DisplayMode.MAP_PAGE:
+            break;
+        case DisplayMode.HUD_SLIDE_IN:
+            maskSize = Utilities.easeLinearClamp(slideTime, Vector2.zero, HUDSize, slideDuration);
+            if (slideTime >= slideDuration) {
+                displayMode = DisplayMode.HUD;
+            }
+            break;
+        case DisplayMode.HUD:
+            break;
+        case DisplayMode.HUD_SLIDE_OUT:
+            maskSize = Utilities.easeLinearClamp(slideTime, HUDSize, -HUDSize, slideDuration);
+            if (slideTime >= slideDuration) {
+                hideMap();
+                displayMode = DisplayMode.MAP_PAGE;
+            }
+            break;
+        }
+
+        if (mapShown && displayMode == DisplayMode.MAP_PAGE) {
+            
+            // moving selector green
+            if (selectorGreen.GetComponent<Image>().enabled) {
+                MapIcon nextIcon = null;
+                if (Keys.instance.upPressed) {
+                    nextIcon = getNextChamberIcon(selectorGreenGridX, selectorGreenGridY, Direction.UP);
+                } else if (Keys.instance.rightPressed) {
+                    nextIcon = getNextChamberIcon(selectorGreenGridX, selectorGreenGridY, Direction.RIGHT);
+                } else if (Keys.instance.downPressed) {
+                    nextIcon = getNextChamberIcon(selectorGreenGridX, selectorGreenGridY, Direction.DOWN);
+                } else if (Keys.instance.leftPressed) {
+                    nextIcon = getNextChamberIcon(selectorGreenGridX, selectorGreenGridY, Direction.LEFT);
+                }
+                if (nextIcon != null) {
+                    selectorGreenGridX = nextIcon.x;
+                    selectorGreenGridY = nextIcon.y;
+                    selectorGreen.transform.localPosition = iconLocalPosition(selectorGreenGridX, selectorGreenGridY);
+                    SoundManager.instance.playSFXIgnoreVolumeScale(chamberSwitchSound);
+                    mapPageSetChamberText(nextIcon);
+                }
+
+            } else {
+                // if isn't visible, pressing any button will make it visible
+                if (Keys.instance.upPressed || Keys.instance.rightPressed || Keys.instance.downPressed || Keys.instance.leftPressed ||
+                    Keys.instance.confirmPressed) {
+                    
+                    // position where the chamber icon closest to the player is
+                    MapIcon closestIcon = getClosestChamberIcon(playerPositionGridX, playerPositionGridY);
+                    if (closestIcon != null) {
+                        selectorGreen.GetComponent<Image>().enabled = true;
+                        selectorGreenGridX = closestIcon.x;
+                        selectorGreenGridY = closestIcon.y;
+                        selectorGreen.transform.localPosition = iconLocalPosition(selectorGreenGridX, selectorGreenGridY);
+                        mapPageSetChamberText(closestIcon);
+                    }
+                    
+                }
+            }
+
+        }
+
 	}
 
-    /////////////
-    // PRIVATE //
-    /////////////
+    // not working right.  possible future feature
+    //public void setMapSlideIn() {
+    //    if (!canDisplayMapInHUD) return;
+    //    if (displayMode != DisplayMode.MAP_PAGE) return;
+
+    //    displayMode = DisplayMode.HUD_SLIDE_IN;
+    //    slideTime = 0;
+    //    showMap(false);
+    //    position = HUDPos;
+    //    maskSize = new Vector2(0, 0);
+
+    //}
+
+    //public void setMapSlideOut() {
+    //    if (!canDisplayMapInHUD) return;
+    //    if (displayMode != DisplayMode.HUD) return;
+
+    //    displayMode = DisplayMode.HUD_SLIDE_OUT;
+    //    slideTime = 0;
+
+    //}
+
+    #endregion
+
+    #region Private Misc.
 
     private static MapUI _instance = null;
 
@@ -626,11 +781,155 @@ public class MapUI : MonoBehaviour {
     RawImage mapFillRawImage;
 
     GameObject playerPosition;
+    int playerPositionGridX = 0;
+    int playerPositionGridY = 0;
+    GameObject selectorGreen;
+    int selectorGreenGridX = 0;
+    int selectorGreenGridY = 0;
 
     RectTransform rectTransform;
 
     int[,] grid = new int[GRID_HEIGHT, GRID_WIDTH];
     List<MapIcon> icons = new List<MapIcon>();
-    string iconsStr = "";
+    
+    private bool contains(int[] intArr, int val) {
+        foreach (int i in intArr) {
+            if (i == val) return true;
+        }
+        return false;
+    }
+
+    enum Direction {
+        LEFT, UP, RIGHT, DOWN
+    }
+    
+    MapIcon getNextChamberIcon(int startGridX, int startGridY, Direction direction) {
+        // get all chamber icons
+        List<MapIcon> cIcons = new List<MapIcon>();
+        foreach (MapIcon mapIcon in icons) {
+            if (mapIcon.icon == Icon.CHAMBER &&
+                (mapIcon.x != startGridX || mapIcon.y != startGridY))
+                cIcons.Add(mapIcon);
+        }
+        if (cIcons.Count == 0)
+            return null;
+
+        Vector2 startGrid = new Vector2(startGridX, startGridY);
+        MapIcon ret = null;
+        float dist = 99999;
+        float d;
+
+        switch (direction) {
+        case Direction.LEFT:
+            foreach (MapIcon mapIcon in cIcons) {
+                if (Utilities.pointInSector(new Vector2(mapIcon.x, mapIcon.y), startGrid, 99999, Mathf.PI, Mathf.PI / 2)) {
+                    d = startGridX - mapIcon.x;
+                    if (d < dist) {
+                        dist = d;
+                        ret = mapIcon;
+                    }
+                }
+            }
+            break;
+        case Direction.DOWN:
+            foreach (MapIcon mapIcon in cIcons) {
+                if (Utilities.pointInSector(new Vector2(mapIcon.x, mapIcon.y), startGrid, 99999, -Mathf.PI/2, Mathf.PI / 2)) {
+                    d = startGridY - mapIcon.y;
+                    if (d < dist) {
+                        dist = d;
+                        ret = mapIcon;
+                    }
+                }
+            }
+            break;
+        case Direction.RIGHT:
+            foreach (MapIcon mapIcon in cIcons) {
+                if (Utilities.pointInSector(new Vector2(mapIcon.x, mapIcon.y), startGrid, 99999, 0, Mathf.PI / 2)) {
+                    d = mapIcon.x - startGridX;
+                    if (d < dist) {
+                        dist = d;
+                        ret = mapIcon;
+                    }
+                }
+            }
+            break;
+        case Direction.UP:
+            foreach (MapIcon mapIcon in cIcons) {
+                if (Utilities.pointInSector(new Vector2(mapIcon.x, mapIcon.y), startGrid, 99999, Mathf.PI / 2, Mathf.PI / 2)) {
+                    d = mapIcon.y - startGridY;
+                    if (d < dist) {
+                        dist = d;
+                        ret = mapIcon;
+                    }
+                }
+            }
+            break;
+        }
+
+        return ret;
+    }
+
+    MapIcon getClosestChamberIcon(int startGridX, int startGridY) {
+        // get all chamber icons
+        List<MapIcon> cIcons = new List<MapIcon>();
+        foreach (MapIcon mapIcon in icons) {
+            if (mapIcon.icon == Icon.CHAMBER)
+                cIcons.Add(mapIcon);
+        }
+        if (cIcons.Count == 0)
+            return null;
+
+        float dist = 9999;
+        float d = 0;
+        MapIcon ret = null;
+        foreach (MapIcon icon in cIcons) {
+            d = Mathf.Abs(icon.x - startGridX) + Mathf.Abs(icon.y - startGridY);
+            if (d < dist) {
+                ret = icon;
+                dist = d;
+            }
+        }
+        return ret;
+    }
+
+    Vector3 iconLocalPosition(int gridX, int gridY, bool wideSprite = false) {
+        if (wideSprite) {
+            return (new Vector3((gridX + 1) * CELL_WIDTH * 2, (gridY + 1) * CELL_HEIGHT * 2)) +
+                mapRawImage.GetComponent<RectTransform>().localPosition;
+        } else {
+            return (new Vector3((gridX + .5f) * CELL_WIDTH * 2, (gridY + .5f) * CELL_HEIGHT * 2)) +
+                mapRawImage.GetComponent<RectTransform>().localPosition;
+        }
+    }
+
+    void mapPageSetChamberText(MapIcon chamberIcon) {
+        // get map page
+        MapPage mapPage = HUD.instance.pauseScreen.mapPage;
+        if (mapPage == null) return;
+
+        // search through all the nodes to get information about the chamber
+        string positionCode = ChamberPlatform.positionCodeFromMapPosition(chamberIcon.x, chamberIcon.y);
+        float firstTime = 99999;
+        float lastTime = -1;
+        foreach (NodeData node in NodeData.allNodes) {
+            if (node.temporary) continue;
+            if (node.chamberPositionCode == positionCode) {
+                firstTime = Mathf.Min(firstTime, node.time);
+                lastTime = Mathf.Max(lastTime, node.time);
+            }
+        }
+
+        // set text
+        if (lastTime == -1) {
+            mapPage.setChamberText(positionCode);
+        } else if (firstTime == lastTime) {
+            mapPage.setChamberText(positionCode, firstTime);
+        } else {
+            mapPage.setChamberText(positionCode, firstTime, lastTime);
+        }
+
+    }
+
+    #endregion
 
 }

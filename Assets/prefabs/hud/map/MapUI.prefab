@@ -116,11 +116,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8dea8db49af1804fb11611e359b4c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topEdgeColor: {r: .949019611, g: .949019611, b: .949019611, a: 1}
-  bottomEdgeColor: {r: .801470578, g: .801470578, b: .801470578, a: 1}
-  fillColor: {r: .141176477, g: 0, b: .20784314, a: 1}
+  topEdgeColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+  bottomEdgeColor: {r: 0.8014706, g: 0.8014706, b: 0.8014706, a: 1}
+  fillColor: {r: 0.14117648, g: 0, b: 0.20784314, a: 1}
   topOpenGapWidth: 3
   leftOpenGapHeight: 2
+  HUDPos: {x: 0, y: 0}
+  HUDSize: {x: 800, y: 400}
+  slideDuration: 0.5
   iconChamberGameObject: {fileID: 113824, guid: 77485849fce57af48aba8c8b4af52e2c,
     type: 2}
   iconHealthUpgradeGameObject: {fileID: 142626, guid: ff845d00f6ac7d64090f2ef5e364a6be,
@@ -130,6 +133,9 @@ MonoBehaviour:
   iconOrb0GameObject: {fileID: 133244, guid: 0d581556523d90d46883eb883081d910, type: 2}
   playerPositionGameObject: {fileID: 158362, guid: aa66fdd5c1496e84db8df2ca17b2cc58,
     type: 2}
+  selectorGreenGameObject: {fileID: 117624, guid: b0db92e0c05b0ad4790db7e53bf4fa64,
+    type: 2}
+  chamberSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
 --- !u!114 &11486074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,8 +203,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22457364}
   m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -540, y: -300}
   m_SizeDelta: {x: 540, y: 300}
   m_Pivot: {x: 0, y: 0}
@@ -216,11 +222,11 @@ RectTransform:
   - {fileID: 22402134}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1080, y: 600}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22495096
 RectTransform:
   m_ObjectHideFlags: 1
@@ -233,8 +239,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22457364}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -540, y: -300}
   m_SizeDelta: {x: 540, y: 300}
   m_Pivot: {x: 0, y: 0}
@@ -244,7 +250,23 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: HUDSize.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: HUDSize.y
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: selectorGreenGameObject
+      value: 
+      objectReference: {fileID: 117624, guid: b0db92e0c05b0ad4790db7e53bf4fa64, type: 2}
+    - target: {fileID: 0}
+      propertyPath: chamberSwitchSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113364}

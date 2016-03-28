@@ -10,7 +10,6 @@ public class CountdownTimer : MonoBehaviour {
     public Rect dotBox = new Rect(-66, -17, 132, 34);
     public float dotPeriod = 60;
     public Sprite normalSprite;
-    public Color normalColor = Color.white;
     public Sprite meltdownSprite;
     public Sprite meltdownPerilSprite;
     public Sprite weirdSprite;
@@ -31,6 +30,7 @@ public class CountdownTimer : MonoBehaviour {
         }
     }
 
+    public static Color NORMAL_COLOR = new Color(231/255f, 231/255f, 231/255f);
     public static Color MELTDOWN_COLOR = new Color(253/255f, 255/255f, 138/255f);
     public static Color MELTDOWN_PERIL_COLOR = new Color(234/255f, 0, 0);
     
@@ -49,7 +49,7 @@ public class CountdownTimer : MonoBehaviour {
             switch (mode) {
             case Mode.NORMAL:
                 image.sprite = normalSprite;
-                glyphBox.setColor(normalColor);
+                glyphBox.setColor(NORMAL_COLOR);
                 break;
             case Mode.MELTDOWN:
                 image.sprite = meltdownSprite;
@@ -114,7 +114,7 @@ public class CountdownTimer : MonoBehaviour {
         foreach (CountdownTimerDot dot in dots) {
             dot.mode = Mode.NORMAL;
         }
-        glyphBox.setColor(normalColor);
+        glyphBox.setColor(NORMAL_COLOR);
     }
 
 	void Awake() {

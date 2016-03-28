@@ -111,6 +111,10 @@ public class GlyphBox : MonoBehaviour {
         }
     }
 
+    public int lineLength(int line) {
+        return lines[line].Length;
+    }
+
     ///////////////
     // FUNCTIONS //
     ///////////////

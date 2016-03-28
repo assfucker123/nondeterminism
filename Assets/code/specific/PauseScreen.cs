@@ -554,11 +554,11 @@ public class PauseScreen : MonoBehaviour {
      * */
     
     // pages
-    MapPage mapPage;
-    //TimeTreePage timeTreePage
-    TalkPage talkPage;
-    ProgressPage progressPage;
-    OptionsPage optionsPage;
+    public MapPage mapPage { get; private set; }
+    //public TimeTreePage timeTreePage { get; private set; }
+    public TalkPage talkPage { get; private set; }
+    public ProgressPage progressPage { get; private set; }
+    public OptionsPage optionsPage { get; private set; }
     
     
     

@@ -700,7 +700,7 @@ public class Vars {
         if (MapUI.instance == null) {
             ret += "";
         } else {
-            ret += MapUI.instance.iconsToString();
+            ret += MapUI.instance.iconsStr;
         }
 
         return ret;

@@ -78,6 +78,7 @@ public class Player : MonoBehaviour {
     public AudioClip flashbackBeginSound;
     public AudioClip flashbackEndSound;
     public AudioClip roomRestartSound;
+    public AudioClip turnSound;
 
     #endregion
 
@@ -431,6 +432,14 @@ public class Player : MonoBehaviour {
             VisionUser.deactivateAbility();
         } else if (!VisionUser.abilityActive && phase >= visionsPhase) {
             VisionUser.activateAbility();
+        }
+
+        // update player position on map
+        if (MapUI.instance != null) {
+            Vector2 plrMapPos = MapUI.instance.gridPositionFromWorldPosition(Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapY, rb2d.position);
+            plrMapPos.x = Mathf.Clamp(plrMapPos.x, Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapX + Level.currentLoadedLevel.mapWidth - 1);
+            plrMapPos.y = Mathf.Clamp(plrMapPos.y, Level.currentLoadedLevel.mapY, Level.currentLoadedLevel.mapY + Level.currentLoadedLevel.mapHeight - 1);
+            MapUI.instance.setPlayerPosition(Mathf.RoundToInt(plrMapPos.x), Mathf.RoundToInt(plrMapPos.y));
         }
 
         //set button vars
@@ -794,6 +803,7 @@ public class Player : MonoBehaviour {
             if (!prevFlippedHoriz) {
                 // make turn sparks
                 GameObject.Instantiate(turnSparksGameObject, rb2d.position + turnSparksSpawnPos, Quaternion.identity);
+                SoundManager.instance.playSFXRandPitchBend(turnSound);
             }
 
         } else if (rightHeld) {
@@ -821,6 +831,7 @@ public class Player : MonoBehaviour {
                 // make turn sparks
                 GameObject tsGO = GameObject.Instantiate(turnSparksGameObject, rb2d.position + new Vector2(-turnSparksSpawnPos.x, turnSparksSpawnPos.y), Quaternion.identity) as GameObject;
                 tsGO.transform.localScale = new Vector3(-1, 1, 1);
+                SoundManager.instance.playSFXRandPitchBend(turnSound);
             }
 
         } else { //no horiz input

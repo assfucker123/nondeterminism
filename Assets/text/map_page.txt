@@ -1,0 +1,4 @@
+chamber: Chamber
+visited: Visited
+first_visited: First visited
+last_visited: Last visited
