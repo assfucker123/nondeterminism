@@ -48,6 +48,18 @@ public static class Utilities {
         return x - Mathf.Floor(x / y) * y;
     }
 
+    /// <summary>
+    /// Given elements in a line, all a spaced a specified distance from each other, with the average displacement being 0, what's the position of each element?
+    /// </summary>
+    /// <param name="spacing">Distance between each element</param>
+    /// <param name="index">The index of the given element</param>
+    /// <param name="numElements">Total number of elements</param>
+    /// <returns></returns>
+    public static float centeredSpacing(float spacing, int index, int numElements) {
+        if (numElements <= 1) return 0;
+        return (index - (numElements - 1.0f) / 2) * spacing;
+    }
+
     /* returns if v2 is positioned clockwise to v1 */
     public static bool isClockwise(Vector2 v1, Vector2 v2) {
         return -v1.x * v2.y + v1.y * v2.x > 0;
