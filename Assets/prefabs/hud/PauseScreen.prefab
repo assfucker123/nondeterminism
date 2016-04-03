@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11407972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,6 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11415064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,6 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11440186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,6 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11443678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,6 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11462590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,6 +395,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchSound: {fileID: 8300000, guid: cfddc3f81f01c18488101dd5d2c31b24, type: 3}
   mapPageGameObject: {fileID: 132328, guid: bc6057973e77ab042bd6a1d136c040d4, type: 2}
+  timeTreePageGameObject: {fileID: 154752, guid: 37b64333e0c1dbf46b14e5e33fd80b9b,
+    type: 2}
   talkPageGameObject: {fileID: 122212, guid: c762de82b372f5342b1b6718b3552b7b, type: 2}
   progressPageGameObject: {fileID: 148960, guid: 19d08e8bd443edf4dbee958bb184001a,
     type: 2}
@@ -402,6 +414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!222 &22287636
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -628,6 +642,10 @@ Prefab:
       propertyPath: progressPageGameObject
       value: 
       objectReference: {fileID: 148960, guid: 19d08e8bd443edf4dbee958bb184001a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: timeTreePageGameObject
+      value: 
+      objectReference: {fileID: 154752, guid: 37b64333e0c1dbf46b14e5e33fd80b9b, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 183126}

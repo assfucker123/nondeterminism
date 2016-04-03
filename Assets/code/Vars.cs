@@ -163,7 +163,7 @@ public class Vars {
         SceneManager.LoadScene(name);
 
         updateNodeData(currentNodeData);
-        levelStartNodeData = NodeData.createNodeData(currentNodeData, true);
+        levelStartNodeData = NodeData.createNodeData(null, true);
         levelStartNodeData.copyFrom(currentNodeData);
     }
 

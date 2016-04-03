@@ -226,6 +226,8 @@ public class MapUI : MonoBehaviour {
 
     public DisplayMode displayMode { get; private set; }
 
+    public bool inputEnabled = true;
+
     /// <summary>
     /// From a position in a room, returns what its position would be on the grid (returns int Vector2)
     /// </summary>
@@ -702,7 +704,7 @@ public class MapUI : MonoBehaviour {
             break;
         }
 
-        if (mapShown && displayMode == DisplayMode.MAP_PAGE) {
+        if (mapShown && displayMode == DisplayMode.MAP_PAGE && inputEnabled) {
             
             // moving selector green
             if (selectorGreen.GetComponent<Image>().enabled) {

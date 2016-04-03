@@ -35,7 +35,7 @@ public class Level : MonoBehaviour {
 
         // If currentNodeData hasn't been created yet (it should be created if game started at the title screen), then create something
         if (Vars.currentNodeData == null) {
-
+            
             // loading data (which would have been done in the title screen)
             Vars.loadSettings();
             Vars.loadData(Vars.saveFileIndexLastUsed);

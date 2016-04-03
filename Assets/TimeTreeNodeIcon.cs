@@ -11,6 +11,9 @@ public class TimeTreeNodeIcon : MonoBehaviour {
     public Sprite normalSprite;
     public Sprite boosterSprite;
     public Sprite grayedSprite;
+    public Sprite normalTemporarySprite;
+    public Sprite boosterTemporarySprite;
+    public Sprite grayedTemporarySprite;
     public Vector2 tokenCenter = new Vector2(0, -1);
     public int tokenMaxNumColumns = 4;
     public float tokenHorizSpacing = 2;
@@ -51,12 +54,44 @@ public class TimeTreeNodeIcon : MonoBehaviour {
             if (_booster == value) return;
             _booster = value;
             glyphColor = booster ? glyphBoosterColor : glyphNormalColor;
-            if (!grayed) {
-                if (booster) {
-                    image.sprite = boosterSprite;
-                } else {
-                    image.sprite = normalSprite;
+            updateSprite();
+        }
+    }
+
+    public bool temporary {
+        get { return _temporary; }
+        set {
+            if (_temporary == value) return;
+            _temporary = value;
+            if (temporary) {
+                glyph1.visible = false;
+                glyph2.visible = false;
+                foreach (GameObject tok in upgradeTokens) {
+                    tok.GetComponent<Image>().enabled = false;
                 }
+            } else {
+                glyph1.visible = true;
+                glyph2.visible = true;
+                foreach (GameObject tok in upgradeTokens) {
+                    tok.GetComponent<Image>().enabled = true;
+                }
+            }
+            updateSprite();
+        }
+    }
+
+    void updateSprite() {
+        if (temporary) {
+            if (grayed) {
+                image.sprite = grayedTemporarySprite;
+            } else {
+                image.sprite = booster ? boosterTemporarySprite : normalTemporarySprite;
+            }
+        } else {
+            if (grayed) {
+                image.sprite = grayedSprite;
+            } else {
+                image.sprite = booster ? boosterSprite : normalSprite;
             }
         }
     }
@@ -67,17 +102,16 @@ public class TimeTreeNodeIcon : MonoBehaviour {
             if (_grayed == value) return;
             _grayed = value;
             if (grayed) {
-                image.sprite = grayedSprite;
                 glyph1.color = glyphGrayedColor;
                 glyph2.color = glyphGrayedColor;
             } else {
-                image.sprite = booster ? boosterSprite : normalSprite;
                 glyph1.color = _glyphColor;
                 glyph2.color = _glyphColor;
             }
             foreach (GameObject tokenGO in upgradeTokens) {
                 tokenGO.GetComponent<TimeTreeNodeUpgradeToken>().grayed = grayed;
             }
+            updateSprite();
         }
     }
 
@@ -124,6 +158,16 @@ public class TimeTreeNodeIcon : MonoBehaviour {
             glyph1.gameObject.GetComponent<RectTransform>().localPosition.x, glyphInitialY + (numRows - 1) * (tokenVertSpacing / 2));
         glyph2.gameObject.GetComponent<RectTransform>().localPosition = new Vector2(
             glyph2.gameObject.GetComponent<RectTransform>().localPosition.x, glyph1.gameObject.GetComponent<RectTransform>().localPosition.y);
+
+        if (temporary) {
+            foreach (GameObject tok in upgradeTokens) {
+                tok.GetComponent<Image>().enabled = false;
+            }
+        } else {
+            foreach (GameObject tok in upgradeTokens) {
+                tok.GetComponent<Image>().enabled = true;
+            }
+        }
     }
 
     public void clearTokens() {
@@ -131,6 +175,21 @@ public class TimeTreeNodeIcon : MonoBehaviour {
             GameObject.Destroy(tok);
         }
         upgradeTokens.Clear();
+    }
+
+    public bool showing {
+        get { return image.enabled; }
+        set {
+            if (value == showing) return;
+            image.enabled = value;
+            if (!temporary) {
+                glyph1.visible = value;
+                glyph2.visible = value;
+                foreach (GameObject tok in upgradeTokens) {
+                    tok.GetComponent<Image>().enabled = value;
+                }
+            }
+        }
     }
 
     void Awake() {
@@ -141,12 +200,6 @@ public class TimeTreeNodeIcon : MonoBehaviour {
 
     void Start() {
         glyphColor = glyphNormalColor;
-
-        // testing
-        chars = "G5";
-        setTokens(3, 1);
-        grayed = false;
-        booster = false;
     }
 	
 	void Update() {
@@ -162,6 +215,7 @@ public class TimeTreeNodeIcon : MonoBehaviour {
     GlyphSprite glyph2;
     bool _booster = false;
     bool _grayed = false;
+    bool _temporary = false;
     Color _glyphColor = new Color();
     List<GameObject> upgradeTokens = new List<GameObject>();
 

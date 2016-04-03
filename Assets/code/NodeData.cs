@@ -91,6 +91,7 @@ public class NodeData {
     public NodeData parent = null;
     public List<NodeData> children = new List<NodeData>();
     public bool temporary = false; // temporary nodes are not saved
+    public TimeTreePage.TimeTreeNode timeTreeNode = null; // used when constructing time trees
 
     /* Copies info from the given nodeData to this (except for ID) */
     public void copyFrom(NodeData nodeData) {

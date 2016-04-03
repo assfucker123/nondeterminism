@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class PauseScreen : MonoBehaviour {
 
+    #region Public Static and Enum
+
     public static PauseScreen instance { get { return _instance; } }
     public static bool paused {
         get {
@@ -21,15 +23,6 @@ public class PauseScreen : MonoBehaviour {
     }
     public static bool lightFlag = false;
 
-    public AudioClip switchSound;
-    public GameObject mapPageGameObject;
-    //public GameObject timeTreePageGameObject;
-    public GameObject talkPageGameObject;
-    public GameObject progressPageGameObject;
-    public GameObject optionsPageGameObject;
-    public TextAsset propAsset;
-    float openAnimationDuration = .00001f; //can't be 0
-
     public static Color DEFAULT_COLOR = new Color(190/255f, 140/255f, 255/255f); // BE8CFF
     public static Color SELECTED_COLOR = new Color(30/255f, 22/255f, 40/255f); // 1E1628
     public static Color UNAVAILABLE_COLOR = new Color(160/255f, 73/255f, 125/255f); // A0497D
@@ -43,6 +36,23 @@ public class PauseScreen : MonoBehaviour {
         OPTIONS
     }
 
+    #endregion
+
+    #region Inspector Properties
+
+    public AudioClip switchSound;
+    public GameObject mapPageGameObject;
+    public GameObject timeTreePageGameObject;
+    public GameObject talkPageGameObject;
+    public GameObject progressPageGameObject;
+    public GameObject optionsPageGameObject;
+    public TextAsset propAsset;
+    float openAnimationDuration = .00001f; //can't be 0
+
+    #endregion
+
+    
+
     public Page page { get { return _page; } }
     
     // pauses the game, doing an animation before the player can choose stuff
@@ -51,6 +61,11 @@ public class PauseScreen : MonoBehaviour {
         if (page == Page.NONE) return;
         if (ScriptRunner.scriptsPreventPausing)
             return;
+
+        // update time, to be used for pages in the pause menu
+        if (Vars.currentNodeData != null && CountdownTimer.instance != null) {
+            Vars.currentNodeData.time = CountdownTimer.instance.time;
+        }
         
         stopTime();
         if (!Vars.screenshotMode) {
@@ -198,7 +213,7 @@ public class PauseScreen : MonoBehaviour {
             break;
         case Page.TIME_TREE:
             option = timeTreePageText;
-            //timeTreePage.hide();
+            timeTreePage.hide();
             break;
         case Page.TALK:
             option = talkPageText;
@@ -230,7 +245,7 @@ public class PauseScreen : MonoBehaviour {
             break;
         case Page.TIME_TREE:
             option = timeTreePageText;
-            //timeTreePage.show();
+            timeTreePage.show();
             break;
         case Page.TALK:
             option = talkPageText;
@@ -290,6 +305,12 @@ public class PauseScreen : MonoBehaviour {
         mapPageGO.transform.SetParent(transform, false);
         mapPage = mapPageGO.GetComponent<MapPage>();
         mapPage.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        // time tree page
+        GameObject timeTreePageGO = GameObject.Instantiate(timeTreePageGameObject);
+        timeTreePageGO.transform.SetParent(transform, false);
+        timeTreePage = timeTreePageGO.GetComponent<TimeTreePage>();
+        timeTreePage.GetComponent<RectTransform>().localScale = Vector3.one;
 
         // talk page
         GameObject talkPageGO = GameObject.Instantiate(talkPageGameObject);
@@ -476,7 +497,7 @@ public class PauseScreen : MonoBehaviour {
             mapPage.update();
             break;
         case Page.TIME_TREE:
-            //timeTreePage.update();
+            timeTreePage.update();
             break;
         case Page.TALK:
             talkPage.update();
@@ -503,9 +524,9 @@ public class PauseScreen : MonoBehaviour {
         if (mapPage != null)
             GameObject.Destroy(mapPage.gameObject);
         mapPage = null;
-        //if (timeTreePage != null)
-        //  GameObject.Destroy(timeTreePage.gameObject);
-        //timeTreePage = null;
+        if (timeTreePage != null)
+            GameObject.Destroy(timeTreePage.gameObject);
+        timeTreePage = null;
         if (talkPage != null)
             GameObject.Destroy(talkPage.gameObject);
         talkPage = null;
@@ -555,7 +576,7 @@ public class PauseScreen : MonoBehaviour {
     
     // pages
     public MapPage mapPage { get; private set; }
-    //public TimeTreePage timeTreePage { get; private set; }
+    public TimeTreePage timeTreePage { get; private set; }
     public TalkPage talkPage { get; private set; }
     public ProgressPage progressPage { get; private set; }
     public OptionsPage optionsPage { get; private set; }
