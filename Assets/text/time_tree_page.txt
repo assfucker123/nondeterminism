@@ -1,1 +1,4 @@
-um: Yeah
+chamber: Chamber
+current_position: (Current position)
+flashback_instr: Press Z to Flashback to
+low_phase_instr: Cannot Flashback (not enough phase)

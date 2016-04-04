@@ -136,6 +136,7 @@ MonoBehaviour:
   selectorGreenGameObject: {fileID: 117624, guid: b0db92e0c05b0ad4790db7e53bf4fa64,
     type: 2}
   chamberSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  inputEnabled: 1
 --- !u!114 &11486074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,6 +268,18 @@ Prefab:
       propertyPath: chamberSwitchSound
       value: 
       objectReference: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+    - target: {fileID: 0}
+      propertyPath: timeTreePos.y
+      value: -176
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeTreePos.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeTreeSize.y
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113364}

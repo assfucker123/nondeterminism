@@ -543,7 +543,10 @@ public class ProgressPage : MonoBehaviour {
             _instance = null;
     }
 
+
+#pragma warning disable 414
     private static string _currentObjectiveFile = "co_first_tutorial";
+#pragma warning restore 414
     private static ProgressPage _instance = null;
 
     Image listBG;
@@ -568,7 +571,6 @@ public class ProgressPage : MonoBehaviour {
     float selectionVisualDuration = .15f;
     Vector2 selectionVisualPos0 = new Vector2();
     Vector2 selectionVisualPos1 = new Vector2();
-    bool markNotNewOnceTextBoxNotUsed = false;
     List<ProgressItem> list = new List<ProgressItem>();
 
 }

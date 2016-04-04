@@ -147,17 +147,29 @@ public static class Utilities {
         t /= d;
         return c*t*t + b;
     }
+    public static Vector2 easeInQuad(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeInQuad(t, b.x, c.x, d), easeInQuad(t, b.y, c.y, d));
+    }
     public static float easeInQuadClamp(float t, float b, float c, float d) {
         t = Mathf.Min(d, Mathf.Max(0, t));
         return easeInQuad(t, b, c, d);
+    }
+    public static Vector2 easeInQuadClamp(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeInQuadClamp(t, b.x, c.x, d), easeInQuadClamp(t, b.y, c.y, d));
     }
     public static float easeOutQuad(float t, float b, float c, float d) {
         t /= d;
         return -c * t * (t - 2) + b;
     }
+    public static Vector2 easeOutQuad(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeOutQuad(t, b.x, c.x, d), easeOutQuad(t, b.y, c.y, d));
+    }
     public static float easeOutQuadClamp(float t, float b, float c, float d) {
         t = Mathf.Min(d, Mathf.Max(0, t));
         return easeOutQuad(t, b, c, d);
+    }
+    public static Vector2 easeOutQuadClamp(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeOutQuadClamp(t, b.x, c.x, d), easeOutQuadClamp(t, b.y, c.y, d));
     }
     public static float easeInOutQuad(float t, float b, float c, float d) {
         t /= d / 2;

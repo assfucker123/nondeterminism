@@ -7,11 +7,29 @@ using UnityEngine.UI.Extensions;
 public class TimeTreePage : MonoBehaviour {
 
     #region Inspector Properties
+    
+    public float VERTICAL_SPACING = 50;
+    public float minPixelDistanceForVisibleLine = 20;
+    public float intervalDuration = 5*60;
+    public Color descripBoxFlashbackColor = new Color();
+    public float nodeContainerScrollDuration = .2f;
+    public float nodeContainerPadding = 25;
+    public Color lowPhaseColor = new Color(255/255f, 190/255f, 0/255f);
+    public GameObject iconGameObject;
+    public GameObject selectorGameObject;
+    public GameObject lineRendererGameObject;
+    public GameObject intervalGameObject;
+    public AudioClip nodeSwitchSound;
+    public TextAsset textAsset;
+
+    #endregion
+
+    #region Other Public Properties
 
     public float SECONDS_TO_PIXELS {
         get {
-            //return 1000 / CountdownTimer.MELTDOWN_DURATION;
             return 2500 / CountdownTimer.MELTDOWN_DURATION;
+            //return 7500 / CountdownTimer.MELTDOWN_DURATION;
         }
     }
     public int startingHealthUpgradeCount {
@@ -19,15 +37,24 @@ public class TimeTreePage : MonoBehaviour {
             return 2;
         }
     }
-    public float VERTICAL_SPACING = 50;
-    public float minPixelDistanceForVisibleLine = 20;
-    public float intervalDuration = 5*60;
-    public GameObject iconGameObject;
-    public GameObject selectorGameObject;
-    public GameObject lineRendererGameObject;
-    public GameObject intervalGameObject;
-    public AudioClip nodeSwitchSound;
-    public TextAsset textAsset;
+    public float nodeDisplayWidth { get { return nodeMask.GetComponent<RectTransform>().sizeDelta.x; } }
+    public Vector2 nodeContainerCenterOffset { get { return new Vector2(-nodeDisplayWidth / 2 + nodeContainerPadding, 0); } }
+    public float nodeContainerScrollXMin {
+        get {
+            return -nodeContainerCenterOffset.x - SECONDS_TO_PIXELS * CountdownTimer.MELTDOWN_DURATION;
+        }
+    }
+    public float nodeContainerScrollXMax {
+        get {
+            return nodeContainerCenterOffset.x;
+        }
+    }
+    public bool playerCanChamberFlashback {
+        get {
+            if (Player.instance == null) return false;
+            return Player.instance.phase >= Player.instance.visionsPhase;
+        }
+    }
 
     #endregion
 
@@ -132,11 +159,7 @@ public class TimeTreePage : MonoBehaviour {
             if (parent == null) {
                 toParentLineRenderer.enabled = false;
             } else {
-                toParentLineRenderer.Points[0] = new Vector2(x, y);
-                toParentLineRenderer.Points[1] = new Vector2(parent.x, parent.y);
-                toParentLineRenderer.enabled = (toParentLineRenderer.Points[0] - toParentLineRenderer.Points[1]).SqrMagnitude() >=
-                    timeTreePageInstance.minPixelDistanceForVisibleLine * timeTreePageInstance.minPixelDistanceForVisibleLine;
-                toParentLineRenderer.SetVerticesDirty();
+                timeTreePageInstance.setLineRenderer(toParentLineRenderer, new Vector2(x, y), new Vector2(parent.x, parent.y));
             }
         }
 
@@ -264,12 +287,23 @@ public class TimeTreePage : MonoBehaviour {
         }
         lrGO.transform.SetParent(branchesContainer.transform, false);
         UILineRenderer lr = lrGO.GetComponent<UILineRenderer>();
-        lr.enabled = (p0 - p1).SqrMagnitude() >= minPixelDistanceForVisibleLine*minPixelDistanceForVisibleLine;
-        lr.Points[0] = p0;
-        lr.Points[1] = p1;
-        lr.SetVerticesDirty();
+        setLineRenderer(lr, p0, p1);
         lines.Add(lr);
         return lr;
+    }
+
+    void setLineRenderer(UILineRenderer lineRenderer, Vector2 p0, Vector2 p1) {
+        Vector2 diff = p1 - p0;
+        lineRenderer.enabled = diff.SqrMagnitude() >= minPixelDistanceForVisibleLine * minPixelDistanceForVisibleLine;
+        //lineRenderer.Points[0] = p0;
+        //lineRenderer.Points[1] = p1;
+        Rect bounds = new Rect(Mathf.Min(p0.x, p1.x), Mathf.Min(p0.y, p1.y), Mathf.Abs(diff.x), Mathf.Abs(diff.y));
+        RectTransform rt = lineRenderer.GetComponent<RectTransform>();
+        rt.localPosition = bounds.min;
+        rt.sizeDelta = bounds.size;
+        lineRenderer.Points[0] = p0 - bounds.min;
+        lineRenderer.Points[1] = p1 - bounds.min;
+        lineRenderer.SetVerticesDirty();
     }
 
     void removeLine(UILineRenderer line) {
@@ -323,31 +357,33 @@ public class TimeTreePage : MonoBehaviour {
         // ensure correct amount
         int numIntervals = Mathf.RoundToInt(CountdownTimer.MELTDOWN_DURATION / intervalDuration) + 1;
         while (intervals.Count < numIntervals) {
-            Image interv = GameObject.Instantiate(intervalGameObject).GetComponent<Image>();
+            TimeTreeInterval interv = GameObject.Instantiate(intervalGameObject).GetComponent<TimeTreeInterval>();
             interv.transform.SetParent(intervalsContainer.transform, false);
             intervals.Add(interv);
         }
         while (intervals.Count > numIntervals) {
-            Image interv = intervals[intervals.Count-1];
+            TimeTreeInterval interv = intervals[intervals.Count-1];
             intervals.RemoveAt(intervals.Count - 1);
             GameObject.Destroy(interv.gameObject);
         }
-        // positioning
+        // positioning and text
         for (int i=0; i<numIntervals; i++) {
             GameObject intervGO = intervals[i].gameObject;
             intervGO.GetComponent<RectTransform>().localPosition = new Vector2(
                 0 + SECONDS_TO_PIXELS * intervalDuration * i,
                 -nodeContainer.GetComponent<RectTransform>().localPosition.y);
+            intervals[i].setTime(i * intervalDuration);
         }
+
     }
     void showIntervals() {
-        foreach (Image interv in intervals) {
-            interv.enabled = true;
+        foreach (TimeTreeInterval interv in intervals) {
+            interv.show();
         }
     }
     void hideIntervals() {
-        foreach (Image interv in intervals) {
-            interv.enabled = false;
+        foreach (TimeTreeInterval interv in intervals) {
+            interv.hide();
         }
     }
 
@@ -388,11 +424,55 @@ public class TimeTreePage : MonoBehaviour {
             }
         }
 
+        // scrolling
+        if (scrollTime < nodeContainerScrollDuration) {
+            scrollTime += Time.unscaledDeltaTime;
+            Vector2 center0;
+            Vector2 center1 = mainSelectedNode.pos;
+            if (mainPrevSelectedNode == null) {
+                center0 = center1;
+            } else {
+                center0 = mainPrevSelectedNode.pos;
+            }
+            // clamping x vals beforehand to try to make scrolling smoother
+            center0.x = Mathf.Clamp(center0.x, -nodeContainerScrollXMax, -nodeContainerScrollXMin);
+            center1.x = Mathf.Clamp(center1.x, -nodeContainerScrollXMax, -nodeContainerScrollXMin);
+            center0.x = Mathf.Round(center0.x/2)*2; center0.y = Mathf.Round(center0.y/2)*2;
+            center1.x = Mathf.Round(center1.x/2)*2; center0.y = Mathf.Round(center1.y/2)*2;
+
+            Vector2 center = Utilities.easeOutQuadClamp(scrollTime, center0, center1-center0, nodeContainerScrollDuration);
+            Vector2 scrollPos = -center;
+            scrollPos.x = Mathf.Clamp(scrollPos.x, nodeContainerScrollXMin, nodeContainerScrollXMax);
+            nodeContainer.GetComponent<RectTransform>().localPosition = scrollPos;
+
+            // scrolling map
+            Vector2 gridPos0 = new Vector2();
+            Vector2 gridPos1 = MapUI.instance.gridPositionFromWorldPosition(mainSelectedNode.nodeData.levelMapX, mainSelectedNode.nodeData.levelMapY, mainSelectedNode.nodeData.position);
+            // more accurate grid position if node is in the current level
+            if (mainSelectedNode.nodeData.levelMapX == Level.currentLoadedLevel.mapX && mainSelectedNode.nodeData.levelMapY == Level.currentLoadedLevel.mapY) {
+                gridPos1.x = Mathf.Clamp(gridPos1.x, Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapX + Level.currentLoadedLevel.mapWidth - 1);
+                gridPos1.y = Mathf.Clamp(gridPos1.y, Level.currentLoadedLevel.mapY, Level.currentLoadedLevel.mapY + Level.currentLoadedLevel.mapHeight - 1);
+            }
+            if (mainPrevSelectedNode == null) {
+                gridPos0 = gridPos1;
+            } else {
+                gridPos0 = MapUI.instance.gridPositionFromWorldPosition(mainPrevSelectedNode.nodeData.levelMapX, mainPrevSelectedNode.nodeData.levelMapY, mainPrevSelectedNode.nodeData.position);
+                // more accurate grid position if node is in the current level
+                if (mainPrevSelectedNode.nodeData.levelMapX == Level.currentLoadedLevel.mapX && mainPrevSelectedNode.nodeData.levelMapY == Level.currentLoadedLevel.mapY) {
+                    gridPos0.x = Mathf.Clamp(gridPos0.x, Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapX + Level.currentLoadedLevel.mapWidth - 1);
+                    gridPos0.y = Mathf.Clamp(gridPos0.y, Level.currentLoadedLevel.mapY, Level.currentLoadedLevel.mapY + Level.currentLoadedLevel.mapHeight - 1);
+                }
+            }
+            Vector2 gridPos = Utilities.easeOutQuadClamp(scrollTime, gridPos0, gridPos1-gridPos0, nodeContainerScrollDuration);
+            MapUI.instance.setMapCenter(gridPos.x, gridPos.y);
+        }
+
     }
 
     public void show() {
         nodeBG.enabled = true;
-        glyphBox.makeAllCharsVisible();
+        mapBG.enabled = true;
+        instrBox.makeAllCharsVisible();
         descripBox.makeAllCharsVisible();
         if (mainSelector != null) {
             mainSelector.GetComponent<Image>().enabled = true;
@@ -400,12 +480,17 @@ public class TimeTreePage : MonoBehaviour {
         setIntervals();
         showIntervals();
 
+        showMapUI();
+
         createNodes();
+
+
     }
 
     public void hide() {
         nodeBG.enabled = false;
-        glyphBox.makeAllCharsInvisible();
+        mapBG.enabled = false;
+        instrBox.makeAllCharsInvisible();
         descripBox.makeAllCharsInvisible();
         if (mainSelector != null) {
             mainSelector.GetComponent<Image>().enabled = false;
@@ -413,10 +498,28 @@ public class TimeTreePage : MonoBehaviour {
         hideIntervals();
 
         clearNodes();
+
+        hideMapUI();
     }
 
     #endregion
 
+    void showMapUI() {
+
+        MapUI.instance.showMap(true);
+        MapUI.instance.inputEnabled = false;
+        MapUI.instance.setTimeTreePagePosition(
+            new Vector2(mapBG.GetComponent<RectTransform>().localPosition.x, mapBG.GetComponent<RectTransform>().localPosition.y),
+            mapBG.GetComponent<RectTransform>().sizeDelta);
+
+    }
+
+    void hideMapUI() {
+        if (MapUI.instance != null) {
+            MapUI.instance.hideMap();
+        }
+        
+    }
 
     void selectNode(TimeTreeNode ttn, bool immediately) {
         if (mainSelector == null) {
@@ -432,25 +535,64 @@ public class TimeTreePage : MonoBehaviour {
 
         setDescription(mainSelectedNode);
 
+        // setting instr text
+        if (ttn.temporary) {
+            //instrBox.makeAllCharsInvisible();
+            instrBox.setPlainText(propAsset.getString("current_position"));
+            instrBox.setColor(PauseScreen.DEFAULT_COLOR);
+        } else {
+            if (playerCanChamberFlashback) {
+                instrBox.setPlainText(propAsset.getString("flashback_instr") + " " + getTimeStr(mainSelectedNode.nodeData.time) +
+                    " (" + mainSelectedNode.nodeData.chamberPositionCode + ")");
+                instrBox.setColor(descripBox.defaultStyle.color);
+            } else {
+                instrBox.setPlainText(propAsset.getString("low_phase_instr"));
+                instrBox.setColor(lowPhaseColor);
+            }
+        }
+
+        // scrolling
+        if (immediately) {
+            scrollTime = nodeContainerScrollDuration - .0001f;
+        } else {
+            scrollTime = 0;
+        }
+        
+        Vector2 gridPos = MapUI.instance.gridPositionFromWorldPosition(mainSelectedNode.nodeData.levelMapX, mainSelectedNode.nodeData.levelMapY, mainSelectedNode.nodeData.position);
+        // more accurate grid position if node is in the current level
+        if (mainSelectedNode.nodeData.levelMapX == Level.currentLoadedLevel.mapX && mainSelectedNode.nodeData.levelMapY == Level.currentLoadedLevel.mapY) {
+            gridPos.x = Mathf.Clamp(gridPos.x, Level.currentLoadedLevel.mapX, Level.currentLoadedLevel.mapX + Level.currentLoadedLevel.mapWidth - 1);
+            gridPos.y = Mathf.Clamp(gridPos.y, Level.currentLoadedLevel.mapY, Level.currentLoadedLevel.mapY + Level.currentLoadedLevel.mapHeight - 1);
+        }
+        MapUI.instance.setSlectorGreenPosition(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+
+    }
+
+    string getTimeStr(float time) {
+        string timeStr = "";
+        if (CountdownTimer.instance != null && CountdownTimer.instance.mode != CountdownTimer.Mode.NORMAL) {
+            timeStr = CountdownTimer.timeToStr(time, CountdownTimer.Mode.MELTDOWN);
+        } else {
+            timeStr = CountdownTimer.timeToStr(time, CountdownTimer.Mode.NORMAL);
+        }
+        timeStr = timeStr.Replace("¦", "").Trim();
+        return timeStr;
     }
 
     void setDescription(TimeTreeNode ttn) {
-        // position code
         string str = "";
-        //if (ttn.temporary) {
-        //    str += "--";
-        //} else {
-        //    str += ttn.nodeData.chamberPositionCode;
-        //}
+        
         // time
-        string timeStr = "";
-        if (CountdownTimer.instance != null && CountdownTimer.instance.mode != CountdownTimer.Mode.NORMAL) {
-            timeStr = CountdownTimer.timeToStr(ttn.nodeData.time, CountdownTimer.Mode.MELTDOWN);
+        str += " " + getTimeStr(ttn.nodeData.time);
+
+        // position code
+        str += " ";
+        if (ttn.temporary) {
+            str += "--";
         } else {
-            timeStr = CountdownTimer.timeToStr(ttn.nodeData.time, CountdownTimer.Mode.NORMAL);
+            str += ttn.nodeData.chamberPositionCode;
         }
-        timeStr = timeStr.Replace("¦", "").Trim();
-        str += " " + timeStr;
+
         // hearts and phase upgrades
         str += " ";
         int numHearts = startingHealthUpgradeCount + ttn.nodeData.healthUpgrades.Count;
@@ -466,7 +608,15 @@ public class TimeTreePage : MonoBehaviour {
             str += " ¾";
         }
 
+        // set text
         descripBox.setPlainText(str);
+
+        // set color
+        if (ttn.temporary) {
+            descripBox.setColor(PauseScreen.DEFAULT_COLOR);
+        } else {
+            descripBox.setColor(descripBoxFlashbackColor);
+        }
     }
 
     GameObject mainSelector = null;
@@ -548,7 +698,8 @@ public class TimeTreePage : MonoBehaviour {
 
     void Awake() {
         nodeBG = transform.Find("NodeBG").GetComponent<Image>();
-        glyphBox = transform.Find("GlyphBox").GetComponent<GlyphBox>();
+        mapBG = transform.Find("MapBG").GetComponent<Image>();
+        instrBox = transform.Find("InstrBox").GetComponent<GlyphBox>();
         descripBox = transform.Find("DescripBox").GetComponent<GlyphBox>();
         propAsset = new Properties(textAsset.text);
         nodeMask = transform.Find("NodeMask").gameObject;
@@ -577,7 +728,7 @@ public class TimeTreePage : MonoBehaviour {
             GameObject.Destroy(niGO);
         }
         recycledNodeIcons.Clear();
-        foreach (Image interv in intervals) {
+        foreach (TimeTreeInterval interv in intervals) {
             GameObject.Destroy(interv.gameObject);
         }
         intervals.Clear();
@@ -589,7 +740,8 @@ public class TimeTreePage : MonoBehaviour {
 
     Properties propAsset;
     Image nodeBG;
-    GlyphBox glyphBox; // ?? why is this here??
+    Image mapBG;
+    GlyphBox instrBox;
     GlyphBox descripBox;
     GameObject nodeMask;
     GameObject nodeContainer;
@@ -602,7 +754,9 @@ public class TimeTreePage : MonoBehaviour {
     List<GameObject> recycledLines = new List<GameObject>();
     List<GameObject> recycledNodeIcons = new List<GameObject>();
 
-    List<Image> intervals = new List<Image>();
+    List<TimeTreeInterval> intervals = new List<TimeTreeInterval>();
+
+    float scrollTime = 9999;
 
     bool selectorInputEnabled = true;
 

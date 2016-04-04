@@ -41,6 +41,7 @@ public class MapPage : MonoBehaviour {
         glyphBox.makeAllCharsVisible();
         
         MapUI.instance.showMap(true);
+        MapUI.instance.inputEnabled = true;
         MapUI.instance.setMapPagePosition();
         glyphBox.setText("");
     }

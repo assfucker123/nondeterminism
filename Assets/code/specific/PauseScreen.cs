@@ -63,9 +63,17 @@ public class PauseScreen : MonoBehaviour {
             return;
 
         // update time, to be used for pages in the pause menu
-        if (Vars.currentNodeData != null && CountdownTimer.instance != null) {
-            Vars.currentNodeData.time = CountdownTimer.instance.time;
+        if (Vars.currentNodeData != null) {
+            if (CountdownTimer.instance != null) {
+                Vars.currentNodeData.time = CountdownTimer.instance.time;
+            }
+            if (Level.currentLoadedLevel != null) {
+                Vars.currentNodeData.levelMapX = Level.currentLoadedLevel.mapX;
+                Vars.currentNodeData.levelMapY = Level.currentLoadedLevel.mapY;
+            }
+            Vars.currentNodeData.position = Player.instance.rb2d.position;
         }
+        
         
         stopTime();
         if (!Vars.screenshotMode) {

@@ -167,8 +167,8 @@ public class MapUI : MonoBehaviour {
 
     public string iconsStr { get; private set; }
 
-    // sets which cell coordinates are at the center of the map
-    public void setMapCenter(int x, int y) {
+    // sets which cell coordinates are at the center of the map (using floats for easing)
+    public void setMapCenter(float x, float y) {
         Vector2 pos0 = mapRawImage.GetComponent<RectTransform>().localPosition;
         Vector2 pos1 = new Vector2(x * -CELL_WIDTH * 2, y * -CELL_HEIGHT * 2);
         Vector2 diff = pos1 - pos0;
@@ -180,6 +180,9 @@ public class MapUI : MonoBehaviour {
             playerPosition.GetComponent<RectTransform>().localPosition += diff3;
         foreach (MapIcon icon in icons) {
             icon.GetComponent<RectTransform>().localPosition += diff3;
+        }
+        if (selectorGreen != null) {
+            selectorGreen.GetComponent<RectTransform>().localPosition += diff3;
         }
 
     }
@@ -220,6 +223,13 @@ public class MapUI : MonoBehaviour {
     public void setMapPagePosition() {
         position = new Vector2(0, 0);
         fullMask();
+        setMapCenter(GRID_WIDTH / 2, GRID_HEIGHT / 2);
+        displayMode = DisplayMode.MAP_PAGE;
+    }
+
+    public void setTimeTreePagePosition(Vector2 pos, Vector2 size) {
+        position = pos;
+        maskSize = size;
         setMapCenter(GRID_WIDTH / 2, GRID_HEIGHT / 2);
         displayMode = DisplayMode.MAP_PAGE;
     }
@@ -403,6 +413,7 @@ public class MapUI : MonoBehaviour {
     }
     public void iconsFromString(string str) {
         clearIcons();
+        iconsStr = ""; // since addIcon also adds to string
         if (str == "") return;
         char[] delims = { ',' };
         string[] iconStrs = str.Split(delims);
@@ -421,7 +432,6 @@ public class MapUI : MonoBehaviour {
             int f = int.Parse(iStr.Substring(index0));
             addIcon(iconID, x, y, (f == 1));
         }
-        
     }
     public void clearIcons() {
         foreach (MapIcon icon in icons) {
@@ -529,6 +539,7 @@ public class MapUI : MonoBehaviour {
         gridAddRoom(x, y, roomWidth, roomHeight, cells);
     }
 
+    // adds icon to the map and appends it to iconsStr
     public MapIcon addIcon(Icon icon, int x, int y, bool found = false) {
         MapIcon mapIcon = null;
         switch (icon) {
@@ -563,7 +574,6 @@ public class MapUI : MonoBehaviour {
         mapIcon.transform.localPosition = iconLocalPosition(x, y, mapIcon.wideSprite);
         mapIcon.found = found;
         mapIcon.GetComponent<Image>().enabled = mapShowing;
-
         icons.Add(mapIcon);
         iconsStr = iconsAppendToString(iconsStr, mapIcon);
         return mapIcon;
@@ -620,6 +630,13 @@ public class MapUI : MonoBehaviour {
 
 
 
+
+    public void setSlectorGreenPosition(int gridX, int gridY) {
+        selectorGreenGridX = gridX;
+        selectorGreenGridY = gridY;
+        selectorGreen.transform.localPosition = iconLocalPosition(selectorGreenGridX, selectorGreenGridY);
+        selectorGreen.GetComponent<Image>().enabled = true;
+    }
 
     float slideTime = 0;
 
@@ -719,9 +736,7 @@ public class MapUI : MonoBehaviour {
                     nextIcon = getNextChamberIcon(selectorGreenGridX, selectorGreenGridY, Direction.LEFT);
                 }
                 if (nextIcon != null) {
-                    selectorGreenGridX = nextIcon.x;
-                    selectorGreenGridY = nextIcon.y;
-                    selectorGreen.transform.localPosition = iconLocalPosition(selectorGreenGridX, selectorGreenGridY);
+                    setSlectorGreenPosition(nextIcon.x, nextIcon.y);
                     SoundManager.instance.playSFXIgnoreVolumeScale(chamberSwitchSound);
                     mapPageSetChamberText(nextIcon);
                 }
@@ -735,9 +750,7 @@ public class MapUI : MonoBehaviour {
                     MapIcon closestIcon = getClosestChamberIcon(playerPositionGridX, playerPositionGridY);
                     if (closestIcon != null) {
                         selectorGreen.GetComponent<Image>().enabled = true;
-                        selectorGreenGridX = closestIcon.x;
-                        selectorGreenGridY = closestIcon.y;
-                        selectorGreen.transform.localPosition = iconLocalPosition(selectorGreenGridX, selectorGreenGridY);
+                        setSlectorGreenPosition(closestIcon.x, closestIcon.y);
                         mapPageSetChamberText(closestIcon);
                     }
                     

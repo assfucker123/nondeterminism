@@ -155,7 +155,6 @@ public class Sherivice : MonoBehaviour {
         spriteObject = transform.Find("spriteObject").gameObject;
         spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
         animator = spriteObject.GetComponent<Animator>();
-        colFinder = GetComponent<ColFinder>();
         timeUser = GetComponent<TimeUser>();
         receivesDamage = GetComponent<ReceivesDamage>();
         visionUser = GetComponent<VisionUser>();
@@ -1202,14 +1201,16 @@ public class Sherivice : MonoBehaviour {
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;
-    ColFinder colFinder;
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;
     DefaultDeath defaultDeath;
-    EnemyInfo enemyInfo;
     EventHappener eventHappener;
     ScriptRunner scriptRunner1;
     ScriptRunner scriptRunner2;
+    
+#pragma warning disable 414
+    EnemyInfo enemyInfo;
+#pragma warning restore 414
 
 }
