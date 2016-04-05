@@ -2,3 +2,8 @@ chamber: Chamber
 current_position: (Current position)
 flashback_instr: Press Z to Flashback to
 low_phase_instr: Cannot Flashback (not enough phase)
+flashback_msg: Flashback to Chamber 
+msg_at: at
+msg_q: ?
+yes: Yes
+no: No

@@ -210,6 +210,7 @@ MonoBehaviour:
   lineRendererGameObject: {fileID: 162888, guid: 989b6ace9ee73264f98afb4fb3f9f49c,
     type: 2}
   intervalGameObject: {fileID: 133544, guid: 9b3ade82efd062746af844344c014bcf, type: 2}
+  popupGameObject: {fileID: 182572, guid: d07e5a253c2b06b42860648b0341db90, type: 2}
   nodeSwitchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
   textAsset: {fileID: 4900000, guid: 85b4f6cab93167e4da376c9311e9ec2b, type: 3}
 --- !u!114 &11449210

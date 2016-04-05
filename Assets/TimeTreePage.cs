@@ -19,6 +19,7 @@ public class TimeTreePage : MonoBehaviour {
     public GameObject selectorGameObject;
     public GameObject lineRendererGameObject;
     public GameObject intervalGameObject;
+    public GameObject popupGameObject;
     public AudioClip nodeSwitchSound;
     public TextAsset textAsset;
 
@@ -422,6 +423,34 @@ public class TimeTreePage : MonoBehaviour {
                 selectNode(nextTTN, false);
                 SoundManager.instance.playSFXIgnoreVolumeScale(nodeSwitchSound);
             }
+
+            if (Keys.instance.confirmPressed) {
+                // trigger chamber flashback popup (if applicable)
+                if (!mainSelectedNode.temporary && playerCanChamberFlashback) {
+                    createPopup();
+                    popup.show(
+                        propAsset.getString("flashback_msg") + " " + mainSelectedNode.nodeData.chamberPositionCode + " " +
+                        propAsset.getString("msg_at") + " " + getTimeStr(mainSelectedNode.nodeData.time) + propAsset.getString("msg_q"),
+                        propAsset.getString("yes"), propAsset.getString("no"), descripBox.defaultStyle.color, true);
+                    selectorInputEnabled = false;
+                }
+                
+            }
+        } else {
+
+            // popup update (if running)
+            if (popup != null && popup.visible) {
+                if (popup.state == TimeTreePopup.State.YES_PRESSED) {
+                    // do something
+                    Debug.Log("Yes pressed on popup");
+                    popup.hide();
+                    selectorInputEnabled = true;
+                } else if (popup.state == TimeTreePopup.State.NO_PRESSED) {
+                    // back out of popup
+                    popup.hide();
+                    selectorInputEnabled = true;
+                }
+            }
         }
 
         // scrolling
@@ -496,6 +525,9 @@ public class TimeTreePage : MonoBehaviour {
             mainSelector.GetComponent<Image>().enabled = false;
         }
         hideIntervals();
+        if (popup != null) {
+            popup.hide();
+        }
 
         clearNodes();
 
@@ -519,6 +551,16 @@ public class TimeTreePage : MonoBehaviour {
             MapUI.instance.hideMap();
         }
         
+    }
+
+    // does nothing if popup was already made
+    void createPopup() {
+        if (popup != null) {
+            return;
+        }
+        GameObject popupGO = GameObject.Instantiate(popupGameObject);
+        popupGO.transform.SetParent(transform.parent.parent, false);
+        popup = popupGO.GetComponent<TimeTreePopup>();
     }
 
     void selectNode(TimeTreeNode ttn, bool immediately) {
@@ -732,6 +774,10 @@ public class TimeTreePage : MonoBehaviour {
             GameObject.Destroy(interv.gameObject);
         }
         intervals.Clear();
+        if (popup != null) {
+            GameObject.Destroy(popup.gameObject);
+            popup = null;
+        }
     }
 
     #endregion
@@ -747,6 +793,8 @@ public class TimeTreePage : MonoBehaviour {
     GameObject nodeContainer;
     GameObject branchesContainer;
     GameObject intervalsContainer;
+
+    TimeTreePopup popup = null;
 
     List<UILineRenderer> lines = new List<UILineRenderer>();
     List<TimeTreeNodeIcon> nodeIcons = new List<TimeTreeNodeIcon>();
