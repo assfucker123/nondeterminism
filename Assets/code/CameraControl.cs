@@ -315,8 +315,9 @@ public class CameraControl : MonoBehaviour {
         
         // move camera
         if (positionMode == PositionMode.FOLLOW_PLAYER) {
-            if (Player.instance == null)
+            if (Player.instance == null) {
                 customPositionMode();
+            }
         }
         if (positionMode != PositionMode.CUSTOM) {
             Vector2 pos = position;
@@ -376,7 +377,6 @@ public class CameraControl : MonoBehaviour {
         transform.localPosition = roundToPixel(transform.localPosition);
 
         updateParallaxObjects();
-
     }
 
     void updateParallaxObjects() {

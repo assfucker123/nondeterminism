@@ -77,6 +77,7 @@ public class Player : MonoBehaviour {
     public AudioClip larvaScreamSound;
     public AudioClip flashbackBeginSound;
     public AudioClip flashbackEndSound;
+    public AudioClip chamberFlashbackBeginSound;
     public AudioClip roomRestartSound;
     public AudioClip turnSound;
 
@@ -383,6 +384,9 @@ public class Player : MonoBehaviour {
         if (Input.GetKey(KeyCode.Alpha2)) {
             rb2d.velocity = new Vector2(rb2d.velocity.x, 20);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            chamberFlashback(null);
+        }
 
         // getting input
         if (receivePlayerInput) {
@@ -456,6 +460,11 @@ public class Player : MonoBehaviour {
 
         //control reverting
         timeReverting();
+        if (justActivatedChamberFlashback) { // if chamber flashback was activated in timeReverting, then Player would be deleted, so return before trying to access anything
+            justActivatedChamberFlashback = false;
+            return;
+        }
+
 
         if (timeUser.shouldNotUpdate) {
             return;
@@ -655,6 +664,27 @@ public class Player : MonoBehaviour {
 
     #region PRIVATE - STATE FUNCTIONS (CALLED EACH FRAME BY UPDATE())
 
+    // TODO: move the following to appropriate regions later
+    enum FlashbackMode {
+        NORMAL,
+        CHAMBER_CUTSCENE
+    }
+    FlashbackMode flashbackMode = FlashbackMode.NORMAL;
+    NodeData chamberFlashbackNode = null;
+    bool justActivatedChamberFlashback = false; // flag set to prevent Player stuff from being accessed after a level switch
+    public float chamberFlashbackDuration = 1.3f;
+    public float chamberFlashbackRevertSpeedStart = 1.0f;
+    public float chamberFlashbackRevertSpeedEnd = 2.5f;
+    public void chamberFlashback(NodeData nodeDataTo) {
+        if (nodeDataTo == null) {
+            Debug.LogError("ERROR: nodeDataTo is null");
+        }
+        chamberFlashbackNode = nodeDataTo;
+        flashbackNextFrameFlag = true;
+        flashbackMode = FlashbackMode.CHAMBER_CUTSCENE;
+        Debug.Log("CHAMBER FLASHBACK WORK HERE");
+    }
+
     // control time reverting (called each frame)
     void timeReverting() {
 
@@ -664,7 +694,20 @@ public class Player : MonoBehaviour {
         if (TimeUser.reverting) {
             revertTime += Time.deltaTime;
 
-            TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
+            switch (flashbackMode) {
+            case FlashbackMode.CHAMBER_CUTSCENE:
+                TimeUser.continuousRevertSpeed = Utilities.easeInQuadClamp(revertTime, chamberFlashbackRevertSpeedStart, chamberFlashbackRevertSpeedEnd-chamberFlashbackRevertSpeedStart, chamberFlashbackDuration);
+                // white screen
+                Color c = Color.white;
+                c.a = Utilities.easeInCubicClamp(revertTime, 0, 1, chamberFlashbackDuration);
+                HUD.instance.whiteScreen.color = c;
+                break;
+            case FlashbackMode.NORMAL:
+            default:
+                TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
+                break;
+            }
+            
 
             if (useInversion) {
                 CameraControl.instance.enableEffects(
@@ -684,29 +727,50 @@ public class Player : MonoBehaviour {
                 stopReverting = true;
             if (revertTime < minRevertDuration)
                 stopReverting = false;
+            if (flashbackMode == FlashbackMode.CHAMBER_CUTSCENE) {
+                // in the chamber cutscene, keep going until being told to stop
+                stopReverting = revertTime >= chamberFlashbackDuration;
+            }
 
             // detect activating room restart
             bool doRoomRestart = false;
-            if (!stopReverting && Vars.abilityKnown(Decryptor.ID.ROOM_RESTART) &&
+            if (flashbackMode == FlashbackMode.NORMAL) {
+                if (!stopReverting && Vars.abilityKnown(Decryptor.ID.ROOM_RESTART) &&
                 Keys.instance.dodgeHeld && Keys.instance.jumpPressed) {
-                doRoomRestart = true;
-                stopReverting = true;
+                    doRoomRestart = true;
+                    stopReverting = true;
+                }
             }
 
             if (stopReverting) {
                 TimeUser.endContinuousRevert();
                 HUD.instance.flashbackArtifacts.stop();
                 SoundManager.instance.stopSFX(flashbackBeginSound);
-                SoundManager.instance.playSFX(flashbackEndSound);
+                SoundManager.instance.stopSFX(chamberFlashbackBeginSound);
                 CameraControl.instance.disableEffects();
                 postRevertTime = 0;
+                
+                switch (flashbackMode) {
+                case FlashbackMode.CHAMBER_CUTSCENE:
+                    // ending the chamber flashback cutscene means it's time to revert
+                    Vars.revertToNodeData(chamberFlashbackNode);
+                    justActivatedChamberFlashback = true;
+                    break;
+                case FlashbackMode.NORMAL:
+                default:
+                    SoundManager.instance.playSFX(flashbackEndSound);
+                    // actually do room restart if activated
+                    if (doRoomRestart) {
+                        roomRestart();
+                    }
+                    break;
+                }
+
+                flashbackMode = FlashbackMode.NORMAL; // reset to normal mode whenever possible
+
                 // will end phaseMeter pulse when postRevertTime passes postRevertDuration
 
-                // actually do room restart if activated
-                if (doRoomRestart) {
-                    roomRestart();
-                }
-            } 
+            }
 
         } else if (!PauseScreen.paused && !(GameOverScreen.instance != null && GameOverScreen.instance.cannotRevert)
             && state != State.KNEEL) {
@@ -715,7 +779,15 @@ public class Player : MonoBehaviour {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
                     HUD.instance.flashbackArtifacts.begin();
-                    SoundManager.instance.playSFX(flashbackBeginSound);
+                    switch (flashbackMode) {
+                    case FlashbackMode.CHAMBER_CUTSCENE:
+                        SoundManager.instance.playSFX(chamberFlashbackBeginSound);
+                        break;
+                    case FlashbackMode.NORMAL:
+                    default:
+                        SoundManager.instance.playSFX(flashbackBeginSound);
+                        break;
+                    }
                     HUD.instance.phaseMeter.beginPulse();
                     revertTime = 0;
                     postRevertTime = 99999;

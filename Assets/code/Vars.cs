@@ -183,6 +183,28 @@ public class Vars {
         }
     }
 
+    /// <summary>
+    /// Called when doing a Chamber Flashback.  Reverts back to the given nodeData, and goes to that level specified.
+    /// </summary>
+    /// <param name="nodeData">The nodeData to revert to</param>
+    public static void revertToNodeData(NodeData nodeData) {
+        // get rid of current node data
+        NodeData.deleteNode(currentNodeData);
+        currentNodeData = null;
+        NodeData.deleteNode(levelStartNodeData);
+        levelStartNodeData = null;
+
+        // make new current node data from what was given
+        currentNodeData = NodeData.createNodeData(nodeData, true);
+
+        // now that the last save was altered, restart from last save
+        restartFromLastSave();
+
+        // (testing; immediately get rid of the white screen)
+        HUD.instance.whiteScreen.color = Color.clear;
+
+    }
+
     /* Restart level, using info from levelStartNodeData */
     public static void restartLevel() {
 
@@ -208,6 +230,7 @@ public class Vars {
         currentNodeData.copyFrom(parent);
         currentNodeData.parent = parent;
         currentNodeData.temporary = true;
+        currentNodeData.children.Clear();
         if (CountdownTimer.instance != null) {
             CountdownTimer.instance.time = currentNodeData.time;
         }

@@ -59,6 +59,22 @@ public class TimeTreePage : MonoBehaviour {
 
     #endregion
 
+    // chamber flashback
+    public void startChamberFlashback(NodeData nodeData) {
+        if (nodeData == null) {
+            Debug.LogError("ERROR: null nodeData");
+            return;
+        }
+        if (Player.instance == null) {
+            Debug.LogError("ERROR: player null");
+        }
+        // resume game
+        PauseScreen.instance.unpauseGame();
+
+        // get player to start chamber flashback cutscene
+        Player.instance.chamberFlashback(nodeData);
+    }
+
     public class TimeTreeNode {
 
         public static TimeTreeNode create(NodeData nodeData) {
@@ -394,20 +410,7 @@ public class TimeTreePage : MonoBehaviour {
     #region Called from Pause Screen
 
     public void update() {
-
-        /*
-        if (Keys.instance.confirmPressed) {
-            madeSelection = true;
-            option = options[selectionIndex];
-        }
-        if (Keys.instance.backPressed) {
-            if (quitSureNoText.hasVisibleChars) {
-                madeSelection = true;
-                option = quitSureNoText;
-            }
-        }
-        */
-
+        
         if (selectorInputEnabled) {
             TimeTreeNode nextTTN = null;
             if (Keys.instance.upPressed) {
@@ -426,7 +429,7 @@ public class TimeTreePage : MonoBehaviour {
 
             if (Keys.instance.confirmPressed) {
                 // trigger chamber flashback popup (if applicable)
-                if (!mainSelectedNode.temporary && playerCanChamberFlashback) {
+                if (!mainSelectedNode.temporary && playerCanChamberFlashback && Player.instance != null) {
                     createPopup();
                     popup.show(
                         propAsset.getString("flashback_msg") + " " + mainSelectedNode.nodeData.chamberPositionCode + " " +
@@ -442,9 +445,9 @@ public class TimeTreePage : MonoBehaviour {
             if (popup != null && popup.visible) {
                 if (popup.state == TimeTreePopup.State.YES_PRESSED) {
                     // do something
-                    Debug.Log("Yes pressed on popup");
                     popup.hide();
                     selectorInputEnabled = true;
+                    startChamberFlashback(mainSelectedNode.nodeData);
                 } else if (popup.state == TimeTreePopup.State.NO_PRESSED) {
                     // back out of popup
                     popup.hide();

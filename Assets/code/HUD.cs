@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour {
     public static HUD instance { get { return _instance; } }
 
     public GameObject blackScreenGameObject;
+    public GameObject whiteScreenGameObject;
     public GameObject healthHeartGameObject;
     public GameObject phaseMeterGameObject;
     public GameObject countdownTimerGameObject;
@@ -29,12 +30,14 @@ public class HUD : MonoBehaviour {
             return (
                 !PauseScreen.paused &&
                 !TimeUser.reverting &&
+                Time.timeSinceLevelLoad > .1f &&
                 !(GameOverScreen.instance != null && GameOverScreen.instance.activated) &&
                 !ScriptRunner.scriptsPreventPausing &&
                 (ChamberPlatform.instance == null || ChamberPlatform.instance.state != ChamberPlatform.State.PAUSED));
         }
     }
     public UnityEngine.UI.Image blackScreen { get { return _blackScreen; } }
+    public UnityEngine.UI.Image whiteScreen { get { return _whiteScreen; } }
     public PhaseMeter phaseMeter { get { return _phaseMeter; } }
     public CountdownTimer countdownTimer { get { return _countdownTimer; } }
     public SpeedLines speedLines { get { return _speedLines; } }
@@ -176,12 +179,7 @@ public class HUD : MonoBehaviour {
         ctGO.transform.SetParent(canvas.transform, false);
         _countdownTimer = ctGO.GetComponent<CountdownTimer>();
         _countdownTimer.setUp();
-
-        //create Black Screen
-        GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
-        bsGO.transform.SetParent(canvas.transform, false);
-        _blackScreen = bsGO.GetComponent<UnityEngine.UI.Image>();
-
+        
         // (not creating pause screen until needed, too much bottleneck)
 
         //create Map UI
@@ -189,9 +187,19 @@ public class HUD : MonoBehaviour {
         muGO.transform.SetParent(canvas.transform, false);
         _mapUI = muGO.GetComponent<MapUI>();
         _mapUI.hideMap();
+
+        // create White Screen
+        GameObject wsGO = GameObject.Instantiate(whiteScreenGameObject) as GameObject;
+        wsGO.transform.SetParent(canvas.transform, false);
+        _whiteScreen = wsGO.GetComponent<UnityEngine.UI.Image>();
+
+        //create Black Screen
+        GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
+        bsGO.transform.SetParent(canvas.transform, false);
+        _blackScreen = bsGO.GetComponent<UnityEngine.UI.Image>();
         
         // (not creating Game Over screen until needed)
-        
+
         // create Text Box
         GameObject tbGO = GameObject.Instantiate(textBoxGameObject) as GameObject;
         tbGO.transform.SetParent(canvas.transform, false);
@@ -202,6 +210,7 @@ public class HUD : MonoBehaviour {
 
     void Start() {
         blackScreen.color = Color.clear;
+        whiteScreen.color = Color.clear;
     }
 
     void OnLevelWasLoaded(int level) {
@@ -298,6 +307,7 @@ public class HUD : MonoBehaviour {
 
     private List<HealthHeart> healthHearts = new List<HealthHeart>();
     private UnityEngine.UI.Image _blackScreen;
+    private UnityEngine.UI.Image _whiteScreen;
     private PhaseMeter _phaseMeter;
     private CountdownTimer _countdownTimer;
     private SpeedLines _speedLines;
