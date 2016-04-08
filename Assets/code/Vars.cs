@@ -200,8 +200,9 @@ public class Vars {
         // now that the last save was altered, restart from last save
         restartFromLastSave();
 
-        // (testing; immediately get rid of the white screen)
-        HUD.instance.whiteScreen.color = Color.clear;
+        // start room correctly
+        Player.instantiateMode = Player.InstantiateMode.CHAMBER_FLASHBACK;
+        
 
     }
 

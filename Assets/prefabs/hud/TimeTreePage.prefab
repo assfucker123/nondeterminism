@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d611eec111f3741984842647f10ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VERTICAL_SPACING: 50
+  VERTICAL_SPACING: 30
   minPixelDistanceForVisibleLine: 16
   intervalDuration: 300
   descripBoxFlashbackColor: {r: 0.40784314, g: 0.92941177, b: 1, a: 1}
@@ -533,6 +533,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: intervalDuration
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: VERTICAL_SPACING
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

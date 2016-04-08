@@ -56,6 +56,25 @@ public class ChamberPlatform : MonoBehaviour {
 
         state = State.PAUSED;
     }
+
+    public void resumePlay() {
+
+        // get rid of chamber screen
+        if (chamberScreenRef != null) {
+            GameObject.Destroy(chamberScreenRef.gameObject);
+        }
+        chamberScreenRef = null;
+        screenUp = false;
+
+        Time.timeScale = 0;
+        state = State.PAUSED;
+        
+        // change player animation
+        Player.instance.outOfKneel();
+        // fly out
+        chamberBackground.flyOut();
+
+    }
     
 
     public bool playerIsOnPlatform {
@@ -149,14 +168,7 @@ public class ChamberPlatform : MonoBehaviour {
             if (screenUp) {
                 // detect quitting
                 if (chamberScreenRef != null && chamberScreenRef.quitNow) {
-                    // get rid of chamber screen
-                    GameObject.Destroy(chamberScreenRef.gameObject);
-                    chamberScreenRef = null;
-                    screenUp = false;
-                    // change player animation
-                    Player.instance.outOfKneel();
-                    // fly out
-                    chamberBackground.flyOut();
+                    resumePlay();
                 }
 
             } else {
@@ -242,6 +254,9 @@ public class ChamberPlatform : MonoBehaviour {
     float phaseUsed = 0;
     bool playerHasMaxPhase = false;
     float timeSincePlayerOnPlatform = 9999;
+
+    float delayTime = 0;
+    float delayDuration = 0;
 
     bool screenUp = false;
     ChamberScreen chamberScreenRef = null;

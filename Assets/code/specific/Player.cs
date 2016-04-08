@@ -5,6 +5,12 @@ public class Player : MonoBehaviour {
 
     public static Player instance { get { return _instance; } }
 
+    public static InstantiateMode instantiateMode = InstantiateMode.NORMAL; // will cause the player to do different things in Start()
+    public enum InstantiateMode {
+        NORMAL,
+        CHAMBER_FLASHBACK
+    }
+
     #region INSPECTOR FIELDS
 
     public float groundAccel = 100;
@@ -49,7 +55,11 @@ public class Player : MonoBehaviour {
     public float idlePhaseReplenishDelay = 1.5f;
     public float idlePhaseReplenishSpeed = 1.0f;
     public float idlePhaseReplenishMax = 20; // should be same as visionsPhase
-    
+
+    public float chamberFlashbackDuration = 1.3f;
+    public float chamberFlashbackRevertSpeedStart = 1.0f;
+    public float chamberFlashbackRevertSpeedEnd = 2.5f;
+
     public float damageSpeed = 10;
     public float damageFriction = 20;
     public float damageDuration = .5f;
@@ -297,13 +307,17 @@ public class Player : MonoBehaviour {
     }
 
     // to kneeling on the ground (also makes animator update in unscaled time)
-    public void toKneel() {
+    public void toKneel(bool immediately = false) {
 
         state = State.KNEEL;
         rb2d.velocity = Vector2.zero;
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
 
-        animator.Play("kneel_down");
+        if (immediately) {
+            animator.Play("kneel");
+        } else {
+            animator.Play("kneel_down");
+        }
 
     }
 
@@ -319,6 +333,16 @@ public class Player : MonoBehaviour {
         toGroundState(false, false);
     }
 
+    public void chamberFlashback(NodeData nodeDataTo) {
+        if (nodeDataTo == null) {
+            Debug.LogError("ERROR: nodeDataTo is null");
+        }
+        chamberFlashbackNode = nodeDataTo;
+        chamberFlashbackSpeedMultiply = false;
+        flashbackNextFrameFlag = true;
+        flashbackMode = FlashbackMode.CHAMBER_CUTSCENE;
+    }
+    
     #endregion
 
     #region PRIVATE - EVENT FUNCTIONS
@@ -344,6 +368,23 @@ public class Player : MonoBehaviour {
         HUD.instance.setHealth(receivesDamage.health);
         HUD.instance.phaseMeter.setMaxPhase(maxPhase);
         HUD.instance.phaseMeter.setPhase(maxPhase * startPhase);
+
+        switch (instantiateMode) {
+        case InstantiateMode.CHAMBER_FLASHBACK:
+            toKneel(true);
+            // start chamber background fade out
+            ChamberPlatform cp = GameObject.FindObjectOfType<ChamberPlatform>();
+            if (cp == null) {
+                Debug.Log("no chamber platform"); // happens when flashback to a room without a ChamberPlatform.  Might not be impossible?
+            } else {
+                cp.resumePlay();
+            }
+            break;
+        case InstantiateMode.NORMAL:
+        default:
+            break;
+        }
+        instantiateMode = InstantiateMode.NORMAL; // revert to normal
 
     }
 
@@ -385,7 +426,7 @@ public class Player : MonoBehaviour {
             rb2d.velocity = new Vector2(rb2d.velocity.x, 20);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            chamberFlashback(null);
+            
         }
 
         // getting input
@@ -663,28 +704,7 @@ public class Player : MonoBehaviour {
     #endregion
 
     #region PRIVATE - STATE FUNCTIONS (CALLED EACH FRAME BY UPDATE())
-
-    // TODO: move the following to appropriate regions later
-    enum FlashbackMode {
-        NORMAL,
-        CHAMBER_CUTSCENE
-    }
-    FlashbackMode flashbackMode = FlashbackMode.NORMAL;
-    NodeData chamberFlashbackNode = null;
-    bool justActivatedChamberFlashback = false; // flag set to prevent Player stuff from being accessed after a level switch
-    public float chamberFlashbackDuration = 1.3f;
-    public float chamberFlashbackRevertSpeedStart = 1.0f;
-    public float chamberFlashbackRevertSpeedEnd = 2.5f;
-    public void chamberFlashback(NodeData nodeDataTo) {
-        if (nodeDataTo == null) {
-            Debug.LogError("ERROR: nodeDataTo is null");
-        }
-        chamberFlashbackNode = nodeDataTo;
-        flashbackNextFrameFlag = true;
-        flashbackMode = FlashbackMode.CHAMBER_CUTSCENE;
-        Debug.Log("CHAMBER FLASHBACK WORK HERE");
-    }
-
+    
     // control time reverting (called each frame)
     void timeReverting() {
 
@@ -693,14 +713,12 @@ public class Player : MonoBehaviour {
 
         if (TimeUser.reverting) {
             revertTime += Time.deltaTime;
-
+            
             switch (flashbackMode) {
             case FlashbackMode.CHAMBER_CUTSCENE:
+                if (chamberFlashbackSpeedMultiply)
+                    revertTime += Time.deltaTime * 1.5f;
                 TimeUser.continuousRevertSpeed = Utilities.easeInQuadClamp(revertTime, chamberFlashbackRevertSpeedStart, chamberFlashbackRevertSpeedEnd-chamberFlashbackRevertSpeedStart, chamberFlashbackDuration);
-                // white screen
-                Color c = Color.white;
-                c.a = Utilities.easeInCubicClamp(revertTime, 0, 1, chamberFlashbackDuration);
-                HUD.instance.whiteScreen.color = c;
                 break;
             case FlashbackMode.NORMAL:
             default:
@@ -708,7 +726,6 @@ public class Player : MonoBehaviour {
                 break;
             }
             
-
             if (useInversion) {
                 CameraControl.instance.enableEffects(
                     Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
@@ -721,7 +738,7 @@ public class Player : MonoBehaviour {
                     0);
             }
 
-            //conditions for reverting
+            // conditions for reverting
             bool stopReverting = !Keys.instance.flashbackHeld;
             if (phase <= 0 || TimeUser.time <= 0.0001f)
                 stopReverting = true;
@@ -729,7 +746,18 @@ public class Player : MonoBehaviour {
                 stopReverting = false;
             if (flashbackMode == FlashbackMode.CHAMBER_CUTSCENE) {
                 // in the chamber cutscene, keep going until being told to stop
+                if ((Keys.instance.confirmPressed || Keys.instance.flashbackHeld) && revertTime > .1f) { // quickly skip cutscene by pressing confirm button
+                    chamberFlashbackSpeedMultiply = true;
+                }
                 stopReverting = revertTime >= chamberFlashbackDuration;
+            }
+
+            // white screen for chamber cutscene
+            if (flashbackMode == FlashbackMode.CHAMBER_CUTSCENE) {
+                // white screen
+                Color c = Color.white;
+                c.a = Utilities.easeInCubicClamp(revertTime, 0, 1, chamberFlashbackDuration);
+                HUD.instance.whiteScreen.color = c;
             }
 
             // detect activating room restart
@@ -1509,6 +1537,15 @@ public class Player : MonoBehaviour {
     int cutsceneKeysInfo = 0; // when receivePlayerInput is false, this keeps a record of the CutsceneKeys (saved to timeUser's frame info)
     bool movingToX = false;
     float xMovingTo = 0;
+
+    enum FlashbackMode {
+        NORMAL,
+        CHAMBER_CUTSCENE
+    }
+    FlashbackMode flashbackMode = FlashbackMode.NORMAL;
+    NodeData chamberFlashbackNode = null;
+    bool chamberFlashbackSpeedMultiply = false; // press confirm button to speed up chamber flashback cutscene
+    bool justActivatedChamberFlashback = false; // flag set to prevent Player stuff from being accessed after a level switch
 
     FrameInfo frameInfoOnLevelLoad = null; // frame info of the player saved when starting a new level (calling OnLevelWasLoaded)
 

@@ -188,15 +188,15 @@ public class HUD : MonoBehaviour {
         _mapUI = muGO.GetComponent<MapUI>();
         _mapUI.hideMap();
 
-        // create White Screen
-        GameObject wsGO = GameObject.Instantiate(whiteScreenGameObject) as GameObject;
-        wsGO.transform.SetParent(canvas.transform, false);
-        _whiteScreen = wsGO.GetComponent<UnityEngine.UI.Image>();
-
         //create Black Screen
         GameObject bsGO = GameObject.Instantiate(blackScreenGameObject) as GameObject;
         bsGO.transform.SetParent(canvas.transform, false);
         _blackScreen = bsGO.GetComponent<UnityEngine.UI.Image>();
+
+        // create White Screen
+        GameObject wsGO = GameObject.Instantiate(whiteScreenGameObject) as GameObject;
+        wsGO.transform.SetParent(canvas.transform, false);
+        _whiteScreen = wsGO.GetComponent<UnityEngine.UI.Image>();
         
         // (not creating Game Over screen until needed)
 
@@ -215,9 +215,18 @@ public class HUD : MonoBehaviour {
 
     void OnLevelWasLoaded(int level) {
 
-        // fading out black screen once level is loaded
-        blackScreenFadeTime = 0;
-        blackScreen.color = new Color(0, 0, 0, 1);
+        // fading out black screen/white screen once level is loaded
+        if (whiteScreen.color.a > .1f) {
+            whiteScreenFadeTime = 0;
+            whiteScreen.color = Color.white;
+            blackScreenFadeTime = 9999;
+            blackScreen.color = Color.clear;
+        } else {
+            blackScreenFadeTime = 0;
+            blackScreen.color = new Color(0, 0, 0, 1);
+            whiteScreenFadeTime = 9999;
+            whiteScreen.color = Color.clear;
+        }
 
     }
 
@@ -256,10 +265,14 @@ public class HUD : MonoBehaviour {
 
 	void Update() {
 
-        // blackscreen fading
+        // blackscreen/white screen fading
         if (blackScreenFadeTime < blackScreenFadeDuration) {
             blackScreenFadeTime += Time.fixedDeltaTime;
             blackScreen.color = new Color(0, 0, 0, Mathf.Max(0, 1 - blackScreenFadeTime / blackScreenFadeDuration));
+        }
+        if (whiteScreenFadeTime < whiteScreenFadeDuration) {
+            whiteScreenFadeTime += Time.fixedDeltaTime;
+            whiteScreen.color = new Color(1, 1, 1, Mathf.Max(0, 1 - whiteScreenFadeTime / whiteScreenFadeDuration));
         }
 
         // detect screenshots
@@ -304,6 +317,8 @@ public class HUD : MonoBehaviour {
 
     float blackScreenFadeTime = 9999;
     float blackScreenFadeDuration = .3f;
+    float whiteScreenFadeTime = 9999;
+    float whiteScreenFadeDuration = 1.0f;
 
     private List<HealthHeart> healthHearts = new List<HealthHeart>();
     private UnityEngine.UI.Image _blackScreen;
