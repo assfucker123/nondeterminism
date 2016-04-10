@@ -49,6 +49,7 @@ MonoBehaviour:
   Points:
   - {x: 0, y: 0}
   - {x: 20, y: 20}
+  - {x: 40, y: 40}
   relativeSize: 0
 --- !u!222 &22208842
 CanvasRenderer:
@@ -81,6 +82,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: Points.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -99,6 +104,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Points.Array.data[2].x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Points.Array.data[2].y
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

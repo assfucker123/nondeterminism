@@ -312,14 +312,63 @@ public class TimeTreePage : MonoBehaviour {
     void setLineRenderer(UILineRenderer lineRenderer, Vector2 p0, Vector2 p1) {
         Vector2 diff = p1 - p0;
         lineRenderer.enabled = diff.SqrMagnitude() >= minPixelDistanceForVisibleLine * minPixelDistanceForVisibleLine;
-        //lineRenderer.Points[0] = p0;
-        //lineRenderer.Points[1] = p1;
         Rect bounds = new Rect(Mathf.Min(p0.x, p1.x), Mathf.Min(p0.y, p1.y), Mathf.Abs(diff.x), Mathf.Abs(diff.y));
         RectTransform rt = lineRenderer.GetComponent<RectTransform>();
         rt.localPosition = bounds.min;
         rt.sizeDelta = bounds.size;
-        lineRenderer.Points[0] = p0 - bounds.min;
-        lineRenderer.Points[1] = p1 - bounds.min;
+
+        //float twoSegmentAngle = Mathf.Atan2(VERTICAL_SPACING, Mathf.Abs(diff.x));
+        float twoSegmentAngle = Mathf.Atan2(Mathf.Abs(diff.y), VERTICAL_SPACING);
+        float diffAngle = Mathf.Atan2(Mathf.Abs(diff.y), Mathf.Abs(diff.x));
+        bool oneSegment = (diffAngle > twoSegmentAngle) || Mathf.Abs(diff.y) < .1f;
+        if (!oneSegment) {
+            // draw two segments
+            Vector2 centerPoint = new Vector2();
+            float seg1XDiff = Mathf.Abs(diff.y / Mathf.Tan(twoSegmentAngle));
+
+            if (p0.x < p1.x) {
+                centerPoint.x = p0.x + seg1XDiff;
+                centerPoint.y = p1.y;
+                if (Mathf.Abs(p1.x - centerPoint.x) < minPixelDistanceForVisibleLine) {
+                    oneSegment = true;
+                }
+            } else {
+                centerPoint.x = p1.x + seg1XDiff;
+                centerPoint.y = p0.y;
+                if (Mathf.Abs(p0.x - centerPoint.x) < minPixelDistanceForVisibleLine) {
+                    oneSegment = true;
+                }
+            }
+            
+        }
+        
+        if (oneSegment/*diffAngle > twoSegmentAngle*/) {
+            // draw segment as normal
+            lineRenderer.Points[0] = p0 - bounds.min;
+            lineRenderer.Points[1] = p1 - bounds.min;
+            lineRenderer.Points[2] = p1 - bounds.min;
+        } else {
+            // draw two segments
+            Vector2 centerPoint = new Vector2();
+            float seg1XDiff = Mathf.Abs(diff.y / Mathf.Tan(twoSegmentAngle));
+            
+            if (p0.x < p1.x) {
+                centerPoint.x = p0.x + seg1XDiff;
+                centerPoint.y = p1.y;
+            } else {
+                centerPoint.x = p1.x + seg1XDiff;
+                centerPoint.y = p0.y;
+            }
+            
+            lineRenderer.Points[0] = p0 - bounds.min;
+            lineRenderer.Points[1] = centerPoint - bounds.min;
+            lineRenderer.Points[2] = p1 - bounds.min;
+        }
+
+        //lineRenderer.Points[0] = p0;
+        //lineRenderer.Points[1] = p1;
+        
+        
         lineRenderer.SetVerticesDirty();
     }
 
@@ -461,21 +510,30 @@ public class TimeTreePage : MonoBehaviour {
             scrollTime += Time.unscaledDeltaTime;
             Vector2 center0;
             Vector2 center1 = mainSelectedNode.pos;
-            if (mainPrevSelectedNode == null) {
-                center0 = center1;
-            } else {
-                center0 = mainPrevSelectedNode.pos;
-            }
+            //if (mainPrevSelectedNode == null) {
+            //    center0 = center1;
+            //} else {
+            //    center0 = mainPrevSelectedNode.pos;
+            //}
+            center0 = prevPosition;
             // clamping x vals beforehand to try to make scrolling smoother
             center0.x = Mathf.Clamp(center0.x, -nodeContainerScrollXMax, -nodeContainerScrollXMin);
             center1.x = Mathf.Clamp(center1.x, -nodeContainerScrollXMax, -nodeContainerScrollXMin);
             center0.x = Mathf.Round(center0.x/2)*2; center0.y = Mathf.Round(center0.y/2)*2;
-            center1.x = Mathf.Round(center1.x/2)*2; center0.y = Mathf.Round(center1.y/2)*2;
+            center1.x = Mathf.Round(center1.x/2)*2; center1.y = Mathf.Round(center1.y/2)*2;
 
             Vector2 center = Utilities.easeOutQuadClamp(scrollTime, center0, center1-center0, nodeContainerScrollDuration);
             Vector2 scrollPos = -center;
             scrollPos.x = Mathf.Clamp(scrollPos.x, nodeContainerScrollXMin, nodeContainerScrollXMax);
             nodeContainer.GetComponent<RectTransform>().localPosition = scrollPos;
+
+            // adjust y positions of intervals
+            for (int i = 0; i < intervals.Count; i++) {
+                GameObject intervGO = intervals[i].gameObject;
+                intervGO.GetComponent<RectTransform>().localPosition = new Vector2(
+                    0 + SECONDS_TO_PIXELS * intervalDuration * i,
+                    -nodeContainer.GetComponent<RectTransform>().localPosition.y);
+            }
 
             // scrolling map
             Vector2 gridPos0 = new Vector2();
@@ -575,6 +633,8 @@ public class TimeTreePage : MonoBehaviour {
 
         mainPrevSelectedNode = mainSelectedNode;
         mainSelectedNode = ttn;
+
+        prevPosition = mainSelector.GetComponent<RectTransform>().localPosition;
         mainSelector.GetComponent<RectTransform>().localPosition = ttn.nodeIcon.GetComponent<RectTransform>().localPosition;
         mainSelector.transform.SetAsLastSibling();
 
@@ -667,6 +727,7 @@ public class TimeTreePage : MonoBehaviour {
     GameObject mainSelector = null;
     TimeTreeNode mainSelectedNode = null;
     TimeTreeNode mainPrevSelectedNode = null;
+    Vector3 prevPosition = new Vector2();
 
     enum Direction {
         LEFT, UP, RIGHT, DOWN

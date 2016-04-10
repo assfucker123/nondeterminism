@@ -141,7 +141,7 @@ public class Bullet : MonoBehaviour {
                     if (hitSound != null)
                         SoundManager.instance.playSFXRandPitchBend(hitSound);
                 } else {
-                    Debug.Log("Bullet dealt 0 damage");
+                    // bullet dealt 0 dmaage
                 }
                 
             }
