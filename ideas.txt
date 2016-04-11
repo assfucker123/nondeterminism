@@ -1,43 +1,23 @@
-Nondeterminism ~ Proto
-
-Vision ~ Proto
 Vision ~ SR
 
-Attacking:
-- Jump and shoot megaman style.
-- Movement is a little faster, bullets are much faster (near instantaneous)
-	- Bullets produce tracer lines.
-- Can throw a grenade a short distance.
+(NOTE: Ideas have been trimmed to only those that haven't been implemented.  Previous ideas have been archived in the github)
 
-Dodge roll:
+Dodging:
 - Hold a direction and press DODGE to dodge in that direction.
+- More like a "blink" dodge?
 
 Visions:
-- Player has the passive ability to perceive attacks enemies are about to make.
-- These pereptions are silhouettes of attacks that are about to happen (like a tracer line for a gunshot, slash attack, or enemy teleporting in)
 - Silhouette has different colors depending the duration until the actual attack.
 	- Pink: fast (1 second?)
 	- Yellow: medium (3 seconds?)
 	- Light Green: slow (5 seconds?)
 
-Flashback ("Braid/Prince of Persia"):
-- Hold down the FLASH button to go backwards in time.
-- Enemies move backwards, player can get healed, etc.
-NEW IDEA ("Savestates"):
+Flashback - Vision Beacons
 - Press FLASH to setup a "vision beacon"
 - Press FLASH again to revert time back to the vision beacon.
 - Have to wait before can be used again.
 - This would be cool as an optional obtainable ability in ~SR.
 	- In ~SR, vision beacons are removed when entering another room.
-
-Phase meter:
-- While phase meter is not empty:
-	- Player can see Visions.
-	- Player can use Flashback.
-- Phase meter drains slowly over time.
-- Phase meter drains much faster while using Flashback.
-- Increase phase meter by collecting phase essence from fallen enemies.
-- Phase meter also increases by doing slow motion dodge rolls.
 
 Nondeterminism ~ SR
 (SR stands for Soft Reset, Speed Run, or Senior)
@@ -50,45 +30,12 @@ Premise:
 	- Spell out a password when arranged in the progress menu?  Need to guess the password and type it out?
 		- Need to have a bare minimum of glyphs in order to guess.
 	- Similar to Gold Orbs from An Untitled Story
-- New skills can be found with "decryptors", which unlock new abilities for the player.  Decryptors are information, so they are remembered when flashing back.  Some decryptors are useless until the booster is obtained.
-- Health upgrades are physical.  This means that, when reverting to a previous time, all the health upgrades accumulated since then will be lost.
-- There is 1 physical upgrade called a "booster" which enables some decryptors.  This also physically changes the player's appearence.
-- Time Hubs act as "checkpoints".  Upon reaching a time hub, game is saved.  Player can then warp to any time hub previously reached (mandatory when player dies)
-	- Player loses all physical upgrades and color keys obtained since getting to the time hub.
-	- Time on clock reverts back to the time when the hub was reached.
-	- Information, such as map data, decryptors, and deactication code parts, are still saved.
 - Game is similar to the movie "Edge of Tomorrow"
 - First area of the game has a huge variety of paths and secrets to keep the player from becoming bored.
 	- Early on branch off into multiple short paths, all but one are dead ends.  Can remember which path is the real one on next play attempt.
 	- Can use earned abilities for shortcuts, which also happen to go through physical upgrade rooms.
 
-Newer ideas:
-- Origin Story: Oracle's true form is a larval shaped like a brain and spinal cord.
-	- Infant Oracle have electrical neurons and memories stored in metallic semiconductors, making it functionally similar to a computer.
-	- Infant Oracle has full future sensing abilities, but can't talk.
-	- Discovered by Wally, a nerdy young human-like aspiring scientist, who studies it.
-	- Discovers Oracle's future sensing abilities.
-	- Wants to share discovery with the world, but Oracle takes action to prevent him from doing so.
-		- Chews through power cord on desktop, phone, etc.
-	- Wally realizes Oracle must know something about the future he doesn't, and that revealing Oracle's powers to the world would end in disaster.  As such, he keeps her powers a secret from everybody, including their family.
-		- Doesn't use Oracle to help with winning more lotteries, as to not draw attention.
-	- Learns more about Oracle's abilities.  She can only detect events where Oracle is present, and she cannot detect events that happen when she's asleep or unconscious.
-		- For this reason, Oracle is instinctively an insomniac, and pushes to keep herself awake for as long as possible.
-	
-	- (ISSUE:) How and when does Oracle get her suit?  Wally couldn't have made it, since he doesn't know the suit's full potential.  Need to preserve gameplay mechanic of finding decryptors to unlock abilities.
-	- Wally receives a large package, which is the suit for Oracle.
-		- Inside is a letter commending Wally for taking great care of Oracle.
-		- Sender is unknown. (Who?)
-		- Oracle was appearing anxious for this day, and wants to use the suit, so Wally trusts it.
-	
-	- Managed to get Oracle to speak.
-	- Oracle rarely encountered anyone else, so Wally became Oracle's closest friend and father figure.
-	- Likewise, Wally considered Oracle a loyal pet.
 - Oracle has a calculating personality, but is amused by instigating slight annoyance from others.
-	- Speaks and acts like Bladewolf from MGRR.
-	- Very rarely feels surprised or shocked (since she knows what's coming anyway)
-	- Cocky since she knows she'll win.
-		- "I didn't say you can't beat be, I said you don't."
 	- Oracle is crippled with fear if she's unable to predict the future, however.
 		- Explains while Oracle hates sleeping, since she can't predict things that happen to her while asleep.
 		- Happens when something appears to happen that she can't predict.
@@ -98,7 +45,6 @@ Newer ideas:
 		- She overcomes this fear at the end of the game.
 	- Oracle is slow to remember things.
 		- Visions of the future are more useful than memories of the past, so they prioritized when recalling information.
-		- 
 		- Wally's rebuttal:
 			- But memories are, in a way, the only thing we *can* be sure of.  We know for a fact that what has happened, happened.  The past is set in stone, and there's nothing that can be done to change it.
 			- It's the future that is uncertain.  The random choices we make all influence events to come.  Your visions are never 100% true, correct?  When you realize what will happen, you change how you act, which in turn modifies the future a tiny bit. 
@@ -107,36 +53,9 @@ Newer ideas:
 			- Need to pick answer from a range of colors.
 			- Can technically constantly revert and win with trial and error.
 				- If win, Wally will say "good thing you didn't cheat"
-- Better idea for motivation: Wally receiving instructions from his father, who has been gone for a very long time.
-	- He sent Wally infant Oracle, later her suit, then finally instructions on the mission.
-- Wally represents the player.  Some tutorials are framed as Oracle explaining things to Wally instead of the other way around.
-	- "True" protagonist?
-- (BAD IDEA) Tommy: Wally's younger brother.
-	- As a child, Tommy looked up to his brilliant brother Wally.
-	- In time, he studied in Wally's footsteps and became a great programmer.
-	- As Wally spent more time with Oracle, he spent less time with Tommy.  Tommy faced abandonment issues.
-		- Infant Oracle seemed to actively prevent Wally from seeing Tommy.
-		- Tommy found it rude that Wally cared more about his pet than his brother.
-		- Wally trusted Oracle's judgement, and grew suspicious of Tommy since Oracle didn't like him.
-	- As Wally and Tommy grew up, they lived on their own in separate areas.  Tommy would visit Wally every now and then.
-	- Tommy digs up on data about Orcale from Wally's computer when both of them are asleep (This is rare; Oracle goes for months without sleeping)
-	- Tommy leaves Wally and gets to work developing a virus that can hinder some parts of Oracle's future-sensing abilities.
-		- A data nullifier program that detects and deletes any data having to do with Tommy.
-	- Tommy injects the virus into Oracle the next time she sleeps.
-	- Now Oracle is indifferent to Tommy, and reacts comfortably to him.  Noticing the improvement, Wally enjoys Tommy's company more.
-	- Tommy figured out
 
-- Tommy's nullifier program gets repurposed into giving Oracle hallucinations.
-	- Whenever they're really talking about Tommy, Oracle thinks they're talking about something else: Entity X.
-	
 - Oracle doesn't forsee events without forseeing every event that leads up to it first.
 - Beginning of game: Oracle gets a vision of a bomb detonating in (1 hour?), but doesn't know what causes it.  This is concerning because she doesn't know what events lead up to it.
-	- Vision was sent to Oracle in a similar way to Tommy's nullifier program.
-
-- Tommy asks Wally for Oracle's help to defeat invaders
-- Invaders: evil penguins, seals, bears.
-- Oracle detects a gigantic bomb will go off soon.
-	- Involved with Tommy's request.
 
 - Once Oracle realizes that her memories and visions are being tampered with, begins to not trust her own visions, memories, friends.
 - Oracle and the Player become suspicious of Wally, need to decide if Wally is a malicious AI or not.
@@ -168,15 +87,6 @@ Conversation mechanic:
 - Secret: Can hold FLASHBACK to go back in time during conversations.
 - Secret: Hold (...) to bring up a simple minigame to play while talking (like Snake, similar to the youtube easter egg)
 
-Enemy waves:
-- Sometimes a room will lock a section and unlock when player clears a room of enemies.
-- But sometimes player is able to find a secret way out of the room.
-
-Player:
-- Protagonist is robot, fights similar to megaman.
-- Can do a directional dodge to avoid damage.
-- Perceives attacks before they happen (shown with a colored silhouette).
-
 Map Ideas:
 - Short hidden path from start to a physical key (for the introduction)
 - Medium-short hidden path from start to Booster (physical upgrade that's best to get as soon as possible)
@@ -205,54 +115,12 @@ BLUE DOOR FIRE NINE THEN JUMP FOUR
 - Countdown is actually to when protagonist's life is terminated, not when the world blows up.
 	- Shown when giant counter in a room late in the game shows how old protagonist's life is.  Add it to the countdown timer gets exactly 20 years
 
-
-Basic controls (told to player at beginning):
-- LEFT, RIGHT: movement
-- DOWN: duck
-- A: jump
-- B: shoot (megaman style)
-- Takes damage from water
-
-Physical items/upgrades (lost on game over):
-- Health packs (increase max health)
-- Color keys (need to collect all 4 to open a door)
-
-Chambers:
-- Save areas
-- Can warp back to time hubs accessed earlier
-- Identified by letter, number.
-	- Letter is relative location on X axis (left->right)
-	- Number is relative location on Y axis (up->down)
-	- Rooms need to have really obvious features so the player can remember them
-- Keeps track of physical upgrades obtained at that point
-
-Time Tree:
-
-10min ... 8min ... 6min ... 4min ... 2min ... 0
-
-                    _ T4
-    T4 --------- U6 \___
-  /                      W5
-S5 ---- U6 ---- U9
-  \____
-       \__ R8 --- U6
-
-- One strategy is to warp to a previous hub then travel back to the current one to save time.
-
 Map:
 - Standard map that gets filled in as player finds rooms.
 - Map is information, so does not revert back when warping to a previous time.
 - Records location of physical upgrades and keys
 	- Also marks if the item was picked up
 	- If found item (thus picking it up), then warped to a previous time, then the item's location would appear on the map, but it would not be marked as if it was obtained.
-
-Special Skill: Vision
-- Can see when gunshots or other traps are coming a second before they happen.
-- Danger is shown as a gray indicator.
-	- As a line for the path a bullet will take.
-	- As numerous silhouettes for enemies that make an attack.
-- Press DODGE to dodge in a cool slow-motion action.
-- Need to dodge in direction perpendicular to the attack.
 
 - Silhouette has different colors depending the duration until the actual attack.
 	- Pink: fast (1 second?)
@@ -354,77 +222,19 @@ Skills:
 
 - Players should be solving puzzles, not finding where to go next.
 
-Sound Effects needed:
-x step/land
-x jump
-x shoot
-x gun put down
-x hit1
-x oracle damage
-x oracle death
-/ vision
-	- Gets annoying?
-x flashback begin
-x flashback end
-x ui switch selection
-o ui switch page
-o ui select
-o ui cancel
-x pengrunt gun
-x pengrunt death
-x sealime gun
-x sealime death
-x death explosions
-x phase pickup
-x health pickup
-x low phase (ticking sound during flashback)
-x empty phase (off tune loud tick sound)
-o low health
 x portal
 
 Enemies needed (sorted by priority):
-x Sealime, bounces back and forth with secret lazor attack
-x Magoom, basic goomba that can occasionally teleport
-o Bomb puzzle enemy
-	- Time bomb coated with colored wires.  Shooting a wire will cause it to be easily defeated or rocket towards the player in a huge explosion
-	- Sways in wide sin wave (more horizontal movement than vertical movement)
-	o Version of enemy that can be figured out before needing a flashback
-o Cloud lightning
-o Spider wall clinger with yo-yo attacks
 o Pengrunt with rocket boots
 o Tank bear that fires bombs, some are fake/duds
 o Samurai with delayed causality attacks
 
-x Toucan bomb enemy:
-	- First version: has 3 bubbles and 1 grenade circle him.  If he gets shot, a bubble gets shot, or if he waits too long, then he fires all the projectiles at the player.
-		- Waiting too long will result in a vision of the attack.  Vision only shows the grenade, not the bubbles
-		- There are some frames where the projectiles freeze before being launched.  The pin falls out of the grenade here.
-	- Bubbles don't damage or affect the player at all, but the grenades deal damage and create a huge lethal explosion.
-	- Shooting the grenade while it's circling the enemy will cause it to detonate and kill the enemy right there (otherwise he takes a lot of damage)
-	- Second version: same as first, but the bubbles and grenade are hidden in fruit.  Need to figure out which fruit holds the grenade.
-		- Idea is to figure out which one it is using Flashback.
-		- Fruit facade is revealed during the pause in the first version.
-
-o Oracle needs a redesign.  Make face more appealing.
-
 o More knockback on enemies
 
-o Intro sequence: mission briefing:
-	- To Wally.
-	- I hope you are enjoying my gifts!
-	- I have a favor to ask of you.
-	- Endoplanetary Shield
-	- Seudar Isle
-	- Signed, NPC
 
 o Puzzle: spin windmill to move platforms in a loop.
 	o Shoot to spin, direction based on position the windmill is shot.
 
-o Puzzle that can be solved by waiting until it's windy enough.
-	- Wind happens all over tundra areas at set times.
-	- BAD IDEA (too inconvenient) Makes Oracle move faster/slower while in the air?
-	- Can spin windmills my themselves
-	
 o Oracle getting the vision of the world ending does not happen abruptly at the 1 hour mark (would be annoying for the player)
 	- Walk into an ominous small room, but there's nothing there.
 	- Upon leaving back the way you came, you're now suddenly in a very ominous, glitchy-aesthetic room.
@@ -439,19 +249,6 @@ o Oracle getting the vision of the world ending does not happen abruptly at the 
 	
 o Boss fight section: create obbs that will heal the boss.  Need to destroy the orbs before they get to the boss.
 
-o Advertise game as Majora's Mask time-rewind mechanic in a Metroidvania.
-
-o By standing still you can recharge a tiny bit of Phase (enough for a chamber flashback) if you're really low.  Innate ability, but can be upgraded.
-
-o Game crashing puzzle:
-	- Early on in the game, Oracle gets hit with a cold wind attack that freezes her (iced over sprite)
-	- Wally calls, says "When you freeze, rapidly tap left and right to resume playing".
-	- Player then taps left/right to escape the ice coating.
-	- During the glitch fight (when about to win?) have the game pretend to crash.  Bring up a fake "Unity fatal error" window.
-	- Rapidly tap left and right to get rid of the error and resume the game.
-	
-o Quantum pickup spawners.
-	- Usually things that randomly drop pickups are fixed.  But certain special objects will be different after each flashback to before they were destroyed.  Can chance reverting back and forth to get a better drop.
 
 o Enemy attacks that drain phase
 

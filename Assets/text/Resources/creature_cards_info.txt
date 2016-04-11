@@ -1,9 +1,10 @@
 Sealime: card_sealime 001/1/2/2/1/ -- While Sealimes are usually timid, they become hostile after consuming a large meal and will hurl clots of food at observers.
 Ciurivy: card_ciurivy 002/1/2/1/1/ -- Ciurivys amass supplies of massive Seudar Acorns.  Some are injected with Ciurivy's natural toxins to become explosive weapons.
-Smosey: card_smosey 003/1/1/0/1/ It's Smosey.
+Smosey: card_smosey 003/1/1/0/1/ -- Groups of Smoseys attack by ramming their enemies at speeds up to 50kph from all sides.  Most are hesitant to do so without a leader.
 Magoom: card_magoom 004/1/0/1/2/ -- Magooms are astute creatures that study ancient Seudarian scripts to push what their feeble bodies are capable of.
-Midow: card_midow 005/1/2/1/1/ It's Midow.
-Pengrunt: card_pengrunt 006/1/3/1/1/ It's Pengrunt.
-Vengemole: card_vengemole 007/1/4/2/1/ It's Vengemole.
-Toucade: card_toucade 008/1/3/3/3/ It's Toucade.
+Midow: card_midow 005/1/2/1/1/ -- Pores on adult Midows secrete a substance similar to red wine.  Predators that eat Midows usually feel woozy afterwards.
+Toucade: card_toucade 006/1/3/3/3/ -- Toucade's telekinetic power is mostly used to keep their own fat bodies aloft, forcing them to attack with alternative weapons.
+Pengrunt: card_pengrunt 007/1/3/1/1/ -- Pengrunts fashion weapons from ancient Seudar technology.  There's a collaborative effort to make a giant Pengrunt mech.
+Vengemole: card_vengemole 008/1/4/2/1/ -- Creatures can get stuck in holes Vengemoles create.  Severed legs are then used as material for Vengemoles' hammers.
+
 Sherivice: card_sherivice 009/2/3/5/3/ It's Sherivice.
