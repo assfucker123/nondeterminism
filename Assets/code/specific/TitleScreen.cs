@@ -13,64 +13,14 @@ public class TitleScreen : MonoBehaviour {
     public GameObject thingGameObject;
     public Color[] thingColors;
     public Sprite[] thingSprites;
-    [Header("Things")]
-    public float thingLoopSpan = 1000; // how far things will travel before looping
-    public float thingYSpread = 600;
-    public float thingMinSpeed = 100;
-    public float thingMaxSpeed = 200;
-    public float thingMinAmplitude = 100;
-    public float thingMaxAmplitude = 200;
-    public float thingMinPeriod = .3f;
-    public float thingMaxPeriod = .5f;
-    public int numThings = 20;
-
-
-    class ThingThing {
-        public GameObject gameObject;
-        public float speed = 100;
-        public float xOffset = 0;
-        public float initialY = 0;
-        public float loopSpan = 1000;
-        public float amplitude = 100;
-        public float period = .3f;
-        public float periodOffset = 0;
-        public float time = 0;
-        public void updatePosition() {
-            float x = speed * time + xOffset;
-            int loops = Mathf.FloorToInt(x / loopSpan);
-            x -= loops * loopSpan;
-            float y = initialY + Mathf.Sin((time + periodOffset) * Mathf.PI * 2 / period) * amplitude;
-            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(x, y);
-        }
-    }
-    List<ThingThing> things = new List<ThingThing>();
-    void makeThing() {
-        ThingThing tt = new ThingThing();
-        tt.gameObject = GameObject.Instantiate(thingGameObject) as GameObject;
-        Image image = tt.gameObject.GetComponent<Image>();
-        image.sprite = thingSprites[Random.Range(0, thingSprites.Length)];
-        image.color = thingColors[Random.Range(0, thingColors.Length)];
-        tt.gameObject.transform.SetParent(thingsGO.transform);
-        tt.speed = Random.Range(thingMinSpeed, thingMaxSpeed);
-        tt.loopSpan = thingLoopSpan;
-        tt.xOffset = Random.Range(0, tt.loopSpan);
-        tt.initialY = Random.Range(-thingYSpread / 2, thingYSpread / 2);
-        tt.amplitude = Random.Range(thingMinAmplitude, thingMaxAmplitude);
-        tt.period = Random.Range(thingMinPeriod, thingMaxPeriod);
-        tt.periodOffset = Random.Range(0, tt.period);
-        tt.updatePosition();
-        things.Add(tt);
-    }
+    //[Header("Things")]
+    
 
 	void Awake() {
-        clockText = transform.Find("ClockText").GetComponent<Text>();
         selection = transform.Find("Selection").GetComponent<Image>();
         playGameText = transform.Find("PlayGameText").GetComponent<Text>();
         optionsText = transform.Find("OptionsText").GetComponent<Text>();
         quitText = transform.Find("QuitText").GetComponent<Text>();
-        controlsText = transform.Find("ControlsText").GetComponent<Text>();
-        flashbackText = transform.Find("FlashbackText").GetComponent<Text>();
-        thingsGO = transform.Find("Things").gameObject;
 
         GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
         optionsPageGO.transform.SetParent(transform, false);
@@ -91,10 +41,6 @@ public class TitleScreen : MonoBehaviour {
 
         optionsPage.hide();
         Time.timeScale = 1;
-
-        for (int i = 0; i < numThings; i++) {
-            makeThing();
-        }
 
         // set options
         options.Add(playGameText);
@@ -117,18 +63,7 @@ public class TitleScreen : MonoBehaviour {
                 reverting = true;
             }
         }
-
-        foreach (ThingThing tt in things) {
-            if (reverting) {
-                tt.time -= Time.unscaledDeltaTime;
-            } else {
-                tt.time += Time.unscaledDeltaTime;
-            }
-            tt.updatePosition();
-        }
-
-        updateClock(revertingDiff);
-
+        
 	}
 
     void menuUpdate() {
@@ -187,11 +122,11 @@ public class TitleScreen : MonoBehaviour {
 
     }
 
-    void updateClock(float timeDiff) {
-        System.DateTime clock = System.DateTime.Now;
-        clock = clock.AddMilliseconds((double)(timeDiff * -1000));
-        clockText.text = clock.ToString("HH:mm:ss");
-    }
+    //void updateClock(float timeDiff) {
+    //    System.DateTime clock = System.DateTime.Now;
+    //    clock = clock.AddMilliseconds((double)(timeDiff * -1000));
+    //    clockText.text = clock.ToString("HH:mm:ss");
+    //}
 
     /// <summary>
     /// This is called by TitleScreen to begin the game.
@@ -231,9 +166,6 @@ public class TitleScreen : MonoBehaviour {
         playGameText.enabled = false;
         optionsText.enabled = false;
         quitText.enabled = false;
-
-        controlsText.enabled = false;
-        flashbackText.enabled = false;
     }
     void showOptions(int selectionIndex) {
         this.selectionIndex = selectionIndex;
@@ -245,9 +177,6 @@ public class TitleScreen : MonoBehaviour {
         playGameText.enabled = true;
         optionsText.enabled = true;
         quitText.enabled = true;
-
-        controlsText.enabled = true;
-        flashbackText.enabled = true;
     }
 
     int selectionIndex = 0;
@@ -257,20 +186,14 @@ public class TitleScreen : MonoBehaviour {
     List<Text> options = new List<Text>();
     bool optionsPageShown = false;
 
-    Text clockText;
     Image selection;
     Vector2 selectionOffset = new Vector2(0, 2);
     Text playGameText;
     Text optionsText;
     Text quitText;
     OptionsPage optionsPage;
-    GameObject thingsGO;
 
     bool reverting = false;
     float revertingDiff = 0;
-
-    // get rid of?
-    Text controlsText;
-    Text flashbackText;
-
+    
 }
