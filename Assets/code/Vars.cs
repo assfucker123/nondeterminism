@@ -464,88 +464,10 @@ public class Vars {
     static void loadDefaultData(int saveFileIndex = 0) {
         // save file index
         Vars.saveFileIndex = saveFileIndex;
-        // username
-        username = "";
-        // created date
-        createdDate = DateTime.Now;
-        // modified date
-        modifiedDate = DateTime.Now;
-        // play time
-        playTime = 0;
-        // all node data
-        NodeData.clearAllNodes();
-        // current node data
-        currentNodeData = NodeData.createNodeData(null, true);
-        currentNodeData.time = 0;
-        currentNodeData.level = "tut_ship_1";
-        currentNodeData.levelMapX = 1;
-        currentNodeData.levelMapY = 0;
-        currentNodeData.position.Set(33, 14);
-        currentNodeData.orbs.Clear();
-        currentNodeData.hasBooster = false;
-        currentNodeData.healthUpgrades.Clear();
-        currentNodeData.phaseReplacements = 0;
-        currentNodeData.physicalEvents.Clear();
-        currentNodeData.levelsAmbushesDefeated.Clear();
-        currentNodeData.objectsDestroyed.Clear();
-        // decryptors
-        decryptors.Clear();
-        // info events
-        infoEvents.Clear();
-        // current objective conversation
-        TalkPage.setCurrentObjectiveFile("co_first_tutorial");
-        // all talk conversations
-        TalkPage.conversations.Clear();
-        TalkPage.addConversationNoAlert("Standard Conversations", "c_finish_sentences", false, false);
-        TalkPage.addConversationNoAlert("Oracle's Flashbacks", "c_oracle_vision", true, false);
-        TalkPage.addConversationNoAlert("(help) Basic Controls", "help_basic_controls", false, true);
-        TalkPage.addConversationNoAlert("(help) Visions", "help_vision", false, true);
-        TalkPage.addConversationNoAlert("(help) Flashback", "help_flashback", false, true);
-        // pause screen lastPageOpened, mode
-        PauseScreen.lastPageOpened = PauseScreen.Page.TALK;
-        PauseScreen.mode = PauseScreen.Mode.TUTORIAL;
-        // orbs found
-        orbsFound.Clear();
-        // booster found
-        boosterFound = false;
-        // health upgrades found
-        healthUpgradesFound.Clear();
-        // creature cards found
-        creatureCardsFound.Clear();
-        // map and map icons
-        if (MapUI.instance == null) {
-            MapUI.tempGridString = "";
-            MapUI.tempIconString = "";
-        } else {
-            MapUI.instance.gridFromString("");
-            MapUI.instance.iconsFromString("");
-        }
 
-
-        // for testing
-#if UNITY_EDITOR
-
-        ///*
-        //collectDecryptor(Decryptor.ID.CHARGE_SHOT);
-        //collectDecryptor(Decryptor.ID.ALTERED_SHOT);
-        //collectDecryptor(Decryptor.ID.ROOM_RESTART);
-
-        /*
-        currentNodeData.creatureCardCollect("Sealime");
-        currentNodeData.creatureCardCollect("Ciurivy");
-        currentNodeData.creatureCardCollect("Smosey");
-        currentNodeData.creatureCardCollect("Magoom");
-        currentNodeData.creatureCardCollect("Pengrunt");
-        creatureCardFind("Vengemole");
-        currentNodeData.creatureCardCollect("Toucade");
-        currentNodeData.creatureCardCollect("Sherivice");
-        */
-        //eventHappen(AdventureEvent.Info.FOUND_CREATURE_CARD);
-        PauseScreen.mode = PauseScreen.Mode.NORMAL;
-
-        #endif
-
-
+        // moved everything to its own file for easier editing
+        VarsLoadDefaultSaveData.load();
+        
     }
 
     /* LOADING DATA */
@@ -595,10 +517,12 @@ public class Vars {
         TalkPage.setCurrentObjectiveFile(strs[9]);
         // all talk conversations
         TalkPage.loadAllConversationsFromString(strs[10]);
-        // pause screen lastPageOpened, mode
+        // pause screen lastPageOpened, mode, countdown timer visible, mode
         string[] strsP = strs[11].Split(delims2);
         PauseScreen.lastPageOpened = (PauseScreen.Page)int.Parse(strsP[0]);
         PauseScreen.mode = (PauseScreen.Mode)int.Parse(strsP[1]);
+        CountdownTimer.staticVisible = strsP[2] == "1";
+        CountdownTimer.staticMode = (CountdownTimer.Mode)int.Parse(strsP[3]);
         // orbs found
         orbsFound.Clear();
         string[] ofStrs = strs[12].Split(delims2);
@@ -686,8 +610,8 @@ public class Vars {
         // all talk conversations (10)
         ret += TalkPage.saveAllConversationsToString();
         ret += "\n";
-        // pause screen lastPageOpened, mode (11)
-        ret += (int)PauseScreen.lastPageOpened + "," + (int)PauseScreen.mode;
+        // pause screen lastPageOpened, mode, countdown timer visible, mode (11)
+        ret += (int)PauseScreen.lastPageOpened + "," + (int)PauseScreen.mode + "," + (CountdownTimer.staticVisible ? "1" : "0") + "," + (int)CountdownTimer.staticMode;
         ret += "\n";
         // orbs found (12)
         for (int i = 0; i < orbsFound.Count; i++) {

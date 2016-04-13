@@ -148,9 +148,12 @@ public class VisionUser : MonoBehaviour {
 
     }
 
-    /* Immediately converts a gameObject into a vision.
-     * Useful for when visions spawn other visions (like bullets) */
-    public void becomeVisionNow(float visionDuration, VisionUser visionCreator) {
+    /// <summary>
+    /// Immediately converts a gameObject into a vision.  Useful for when visions spawn other visions(like bullets)
+    /// </summary>
+    /// <param name="visionDuration">How long the gameObject will be a vision</param>
+    /// <param name="visionCreator">Creator of the vision (can be null).  Note that when a creator calls cutVisions(), this vision will be cut too.</param>
+    public void becomeVisionNow(float visionDuration, VisionUser visionCreator = null) {
         becomeVision(0, visionDuration, null, visionCreator);
     }
 

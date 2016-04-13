@@ -10,6 +10,8 @@ public class HealthHeart : MonoBehaviour {
     public Vector2 startPosition = new Vector2(-623, -50);
     public float spacing = 50;
 
+    public Vector2 raisedPositionOffset = new Vector2(0, 40);
+
     private float jostleMagnitude = 5f;
     private float jostleDuration = .4f;
 
@@ -49,6 +51,14 @@ public class HealthHeart : MonoBehaviour {
         rt.anchorMax = new Vector2(.5f, 1);
         rt.anchoredPosition = position;
         centerPos = position;
+    }
+
+    /// <summary>
+    /// Called by CutsceneBars.  Puts phaseMeter in position based on position of the cutscene bars.
+    /// </summary>
+    /// <param name="inter">in [0, 1]</param>
+    public void setRaisedPosition(float inter) {
+        GetComponent<RectTransform>().anchoredPosition = Utilities.easeLinearClamp(inter, centerPos, raisedPositionOffset, 1);
     }
 
     public void jostle() {
@@ -125,7 +135,9 @@ public class HealthHeart : MonoBehaviour {
     void OnRevert(FrameInfo fi) {
         time = fi.floats["time"];
         jostleAngle = fi.floats["jostleAngle"];
-        setJostle();
+        if (time < jostleDuration) {
+            setJostle();
+        }
     }
 
     Vector2 centerPos = new Vector2();

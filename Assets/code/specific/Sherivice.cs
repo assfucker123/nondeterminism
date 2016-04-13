@@ -28,6 +28,7 @@ public class Sherivice : MonoBehaviour {
     public int rockThrowTimes = 3;
     public float percentHealth3RocksThrown = .7f;
     public float percentHealth4RocksThrown = .4f;
+    public float rockVisionDuration = 2.5f;
     public GameObject rockGameObject;
     
     public float toBulletShortDuration = 1.0f;
@@ -441,7 +442,7 @@ public class Sherivice : MonoBehaviour {
 
                         if (visionUser.isVision) { //make bullet a vision if this is also a vision
                             VisionUser irvu = iceRock.GetComponent<VisionUser>();
-                            irvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                            irvu.becomeVisionNow(rockVisionDuration, null);
                         }
 
                     }
@@ -513,7 +514,8 @@ public class Sherivice : MonoBehaviour {
         case State.BULLET:
 
             // create vision of shooting bullet
-            if (count < bulletTimes &&
+            if (!visionUser.isVision &&
+                count < bulletTimes &&
                 time >= bulletPeriod - VisionUser.VISION_DURATION - .3f &&
                 time - Time.deltaTime < bulletPeriod - VisionUser.VISION_DURATION - .3f) {
 
@@ -586,7 +588,7 @@ public class Sherivice : MonoBehaviour {
 
                         if (visionUser.isVision) { //make bullet a vision if this is also a vision
                             VisionUser bvu = bullet.GetComponent<VisionUser>();
-                            bvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                            bvu.becomeVisionNow(VisionUser.VISION_DURATION, visionUser);
                         } else {
                             SoundManager.instance.playSFXRandPitchBend(bulletSound, .01f);
                         }
@@ -832,7 +834,9 @@ public class Sherivice : MonoBehaviour {
 
                     // don't create visions of rocks after the one that deals the final hit
                     //if (time + VisionUser.VISION_DURATION - .5f < finalHitWait || time + VisionUser.VISION_DURATION - .5f - coveredRockThrowPeriod > finalHitWait) {
+                    if (!visionUser.isVision) {
                         visionUser.createVision(VisionUser.VISION_DURATION);
+                    }
                     //}
 
                     
@@ -866,7 +870,7 @@ public class Sherivice : MonoBehaviour {
 
                     if (visionUser.isVision) { //make bullet a vision if this is also a vision
                         VisionUser irvu = iceRock.GetComponent<VisionUser>();
-                        irvu.becomeVisionNow(visionUser.duration - visionUser.time, visionUser);
+                        irvu.becomeVisionNow(VisionUser.VISION_DURATION, visionUser);
                     }
                     
                     if (!visionUser.isVision) {
@@ -1012,7 +1016,7 @@ public class Sherivice : MonoBehaviour {
                 iceBoulder.spawnsPickups = oldBoulders[i].GetComponent<IceBoulder>().spawnsPickups;
 
                 // convert to vision
-                boulderGO.GetComponent<VisionUser>().becomeVisionNow(visionUser.duration - visionUser.time, oldBoulders[i].GetComponent<VisionUser>());
+                boulderGO.GetComponent<VisionUser>().becomeVisionNow(VisionUser.VISION_DURATION, oldBoulders[i].GetComponent<VisionUser>());
             }
             
             

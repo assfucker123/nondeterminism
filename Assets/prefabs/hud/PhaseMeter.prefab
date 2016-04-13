@@ -339,9 +339,11 @@ MonoBehaviour:
   warningThreshold: 0.2
   pulsePeriod: 0.4
   lowSoundStart: 35
+  raisedPositionOffset: {x: 0, y: 40}
   fullStandardPhase: 80
   middleBarPhase: 20
   extendStandardPhase: 34
+  bgExtendScaleMultiplier: 1.12
   digitSprites:
   - {fileID: 21300000, guid: 758ec72aced01414d9f4dfb0272a4142, type: 3}
   - {fileID: 21300002, guid: 758ec72aced01414d9f4dfb0272a4142, type: 3}
@@ -884,6 +886,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: position.y
       value: -46
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: raisedPositionOffset.y
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

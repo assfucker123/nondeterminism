@@ -18,7 +18,25 @@ public class CountdownTimer : MonoBehaviour {
     public float flashPeriodInvisible = .2f;
 
     public static CountdownTimer instance { get; private set; }
-
+    public static Mode staticMode {
+        get {
+            return instance == null ? _staticMode : instance.mode;
+        }
+        set {
+            if (instance == null) _staticMode = value;
+            else instance.mode = value;
+        }
+    }
+    public static bool staticVisible {
+        get {
+            return instance == null ? _staticVisible : instance.visible;
+        }
+        set {
+            if (instance == null) _staticVisible = value;
+            else instance.visible = value;
+        }
+    }
+    
     public static float MELTDOWN_DURATION {
         get {
             return 30 * 60;
@@ -115,6 +133,10 @@ public class CountdownTimer : MonoBehaviour {
             dot.mode = Mode.NORMAL;
         }
         glyphBox.setColor(NORMAL_COLOR);
+
+        Mode tempMode = mode;
+        _mode = Mode.NORMAL;
+        mode = tempMode;
     }
 
 	void Awake() {
@@ -128,6 +150,9 @@ public class CountdownTimer : MonoBehaviour {
         timeUser = GetComponent<TimeUser>();
 
         dots = transform.GetComponentsInChildren<CountdownTimerDot>();
+
+        mode = _staticMode;
+        visible = _staticVisible;
 	}
 
     void Start() {
@@ -175,16 +200,22 @@ public class CountdownTimer : MonoBehaviour {
         string str = timeToStr(time, mode);
         glyphBox.setPlainText(str);
         moveDots(time);
-        // flashing
-        if (flashing) {
-            bool vis = Utilities.fmod(flashTime, flashPeriodVisible+flashPeriodInvisible) > flashPeriodInvisible;
-            if (vis && glyphBox.visibleChars == 0) {
-                glyphBox.makeAllCharsVisible();
+        // visible
+        if (visible) {
+            // flashing
+            if (flashing) {
+                bool vis = Utilities.fmod(flashTime, flashPeriodVisible+flashPeriodInvisible) > flashPeriodInvisible;
+                if (vis && glyphBox.visibleChars == 0) {
+                    glyphBox.makeAllCharsVisible();
+                }
+                if (!vis && glyphBox.visibleChars > 0) {
+                    glyphBox.makeAllCharsInvisible();
+                }
             }
-            if (!vis && glyphBox.visibleChars > 0) {
-                glyphBox.makeAllCharsInvisible();
-            }
+        } else {
+            glyphBox.makeAllCharsInvisible();
         }
+        
     }
 
     void moveDots(float time) {
@@ -259,6 +290,9 @@ public class CountdownTimer : MonoBehaviour {
     bool _flashing = false;
     float flashTime = 0;
     bool _frozen = false;
+
+    private static Mode _staticMode = Mode.NORMAL;
+    private static bool _staticVisible = true;
 
     CountdownTimerDot[] dots;
 

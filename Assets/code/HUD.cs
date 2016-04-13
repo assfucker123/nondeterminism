@@ -79,7 +79,7 @@ public class HUD : MonoBehaviour {
         
     }
 
-    public void setHealth(int health) {
+    public void setHealth(int health, bool shineHearts = true) {
         if (_health == health)
             return;
 
@@ -87,12 +87,12 @@ public class HUD : MonoBehaviour {
         if (health > maxHealth) health = maxHealth;
 
         if (health < this.health) {
-            //jostle hearts
+            // jostle hearts
             foreach (HealthHeart hh in healthHearts) {
                 hh.jostle();
             }
-        } else if (health > this.health) {
-            //shine hearts
+        } else if (health > this.health && shineHearts) {
+            // shine hearts
             foreach (HealthHeart hh in healthHearts) {
                 hh.shine();
             }
@@ -113,6 +113,15 @@ public class HUD : MonoBehaviour {
             healthHearts[i].state = state;
         }
 
+    }
+    /// <summary>
+    /// Called by CutsceneBars.  Puts phaseMeter in position based on position of the cutscene bars.
+    /// </summary>
+    /// <param name="inter">in [0, 1]</param>
+    public void setHealthRaisedPosition(float inter) {
+        foreach (HealthHeart hh in healthHearts) {
+            hh.setRaisedPosition(inter);
+        }
     }
 
     public void onUnloadLevel() {
@@ -141,16 +150,12 @@ public class HUD : MonoBehaviour {
         slGO.transform.SetParent(canvas.transform, false);
         _speedLines = slGO.GetComponent<SpeedLines>();
         _speedLines.setUp();
+
         //create Flashback Artifacts
         GameObject faGO = GameObject.Instantiate(flashbackArtifactsGameObject) as GameObject;
         faGO.transform.SetParent(canvas.transform, false);
         _flashbackArtifacts = faGO.GetComponent<FlashbackArtifacts>();
         _flashbackArtifacts.setUp();
-        // create Cutscene Bars
-        GameObject cbGO = GameObject.Instantiate(cutsceneBarsGameObject) as GameObject;
-        cbGO.transform.SetParent(canvas.transform, false);
-        _cutsceneBars = cbGO.GetComponent<CutsceneBars>();
-        _cutsceneBars.moveOffImmediately();
 
         // creates boss health bar
         GameObject bhbGO = GameObject.Instantiate(bossHealthBarGameObject) as GameObject;
@@ -163,11 +168,17 @@ public class HUD : MonoBehaviour {
         cmsGO.transform.SetParent(canvas.transform, false);
         _controlsMessageSpawner = cmsGO.GetComponent<ControlsMessageSpawner>();
 
-        //create Phase Meter
+        // create Phase Meter
         GameObject pmGO = GameObject.Instantiate(phaseMeterGameObject) as GameObject;
         pmGO.transform.SetParent(canvas.transform, false);
         _phaseMeter = pmGO.GetComponent<PhaseMeter>();
         _phaseMeter.setUp();
+        
+        // create Cutscene Bars
+        GameObject cbGO = GameObject.Instantiate(cutsceneBarsGameObject) as GameObject;
+        cbGO.transform.SetParent(canvas.transform, false);
+        _cutsceneBars = cbGO.GetComponent<CutsceneBars>();
+        _cutsceneBars.moveOffImmediately();
 
         // create Notification
         GameObject nGO = GameObject.Instantiate(notificationGameObject) as GameObject;

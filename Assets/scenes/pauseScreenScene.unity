@@ -188,6 +188,7 @@ MonoBehaviour:
   - 1500
   - 1785
   switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  saveGameSound: {fileID: 0}
   textAsset: {fileID: 4900000, guid: fbd276f993b2cba49bf4779de50f09ac, type: 3}
 --- !u!1001 &176133050
 Prefab:

@@ -365,7 +365,7 @@ public class Player : MonoBehaviour {
     void Start() {
         if (receivesDamage.health > maxHealth) receivesDamage.health = maxHealth;
         HUD.instance.setMaxHealth(maxHealth);
-        HUD.instance.setHealth(receivesDamage.health);
+        HUD.instance.setHealth(receivesDamage.health, false);
         HUD.instance.phaseMeter.setMaxPhase(maxPhase);
         HUD.instance.phaseMeter.setPhase(maxPhase * startPhase);
 

@@ -100,7 +100,7 @@ public class Level : MonoBehaviour {
         // update map grid
         if (MapUI.instance == null) {
             Debug.LogWarning("WARNING: MapUI.instance is null");
-        } else {
+        } else if (showOnMap) {
             // set entire room
             if (MapUI.instance.gridIsEmpty(mapX, mapY, mapWidth, mapHeight)) {
                 MapUI.instance.gridAddRoom(mapX, mapY, mapWidth, mapHeight,

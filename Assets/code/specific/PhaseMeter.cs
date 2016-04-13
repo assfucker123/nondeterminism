@@ -10,6 +10,8 @@ public class PhaseMeter : MonoBehaviour {
     public float pulsePeriod = .4f;
     public float lowSoundStart = 25;
 
+    public Vector2 raisedPositionOffset = new Vector2(0, -40);
+
     public float fullStandardPhase = 80;
     public float middleBarPhase = 20;
     public float extendStandardPhase = 28;
@@ -32,6 +34,14 @@ public class PhaseMeter : MonoBehaviour {
         rt.anchorMin = new Vector2(.5f, 1);
         rt.anchorMax = new Vector2(.5f, 1);
         rt.anchoredPosition = position;
+    }
+
+    /// <summary>
+    /// Called by CutsceneBars.  Puts phaseMeter in position based on position of the cutscene bars.
+    /// </summary>
+    /// <param name="inter">in [0, 1]</param>
+    public void setRaisedPosition(float inter) {
+        GetComponent<RectTransform>().anchoredPosition = Utilities.easeLinearClamp(inter, position, raisedPositionOffset, 1);
     }
 
     public float maxPhase { get { return _maxPhase; } }
@@ -107,7 +117,7 @@ public class PhaseMeter : MonoBehaviour {
         digit1 = transform.Find("Digit1").GetComponent<Image>();
         digit10 = transform.Find("Digit10").GetComponent<Image>();
         digit100 = transform.Find("Digit100").GetComponent<Image>();
-
+        
 	}
 	
 	void Update() {

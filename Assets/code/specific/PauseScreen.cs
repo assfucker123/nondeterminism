@@ -74,7 +74,6 @@ public class PauseScreen : MonoBehaviour {
             Vars.currentNodeData.position = Player.instance.rb2d.position;
         }
         
-        
         stopTime();
         if (!Vars.screenshotMode) {
             CameraControl.instance.enableEffects(0, 0, 0); //grayscale camera
