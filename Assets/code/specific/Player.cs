@@ -725,18 +725,21 @@ public class Player : MonoBehaviour {
                 TimeUser.continuousRevertSpeed = Utilities.easeLinearClamp(revertTime, .5f, revertSpeed - .5f, revertEaseDuration);
                 break;
             }
-            
-            if (useInversion) {
-                CameraControl.instance.enableEffects(
-                    Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
-                    Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration),
-                    Utilities.easeOutQuadClamp(revertTime, 0, 1, revertEaseDuration));
-            } else {
-                CameraControl.instance.enableEffects(
-                    Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
-                    Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration),
-                    0);
+
+            if (true) {
+                if (useInversion) {
+                    CameraControl.instance.enableEffects(
+                        Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
+                        Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration),
+                        Utilities.easeOutQuadClamp(revertTime, 0, 1, revertEaseDuration));
+                } else {
+                    CameraControl.instance.enableEffects(
+                        Utilities.easeOutQuadClamp(revertTime, 0, 1.6f, revertEaseDuration),
+                        Utilities.easeOutQuadClamp(revertTime, 1, -1, revertEaseDuration),
+                        0);
+                }
             }
+            
 
             // conditions for reverting
             bool stopReverting = !Keys.instance.flashbackHeld;

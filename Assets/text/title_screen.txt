@@ -1,0 +1,3 @@
+play_game: Play Game
+options: Options
+quit: Quit

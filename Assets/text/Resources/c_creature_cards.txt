@@ -1,3 +1,5 @@
+title: Seudar Creature Cards
+
 t-W: You found a |Seudar Creature Card|!  Now you have a nice souvenir of the island.
 t-O: A snapshot of something that tried to kill me... how amusing.
 t-O: There is a detailed description of the creature featured on the card as well.

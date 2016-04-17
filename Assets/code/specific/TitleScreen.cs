@@ -6,21 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour {
 
+    public Vector2 selectionOffset = new Vector2(0, 2);
     public Vector2 optionsPageOffset = new Vector2(0, -10);
     public AudioClip switchSound;
     public GameObject optionsPageGameObject;
     public TextAsset decryptorInfoTextAsset;
-    public GameObject thingGameObject;
-    public Color[] thingColors;
-    public Sprite[] thingSprites;
+    public TextAsset titleScreenTextAsset;
     //[Header("Things")]
     
 
 	void Awake() {
         selection = transform.Find("Selection").GetComponent<Image>();
-        playGameText = transform.Find("PlayGameText").GetComponent<Text>();
-        optionsText = transform.Find("OptionsText").GetComponent<Text>();
-        quitText = transform.Find("QuitText").GetComponent<Text>();
+        playGameText = transform.Find("PlayGameText").GetComponent<GlyphBox>();
+        optionsText = transform.Find("OptionsText").GetComponent<GlyphBox>();
+        quitText = transform.Find("QuitText").GetComponent<GlyphBox>();
 
         GameObject optionsPageGO = GameObject.Instantiate(optionsPageGameObject);
         optionsPageGO.transform.SetParent(transform, false);
@@ -28,6 +27,10 @@ public class TitleScreen : MonoBehaviour {
             new Vector3(optionsPageOffset.x, optionsPageOffset.y);
         optionsPage = optionsPageGO.GetComponent<OptionsPage>();
         optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        fileSelectScreen = transform.Find("FileSelectScreen").GetComponent<FileSelectScreen>();
+
+        properties = new Properties(titleScreenTextAsset.text);
 
         if (!Decryptor.initialized) {
             Decryptor.initialize(new Properties(decryptorInfoTextAsset.text));
@@ -37,7 +40,7 @@ public class TitleScreen : MonoBehaviour {
     void Start() {
 
         Vars.loadSettings();
-        Vars.loadData(Vars.saveFileIndexLastUsed);
+        //Vars.loadData(Vars.saveFileIndexLastUsed);
 
         optionsPage.hide();
         Time.timeScale = 1;
@@ -46,6 +49,11 @@ public class TitleScreen : MonoBehaviour {
         options.Add(playGameText);
         options.Add(optionsText);
         options.Add(quitText);
+        playGameText.setColor(PauseScreen.SELECTED_COLOR);
+        optionsText.setColor(PauseScreen.DEFAULT_COLOR);
+        quitText.setColor(PauseScreen.DEFAULT_COLOR);
+
+        showOptions(0);
     }
 	
 	void Update() {
@@ -67,6 +75,9 @@ public class TitleScreen : MonoBehaviour {
 	}
 
     void menuUpdate() {
+        
+        if (fileSelectScreenShown)
+            return;
 
         if (optionsPageShown) {
             if (((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
@@ -89,8 +100,8 @@ public class TitleScreen : MonoBehaviour {
             newSelection = true;
         }
         if (newSelection) {
-            options[prevSelectionIndex].color = PauseScreen.DEFAULT_COLOR;
-            options[selectionIndex].color = PauseScreen.SELECTED_COLOR;
+            options[prevSelectionIndex].setColor(PauseScreen.DEFAULT_COLOR);
+            options[selectionIndex].setColor(PauseScreen.SELECTED_COLOR);
             selectionPos0.Set(selection.rectTransform.localPosition.x, selection.rectTransform.localPosition.y);
             selectionPos1.Set(options[selectionIndex].rectTransform.localPosition.x, options[selectionIndex].rectTransform.localPosition.y);
             selectionPos1 = selectionPos1 + selectionOffset;
@@ -108,7 +119,7 @@ public class TitleScreen : MonoBehaviour {
 
         // confirming an option
         if (Keys.instance.confirmPressed) {
-            Text selection = options[selectionIndex];
+            GlyphBox selection = options[selectionIndex];
 
             if (selection == playGameText) {
                 playGameSelected();
@@ -140,8 +151,10 @@ public class TitleScreen : MonoBehaviour {
         Vars.currentNodeData.position.y = 9;
         */
 
-        string levelName = Vars.currentNodeData.level;
-        Vars.loadLevel(levelName);
+        //string levelName = Vars.currentNodeData.level;
+        //Vars.loadLevel(levelName);
+
+        fileSelectScreen.fadeIn();
     }
 
     void optionsSelected() {
@@ -163,9 +176,9 @@ public class TitleScreen : MonoBehaviour {
 
     void hideOptions() {
         selection.enabled = false;
-        playGameText.enabled = false;
-        optionsText.enabled = false;
-        quitText.enabled = false;
+        playGameText.makeAllCharsInvisible();
+        optionsText.makeAllCharsInvisible();
+        quitText.makeAllCharsInvisible();
     }
     void showOptions(int selectionIndex) {
         this.selectionIndex = selectionIndex;
@@ -174,25 +187,32 @@ public class TitleScreen : MonoBehaviour {
         selectionTime = 9999;
 
         selection.enabled = true;
-        playGameText.enabled = true;
-        optionsText.enabled = true;
-        quitText.enabled = true;
+        playGameText.setPlainText(properties.getString("play_game"));
+        optionsText.setPlainText(properties.getString("options"));
+        quitText.setPlainText(properties.getString("quit"));
     }
 
     int selectionIndex = 0;
     float selectionTime = 9999f;
     Vector2 selectionPos0 = new Vector2();
     Vector2 selectionPos1 = new Vector2();
-    List<Text> options = new List<Text>();
+    List<GlyphBox> options = new List<GlyphBox>();
     bool optionsPageShown = false;
+    bool fileSelectScreenShown {
+        get {
+            return fileSelectScreen.state != FileSelectScreen.State.HIDE;
+        }
+    }
 
     Image selection;
-    Vector2 selectionOffset = new Vector2(0, 2);
-    Text playGameText;
-    Text optionsText;
-    Text quitText;
+    GlyphBox playGameText;
+    GlyphBox optionsText;
+    GlyphBox quitText;
     OptionsPage optionsPage;
+    Properties properties;
 
+    FileSelectScreen fileSelectScreen;
+    
     bool reverting = false;
     float revertingDiff = 0;
     

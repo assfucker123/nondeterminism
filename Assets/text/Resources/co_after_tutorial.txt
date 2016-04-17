@@ -1,0 +1,12 @@
+// (current objective)
+
+t-W: We finally landed on Seudar Isle.  Time to start looking for the Omega Crystal.
+t-W: Unfortunately I'm clueless regarding its specific location.  Underground, maybe?  Crystals grow underground right?
+t-W: Most of your suit's abilities are locked away, so although you're able to defend yourself,
+t-W: you'll still have a hard time getting around certain obstacles.
+t-W: Maybe if you make friends with some of the woodland creatures they'll help you out!
+t-O: None of them are very friendly.
+t-W: That's disappointing.
+
+
+closeText block

@@ -38,11 +38,11 @@ public class VarsLoadDefaultSaveData {
         TalkPage.setCurrentObjectiveFile("co_first_tutorial");
         // all talk conversations
         TalkPage.conversations.Clear();
-        TalkPage.addConversationNoAlert("Standard Conversations", "c_finish_sentences", false, false);
-        TalkPage.addConversationNoAlert("Oracle's Flashbacks", "c_oracle_vision", true, false);
-        TalkPage.addConversationNoAlert("(help) Basic Controls", "help_basic_controls", false, true);
-        TalkPage.addConversationNoAlert("(help) Visions", "help_vision", false, true);
-        TalkPage.addConversationNoAlert("(help) Flashback", "help_flashback", false, true);
+        TalkPage.addConversationNoAlert("c_finish_sentences", false, false);
+        TalkPage.addConversationNoAlert("c_oracle_vision", true, false);
+        TalkPage.addConversationNoAlert("help_basic_controls", false, true);
+        TalkPage.addConversationNoAlert("help_vision", false, true);
+        TalkPage.addConversationNoAlert("help_flashback", false, true);
         // pause screen lastPageOpened, mode, countdown timer visible, mode
         PauseScreen.lastPageOpened = PauseScreen.Page.TALK;
         PauseScreen.mode = PauseScreen.Mode.TUTORIAL;

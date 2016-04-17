@@ -26,8 +26,10 @@ public class Decryptor {
         CONCENTRATION,
         HYPER_SPEED, // required
         PIERCING_SHOT,
+        BURST_CHARGE_SHOT,
         RESISTANCE,
         FOCUS_ENERGY,
+        HARMFUL_AURA,
         DEFENSE,
         HYPER_CHARGE_SHOT, // required
         BLINK_DUO,
@@ -57,7 +59,9 @@ public class Decryptor {
         switch (id) {
         case ID.CHARGE_MAGNET:
         case ID.PIERCING_SHOT:
+        case ID.BURST_CHARGE_SHOT:
         case ID.HYPER_CHARGE_SHOT:
+        case ID.HARMFUL_AURA:
             return new List<ID> { ID.CHARGE_SHOT };
         case ID.BLINK_SLIDE:
         case ID.BLINK_DUO:

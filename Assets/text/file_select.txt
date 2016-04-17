@@ -1,0 +1,11 @@
+file: FILE
+new_file: (new file)
+error: Error loading
+new_file_settings: New file settings
+no_change: (these cannot be changed later)
+difficulty: Difficulty
+tutorials: Tutorials
+enabled: Enabled
+disabled: Disabled
+tutorial_on: Explanations of what the buttons do are displayed.
+tutorial_off: Only recommended for subsequent playthroughs.

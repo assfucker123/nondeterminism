@@ -1,3 +1,4 @@
+title: (help) Visions
 
 t-W: |Vision| is your passive ability to see attacks from enemies a second or so before they happen.
 t-W: These visions are represented by gray silhouettes.

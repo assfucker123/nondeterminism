@@ -38,6 +38,7 @@ public class ScriptRunner : EventHappener {
             DEBUGLOG,                   // DebugLog any text
             DESTROY_BOSS_HEALTH_BAR,    // destroyBossHealthBar
             SET_CURRENT_OBJECTIVE,      // setCurrentObjective co_newObjectiveFile
+            TITLE,                      // title: Oracle's Flashbacks // title for conversations, doens't actually do anything here
         }
 
         public ID id = ID.NONE;
@@ -275,6 +276,8 @@ public class ScriptRunner : EventHappener {
             } else if (word == "setcurrentobjective") { // setCurrentObjective co_theObjective
                 id = ID.SET_CURRENT_OBJECTIVE;
                 str0 = line.Substring(word.Length).Trim();
+            } else if (word == "title" || word == "title:") { // title
+                id = ID.TITLE;
             }
 
         }
@@ -724,6 +727,9 @@ public class ScriptRunner : EventHappener {
                 break;
             case Instruction.ID.SET_CURRENT_OBJECTIVE:
                 TalkPage.setCurrentObjectiveFile(instr.str0);
+                break;
+            case Instruction.ID.TITLE:
+                // doesn't do anything
                 break;
             }
 

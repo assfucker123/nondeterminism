@@ -1,4 +1,4 @@
-// the co_ prefix in the file name stands for Current Objective
+// (current objective)
 
 t-W: You predicted a creature will attack us before we land at Seudar Isle.
 t-W: Make your way outside the ship and climb to the top to confront it.

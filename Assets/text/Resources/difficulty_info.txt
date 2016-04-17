@@ -1,0 +1,10 @@
+1name: Easy
+1description: Provides a fairly comfortable experience in all aspects.
+2name: Traditional
+2description: Combat and exploration are unchanged, but time management is more lenient.
+3name: Standard
+3description: A reasonable difficulty for 2D action-adventure fans.  The recommended way to play.
+4name: Hard
+4description: 
+5name: Cruel
+5description: 

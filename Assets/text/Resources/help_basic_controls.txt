@@ -1,3 +1,4 @@
+title: (help) Basic Controls
 
 t-W: Basic movements include running left and right, jumping, and shooting.
 t-W: Simply hold the left or right buttons to |run| in that direction.

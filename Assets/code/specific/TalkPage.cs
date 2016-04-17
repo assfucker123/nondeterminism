@@ -51,18 +51,29 @@ public class TalkPage : MonoBehaviour {
     }
     public static string currentObjectiveFile {  get { return _currentObjectiveFile; } }
 
-    public static void addConversation(string name, string scriptFile, bool important, bool tutorial, int order = 0) {
-        addConversationNoAlert(name, scriptFile, important, tutorial, order);
+    public static void addConversation(string scriptFile, bool important, bool tutorial, int order = 0) {
+        addConversationNoAlert(scriptFile, important, tutorial, order);
         manualAlert(1);
     }
     public static void addConversation(TalkConversation conversation) {
         addConversationNoAlert(conversation);
         manualAlert(1);
     }
-    public static void addConversationNoAlert(string name, string scriptFile, bool important, bool tutorial, int order = 0) {
+    public static void addConversationNoAlert(string scriptFile, bool important, bool tutorial, int order = 0) {
         TalkConversation tc = new TalkConversation();
-        tc.name = name;
         tc.scriptFile = scriptFile;
+        // get name from script
+        TextAsset textAsset = Resources.Load(scriptFile) as TextAsset;
+        string scriptText = textAsset.text;
+        int index = scriptText.IndexOf("title:");
+        if (index == -1) {
+            Debug.LogWarning("WARNING: Conversation has no title.  Have a line that says \"title: (some title)\"");
+            tc.name = "(NO TITLE)";
+        } else {
+            string title = scriptText.Substring(index + 6, scriptText.IndexOf("\n", index) - index - 6).Trim();
+            tc.name = title;
+        }
+        // set other properties from parameters
         tc.newConversation = true;
         tc.important = important;
         tc.tutorial = tutorial;

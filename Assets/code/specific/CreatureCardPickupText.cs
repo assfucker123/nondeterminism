@@ -141,7 +141,7 @@ public class CreatureCardPickupText : MonoBehaviour {
                 state = State.CLOSED;
                 time = 0;
                 if (firstTime) {
-                    TalkPage.addConversation("Seudar Creature Cards", "c_creature_cards", false, false);
+                    TalkPage.addConversation("c_creature_cards", false, false);
                 }
             }
             break;

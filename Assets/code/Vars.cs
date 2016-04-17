@@ -17,6 +17,18 @@ public class Vars {
     public static string username = "";
     public static DateTime createdDate = new DateTime();
     public static DateTime modifiedDate = new DateTime();
+    #region Difficulty
+    public enum Difficulty {
+        NONE,
+        EASY,
+        TRADITIONAL,
+        STANDARD,
+        HARD,
+        CRUEL
+    }
+    public static Difficulty difficulty = Difficulty.STANDARD;
+    #endregion
+    public static bool tutorialsEnabled = true;
     public static List<Decryptor.ID> decryptors = new List<Decryptor.ID>();
     #region Info Events
     public static List<AdventureEvent.Info> infoEvents = new List<AdventureEvent.Info>();
@@ -138,6 +150,7 @@ public class Vars {
         musicVolume = 1;
         saveFileIndexLastUsed = 0;
     }
+    public static bool hardModesUnlocked = false;
     #endregion
     
     ///////////////
@@ -483,8 +496,11 @@ public class Vars {
         createdDate = DateTime.Parse(strs[2]);
         // modified date
         modifiedDate = DateTime.Parse(strs[3]);
-        // play time
-        playTime = float.Parse(strs[4]);
+        // play time, difficulty, tutorials enabled
+        string[] miscStrs = strs[4].Split(delims2);
+        playTime = float.Parse(miscStrs[0]);
+        difficulty = (Difficulty)int.Parse(miscStrs[1]);
+        tutorialsEnabled = miscStrs[2] == "1";
         // all node data
         NodeData.loadAllNodesFromString(strs[5]);
         // current node data
@@ -573,8 +589,8 @@ public class Vars {
         // modified date (3)
         modifiedDate = DateTime.Now;
         ret += modifiedDate.ToString() + "\n";
-        // play time (4)
-        ret += playTime + "\n";
+        // play time, difficulty, tutorials enabled (4)
+        ret += playTime + "," + ((int)difficulty) + "," + (tutorialsEnabled ? "1" : "0") + "\n";
         // all node data (5)
         ret += NodeData.saveAllNodesToString() + "\n";
         // current node data (6)
@@ -662,11 +678,15 @@ public class Vars {
         str += "music_volume = " + musicVolume + "\n";
         str += "vsync = " + QualitySettings.vSyncCount + "\n";
         str += "save_file_last_used = " + saveFileIndexLastUsed + "\n";
+        if (hardModesUnlocked) {
+            str += "hard_modes = 1\n";
+        }
         return str;
     }
     static void loadSettingsFromString(string str) {
         char[] nl = { '\n' };
         string[] lines = str.Split(nl);
+        bool hardModesListed = false;
         foreach (string line in lines) {
             int index = line.IndexOf('=');
             if (index == -1) continue;
@@ -683,8 +703,14 @@ public class Vars {
                     QualitySettings.vSyncCount = int0;
             } else if (name == "save_file_last_used") {
                 saveFileIndexLastUsed = int.Parse(value);
+            } else if (name == "hard_modes") {
+                hardModesUnlocked = (value == "1");
+                hardModesListed = true;
             }
 
+        }
+        if (!hardModesListed) {
+            hardModesUnlocked = false;
         }
         
     }
