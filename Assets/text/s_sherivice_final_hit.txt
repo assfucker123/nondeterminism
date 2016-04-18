@@ -12,17 +12,20 @@ sendMessage Sherivice FinalHitTumble
 camSetPosition(20.5, 6) 1.2
 wait .5
 playerFlippedHoriz true // looks at S tumbling
-wait 2.0
+wait 1.5
 
 // talking to Wally
 cbarsOn block
-t-O: The annoyance has been dealt with Wally, just in case you doubted me.
-t-W: Hey, no doubt here!  
-t-W: Although wouldn't Sherivice have simply let us pass in the first place if we just explained why we're here?
-t-W: |The Meltdown| affects him too, along with everybody and everything on Seudar Isle.
-t-O: No, he would just have gotten confused.  More time arguing, less time being unconscious on the ground.
-t-W: Damn it Oracle, we're on a mission to save this island, not subdue everything we see.
+t-O: The annoyance has been dealt with Wally.  As if there was any doubt.
+t-W: Believe me, if I've learned anything these past few weeks it's to know better than than to doubt you.
+
+// extra dialogue?
+//t-W: Although wouldn't Sherivice have simply let us pass in the first place if we just explained why we're here?
+//t-W: |The Meltdown| affects him too, along with everybody and everything on Seudar Isle.
+//t-O: No, he would just have gotten confused.  More time arguing, less time being unconscious on the ground.
+//t-W: Damn it Oracle, we're on a mission to save this island, not subdue everything we see.
 
 closeText
-cbarsOff block
-resumePlayer
+
+sendMessage PostSherivice PostSheriviceStart // calls PostSheriviceStart() from PostSherivice
+wait 9999

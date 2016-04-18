@@ -9,15 +9,16 @@ playerFlippedHoriz false
 wait 1.0
 
 // Sherivice is tired from the fight
-t-Sherivice: Whew... j-just let me hit you already!  You're dodging all my ice shards before I even throw them!
-t-Sherivice: I suppose you really can see the future...
+t-Sherivice: Whew... j-just let me hit you already!  How are you dodging all my ice shards?
+t-O: I can see the future.  You have little chance of hitting me, much less winning this fight.
+t-Sherivice: ...t-that's not fair at all...
 
 // covers eyes in attempt to trick Oracle
 sendMessage Sherivice CoverFace
 
 // explains why he did that
 t-Sherivice: Heh heh, but watch this!  How can you see my moves coming when not even I can see them coming?
-t-O: How in the world did you even arrive at that conclusion.  Clairvoyance does not work that way--
+t-O: How in the world did you even arrive at that conclusion?
 t-Sherivice: Clever huh?  Your tricks won't work now!
 
 // resume battle

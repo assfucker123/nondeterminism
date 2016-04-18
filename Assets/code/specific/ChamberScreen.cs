@@ -366,6 +366,12 @@ public class ChamberScreen : MonoBehaviour {
                 Vars.currentNodeData.temporary = false;
                 Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData, true);
             }
+
+            // set record of player position to perfectly on top of the chamber platform
+            ChamberPlatform chamberPlatform = GameObject.FindObjectOfType<ChamberPlatform>();
+            if (Vars.currentNodeData.parent != null) {
+                Vars.currentNodeData.parent.position.Set(chamberPlatform.transform.localPosition.x, chamberPlatform.transform.localPosition.y + 1.6f);
+            }
         }
 
         // save the game

@@ -145,12 +145,13 @@ public class Vars {
         }
     }
     public static int saveFileIndexLastUsed = 0;
+    public static bool hardModesUnlocked = false;
     public static void loadDefaultSettings() {
         sfxVolume = 1;
         musicVolume = 1;
         saveFileIndexLastUsed = 0;
+        hardModesUnlocked = false;
     }
-    public static bool hardModesUnlocked = false;
     #endregion
     
     ///////////////
@@ -327,14 +328,16 @@ public class Vars {
 #if UNITY_WEBPLAYER
         return false;
 #else
-        bool success = true;
         try {
             File.WriteAllBytes(path, bArr);
         } catch (Exception e) {
             Debug.LogError("ERROR while saving: " + e.Message);
-            success = false;
+            return false;
         }
-        return success;
+
+        FileSelectScreen.saveToQuickdata(saveFileIndex, "FILE " + saveFileIndex, difficulty, playTime, infoPercentComplete(), physPercentComplete());
+
+        return true;
 #endif
 
     }
@@ -479,7 +482,7 @@ public class Vars {
         Vars.saveFileIndex = saveFileIndex;
 
         // moved everything to its own file for easier editing
-        VarsLoadDefaultSaveData.load();
+        VarsLoadData.loadDefaultSaveData();
         
     }
 
@@ -673,45 +676,27 @@ public class Vars {
     /* SAVING SETTINGS */
 
     static string saveSettingsToString() {
-        string str = "";
-        str += "sfx_volume = " + sfxVolume + "\n";
-        str += "music_volume = " + musicVolume + "\n";
-        str += "vsync = " + QualitySettings.vSyncCount + "\n";
-        str += "save_file_last_used = " + saveFileIndexLastUsed + "\n";
+        Properties prop = new Properties();
+        prop.setFloat("sfx_volume", sfxVolume);
+        prop.setFloat("music_volume", musicVolume);
+        prop.setInt("vsync", QualitySettings.vSyncCount);
+        prop.setInt("save_file_last_used", saveFileIndexLastUsed);
         if (hardModesUnlocked) {
-            str += "hard_modes = 1\n";
+            prop.setBool("hard_modes", hardModesUnlocked);
         }
-        return str;
+        return prop.convertToString();
     }
+    
     static void loadSettingsFromString(string str) {
-        char[] nl = { '\n' };
-        string[] lines = str.Split(nl);
-        bool hardModesListed = false;
-        foreach (string line in lines) {
-            int index = line.IndexOf('=');
-            if (index == -1) continue;
-            string name = line.Substring(0, index).Trim().ToLower();
-            string value = line.Substring(index + 1).Trim();
-            // set settings
-            if (name == "sfx_volume") {
-                sfxVolume = float.Parse(value);
-            } else if (name == "music_volume") {
-                musicVolume = float.Parse(value);
-            } else if (name == "vsync") {
-                int int0 = int.Parse(value);
-                if (int0 != QualitySettings.vSyncCount)
-                    QualitySettings.vSyncCount = int0;
-            } else if (name == "save_file_last_used") {
-                saveFileIndexLastUsed = int.Parse(value);
-            } else if (name == "hard_modes") {
-                hardModesUnlocked = (value == "1");
-                hardModesListed = true;
-            }
 
-        }
-        if (!hardModesListed) {
-            hardModesUnlocked = false;
-        }
+        Properties prop = new Properties(str);
+        sfxVolume = prop.getFloat("sfx_volume", sfxVolume);
+        musicVolume = prop.getFloat("music_volume", musicVolume);
+        int int0 = prop.getInt("vsync", QualitySettings.vSyncCount);
+        if (int0 != QualitySettings.vSyncCount)
+            QualitySettings.vSyncCount = int0;
+        saveFileIndexLastUsed = prop.getInt("save_file_last_used", saveFileIndexLastUsed);
+        hardModesUnlocked = prop.getBool("hard_modes", hardModesUnlocked);
         
     }
 

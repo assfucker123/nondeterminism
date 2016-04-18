@@ -2,25 +2,18 @@
 stopPlayer
 camSetPosition(48, 13) // happens immediately
 cbarsOn immediately
-wait 1.0
+wait 1.5
 
 spawnControlMessage 0 // tutorial to advance messages
 
 // first talk
-t-W: We're making great time.  The ship is so close to |Seudar Isle| that it's right under our view.
-t-W: You know, this is the first time in my life I've done something this adventurous.  It's making me tense!
+t-O: Just so you know, we will be attacked by a bat-like creature in a few minutes.
+t-W: Really?  Darn, our trip to Seudar Isle was going so smoothly.  Why didn't you mention this earlier?
 takeDownControlMessage 0 // take down message tutorial
-t-W: The note |NPC| wrote warned us that the island was full of dangerous and hostile creatures,
-t-W: but surely he was exaggerating for our own safety, right?
-t-O: Unfortunately the warnings contained in NPC's note are correct.
-t-O: We even get attacked by a creature native to Seudar Isle on the way there.
-t-W: But we haven't been attacked at all yet...
-t-W: Oh, I get it.  Keeping me in suspense again?
-t-O: Not to worry, I will face the annoyance directly and defeat it quickly.
-t-W: It drives me nuts when you act like this.  I know you're always right when it comes to these things but...
-t-W: just be careful, okay?
-t-O: Certainly.  Now excuse me, I must make my way to the |roof of the ship|.  This will not take long.
- 
+t-O: It is a trifling matter.  The creature will be so decisively defeated that it is barely worth talking about.
+t-O: But now I must excuse myself to get to the |roof of the ship| and deal with it.
+t-W: Ha, I wish I had your confidence.   By all means, go ahead.
+
 closeText
 camFollowPlayer 1.0
 cbarsOff block // blocks until cutscene bars are off

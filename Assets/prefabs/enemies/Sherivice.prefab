@@ -346,6 +346,7 @@ MonoBehaviour:
   rockThrowTimes: 3
   percentHealth3RocksThrown: 0.8
   percentHealth4RocksThrown: 0.55
+  rockVisionDuration: 2.5
   rockGameObject: {fileID: 107556, guid: 33fe1f5a35d99954bb1001d0d9b68963, type: 2}
   toBulletShortDuration: 1.3
   toBulletFarDuration: 2.1

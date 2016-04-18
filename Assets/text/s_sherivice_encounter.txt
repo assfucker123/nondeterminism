@@ -23,8 +23,7 @@ wait 3.3
 
 // Continue conversation
 t-Sherivice: Halt!  I'm Sherivice, and you are trespassing on-- hey, how did you know my name?
-t-O: I knew your name a few seconds ago because you just said it now.  I can foresee the future.
-t-Sherivice: Can you now?  Then you should know what happens to those that pick fights with me!
+t-Sherivice: It doesn't matter!  Nobody gets through on my watch!
 
 // Begin fight
 lbl quickStart

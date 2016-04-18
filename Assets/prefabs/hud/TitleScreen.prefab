@@ -506,16 +506,20 @@ MonoBehaviour:
   fadeInDuration: 0.3
   fadeOutDuration: 0.3
   fadeDistance: 600
-  centerPos: {x: 0, y: 110}
+  centerPos: {x: 0, y: 165}
   verticalSpacing: 110
   timeDiff: 0.08
-  whiteScreenDuration: 0.7
+  whiteScreenDuration: 1.2
   settingsSelectionOffset: {x: 258, y: -16}
   fileSelectGameObject: {fileID: 163286, guid: 26c488016ea5c554f8db850f27f14609, type: 2}
   startButtonDefaultSprite: {fileID: 21300000, guid: d8c94cb6cc037c94a8370ff075c88f7f,
     type: 3}
   startButtonSelectedSprite: {fileID: 21300002, guid: d8c94cb6cc037c94a8370ff075c88f7f,
     type: 3}
+  switchSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  selectConfirmSound: {fileID: 8300000, guid: 4a766d2fec6f9b54282f44bfd761b534, type: 3}
+  fadeInSound: {fileID: 8300000, guid: ca608e3e2e49e794095896982a83f976, type: 3}
+  whiteScreenSound: {fileID: 8300000, guid: 61a025e6aae8aa64491a6270a87eb3c2, type: 3}
   textAsset: {fileID: 4900000, guid: 7e9194755029e6f48af46b0cd605bc5a, type: 3}
 --- !u!114 &11437534
 MonoBehaviour:
@@ -813,7 +817,7 @@ MonoBehaviour:
   initialText: Made by Mark Radocy
   initialAlignment: 0
   defaultStyle:
-    color: {r: 0.75294125, g: 0.41960788, b: 0.94117653, a: 1}
+    color: {r: 0.74509805, g: 0.54901963, b: 1, a: 1}
   importantColor: {r: 1, g: 1, b: 1, a: 1}
   useTimeUser: 0
 --- !u!114 &11489890

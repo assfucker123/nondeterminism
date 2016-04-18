@@ -41,6 +41,18 @@ public class Properties {
     public List<string> getKeys() {
         return new List<string>(dic.Keys);
     }
+    public void setString(string key, string value) {
+        dic[key] = value;
+    }
+    public void setFloat(string key, float value) {
+        dic[key] = "" + value;
+    }
+    public void setInt(string key, int value) {
+        dic[key] = "" + value;
+    }
+    public void setBool(string key, bool value) {
+        dic[key] = (value ? "1" : "0");
+    }
 
     /* Parses string of a file with properties on it.
      * Format:
@@ -59,6 +71,17 @@ public class Properties {
             string value = line.Substring(index + 1).Trim();
             dic[key] = value;
         }
+    }
+
+    /// <summary>
+    /// Returns a string representation of the Properties.  Can be parsed.
+    /// </summary>
+    public string convertToString() {
+        string ret = "";
+        foreach (string key in dic.Keys) {
+            ret += key + ": " + dic[key] + "\n";
+        }
+        return ret;
     }
 
     Dictionary<string, string> dic = new Dictionary<string, string>();

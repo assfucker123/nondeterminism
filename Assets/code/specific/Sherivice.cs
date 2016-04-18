@@ -938,8 +938,8 @@ public class Sherivice : MonoBehaviour {
         lowHealthTrigger();
         
         // make flashback controls appear if player is doing bad
-        if (!playerPressedFlashback && !displayedFlashbackReminder && !Vars.currentNodeData.eventHappened(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER)) {
-            if (Player.instance.state == Player.State.DAMAGE) {
+        if (Player.instance != null && Player.instance.state == Player.State.DAMAGE) {
+            if (!playerPressedFlashback && !displayedFlashbackReminder && !Vars.currentNodeData.eventHappened(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER)) {
                 if (Player.instance.health <= 2 && Player.instance.health >= 1) {
                     eventHappener.physicalHappen(AdventureEvent.Physical.SHERIVICE_FLASHBACK_CONTROL_REMINDER, false);
                     ControlsMessageSpawner.instance.spawnMessage(ControlsMessage.Control.FLASHBACK);

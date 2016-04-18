@@ -17,9 +17,13 @@ public class FileSelectScreen : MonoBehaviour {
     public GameObject fileSelectGameObject;
     public Sprite startButtonDefaultSprite;
     public Sprite startButtonSelectedSprite;
+    public AudioClip switchSound;
+    public AudioClip selectConfirmSound;
+    public AudioClip fadeInSound;
+    public AudioClip whiteScreenSound;
     public TextAsset textAsset;
 
-    public const int NUM_SAVE_FILES = 3;
+    public const int NUM_SAVE_FILES = 4;
 
     public State state { get; private set; }
 
@@ -71,6 +75,7 @@ public class FileSelectScreen : MonoBehaviour {
         image.enabled = true;
         image.color = new Color(1, 1, 1, 0);
         createFileSelects();
+        SoundManager.instance.playSFX(fadeInSound);
     }
 
     public void fadeOut() {
@@ -83,6 +88,7 @@ public class FileSelectScreen : MonoBehaviour {
 
     public void showError(string message) {
         errorImage.enabled = true;
+        errorImage.transform.SetAsLastSibling();
         errorText.setText(message);
     }
 
@@ -278,13 +284,20 @@ public class FileSelectScreen : MonoBehaviour {
                 state = State.SHOW;
                 // make selection
                 selection.enabled = true;
-                int firstSelection = 0;
+                int firstSelection = Vars.saveFileIndexLastUsed;
+                if (firstSelection < 0 || firstSelection >= fileSelects.Count) {
+                    firstSelection = 0;
+                }
                 selectionIndex = firstSelection;
             }
             break;
         case State.SHOW:
 
-            if (settingsShown) {
+            if (errorShown) {
+                if (Keys.instance.backPressed || Keys.instance.confirmPressed) {
+                    hideError();
+                }
+            } else if (settingsShown) {
 
                 if (Keys.instance.leftPressed) {
                     switch (settingsSelectionIndex) {
@@ -299,9 +312,11 @@ public class FileSelectScreen : MonoBehaviour {
                         case Vars.Difficulty.HARD: setSettingsDifficulty(Vars.Difficulty.STANDARD); break;
                         case Vars.Difficulty.CRUEL: setSettingsDifficulty(Vars.Difficulty.HARD); break;
                         }
+                        SoundManager.instance.playSFX(switchSound);
                         break;
                     case SettingsSelection.TUTORIALS:
                         setSettingsTutorials(!settingsTutorials);
+                        SoundManager.instance.playSFX(switchSound);
                         break;
                     }
                 } else if (Keys.instance.rightPressed) {
@@ -317,9 +332,11 @@ public class FileSelectScreen : MonoBehaviour {
                         case Vars.Difficulty.HARD: setSettingsDifficulty(Vars.Difficulty.CRUEL); break;
                         case Vars.Difficulty.CRUEL: setSettingsDifficulty(Vars.Difficulty.EASY); break;
                         }
+                        SoundManager.instance.playSFX(switchSound);
                         break;
                     case SettingsSelection.TUTORIALS:
                         setSettingsTutorials(!settingsTutorials);
+                        SoundManager.instance.playSFX(switchSound);
                         break;
                     }
                 } else if (Keys.instance.upPressed) {
@@ -334,6 +351,7 @@ public class FileSelectScreen : MonoBehaviour {
                         setSettingsSelection(SettingsSelection.TUTORIALS);
                         break;
                     }
+                    SoundManager.instance.playSFX(switchSound);
                 } else if (Keys.instance.downPressed) {
                     switch (settingsSelectionIndex) {
                     case SettingsSelection.DIFFICULTY:
@@ -346,6 +364,7 @@ public class FileSelectScreen : MonoBehaviour {
                         setSettingsSelection(SettingsSelection.DIFFICULTY);
                         break;
                     }
+                    SoundManager.instance.playSFX(switchSound);
                 } else if (Keys.instance.backPressed) {
                     hideSettings();
                 } else if (Keys.instance.confirmPressed && settingsSelectionIndex == SettingsSelection.START) {
@@ -356,11 +375,14 @@ public class FileSelectScreen : MonoBehaviour {
                 // move selection
                 if (Keys.instance.upPressed) {
                     selectionIndex--;
+                    SoundManager.instance.playSFX(switchSound);
                 } else if (Keys.instance.downPressed) {
                     selectionIndex++;
+                    SoundManager.instance.playSFX(switchSound);
                 } else if (Keys.instance.confirmPressed) {
                     // selecting file
                     if (fileSelects[selectionIndex].newFile) {
+                        SoundManager.instance.playSFX(selectConfirmSound);
                         showSettings();
                     } else {
                         beginFile(selectionIndex);
@@ -417,8 +439,13 @@ public class FileSelectScreen : MonoBehaviour {
 
     void beginFile(int fileIndex) {
         Vars.saveFileIndexLastUsed = fileIndex;
-        Vars.loadData(fileIndex);
-        whiteScreenTransition();
+        bool error = !Vars.loadData(fileIndex);
+        
+        if (error) {
+            showError(properties.getString("error") + " " + properties.getString("file") + " " + fileIndex);
+        } else {
+            whiteScreenTransition();
+        }
     }
 
     void whiteScreenTransition() {
@@ -427,6 +454,35 @@ public class FileSelectScreen : MonoBehaviour {
         time = 0;
         whiteScreen.enabled = true;
         whiteScreen.color = new Color(1, 1, 1, 0);
+        whiteScreen.transform.SetAsLastSibling();
+        SoundManager.instance.playSFX(whiteScreenSound);
+    }
+
+    public static void saveToQuickdata(int fileIndex, string fileName, Vars.Difficulty difficulty, float time, float infoPercent, float physPercent) {
+
+#if UNITY_WEBPLAYER
+        return;
+#endif
+
+        Properties quickdataProp = new Properties();
+        string path = Application.persistentDataPath + "/quickData.sav";
+        bool fileExists = File.Exists(path);
+        if (fileExists) {
+            byte[] bArr = File.ReadAllBytes(path);
+            string content = Utilities.bytesToString(bArr);
+            quickdataProp.parse(content);
+        }
+
+        quickdataProp.setString("fn" + fileIndex, fileName);
+        quickdataProp.setInt("diff" + fileIndex, ((int)difficulty));
+        quickdataProp.setFloat("t" + fileIndex, time);
+        quickdataProp.setFloat("info" + fileIndex, infoPercent);
+        quickdataProp.setFloat("phys" + fileIndex, physPercent);
+
+        byte[] bArr2 = Utilities.stringToBytes(quickdataProp.convertToString());
+
+        File.WriteAllBytes(path, bArr2);
+
     }
 
     void createFileSelects() {
@@ -448,7 +504,7 @@ public class FileSelectScreen : MonoBehaviour {
                 QuickData qd = new QuickData();
                 qd.create(
                     prop.getString("fn" + i, "-1"),
-                    prop.getString("diff" + i, "-1"),
+                    ((Vars.Difficulty)prop.getInt("diff" + i, 0)),
                     prop.getFloat("t" + i, -1),
                     prop.getFloat("info" + i, -1),
                     prop.getFloat("phys" + i, -1));
@@ -459,6 +515,8 @@ public class FileSelectScreen : MonoBehaviour {
                 quickDatas.Add(new QuickData());
             }
         }
+
+
         
         for (int i=0; i<quickDatas.Count; i++) {
             QuickData qd = quickDatas[i];
@@ -475,7 +533,7 @@ public class FileSelectScreen : MonoBehaviour {
                 fs.newFile = false;
                 fs.setFileName(fs.index);
                 fs.setPlayTime(qd.time);
-                fs.setDifficulty(qd.difficulty);
+                fs.setDifficulty(difficultyProperties.getString(((int)qd.difficulty)+"name"));
                 fs.setInfoComplete(qd.infoPercent);
                 fs.setPhysComplete(qd.physPercent);
             } else {
@@ -497,12 +555,12 @@ public class FileSelectScreen : MonoBehaviour {
         public QuickData() { }
         public bool created = false;
         public string fileName = "";
-        public string difficulty = "";
+        public Vars.Difficulty difficulty = Vars.Difficulty.STANDARD;
         public float time = 0;
         public float infoPercent = 0;
         public float physPercent = 0;
-        public void create(string fileName, string difficulty, float time, float infoPercent, float physPercent) {
-            if (fileName == "-1" || difficulty == "-1" || time < 0 || infoPercent < 0 || physPercent < 0) {
+        public void create(string fileName, Vars.Difficulty difficulty, float time, float infoPercent, float physPercent) {
+            if (fileName == "-1" || difficulty == Vars.Difficulty.NONE || time < 0 || infoPercent < 0 || physPercent < 0) {
                 created = false;
                 return;
             }
@@ -540,6 +598,7 @@ public class FileSelectScreen : MonoBehaviour {
     
     float time = 0;
     bool settingsShown = false;
+    bool errorShown {  get { return errorImage.enabled; } }
     Vars.Difficulty settingsDifficulty = Vars.Difficulty.STANDARD;
     bool settingsTutorials = false;
     SettingsSelection settingsSelectionIndex = SettingsSelection.DIFFICULTY;

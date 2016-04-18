@@ -34,10 +34,8 @@ public class FileSelect : MonoBehaviour {
                 difficultyBox.makeAllCharsInvisible();
                 infoCompBox.makeAllCharsInvisible();
                 physCompBox.makeAllCharsInvisible();
-                newFileBox.makeAllCharsVisible();
 
                 newFileBox.setText(properties.getString("new_file"));
-                newFileBox.makeAllCharsVisible();
             } else {
                 image.sprite = (selected ? normalSelectedSprite : normalDefaultSprite);
                 nameBox.makeAllCharsVisible();

@@ -31,7 +31,7 @@ public class LevelSensor : MonoBehaviour {
         if (goToLevel) {
             
             // update map to indicate one room is open to another
-            if (Level.currentLoadedLevel != null) {
+            if (Level.currentLoadedLevel != null && Level.currentLoadedLevel.showOnMap) {
                 Rect mapBounds = CameraControl.getMapBounds();
                 Vector2 trueSize = new Vector2(Level.currentLoadedLevel.mapWidth * CameraControl.ROOM_UNIT_WIDTH, Level.currentLoadedLevel.mapHeight * CameraControl.ROOM_UNIT_HEIGHT);
                 Vector2 diff = mapBounds.size - trueSize;

@@ -150,7 +150,7 @@ MonoBehaviour:
   - {fileID: 198674, guid: f003a3a41b346b448ac9b0f89d79dbf0, type: 2}
   width: 12
   height: 1
-  initialText: New File
+  initialText: 
   initialAlignment: 1
   defaultStyle:
     color: {r: 0.938, g: 0.938, b: 0.938, a: 1}
@@ -432,6 +432,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: initialAlignment
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialText
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

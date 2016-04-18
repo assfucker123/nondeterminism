@@ -2,9 +2,9 @@
 using System.Collections;
 using System;
 
-public class VarsLoadDefaultSaveData {
+public class VarsLoadData {
     
-    public static void load() {
+    public static void loadDefaultSaveData() {
 
         // username
         Vars.username = "";
@@ -90,6 +90,38 @@ public class VarsLoadDefaultSaveData {
 #endif
 
 
+    }
+
+    /// <summary>
+    /// Loads data for starting on base landing after beating Sherivice
+    /// </summary>
+    public static void loadBaseLandingData() {
+
+        // current node data
+        Vars.currentNodeData.time = 0;
+        Vars.currentNodeData.level = "base_landing";
+        Vars.currentNodeData.levelMapX = 10;
+        Vars.currentNodeData.levelMapY = 21;
+        Vars.currentNodeData.position.Set(90, 10);
+        Vars.currentNodeData.chamberPositionCode = ChamberPlatform.positionCodeFromMapPosition(Vars.currentNodeData.levelMapX+2, Vars.currentNodeData.levelMapY);
+
+        // make this node data the root of all nodes to follow
+        Vars.currentNodeData.temporary = false;
+        if (Vars.currentNodeData.parent != null) {
+            Debug.LogError("ERROR: parent of root should be null");
+        }
+        Vars.currentNodeData.children.Clear();
+        Vars.currentNodeData = NodeData.createNodeData(Vars.currentNodeData, true);
+
+        
+        // current objective conversation
+        TalkPage.setCurrentObjectiveFile("co_after_tutorial");
+        // pause screen mode
+        PauseScreen.mode = PauseScreen.Mode.NORMAL;
+        // countdown timer mode
+        CountdownTimer.staticVisible = true;
+        CountdownTimer.staticMode = CountdownTimer.Mode.NORMAL;
+        
     }
 
 }
