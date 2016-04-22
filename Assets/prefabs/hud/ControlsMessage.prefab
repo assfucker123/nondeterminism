@@ -43,6 +43,8 @@ MonoBehaviour:
   flashbackSprite: {fileID: 21300000, guid: 92ea633ad71712043a6ac1b9a51df126, type: 3}
   pauseGameSprite: {fileID: 21300000, guid: 98a07edb526321b4dba2032d1683395b, type: 3}
   dodgeSprite: {fileID: 21300000, guid: ffc54131c396bfc419593eca52c21a71, type: 3}
+  activatePlatformsSprite: {fileID: 21300000, guid: 8e015d8d4ce25e3459a06db423d0ddfa,
+    type: 3}
 --- !u!114 &11459568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,6 +56,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11475926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +143,11 @@ Prefab:
       propertyPath: fadeDuration
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: activatePlatformsSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e015d8d4ce25e3459a06db423d0ddfa,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 194564}

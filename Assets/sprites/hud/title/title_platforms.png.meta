@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: d508ec28d128d664cb5a5b3e4c3a28e8
-timeCreated: 1447621987
+guid: 387ff11c0a18f264facb30adb1b533b4
+timeCreated: 1461190652
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: title_things_0
-    21300002: title_things_1
-    21300004: title_things_2
-    21300006: title_things_3
-    21300008: title_things_4
+    21300000: title_platforms_0
+    21300002: title_platforms_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -22,13 +19,13 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
+  cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
@@ -47,7 +44,7 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 16
   alphaIsTransparency: 1
@@ -55,56 +52,42 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: title_things_0
+    - name: title_platforms_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 31
-        height: 31
+        width: 64
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: title_things_1
+      outline:
+      - - {x: -32, y: 34}
+        - {x: -32, y: -29}
+        - {x: -26, y: -31}
+        - {x: 25, y: -31}
+        - {x: 29, y: -30}
+        - {x: 32, y: -28}
+        - {x: 32, y: 34}
+    - name: title_platforms_1
       rect:
         serializedVersion: 2
-        x: 31
+        x: 64
         y: 0
-        width: 31
-        height: 31
+        width: 64
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: title_things_2
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 0
-        width: 31
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: title_things_3
-      rect:
-        serializedVersion: 2
-        x: 93
-        y: 0
-        width: 31
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: title_things_4
-      rect:
-        serializedVersion: 2
-        x: 124
-        y: 0
-        width: 31
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 34}
+        - {x: -32, y: -31}
+        - {x: -16, y: -34}
+        - {x: 24, y: -34}
+        - {x: 32, y: -30}
+        - {x: 32, y: 34}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

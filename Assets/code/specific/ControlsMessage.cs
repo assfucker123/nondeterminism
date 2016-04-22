@@ -12,7 +12,8 @@ public class ControlsMessage : MonoBehaviour {
         SHOOT = 3,
         FLASHBACK = 4,
         PAUSE_GAME = 5,
-        DODGE = 6
+        DODGE = 6,
+        ACTIVATE_PLATFORMS = 7
     }
 
     public Control control = Control.ADVANCE_MESSAGES;
@@ -28,6 +29,7 @@ public class ControlsMessage : MonoBehaviour {
     public Sprite flashbackSprite;
     public Sprite pauseGameSprite;
     public Sprite dodgeSprite;
+    public Sprite activatePlatformsSprite;
     
     /* Fades out message and automatically destroys it */
     public void fadeOut() {
@@ -81,6 +83,9 @@ public class ControlsMessage : MonoBehaviour {
             break;
         case Control.DODGE:
             image.sprite = dodgeSprite;
+            break;
+        case Control.ACTIVATE_PLATFORMS:
+            image.sprite = activatePlatformsSprite;
             break;
         }
         image.color = Color.clear;
