@@ -8,11 +8,11 @@ spawnControlMessage 0 // tutorial to advance messages
 
 // first talk
 t-O: Just so you know, we will be attacked by a bat-like creature in a few minutes.
-t-W: Really?  Darn, our trip to Seudar Isle was going so smoothly.  Why didn't you mention this earlier?
+t-W: Really?  Dang, our trip to Seudar Isle was going so smoothly.  Why didn't you mention this earlier?
 takeDownControlMessage 0 // take down message tutorial
 t-O: It is a trifling matter.  The creature will be so decisively defeated that it is barely worth talking about.
 t-O: But now I must excuse myself to get to the |roof of the ship| and deal with it.
-t-W: Ha, I wish I had your confidence.   By all means, go ahead.
+t-W: Ha, I wish I had your confidence.   Go ahead.
 
 closeText
 camFollowPlayer 1.0

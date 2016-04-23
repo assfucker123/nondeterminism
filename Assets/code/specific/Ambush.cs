@@ -156,7 +156,8 @@ public class Ambush : MonoBehaviour {
             }
             // display notification that ambush was defeated
             if (toDisplayNotification && time >= notificationDelay) {
-                Notification.instance.displayNotification(propAsset.getString("defeated"), Notification.NotifType.DEFAULT);
+                // this works but on second thought I don't think we need a notification indicating when an ambush was defeated
+                //Notification.instance.displayNotification(propAsset.getString("defeated"), Notification.NotifType.DEFAULT);
                 toDisplayNotification = false;
             }
             break;

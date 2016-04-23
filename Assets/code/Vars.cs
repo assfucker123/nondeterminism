@@ -11,6 +11,7 @@ public class Vars {
     public static bool screenshotMode = false;
     public static bool encryptSaveData = false; // encryption isn't consistent for some reason.  Need to fix
     public static bool buildIndexLevelIDs = false; // When true: some instances of a level name will be replaced with its build index, which reduces the size of the save file, but can mess things up if a level changes build index
+    public static bool promptDifficulty = false; // should be true in the full game when difficulty and tutorial toggle is enabled
 
     // TIME-INDEPENDENT
     public static int saveFileIndex = 0;

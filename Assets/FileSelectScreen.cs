@@ -383,7 +383,11 @@ public class FileSelectScreen : MonoBehaviour {
                     // selecting file
                     if (fileSelects[selectionIndex].newFile) {
                         SoundManager.instance.playSFX(selectConfirmSound);
-                        showSettings();
+                        if (Vars.promptDifficulty) {
+                            showSettings();
+                        } else {
+                            beginNewFile(selectionIndex, Vars.Difficulty.STANDARD, true);
+                        }
                     } else {
                         beginFile(selectionIndex);
                     }

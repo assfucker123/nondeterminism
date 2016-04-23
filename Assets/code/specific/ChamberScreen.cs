@@ -370,7 +370,7 @@ public class ChamberScreen : MonoBehaviour {
             // set record of player position to perfectly on top of the chamber platform
             ChamberPlatform chamberPlatform = GameObject.FindObjectOfType<ChamberPlatform>();
             if (Vars.currentNodeData.parent != null) {
-                Vars.currentNodeData.parent.position.Set(chamberPlatform.transform.localPosition.x, chamberPlatform.transform.localPosition.y + 1.6f);
+                Vars.currentNodeData.parent.position = chamberPlatform.playerSavePosition();
             }
         }
 

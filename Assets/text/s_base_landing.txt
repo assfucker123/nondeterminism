@@ -1,0 +1,23 @@
+
+stopPlayer
+cbarsOn immediately
+freezeTimer
+wait 1.0
+
+t-W: Alright, we made it.  Now we can finally start looking for the |Omega Phase Crystal|.
+t-O: The possibility of finding this rock excites me.  If the Omega Crystal is as powerful as you described,
+t-O: then my clairvoyance abilities will no longer be limited to just 24 hours.
+t-O: Rather I would be able to perceive entire centuries in advance!  So much potential...
+t-W: Yes, including the potential to prevent the |Meltdown|.  It's predicted that in 200 years this catastrophic event
+t-W: will destroy all life on the planet.  By peaking into the future we might be able to stop it.
+t-O: Yes, of course.
+t-W: I'll make myself useful by providing support from inside the ship where it's safe and warm.
+t-W: Contact me anytime you need some advice.
+
+//spawnControlMessage 0 // tutorial to advance messages
+
+closeText
+cbarsOff block // blocks until cutscene bars are off
+sendMessage ChamberPlatform BaseLandingReceiver // fixes save position issues
+unfreezeTimer
+resumePlayer

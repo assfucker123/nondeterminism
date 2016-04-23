@@ -16,8 +16,9 @@ wait 1.5
 
 // talking to Wally
 cbarsOn block
-t-O: The annoyance has been dealt with Wally.  As if there was any doubt.
-t-W: Believe me, if I've learned anything these past few weeks it's to know better than than to doubt you.
+t-O: The threat has been taken care of Wally.  As if there was any doubt.
+t-W: That was fast!  I was worried for nothing.
+t-W: We'll be landing at Seudar Isle shortly.
 
 // extra dialogue?
 //t-W: Although wouldn't Sherivice have simply let us pass in the first place if we just explained why we're here?

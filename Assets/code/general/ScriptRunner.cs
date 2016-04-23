@@ -39,6 +39,8 @@ public class ScriptRunner : EventHappener {
             DESTROY_BOSS_HEALTH_BAR,    // destroyBossHealthBar
             SET_CURRENT_OBJECTIVE,      // setCurrentObjective co_newObjectiveFile
             TITLE,                      // title: Oracle's Flashbacks // title for conversations, doens't actually do anything here
+            FREEZE_COUNTDOWN_TIMER,     // freezeTimer // freezes the countdown timer, so CountdownTimer.instance.time doesn't update
+            UNFREEZE_COUNTDOWN_TIMER    // unfreezeTimer // unfreezes the countdown timer
         }
 
         public ID id = ID.NONE;
@@ -278,6 +280,10 @@ public class ScriptRunner : EventHappener {
                 str0 = line.Substring(word.Length).Trim();
             } else if (word == "title" || word == "title:") { // title
                 id = ID.TITLE;
+            } else if (word == "freezecountdowntimer" || word == "freezetimer") {
+                id = ID.FREEZE_COUNTDOWN_TIMER;
+            } else if (word == "unfreezecountdowntimer" || word == "unfreezetimer") {
+                id = ID.UNFREEZE_COUNTDOWN_TIMER;
             }
 
         }
@@ -730,6 +736,14 @@ public class ScriptRunner : EventHappener {
                 break;
             case Instruction.ID.TITLE:
                 // doesn't do anything
+                break;
+            case Instruction.ID.FREEZE_COUNTDOWN_TIMER:
+                if (CountdownTimer.instance != null)
+                    CountdownTimer.instance.frozen = true;
+                break;
+            case Instruction.ID.UNFREEZE_COUNTDOWN_TIMER:
+                if (CountdownTimer.instance != null)
+                    CountdownTimer.instance.frozen = false;
                 break;
             }
 

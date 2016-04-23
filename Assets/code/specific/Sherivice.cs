@@ -838,9 +838,7 @@ public class Sherivice : MonoBehaviour {
                         visionUser.createVision(VisionUser.VISION_DURATION);
                     }
                     //}
-
                     
-
                 }
 
                 // if should throw rock this frame
@@ -870,7 +868,7 @@ public class Sherivice : MonoBehaviour {
 
                     if (visionUser.isVision) { //make bullet a vision if this is also a vision
                         VisionUser irvu = iceRock.GetComponent<VisionUser>();
-                        irvu.becomeVisionNow(VisionUser.VISION_DURATION, visionUser);
+                        irvu.becomeVisionNow(rockVisionDuration, null);
                     }
                     
                     if (!visionUser.isVision) {

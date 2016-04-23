@@ -173,16 +173,14 @@ MonoBehaviour:
     height: 34
   dotPeriod: 15
   normalSprite: {fileID: 21300000, guid: 99bfd655098237c41afee1577fae8295, type: 3}
-  normalColor: {r: 0.906, g: 0.906, b: 0.906, a: 1}
   meltdownSprite: {fileID: 21300002, guid: 99bfd655098237c41afee1577fae8295, type: 3}
-  meltdownColor: {r: 0.99215686, g: 1, b: 0.5411765, a: 1}
   meltdownPerilSprite: {fileID: 21300004, guid: 99bfd655098237c41afee1577fae8295,
     type: 3}
-  meltdownPerilColor: {r: 0.919, g: 0, b: 0, a: 1}
   weirdSprite: {fileID: 21300006, guid: 99bfd655098237c41afee1577fae8295, type: 3}
   weirdColor: {r: 1, g: 0, b: 1, a: 1}
   flashPeriodVisible: 0.4
   flashPeriodInvisible: 0.4
+  raisedPositionOffset: {x: 0, y: 40}
 --- !u!114 &11439256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,6 +592,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: flashPeriodInvisible
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: raisedPositionOffset.y
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

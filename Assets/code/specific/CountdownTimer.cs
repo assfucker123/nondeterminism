@@ -16,6 +16,7 @@ public class CountdownTimer : MonoBehaviour {
     public Color weirdColor = Color.magenta;
     public float flashPeriodVisible = .5f;
     public float flashPeriodInvisible = .2f;
+    public Vector2 raisedPositionOffset = new Vector2(0, -40);
 
     public static CountdownTimer instance { get; private set; }
     public static Mode staticMode {
@@ -139,7 +140,15 @@ public class CountdownTimer : MonoBehaviour {
         mode = tempMode;
     }
 
-	void Awake() {
+    /// <summary>
+    /// Called by CutsceneBars.  Puts timer in position based on position of the cutscene bars.
+    /// </summary>
+    /// <param name="inter">in [0, 1]</param>
+    public void setRaisedPosition(float inter) {
+        GetComponent<RectTransform>().localPosition = Utilities.easeLinearClamp(inter, position, raisedPositionOffset, 1);
+    }
+
+    void Awake() {
         if (instance != null) {
             GameObject.Destroy(instance.gameObject);
         }

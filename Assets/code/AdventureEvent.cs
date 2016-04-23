@@ -9,6 +9,7 @@ public class AdventureEvent {
         NONE = 0,
         COMPLETED_TUTORIAL = 1,
         FOUND_CREATURE_CARD = 2,
+        BASE_LANDING_TALK = 3,
 
     }
 

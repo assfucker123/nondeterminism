@@ -75,7 +75,14 @@ public class ChamberPlatform : MonoBehaviour {
         chamberBackground.flyOut();
 
     }
-    
+
+    /// <summary>
+    /// Returns where the player's position should be when using this chamber platform to save
+    /// </summary>
+    public Vector2 playerSavePosition() {
+        return new Vector2(transform.localPosition.x, transform.localPosition.y + 1.6f);
+    }
+
 
     public bool playerIsOnPlatform {
         get {
@@ -226,6 +233,20 @@ public class ChamberPlatform : MonoBehaviour {
         time = fi.floats["t"];
         timeSincePlayerOnPlatform = fi.floats["tspop"];
         updateRays();
+    }
+
+    
+
+    /// <summary>
+    /// Called by a script once to do some hacky stuff with save position issues
+    /// </summary>
+    void BaseLandingReceiver() {
+        if (Vars.currentNodeData != null) {
+            Vars.currentNodeData.position = playerSavePosition();
+            if (Vars.currentNodeData.parent != null) {
+                Vars.currentNodeData.parent.position = playerSavePosition();
+            }
+        }
     }
 
     class Ray {

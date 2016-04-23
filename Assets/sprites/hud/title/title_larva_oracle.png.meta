@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 26df2c6a3e88e9a46a5ee44c4125f41d
-timeCreated: 1461299780
+timeCreated: 1461377164
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,9 @@ TextureImporter:
     21300004: title_larva_oracle_2
     21300006: title_larva_oracle_3
     21300008: title_larva_oracle_4
+    21300010: title_larva_oracle_5
+    21300012: title_larva_oracle_6
+    21300014: title_larva_oracle_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,6 +62,98 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 43
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: 7.5}
+        - {x: -8, y: 7.5}
+        - {x: -42, y: -11.5}
+        - {x: -42, y: -18.5}
+        - {x: -41, y: -19.5}
+        - {x: 32, y: -19.5}
+        - {x: 37, y: -17.5}
+        - {x: 37, y: 2.5}
+    - name: title_larva_oracle_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 43
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: 7.5}
+        - {x: -27, y: 2.5}
+        - {x: -41, y: -13.5}
+        - {x: -41, y: -19.5}
+        - {x: 37, y: -19.5}
+        - {x: 37, y: 2.5}
+        - {x: 32, y: 7.5}
+    - name: title_larva_oracle_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 43
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 8.5}
+        - {x: -40, y: -11.5}
+        - {x: -40, y: -19.5}
+        - {x: 35, y: -19.5}
+        - {x: 37, y: -15.5}
+        - {x: 37, y: 2.5}
+        - {x: 30, y: 8.5}
+    - name: title_larva_oracle_3
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 43
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -3, y: 10.5}
+        - {x: -36, y: -11.5}
+        - {x: -36, y: -19.5}
+        - {x: 34, y: -19.5}
+        - {x: 36, y: -15.5}
+        - {x: 36, y: 4.5}
+        - {x: 30, y: 10.5}
+    - name: title_larva_oracle_4
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 43
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2, y: 11.5}
+        - {x: -32, y: -6.5}
+        - {x: -35, y: -16.5}
+        - {x: -35, y: -19.5}
+        - {x: 34, y: -19.5}
+        - {x: 36, y: -17.5}
+        - {x: 36, y: 4.5}
+        - {x: 24, y: 11.5}
+    - name: title_larva_oracle_5
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 90
         height: 43
@@ -66,14 +161,15 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 29, y: 7.5}
-        - {x: -6, y: 7.5}
-        - {x: -39, y: -8.5}
-        - {x: -39, y: -19.5}
+      - - {x: 3, y: 10.5}
+        - {x: -32, y: -6.5}
+        - {x: -35, y: -16.5}
+        - {x: -35, y: -19.5}
         - {x: 35, y: -19.5}
-        - {x: 40, y: -17.5}
-        - {x: 40, y: 2.5}
-    - name: title_larva_oracle_1
+        - {x: 37, y: -15.5}
+        - {x: 37, y: 2.5}
+        - {x: 27, y: 10.5}
+    - name: title_larva_oracle_6
       rect:
         serializedVersion: 2
         x: 90
@@ -84,14 +180,15 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 6, y: 7.5}
-        - {x: -24, y: 2.5}
-        - {x: -38, y: -13.5}
-        - {x: -38, y: -19.5}
+      - - {x: 6, y: 8.5}
+        - {x: -21, y: 2.5}
+        - {x: -35, y: -13.5}
+        - {x: -35, y: -19.5}
         - {x: 40, y: -19.5}
-        - {x: 40, y: 2.5}
-        - {x: 35, y: 7.5}
-    - name: title_larva_oracle_2
+        - {x: 42, y: -15.5}
+        - {x: 42, y: 5.5}
+        - {x: 40, y: 8.5}
+    - name: title_larva_oracle_7
       rect:
         serializedVersion: 2
         x: 180
@@ -102,52 +199,13 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 4, y: 8.5}
-        - {x: -23, y: 2.5}
-        - {x: -37, y: -13.5}
-        - {x: -37, y: -19.5}
-        - {x: 38, y: -19.5}
-        - {x: 40, y: -15.5}
-        - {x: 40, y: 5.5}
-        - {x: 38, y: 8.5}
-    - name: title_larva_oracle_3
-      rect:
-        serializedVersion: 2
-        x: 270
-        y: 0
-        width: 90
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 6, y: 10.5}
-        - {x: -28, y: -8.5}
-        - {x: -33, y: -16.5}
-        - {x: -33, y: -19.5}
-        - {x: 37, y: -19.5}
-        - {x: 39, y: -15.5}
-        - {x: 39, y: 2.5}
-        - {x: 29, y: 10.5}
-    - name: title_larva_oracle_4
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 0
-        width: 90
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 5, y: 11.5}
-        - {x: -29, y: -6.5}
-        - {x: -32, y: -16.5}
-        - {x: -32, y: -19.5}
-        - {x: 37, y: -19.5}
-        - {x: 39, y: -17.5}
-        - {x: 39, y: 4.5}
-        - {x: 27, y: 11.5}
+      - - {x: 9, y: 7.5}
+        - {x: -21, y: 2.5}
+        - {x: -35, y: -13.5}
+        - {x: -35, y: -19.5}
+        - {x: 43, y: -19.5}
+        - {x: 43, y: 2.5}
+        - {x: 38, y: 7.5}
     outline: []
   spritePackingTag: 
   userData: 

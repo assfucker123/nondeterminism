@@ -109,6 +109,9 @@ public class CutsceneBars : MonoBehaviour {
             if (HUD.instance.phaseMeter != null) {
                 HUD.instance.phaseMeter.setRaisedPosition(scale);
             }
+            if (CountdownTimer.instance != null) {
+                CountdownTimer.instance.setRaisedPosition(scale);
+            }
         }
     }
 
