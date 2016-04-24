@@ -166,6 +166,12 @@ public class ChamberPlatform : MonoBehaviour {
             if (playerIsOnPlatform &&
                 (Keys.instance.upPressed || Keys.instance.downPressed)) {
                 toChamberScreen();
+
+                // take down tutorial message on how to activate these
+                if (ControlsMessageSpawner.instance != null) {
+                    ControlsMessageSpawner.instance.takeDownMessage(ControlsMessage.Control.ACTIVATE_PLATFORMS, true);
+                }
+                
             }
 
             break;

@@ -23,10 +23,10 @@ public class ControlsMessageSpawner : MonoBehaviour {
         cm.control = message;
     }
 
-    public void takeDownMessage(ControlsMessage.Control message) {
+    public void takeDownMessage(ControlsMessage.Control message, bool immediately=false) {
         foreach (ControlsMessage cm in ControlsMessage.allMessages) {
             if (cm.control == message && cm.transform.parent != null) {
-                cm.fadeOut();
+                cm.fadeOut(immediately);
             }
         }
     }

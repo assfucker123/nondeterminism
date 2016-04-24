@@ -87,12 +87,14 @@ public class ProgressPage : MonoBehaviour {
         int numOrbsTotal = (int)PhysicalUpgrade.Orb.TOTAL_ORBS;
         int numOrbsCollected = Vars.currentNodeData.orbs.Count;
         int numOrbsFound = Vars.orbsFound.Count;
-        ProgressItem orbKeyItem = new ProgressItem();
-        orbKeyItem.type = ProgressItem.Type.ORB_KEY;
-        orbKeyItem.name = propAsset.getString("orb_key") + " " + numOrbsCollected + "/" + numOrbsTotal + " " + propAsset.getString("collected") + " (" + numOrbsFound + " " + propAsset.getString("found") + ")";
-        orbKeyItem.description = propAsset.getString("orb_description");
-        orbKeyItem.found = true;
-        list.Add(orbKeyItem);
+        if (numOrbsFound > 0) {
+            ProgressItem orbKeyItem = new ProgressItem();
+            orbKeyItem.type = ProgressItem.Type.ORB_KEY;
+            orbKeyItem.name = propAsset.getString("orb_key") + " " + numOrbsCollected + "/" + numOrbsTotal + " " + propAsset.getString("collected") + " (" + numOrbsFound + " " + propAsset.getString("found") + ")";
+            orbKeyItem.description = propAsset.getString("orb_description");
+            orbKeyItem.found = true;
+            list.Add(orbKeyItem);
+        }
 
         // add boost upgrade item
         if (Vars.boosterFound) {

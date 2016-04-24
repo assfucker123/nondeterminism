@@ -2,7 +2,7 @@
 stopPlayer
 cbarsOn immediately
 freezeTimer
-wait 1.0
+wait .7
 
 t-W: Alright, we made it.  Now we can finally start looking for the |Omega Phase Crystal|.
 t-O: The possibility of finding this rock excites me.  If the Omega Crystal is as powerful as you described,
@@ -14,10 +14,12 @@ t-O: Yes, of course.
 t-W: I'll make myself useful by providing support from inside the ship where it's safe and warm.
 t-W: Contact me anytime you need some advice.
 
-//spawnControlMessage 0 // tutorial to advance messages
-
 closeText
 cbarsOff block // blocks until cutscene bars are off
 sendMessage ChamberPlatform BaseLandingReceiver // fixes save position issues
 unfreezeTimer
 resumePlayer
+
+// spawn message telling player how to activate platforms
+wait .4
+spawnControlMessage 7

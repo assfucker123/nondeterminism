@@ -8,6 +8,7 @@ public class TitleScreen : MonoBehaviour {
 
     public Vector2 selectionOffset = new Vector2(0, 2);
     public Vector2 optionsPageOffset = new Vector2(0, -10);
+    public float blackScreenFadeDuration = .5f;
     public AudioClip switchSound;
     public GameObject optionsPageGameObject;
     public TextAsset decryptorInfoTextAsset;
@@ -27,6 +28,14 @@ public class TitleScreen : MonoBehaviour {
             new Vector3(optionsPageOffset.x, optionsPageOffset.y);
         optionsPage = optionsPageGO.GetComponent<OptionsPage>();
         optionsPage.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        optionsBG = transform.Find("OptionsBG").GetComponent<Image>();
+        optionsBG.enabled = false;
+
+        blackScreen = transform.Find("BlackScreen").GetComponent<Image>();
+        blackScreen.enabled = true;
+        blackScreen.color = new Color(0, 0, 0, 1);
+        fadeTime = 0;
 
         fileSelectScreen = transform.Find("FileSelectScreen").GetComponent<FileSelectScreen>();
 
@@ -57,6 +66,15 @@ public class TitleScreen : MonoBehaviour {
     }
 	
 	void Update() {
+
+        // blackscreen fading
+        if (fadeTime < blackScreenFadeDuration) {
+            fadeTime += .0166667f;
+            blackScreen.color = new Color(0, 0, 0, Utilities.easeLinearClamp(fadeTime, 1, -1, blackScreenFadeDuration));
+            if (fadeTime >= blackScreenFadeDuration) {
+                blackScreen.enabled = false;
+            }
+        }
 
         menuUpdate();
 
@@ -160,12 +178,14 @@ public class TitleScreen : MonoBehaviour {
     void optionsSelected() {
         if (optionsPageShown) return;
         optionsPage.show(true);
+        optionsBG.enabled = true;
         hideOptions();
         optionsPageShown = true;
     }
     void optionsBack() {
         if (!optionsPageShown) return;
         optionsPage.hide();
+        optionsBG.enabled = false;
         showOptions(options.IndexOf(optionsText));
         optionsPageShown = false;
     }
@@ -209,11 +229,16 @@ public class TitleScreen : MonoBehaviour {
     GlyphBox optionsText;
     GlyphBox quitText;
     OptionsPage optionsPage;
+    Image optionsBG;
+    Image blackScreen;
     Properties properties;
 
     FileSelectScreen fileSelectScreen;
     
     bool reverting = false;
     float revertingDiff = 0;
+
+    float fadeTime = 0;
+
     
 }

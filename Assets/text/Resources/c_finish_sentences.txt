@@ -13,6 +13,6 @@ t-W: I'm so glad you feel the need to optimize casual conversations.  // sarcasm
 t-W: But wouldn't it be more efficient if you just acknowledged everything I was about to say,
 t-W: before I take the time to let the words come out?
 t-O: I am not a mind reader Wally.  I will not understand you unless you actually say something at some point.
-t-W: Ah ... good point.
+t-W: Ah ... that's true.
 
 closeText block

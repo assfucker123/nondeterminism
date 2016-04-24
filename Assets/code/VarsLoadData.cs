@@ -39,7 +39,7 @@ public class VarsLoadData {
         // all talk conversations
         TalkPage.conversations.Clear();
         TalkPage.addConversationNoAlert("c_finish_sentences", false, false);
-        TalkPage.addConversationNoAlert("c_oracle_vision", true, false);
+        //TalkPage.addConversationNoAlert("c_oracle_vision", true, false);
         TalkPage.addConversationNoAlert("help_basic_controls", false, true);
         TalkPage.addConversationNoAlert("help_vision", false, true);
         TalkPage.addConversationNoAlert("help_flashback", false, true);

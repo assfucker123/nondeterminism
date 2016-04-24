@@ -32,12 +32,19 @@ public class ControlsMessage : MonoBehaviour {
     public Sprite activatePlatformsSprite;
     
     /* Fades out message and automatically destroys it */
-    public void fadeOut() {
+    public void fadeOut(bool immediately=false) {
         if (fadingOut) return;
         if (!timeUser.exists) return;
-        fadingOut = true;
-        time = 0;
+
+        if (immediately) {
+            image.color = Color.clear;
+            timeUser.timeDestroy();
+        } else {
+            fadingOut = true;
+            time = 0;
+        }
     }
+    
 
     public static List<ControlsMessage> allMessages = new List<ControlsMessage>();
 
