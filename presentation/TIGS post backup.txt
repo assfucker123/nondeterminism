@@ -1,0 +1,51 @@
+[center]
+[size=16pt]When you can see the future, you don't just survive.  You optimize.[/size]
+
+[img]http://i.imgur.com/u1uDOMk.png[/img]
+[/center]
+
+
+Vision ~ SR is a 2D action-adventure platformer that lets the player perceive the future.  From this fundamental concept comes a plethora of unique and empowering possibilities in combat and exploration.
+
+[center][size=16pt][b]Vision[/b][/size][/center]
+
+Vision is a passive ability that visualizes enemy attacks on the screen a second or so before they actually happen. This gives the player just enough time to leap out of the way from a spray of bullets, or intercept a teleporting enemy’s movements with a powerful charge shot. It’s an invaluable resource as enemies become more abundant and aggressive.
+
+[center][img]http://i.imgur.com/lSVZZja.gif[/img][/center]
+
+
+
+[center][size=16pt][b]Flashback[/b][/size][/center]
+
+Flashback is a feature that functions similarly to rewinding time.  After taking too many hits or becoming cornered, use Flashback to revert back a few seconds and revise your strategy.
+
+[center][img]http://i.imgur.com/1JzRd41.gif[/img][/center]
+
+Use with caution, however, as this mechanic drains [b]Phase[/b].  Visions no longer appear once phase drops too low, and Flashback can’t be used at all once it’s depleted.  Phase can be restored by acquiring phase crystals, sometimes dropped by defeated enemies.  Is it better to use Flashback anytime you get hit to maintain max health as long as possible, or should the ability be saved only for when it’s absolutely needed?
+
+[center][size=16pt][b]Chamber Flashback[/b][/size][/center]
+
+Similar to Flashback, Chamber Flashback is also a time reversion mechanic, but it works on a larger scale.  Instead of going back a few seconds, this can be used to go back several minutes to previous rooms or even to the start of the game.  After saving at special chambers, players can use Chamber Flashback to essentially revert to a previous save point while retaining [b]information[/b] about events to come.
+
+[center]
+[img]http://i.imgur.com/33jNsIU.png[/img]
+Previous save points are displayed in the Time Tree menu.
+[/center]
+
+Information is more than just knowing what enemies are ahead, however.  It also includes [b]Decryptors[/b], which are special codes that unlock abilities in Oracle’s suit.  So once a decryptor for a new ability is found, it doesn’t matter which point in time the player reverts to; they’ll be able to use the new ability as if they’ve known the decryptor all along.
+
+The same cannot be said for [b]physical items[/b].  Unlike decryptors, physical items (like health upgrades) do not stay with the player if they revert to before the items were acquired.  While players may be tempted to use Chamber Flashback as a fast-travel system that can be used from anywhere, they must consider the possibility of undoing actions they’ve done.
+
+In short, Chamber Flashback is a robust pseudo-time travel mechanic that requires optimization and strategy to use effectively.  Its mastery will prove to be very useful for navigating Vision ~ SR’s world.
+
+[center][size=16pt][b]And More...[/b][/size][/center]
+
+Oh yeah, there’s also running, shooting, and secrets to find.  But you probably expected all that, right?  Fans of classic Mega Man and Metroid titles will likely be familiar with the more traditional mechanics featured in Vision ~ SR.  There are also many other abilities and mechanics used during the adventure that will be best experienced simply by playing the game.
+
+
+Game Website/Blog: https://visionsrgame.com/
+My Twitter: https://twitter.com/th3sharkk
+
+[hr]
+
+Edit 4-24-16: Hi everyone.  I only just recently started posting on TIGS forums, so let me know if I'm doing anything wrong and I'll be happy to fix it.  As well as receiving feedback for my projects I'll be happy to leave some for yours.  I'm a sucker for 2D platformers so if you're making one I'll try it out.

@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager instance { get { return _instance; } }
 
     public float volumeScale = 1; // only change this for getting a game over, etc.
+    public TextAsset musicMapper;
 
     public void playSFX(AudioClip clip, float volume = 1.0f) {
         playSFXIgnoreVolumeScale(clip, volume * volumeScale);
@@ -74,25 +75,27 @@ public class SoundManager : MonoBehaviour {
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
 
+        timeUser = GetComponent<TimeUser>();
+
         AudioSource[] ass = GetComponents<AudioSource>();
 
-        musicSource = ass[0];
-        for (int i = 1; i < ass.Length; i++) {
+        musicSource1 = ass[0];
+        musicSource2 = ass[1];
+        for (int i = 2; i < ass.Length; i++) {
             sfxSources.Add(ass[i]);
         }
 
 	}
-	
-	void Update() {
-		
-	}
+    
+    
 
     void OnDestroy() {
         foreach (AudioSource audS in sfxSources) {
             audS.clip = null;
         }
         sfxSources.Clear();
-        musicSource.clip = null;
+        musicSource1.clip = null;
+        musicSource2.clip = null;
     }
 
     void playSFXF(AudioClip clip, float volume, float pitch) {
@@ -128,6 +131,230 @@ public class SoundManager : MonoBehaviour {
     static SoundManager _instance = null;
 
     List<AudioSource> sfxSources = new List<AudioSource>();
-    AudioSource musicSource; 
+    AudioSource musicSource1;
+    MusicElement musicElement1;
+    float musicTime1 = 0;
+    float musicVolMultiplier1 = 1;
+    AudioSource musicSource2;
+    MusicElement musicElement2;
+    float musicTime2 = 0;
+    float musicVolMultiplier2 = 1;
+    TimeUser timeUser;
+    
+
+    void OnSaveFrame(FrameInfo fi) {
+        fi.ints["me1"] = musicElement1 == null ? -1 : musicElement1.intMapperIndex;
+        fi.floats["mt1"] = musicTime1;
+        fi.floats["mvm1"] = musicVolMultiplier1;
+        fi.ints["me2"] = musicElement2 == null ? -1 : musicElement2.intMapperIndex;
+        fi.floats["mt2"] = musicTime2;
+        fi.floats["mvm2"] = musicVolMultiplier2;
+    }
+
+    void OnRevert(FrameInfo fi) {
+        musicTime1 = fi.floats["mt1"];
+        musicVolMultiplier1 = fi.floats["mvm1"];
+        int index = fi.ints["me1"];
+        if (index == -1) {
+            musicElement1 = null;
+            if (musicSource1.isPlaying) {
+                musicSource1.Stop();
+            }
+        } else {
+            musicElement1 = mapper[intMapper[index]];
+            // new idea: do this in Update, right when TimeUser stops reverting
+            //setMusicSourceF(musicSource1, musicElement1, musicTime1, musicVolMultiplier1);
+        }
+        musicTime2 = fi.floats["mt2"];
+        musicVolMultiplier2 = fi.floats["mvm2"];
+        index = fi.ints["me2"];
+        if (index == -1) {
+            musicElement2 = null;
+            if (musicSource2.isPlaying) {
+                musicSource2.Stop();
+            }
+        } else {
+            musicElement2 = mapper[intMapper[index]];
+            // new idea: do this in Update, right when TimeUser stops reverting
+            //setMusicSourceF(musicSource2, musicElement2, musicTime2, musicVolMultiplier2);
+        }
+    }
+
+    bool timeRevertingFlag = false;
+
+    void Update() {
+
+        if (timeUser.shouldNotUpdate) {
+            if (TimeUser.reverting) {
+                timeRevertingFlag = true;
+            }
+            return;
+        }
+
+        if (timeRevertingFlag) { // if just stopped time reverting
+            setMusicSourceF(musicSource1, musicElement1, musicTime1, musicVolMultiplier1);
+            setMusicSourceF(musicSource2, musicElement2, musicTime2, musicVolMultiplier2);
+            timeRevertingFlag = false;
+        }
+        
+        // going from intro to main loop
+        if (musicElement1 != null && musicElement1.hasIntro && !musicSource1.isPlaying) {
+            musicSource1.clip = musicElement1.main;
+            musicSource1.loop = true;
+            musicSource1.Play();
+        }
+        if (musicElement2 != null && musicElement2.hasIntro && !musicSource2.isPlaying) {
+            musicSource2.clip = musicElement2.main;
+            musicSource2.loop = true;
+            musicSource2.Play();
+        }
+
+        // update time values
+        musicTime1 = musicSource1.time;
+        if (musicElement1 != null && musicElement1.hasIntro && musicSource1.clip == musicElement1.main)
+            musicTime1 += musicElement1.intro.length;
+        musicTime2 = musicSource2.time;
+        if (musicElement2 != null && musicElement2.hasIntro && musicSource2.clip == musicElement2.main)
+            musicTime2 += musicElement2.intro.length;
+
+    }
+
+    void setMusicSourceF(AudioSource musicSource, MusicElement musicElement, float time, float volumeMultiplier) {
+        volumeMultiplier *= Vars.musicVolume;
+        if (musicElement == null) {
+            musicSource.Stop();
+            musicSource.volume = volumeMultiplier;
+            musicSource.clip = null;
+            return;
+        }
+        if (!musicElement.loaded) {
+            Debug.LogError("ERROR: MusicElement not loaded");
+            return;
+        }
+        bool onIntro = musicElement.onIntro(time);
+        AudioClip clip = onIntro ? musicElement.intro : musicElement.main;
+        if (musicSource.clip != clip) {
+            musicSource.clip = clip;
+            musicSource.Play();
+        }
+        musicSource.volume = volumeMultiplier;
+        musicSource.time = musicElement.getTime(time);
+        musicSource.loop = !onIntro;
+        if (!musicSource.isPlaying) {
+            musicSource.Play();
+            musicSource.time = musicElement.getTime(time);
+        }
+    }
+
+    /// <summary>
+    /// Maps the music names in musicMapper to the filenames of the songs.
+    /// To designate a file to be the intro of a song, the end of its map name should be "-intro"
+    /// </summary>
+    public void mapMusicElements() {
+        mapper.Clear();
+        intMapper.Clear();
+        Properties prop = new Properties(musicMapper.text);
+        List<string> keys = prop.getKeys();
+        foreach (string key in keys) {
+            if (key == "") continue;
+            int index = key.LastIndexOf("-intro");
+            if (index != -1 && index == key.Length - 6) continue; // has -intro, so don't count as song
+
+            MusicElement me;
+
+            // check if intro exists
+            string introFileName = prop.getString(key + "-intro");
+            if (introFileName == "") { // no intro exists
+                me = new MusicElement(key, prop.getString(key));
+            } else { // intro exists
+                me = new MusicElement(key, introFileName, prop.getString(key));
+            }
+            mapper.Add(key, me);
+        }
+        // give each music element an integer representation
+        keys = new List<string>(mapper.Keys);
+        for (int i=0; i<keys.Count; i++) {
+            mapper[keys[i]].intMapperIndex = i;
+            intMapper.Add(keys[i]);
+        }
+    }
+    Dictionary<string, MusicElement> mapper = new Dictionary<string, MusicElement>();
+    List<string> intMapper = new List<string>(); // maps int (index) to a string that can be used in mapper
+
+    class MusicElement {
+
+        public MusicElement(string keyName, string mainFileName) {
+            this.keyName = keyName;
+            this.mainFileName = mainFileName;
+            setClips();
+        }
+        public MusicElement(string keyName, string introFileName, string mainFileName) {
+            this.keyName = keyName;
+            this.introFileName = introFileName;
+            this.mainFileName = mainFileName;
+            setClips();
+        }
+        
+        public bool hasIntro {  get { return introFileName != ""; } }
+        public bool loaded {
+            get {
+                if (main == null) return false;
+                if (hasIntro) {
+                    if (intro == null) return false;
+                    if (intro.loadState != AudioDataLoadState.Loaded) return false;
+                }
+                return main.loadState == AudioDataLoadState.Loaded;
+            }
+        }
+        /// <summary>
+        /// if the song has been playing for timeSinceMusicStarted seconds, would it be on the intro or in the main?
+        /// </summary>
+        public bool onIntro(float timeSinceMusicStarted) {
+            if (!hasIntro) return false;
+            if (intro == null) return false;
+            if (timeSinceMusicStarted < 0) return false;
+            return timeSinceMusicStarted < intro.length;
+        }
+        /// <summary>
+        /// if the song has been playing for timeSinceMusicStarted seconds, what should the time property of the AudioSource be?
+        /// </summary>
+        public float getTime(float timeSinceMusicStarted) {
+            if (onIntro(timeSinceMusicStarted)) {
+                return timeSinceMusicStarted;
+            }
+            if (main == null) return 0;
+            float loopT;
+            if (hasIntro && timeSinceMusicStarted >= 0) {
+                loopT = timeSinceMusicStarted - intro.length;
+            } else {
+                loopT = timeSinceMusicStarted;
+            }
+            return Utilities.fmod(loopT, main.length);
+        }
+
+        public string keyName = ""; // key name is what's used when a call is made to play music
+        public string introFileName = "";
+        public string mainFileName = "";
+        public int intMapperIndex = 0; // each MusicElement gets its own, so it acts as an ID
+        public AudioClip intro;
+        public AudioClip main;
+
+        /// <summary>
+        /// uses Resources.Load to set the info and main clips from their filenames
+        /// </summary>
+        void setClips() {
+            if (intro != null) {
+                intro = null;
+            }
+            if (main != null) {
+                main = null;
+            }
+            if (introFileName != "") {
+                intro = Resources.Load<AudioClip>(introFileName);
+            }
+            main = Resources.Load<AudioClip>(mainFileName);
+        }
+
+    }
 
 }

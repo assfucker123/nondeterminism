@@ -281,10 +281,7 @@ public class ChamberPlatform : MonoBehaviour {
     float phaseUsed = 0;
     bool playerHasMaxPhase = false;
     float timeSincePlayerOnPlatform = 9999;
-
-    float delayTime = 0;
-    float delayDuration = 0;
-
+    
     bool screenUp = false;
     ChamberScreen chamberScreenRef = null;
     

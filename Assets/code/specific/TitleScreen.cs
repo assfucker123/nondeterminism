@@ -99,7 +99,7 @@ public class TitleScreen : MonoBehaviour {
 
         if (optionsPageShown) {
             if (((optionsPage.onTopMenu() && Keys.instance.backPressed) ||
-                (optionsPage.selectingBack() && Keys.instance.confirmPressed))) {
+                (optionsPage.selectingBack() && confirmPressed))) {
                 optionsBack();
             }
             optionsPage.update();
@@ -136,7 +136,7 @@ public class TitleScreen : MonoBehaviour {
         }
 
         // confirming an option
-        if (Keys.instance.confirmPressed) {
+        if (confirmPressed) {
             GlyphBox selection = options[selectionIndex];
 
             if (selection == playGameText) {
@@ -210,6 +210,19 @@ public class TitleScreen : MonoBehaviour {
         playGameText.setPlainText(properties.getString("play_game"));
         optionsText.setPlainText(properties.getString("options"));
         quitText.setPlainText(properties.getString("quit"));
+    }
+
+    bool confirmPressed {
+        get {
+            return Keys.instance.confirmPressed ||
+                Keys.instance.startPressed;
+        }
+    }
+    bool backPressed {
+        get {
+            return Keys.instance.backPressed ||
+                Keys.instance.escapePressed;
+        }
     }
 
     int selectionIndex = 0;

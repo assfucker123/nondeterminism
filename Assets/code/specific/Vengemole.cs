@@ -89,7 +89,6 @@ Vengemole plan:
         enemyInfo = GetComponent<EnemyInfo>();
         playerAwareness = GetComponent<PlayerAwareness>();
         attackObject = transform.Find("attackObject").GetComponent<AttackObject>();
-        colliders = GetComponents<Collider2D>();
         leftAttack = transform.Find("hammerLeftAttack").GetComponent<AttackObject>();
         rightAttack = transform.Find("hammerRightAttack").GetComponent<AttackObject>();
         
@@ -407,7 +406,11 @@ Vengemole plan:
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;
+
+#pragma warning disable 414
     ColFinder colFinder;
+#pragma warning restore 414
+
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;
@@ -415,7 +418,6 @@ Vengemole plan:
     EnemyInfo enemyInfo;
     PlayerAwareness playerAwareness;
     AttackObject attackObject;
-    Collider2D[] colliders;
     AttackObject leftAttack;
     AttackObject rightAttack;
 

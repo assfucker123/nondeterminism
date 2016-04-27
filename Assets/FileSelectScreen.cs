@@ -294,7 +294,7 @@ public class FileSelectScreen : MonoBehaviour {
         case State.SHOW:
 
             if (errorShown) {
-                if (Keys.instance.backPressed || Keys.instance.confirmPressed) {
+                if (backPressed || confirmPressed) {
                     hideError();
                 }
             } else if (settingsShown) {
@@ -367,7 +367,7 @@ public class FileSelectScreen : MonoBehaviour {
                     SoundManager.instance.playSFX(switchSound);
                 } else if (Keys.instance.backPressed) {
                     hideSettings();
-                } else if (Keys.instance.confirmPressed && settingsSelectionIndex == SettingsSelection.START) {
+                } else if (confirmPressed && settingsSelectionIndex == SettingsSelection.START) {
                     beginNewFile(selectionIndex, settingsDifficulty, settingsTutorials);
                 }
 
@@ -379,7 +379,7 @@ public class FileSelectScreen : MonoBehaviour {
                 } else if (Keys.instance.downPressed) {
                     selectionIndex++;
                     SoundManager.instance.playSFX(switchSound);
-                } else if (Keys.instance.confirmPressed) {
+                } else if (confirmPressed) {
                     // selecting file
                     if (fileSelects[selectionIndex].newFile) {
                         SoundManager.instance.playSFX(selectConfirmSound);
@@ -581,6 +581,19 @@ public class FileSelectScreen : MonoBehaviour {
         DIFFICULTY,
         TUTORIALS,
         START
+    }
+
+    bool confirmPressed {
+        get {
+            return Keys.instance.confirmPressed ||
+                Keys.instance.startPressed;
+        }
+    }
+    bool backPressed {
+        get {
+            return Keys.instance.backPressed ||
+                Keys.instance.escapePressed;
+        }
     }
 
     Image image;

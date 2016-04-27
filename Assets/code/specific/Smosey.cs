@@ -293,7 +293,11 @@ public class Smosey : MonoBehaviour {
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;
     Animator animator;
+
+#pragma warning disable 414
     ColFinder colFinder;
+#pragma warning restore 414
+
     TimeUser timeUser;
     ReceivesDamage receivesDamage;
     VisionUser visionUser;

@@ -382,7 +382,11 @@ public class TimeTreePage : MonoBehaviour {
     // recycles lines, doesn't delete them
     void clearLines() {
         while (lines.Count > 0) {
-            removeLine(lines[0]);
+            if (lines[0] == null) {
+                lines.RemoveAt(0);
+            } else {
+                removeLine(lines[0]);
+            }
         }
     }
 
@@ -415,7 +419,11 @@ public class TimeTreePage : MonoBehaviour {
     // recycles node icons, doesn't delete them
     void clearNodeIcons() {
         while (nodeIcons.Count > 0) {
-            removeNodeIcon(nodeIcons[0]);
+            if (nodeIcons[0] == null) {
+                nodeIcons.RemoveAt(0);
+            } else {
+                removeNodeIcon(nodeIcons[0]);
+            }
         }
     }
 

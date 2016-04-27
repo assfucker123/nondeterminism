@@ -24,7 +24,6 @@ public class TitleLogo : MonoBehaviour {
 
     }
 
-    float imageWidth = 0;
     float startPos = 0;
 
     Image bg;
