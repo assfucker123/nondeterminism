@@ -193,6 +193,8 @@ public class Player : MonoBehaviour {
 
         }
     }
+    [HideInInspector]
+    public float revertTimeUserTimeMin = 0; // will attempt to prevent reverting TimeUser.time to before this value.  Has miscellaneous uses
 
     public enum State:int {
         GROUND,
@@ -412,6 +414,8 @@ public class Player : MonoBehaviour {
             repositionOnLevelLoad = false;
         }
 
+        revertTimeUserTimeMin = 0;
+
         saveFrameInfoOnLevelLoad();
 
     }
@@ -423,7 +427,7 @@ public class Player : MonoBehaviour {
             phasePickup(maxPhase);
         }
         if (Input.GetKey(KeyCode.Alpha2)) {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, 20);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, 20); // moon jump
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {
             
@@ -745,6 +749,8 @@ public class Player : MonoBehaviour {
             bool stopReverting = !Keys.instance.flashbackHeld;
             if (phase <= 0 || TimeUser.time <= 0.0001f)
                 stopReverting = true;
+            if (TimeUser.time < revertTimeUserTimeMin)
+                stopReverting = true;
             if (revertTime < minRevertDuration)
                 stopReverting = false;
             if (flashbackMode == FlashbackMode.CHAMBER_CUTSCENE) {
@@ -806,7 +812,8 @@ public class Player : MonoBehaviour {
         } else if (!PauseScreen.paused && !(GameOverScreen.instance != null && GameOverScreen.instance.cannotRevert)
             && state != State.KNEEL) {
             if ((Keys.instance.flashbackPressed || flashbackNextFrameFlag) &&
-                Time.timeSinceLevelLoad > .1f) {
+                Time.timeSinceLevelLoad > .1f &&
+                revertTimeUserTimeMin < TimeUser.time) {
                 if (phase > 0) {
                     TimeUser.beginContinuousRevert(.5f);
                     HUD.instance.flashbackArtifacts.begin();

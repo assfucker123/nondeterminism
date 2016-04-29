@@ -1,4 +1,4 @@
 boss: boss1
 white: level_white
-battle-intro: wild_pokemon_battle_intro
-battle: wild_pokemon_battle
+battle-intro: trainer battle intro
+battle: trainer battle

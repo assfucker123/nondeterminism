@@ -377,6 +377,11 @@ public class ChamberScreen : MonoBehaviour {
         // save the game
         bool errorSaving = !Vars.saveData();
 
+        // preventing obscure errors that could happen by Flashbacking to before the time when the game was saved
+        if (Player.instance != null) {
+            Player.instance.revertTimeUserTimeMin = Mathf.Max(Player.instance.revertTimeUserTimeMin, TimeUser.time);
+        }
+
         // go to next screen
         string currentPositionCode = "";
         float currentTime = 0;
