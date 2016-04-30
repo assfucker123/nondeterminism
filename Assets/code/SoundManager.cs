@@ -76,7 +76,7 @@ public class SoundManager : MonoBehaviour {
     #region Music Functions (Public)
 
     /// <summary>
-    /// WORK HERE
+    /// 
     /// </summary>
     /// <param name="songName"></param>
     /// <param name="fadeDuration"></param>
@@ -92,7 +92,9 @@ public class SoundManager : MonoBehaviour {
             currentMusicSource = 2;
             loopCounter2 = 0;
             // fade out source 1, fade in source 2
-            fadeOutF(1, fadeDuration);
+            if (musicVolMultiplier1 > .0001f) {
+                fadeOutF(1, fadeDuration);
+            }
             fadeInF(2, fadeDuration);
         } else {
             musicElement1 = me;
@@ -100,9 +102,15 @@ public class SoundManager : MonoBehaviour {
             currentMusicSource = 1;
             loopCounter1 = 0;
             // fade out source 2, fade in source 1
-            fadeOutF(2, fadeDuration);
+            if (musicVolMultiplier2 > .0001f) {
+                fadeOutF(2, fadeDuration);
+            }
             fadeInF(1, fadeDuration);
         }
+    }
+
+    public void fadeOutMusic(float fadeDuration = .5f) {
+        fadeOutF(currentMusicSource, fadeDuration);
     }
 
     public void stopMusic() {
@@ -118,6 +126,35 @@ public class SoundManager : MonoBehaviour {
                 return musicElement1 == null ? "" : musicElement1.keyName;
             } else {
                 return musicElement2 == null ? "" : musicElement2.keyName;
+            }
+        }
+    }
+    
+    public float currentVolume {
+        get {
+            if (currentMusicSource == 1) {
+                return musicVolMultiplier1;
+            } else {
+                return musicVolMultiplier2;
+            }
+        }
+    }
+
+    public bool isFadingIn {
+        get {
+            if (currentMusicSource == 1) {
+                return fadeMode1 == FadeMode.FADE_IN;
+            } else {
+                return fadeMode2 == FadeMode.FADE_IN;
+            }
+        }
+    }
+    public bool isFadingOut {
+        get {
+            if (currentMusicSource == 1) {
+                return fadeMode1 == FadeMode.FADE_OUT;
+            } else {
+                return fadeMode2 == FadeMode.FADE_OUT;
             }
         }
     }
@@ -180,10 +217,12 @@ public class SoundManager : MonoBehaviour {
             sfxSources.Add(ass[i]);
         }
 
-	}
+        mapMusicElements();
+
+    }
     
     void Start() {
-        mapMusicElements();
+        
     }
 
     void Update() {

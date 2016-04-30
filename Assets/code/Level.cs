@@ -13,6 +13,7 @@ public class Level : MonoBehaviour {
     public int[] openBottomEdges = new int[0];
     public int[] openRightEdges = new int[0];
     public int[] openTopEdges = new int[0];
+    public string backgroundMusic = "";
     public bool showOnMap = true;
     public bool bobbingCamera = false;
     public RestartOnDeathAction restartOnDeathAction = RestartOnDeathAction.LAST_SAVE;
@@ -128,13 +129,22 @@ public class Level : MonoBehaviour {
 
         }
 
+        // background music
+        if (backgroundMusic == "" && SoundManager.instance.currentVolume > .0001f) {
+            SoundManager.instance.fadeOutMusic();
+        } else if (backgroundMusic != "") {
+            if (SoundManager.instance.currentVolume < .0001f || SoundManager.instance.isFadingOut || SoundManager.instance.currentMusic != backgroundMusic) {
+                SoundManager.instance.playMusic(backgroundMusic);
+            }
+        }
+
 
     }
 	
 	void Update() {
 		
 	}
-
+    
     private static Level _currentLoadedLevel = null;
 	
 }

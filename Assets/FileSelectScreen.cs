@@ -460,6 +460,7 @@ public class FileSelectScreen : MonoBehaviour {
         whiteScreen.color = new Color(1, 1, 1, 0);
         whiteScreen.transform.SetAsLastSibling();
         SoundManager.instance.playSFX(whiteScreenSound);
+        SoundManager.instance.fadeOutMusic();
     }
 
     public static void saveToQuickdata(int fileIndex, string fileName, Vars.Difficulty difficulty, float time, float infoPercent, float physPercent) {

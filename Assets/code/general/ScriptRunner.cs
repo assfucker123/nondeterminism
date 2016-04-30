@@ -40,7 +40,10 @@ public class ScriptRunner : EventHappener {
             SET_CURRENT_OBJECTIVE,      // setCurrentObjective co_newObjectiveFile
             TITLE,                      // title: Oracle's Flashbacks // title for conversations, doens't actually do anything here
             FREEZE_COUNTDOWN_TIMER,     // freezeTimer // freezes the countdown timer, so CountdownTimer.instance.time doesn't update
-            UNFREEZE_COUNTDOWN_TIMER    // unfreezeTimer // unfreezes the countdown timer
+            UNFREEZE_COUNTDOWN_TIMER,   // unfreezeTimer // unfreezes the countdown timer
+            PLAY_MUSIC,                 // playMusic songName [1.0] // brackets is fade in duration, default is .5 I think
+            STOP_MUSIC,                 // stopMusic
+            FADE_OUT_MUSIC              // fadeOutMusic [1.0] // brackets is fade out duration, default is .5 I think
         }
 
         public ID id = ID.NONE;
@@ -284,6 +287,26 @@ public class ScriptRunner : EventHappener {
                 id = ID.FREEZE_COUNTDOWN_TIMER;
             } else if (word == "unfreezecountdowntimer" || word == "unfreezetimer") {
                 id = ID.UNFREEZE_COUNTDOWN_TIMER;
+            } else if (word == "playmusic") {
+                id = ID.PLAY_MUSIC;
+                index2 = line.IndexOf(' ', index + 1);
+                if (index2 == -1) { // no fadeDuration argument
+                    str0 = line.Substring(index + 1).Trim();
+                    float0 = -1;
+                } else {
+                    str0 = line.Substring(index + 1, index2 - index - 1).Trim();
+                    float0 = float.Parse(line.Substring(index2 + 1).Trim());
+                }
+            } else if (word == "stopmusic") {
+                id = ID.STOP_MUSIC;
+            } else if (word == "fadeoutmusic") {
+                id = ID.FADE_OUT_MUSIC;
+                index2 = line.IndexOf(' ', index + 1);
+                if (line.Length <= 13) {
+                    float0 = -1;
+                } else {
+                    float0 = float.Parse(line.Substring(13).Trim());
+                }
             }
 
         }
@@ -744,6 +767,29 @@ public class ScriptRunner : EventHappener {
             case Instruction.ID.UNFREEZE_COUNTDOWN_TIMER:
                 if (CountdownTimer.instance != null)
                     CountdownTimer.instance.frozen = false;
+                break;
+            case Instruction.ID.PLAY_MUSIC:
+                if (SoundManager.instance != null) {
+                    if (instr.float0 == -1) {
+                        SoundManager.instance.playMusic(instr.str0);
+                    } else {
+                        SoundManager.instance.playMusic(instr.str0, instr.float0);
+                    }
+                }
+                break;
+            case Instruction.ID.STOP_MUSIC:
+                if (SoundManager.instance != null) {
+                    SoundManager.instance.stopMusic();
+                }
+                break;
+            case Instruction.ID.FADE_OUT_MUSIC:
+                if (SoundManager.instance != null) {
+                    if (instr.float0 == -1) {
+                        SoundManager.instance.fadeOutMusic();
+                    } else {
+                        SoundManager.instance.fadeOutMusic(instr.float0);
+                    }
+                }
                 break;
             }
 

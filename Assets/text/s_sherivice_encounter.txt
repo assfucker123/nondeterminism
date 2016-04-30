@@ -1,6 +1,7 @@
 
 stopPlayer // player won't receive input
 keyDown right // simulates pressing right (and holding it down until keyUp command)
+fadeOutMusic
 
 camDisableBounds
 camSetPosition(20.5, 8) 1.0 // move camera slightly lower, so Oracle won't be obscured by textbox
@@ -31,6 +32,7 @@ closeText
 setCurrentObjective co_sherivice_fight
 sendMessage InvisibleWall EnableWall // makes invisible wall on left side
 camSetPosition(24, 11.5) 1.0
+//playMusic battle
 cbarsOff block
 resumePlayer
 

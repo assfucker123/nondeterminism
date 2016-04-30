@@ -879,6 +879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeScale: 1
+  pausedMusicVolumeMultiplier: 0.4
+  flashbackMusicVolumeMultiplier: 0.2
   musicMapper: {fileID: 4900000, guid: 1eb087cbd8bb29342994b0601a58258b, type: 3}
 --- !u!1001 &100100000
 Prefab:
@@ -915,6 +917,14 @@ Prefab:
       propertyPath: musicMapper
       value: 
       objectReference: {fileID: 4900000, guid: 1eb087cbd8bb29342994b0601a58258b, type: 3}
+    - target: {fileID: 0}
+      propertyPath: pausedMusicVolumeMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: flashbackMusicVolumeMultiplier
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 108768}

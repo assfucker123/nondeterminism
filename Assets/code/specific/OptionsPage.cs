@@ -120,6 +120,7 @@ public class OptionsPage : MonoBehaviour {
                 setSelection(options.IndexOf(quitText), true);
             } else {
                 // quit game (should quit to title screen)
+                SoundManager.instance.stopMusic();
                 Vars.goToTitleScreen();
             }
 
