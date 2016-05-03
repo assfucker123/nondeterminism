@@ -45,8 +45,10 @@ public class FileSelectScreen : MonoBehaviour {
             selection.GetComponent<RectTransform>().localPosition = fileSelects[_selectionIndex].position;
             if (fileSelects[_selectionIndex].newFile) {
                 selection.GetComponent<Animator>().Play("newFile");
+                deleteFile.enabled = false;
             } else {
                 selection.GetComponent<Animator>().Play("normal");
+                deleteFile.enabled = true;
             }
         }
     }
@@ -83,6 +85,8 @@ public class FileSelectScreen : MonoBehaviour {
         time = 0;
         state = State.FADE_OUT;
         selection.enabled = false;
+        deleteFile.enabled = false;
+        deleteHoldTime = 0;
         _selectionIndex = -1;
     }
 
@@ -126,6 +130,7 @@ public class FileSelectScreen : MonoBehaviour {
         settingsStartButton.enabled = false;
         settingsSelection.enabled = false;
         settingsShown = false;
+        deleteHoldTime = 0;
 
         // also show file selects
         foreach (FileSelect fs in fileSelects) {
@@ -226,6 +231,7 @@ public class FileSelectScreen : MonoBehaviour {
         selection = transform.Find("Selection").GetComponent<Image>();
         errorImage = transform.Find("Error").GetComponent<Image>();
         errorText = errorImage.transform.Find("GlyphBox").GetComponent<GlyphBox>();
+        deleteFile = transform.Find("DeleteFile").GetComponent<Image>();
         Transform settingsT = transform.Find("Settings");
         settingsHeaderBox = settingsT.Find("HeaderBox").GetComponent<GlyphBox>();
         settingsDifficultyBox = settingsT.Find("DifficultyBox").GetComponent<GlyphBox>();
@@ -241,6 +247,7 @@ public class FileSelectScreen : MonoBehaviour {
 
         image.enabled = false;
         selection.enabled = false;
+        deleteFile.enabled = false;
         errorImage.enabled = false;
         errorText.makeAllCharsInvisible();
 
@@ -282,6 +289,7 @@ public class FileSelectScreen : MonoBehaviour {
             // end state
             if (time >= duration) {
                 state = State.SHOW;
+                deleteHoldTime = 0;
                 // make selection
                 selection.enabled = true;
                 int firstSelection = Vars.saveFileIndexLastUsed;
@@ -371,15 +379,30 @@ public class FileSelectScreen : MonoBehaviour {
                     beginNewFile(selectionIndex, settingsDifficulty, settingsTutorials);
                 }
 
-            } else {
+            } else { // nothing shown
+
+                if (deleteFile.enabled && Input.GetKey(KeyCode.A)) {
+                    deleteHoldTime += Time.unscaledDeltaTime;
+                    if (deleteHoldTime > 4) {
+                        deleteFileAction(selectionIndex);
+                        deleteFile.enabled = false;
+                        deleteHoldTime = 0;
+                    }
+                } else {
+                    deleteHoldTime = 0;
+                }
+                
                 // move selection
                 if (Keys.instance.upPressed) {
                     selectionIndex--;
+                    deleteHoldTime = 0;
                     SoundManager.instance.playSFX(switchSound);
                 } else if (Keys.instance.downPressed) {
                     selectionIndex++;
+                    deleteHoldTime = 0;
                     SoundManager.instance.playSFX(switchSound);
                 } else if (confirmPressed) {
+                    deleteHoldTime = 0;
                     // selecting file
                     if (fileSelects[selectionIndex].newFile) {
                         SoundManager.instance.playSFX(selectConfirmSound);
@@ -431,6 +454,14 @@ public class FileSelectScreen : MonoBehaviour {
 
     void OnDestroy() {
         clearFileSelects();
+    }
+
+    void deleteFileAction(int fileIndex) {
+        Vars.deleteData(fileIndex);
+        removeFromQuickdata(fileIndex);
+        fileSelects[fileIndex].newFile = true;
+        deleteFile.enabled = false;
+        selection.GetComponent<Animator>().Play("newFile");
     }
 
     void beginNewFile(int fileIndex, Vars.Difficulty difficulty, bool tutorials) {
@@ -488,6 +519,35 @@ public class FileSelectScreen : MonoBehaviour {
 
         File.WriteAllBytes(path, bArr2);
 
+    }
+
+    /// <summary>
+    /// removes data from the quickData file, then saves it
+    /// </summary>
+    /// <param name="fileIndex"></param>
+    public static void removeFromQuickdata(int fileIndex) {
+#if UNITY_WEBPLAYER
+        return;
+#endif
+
+        Properties quickdataProp = new Properties();
+        string path = Application.persistentDataPath + "/quickData.sav";
+        bool fileExists = File.Exists(path);
+        if (fileExists) {
+            byte[] bArr = File.ReadAllBytes(path);
+            string content = Utilities.bytesToString(bArr);
+            quickdataProp.parse(content);
+        }
+
+        quickdataProp.remove("fn" + fileIndex);
+        quickdataProp.remove("diff" + fileIndex);
+        quickdataProp.remove("t" + fileIndex);
+        quickdataProp.remove("info" + fileIndex);
+        quickdataProp.remove("phys" + fileIndex);
+
+        byte[] bArr2 = Utilities.stringToBytes(quickdataProp.convertToString());
+
+        File.WriteAllBytes(path, bArr2);
     }
 
     void createFileSelects() {
@@ -610,6 +670,7 @@ public class FileSelectScreen : MonoBehaviour {
     GlyphBox settingsTutDescripBox;
     Image settingsStartButton;
     Image settingsSelection;
+    Image deleteFile;
 
     Properties properties;
     Properties difficultyProperties;
@@ -620,6 +681,7 @@ public class FileSelectScreen : MonoBehaviour {
     Vars.Difficulty settingsDifficulty = Vars.Difficulty.STANDARD;
     bool settingsTutorials = false;
     SettingsSelection settingsSelectionIndex = SettingsSelection.DIFFICULTY;
+    float deleteHoldTime = 0;
 
     List<FileSelect> fileSelects = new List<FileSelect>();
 

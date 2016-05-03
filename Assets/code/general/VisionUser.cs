@@ -60,8 +60,9 @@ public class VisionUser : MonoBehaviour {
     // PUBLIC //
     ////////////
 
-    public float flickerPeriod = .2f;
-    public float flickerAlpha = .6f;
+    private float flickerPeriod = .2f;
+    private float flickerAlpha = .7f;
+    private float baseAlpha = .8f;
     public bool isVision { get { return _isVision; } }
     private float fadeInDuration = .35f; //how long for the vision to fade in
     private float flashbackAlpha = .15f; // alpha of a vision during a flashback (used to be 0)
@@ -240,20 +241,20 @@ public class VisionUser : MonoBehaviour {
     void setSpriteRendererAlpha() {
         if (!isVision)
             return;
-        float a = 1;
+        float a = baseAlpha;
         if (timeUser != null && !timeUser.exists){
             a = 0;
         } else if (createdWhenAbilityDeactivated) {
             a = 0;
         } else if (TimeUser.reverting) {
             //should be invisible while reverting
-            a = Utilities.easeLinearClamp(TimeUser.revertingTime, 1, flashbackAlpha - 1, fadeInDuration);
+            a = Utilities.easeLinearClamp(TimeUser.revertingTime, baseAlpha, flashbackAlpha - baseAlpha, fadeInDuration);
         } else {
             //normally should be visible, except when fading in at the start and end
             if (duration - time < fadeInDuration) {
-                a = Utilities.easeLinearClamp(duration - time, 0, 1, fadeInDuration);
+                a = Utilities.easeLinearClamp(duration - time, 0, baseAlpha, fadeInDuration);
             } else {
-                a = Utilities.easeLinearClamp(time, 0, 1, fadeInDuration);
+                a = Utilities.easeLinearClamp(time, 0, baseAlpha, fadeInDuration);
             }
         }
 

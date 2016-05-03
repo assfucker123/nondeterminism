@@ -226,14 +226,7 @@ public class SoundManager : MonoBehaviour {
     }
 
     void Update() {
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            playMusic("battle");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            stopMusic();
-        }
-
+        
         if (TimeUser.reverting) {
             // quieter music during a flashback
             musicSource1.pitch = -1;

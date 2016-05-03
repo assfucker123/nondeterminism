@@ -49,6 +49,28 @@ public static class Utilities {
     }
 
     /// <summary>
+    /// Calculates the intersection points between circle 1 and circle 2.  Returns array of the 2 Vector2 intersections.  If there are no intersections, the array is null.
+    /// </summary>
+    /// <param name="c1">Center of circle 1</param>
+    /// <param name="r1">Radius of circle 1</param>
+    /// <param name="c2">Center of circle 2</param>
+    /// <param name="r2">Radius of circle 2</param>
+    public static Vector2[] circleCircleIntersection(Vector2 c1, float r1, Vector2 c2, float r2) {
+        float d = Vector2.Distance(c1, c2);
+        if (d > r1 + r2) return null;
+        if (d < Mathf.Abs(r1 - r2)) return null;
+
+        float a = (r1*r1 - r2*r2 + d*d) / (2*d);
+        float h = Mathf.Sqrt(r1*r1 - a*a);
+        Vector2 p2 = c1 + a*(c2 - c1) / d;
+
+        return new Vector2[] {
+            new Vector2(p2.x + h*(c2.y - c1.y) / d, p2.y - h*(c2.x - c1.x) / d),
+            new Vector2(p2.x - h*(c2.y - c1.y) / d, p2.y + h*(c2.x - c1.x) / d),
+        };
+    }
+
+    /// <summary>
     /// Given elements in a line, all a spaced a specified distance from each other, with the average displacement being 0, what's the position of each element?
     /// </summary>
     /// <param name="spacing">Distance between each element</param>

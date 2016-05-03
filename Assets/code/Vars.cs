@@ -411,6 +411,16 @@ public class Vars {
         #endif
     }
 
+    public static void deleteData(int saveFileIndex) {
+
+#if !UNITY_WEBPLAYER
+        string path = Application.persistentDataPath + "/data" + saveFileIndex + ".sav";
+        if (File.Exists(path)) {
+            File.Delete(path);
+        }
+#endif
+    }
+
     /* Save settings to a file */
     public static void saveSettings() {
         string path = Application.persistentDataPath + "/settings.ini";

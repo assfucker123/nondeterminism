@@ -183,7 +183,7 @@ public class PauseScreen : MonoBehaviour {
         timeTreePageText.makeAllCharsVisible();
         talkPageText.makeAllCharsVisible();
         progressPageText.makeAllCharsVisible();
-        switchPagesText.makeAllCharsVisible();
+        switchPagesImage.enabled = true;
         optionsPageText.makeAllCharsVisible();
         pageSelection.enabled = true;
         
@@ -204,7 +204,7 @@ public class PauseScreen : MonoBehaviour {
         optionsPageText.setColor(DEFAULT_COLOR);
         optionsPageText.makeAllCharsInvisible();
         pageSelection.enabled = false;
-        switchPagesText.makeAllCharsInvisible();
+        switchPagesImage.enabled = false;
     }
     void switchPage(Page pageTo, bool immediately=false) {
         if (doingOpenAnimation) return;
@@ -299,7 +299,7 @@ public class PauseScreen : MonoBehaviour {
         progressPageText = transform.Find("ProgressPageText").GetComponent<GlyphBox>();
         optionsPageText = transform.Find("OptionsPageText").GetComponent<GlyphBox>();
         pageSelection = transform.Find("PageSelection").GetComponent<Image>();
-        switchPagesText = transform.Find("SwitchPagesText").GetComponent<GlyphBox>();
+        switchPagesImage = transform.Find("SwitchPagesImage").GetComponent<Image>();
 
         if (lightFlag) {
             openedLight = true;
@@ -357,7 +357,6 @@ public class PauseScreen : MonoBehaviour {
                 talkPageText.setPlainText(prop.getString("talk"));
                 progressPageText.setPlainText(prop.getString("progress"));
                 optionsPageText.setPlainText(prop.getString("options"));
-                switchPagesText.setPlainText(prop.getString("switch_pages"));
                 image.enabled = true;
 
                 // display stuff based on mode
@@ -572,7 +571,7 @@ public class PauseScreen : MonoBehaviour {
     GlyphBox progressPageText;
     GlyphBox optionsPageText;
     Image pageSelection;
-    GlyphBox switchPagesText;
+    Image switchPagesImage;
     Properties prop;
     
     // talk page

@@ -53,6 +53,9 @@ public class Properties {
     public void setBool(string key, bool value) {
         dic[key] = (value ? "1" : "0");
     }
+    public void remove(string key) {
+        dic.Remove(key);
+    }
 
     /* Parses string of a file with properties on it.
      * Format:
