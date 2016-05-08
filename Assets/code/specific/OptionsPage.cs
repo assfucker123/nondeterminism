@@ -9,13 +9,15 @@ public class OptionsPage : MonoBehaviour {
     public TextAsset textAsset;
     
     public void update() {
-        
-        optionsUpdate();
 
+        keyHoldPress.update();
+
+        optionsUpdate();
+        
         bool madeSelection = false;
         GlyphBox option = null;
         if (settingSFX || settingMusic) {
-            if (Keys.instance.leftPressed) {
+            if (keyHoldPress.leftPressed) {
                 if (settingSFX) {
                     Vars.sfxVolume = Mathf.Max(0, Vars.sfxVolume - .2f);
                     setVolumeText(true);
@@ -24,7 +26,7 @@ public class OptionsPage : MonoBehaviour {
                     setVolumeText(false);
                 }
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (Keys.instance.rightPressed) {
+            } else if (keyHoldPress.rightPressed) {
                 if (settingSFX) {
                     Vars.sfxVolume = Mathf.Min(1, Vars.sfxVolume + .2f);
                     setVolumeText(true);
@@ -234,10 +236,10 @@ public class OptionsPage : MonoBehaviour {
     void optionsUpdate() {
         // button presses to navigate options
         if (options.Count > 0) {
-            if (Keys.instance.downPressed) {
+            if (keyHoldPress.downPressed) {
                 setSelection(selectionIndex + 1);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (Keys.instance.upPressed) {
+            } else if (keyHoldPress.upPressed) {
                 setSelection(selectionIndex - 1);
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             }
@@ -328,5 +330,7 @@ public class OptionsPage : MonoBehaviour {
     bool settingSFX = false;
     bool settingMusic = false;
     bool titleMode = false;
+
+    PauseScreen.KeyHoldPress keyHoldPress = new PauseScreen.KeyHoldPress();
     
 }

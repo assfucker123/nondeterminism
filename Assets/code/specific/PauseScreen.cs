@@ -26,6 +26,115 @@ public class PauseScreen : MonoBehaviour {
     public static Color DEFAULT_COLOR = new Color(190/255f, 140/255f, 255/255f); // BE8CFF
     public static Color SELECTED_COLOR = new Color(30/255f, 22/255f, 40/255f); // 1E1628
     public static Color UNAVAILABLE_COLOR = new Color(160/255f, 73/255f, 125/255f); // A0497D
+    
+    /// <summary>
+    /// Use to get repeated keypresses by holding down the key.  Good for UI
+    /// </summary>
+    public class KeyHoldPress {
+
+        public float startDuration = .4f;
+        public float period = .1f;
+
+        public bool upPressed {
+            get {
+                return Keys.instance.upPressed ||
+                    _upPressed;
+            }
+        }
+        public bool downPressed {
+            get {
+                return Keys.instance.downPressed ||
+                    _downPressed;
+            }
+        }
+        public bool leftPressed {
+            get {
+                return Keys.instance.leftPressed ||
+                    _leftPressed;
+            }
+        }
+        public bool rightPressed {
+            get {
+                return Keys.instance.rightPressed ||
+                    _rightPressed;
+            }
+        }
+
+        /// <summary>
+        /// Call this every frame to update values.
+        /// </summary>
+        public void update() {
+            bool upHeld = Keys.instance.upHeld;
+            bool downHeld = Keys.instance.downHeld;
+            if (upHeld == downHeld) {
+                upHeld = false;
+                downHeld = false;
+            }
+            bool leftHeld = Keys.instance.leftHeld;
+            bool rightHeld = Keys.instance.rightHeld;
+            if (leftHeld == rightHeld) {
+                leftHeld = false;
+                rightHeld = false;
+            }
+
+            float prev = 0;
+            _upPressed = false;
+            _downPressed = false;
+            _leftPressed = false;
+            _rightPressed = false;
+            if (upHeld) {
+                prev = upHoldTime;
+                upHoldTime += Time.unscaledDeltaTime;
+                if (upHoldTime >= startDuration + period) {
+                    upHoldTime -= period;
+                    _upPressed = true;
+                }
+            } else {
+                upHoldTime = 0;
+            }
+            if (downHeld) {
+                prev = downHoldTime;
+                downHoldTime += Time.unscaledDeltaTime;
+                if (downHoldTime >= startDuration + period) {
+                    downHoldTime -= period;
+                    _downPressed = true;
+                }
+            } else {
+                downHoldTime = 0;
+            }
+            if (leftHeld) {
+                prev = leftHoldTime;
+                leftHoldTime += Time.unscaledDeltaTime;
+                if (leftHoldTime >= startDuration + period) {
+                    leftHoldTime -= period;
+                    _leftPressed = true;
+                }
+            } else {
+                leftHoldTime = 0;
+            }
+            if (rightHeld) {
+                prev = rightHoldTime;
+                rightHoldTime += Time.unscaledDeltaTime;
+                if (rightHoldTime >= startDuration + period) {
+                    rightHoldTime -= period;
+                    _rightPressed = true;
+                }
+            } else {
+                rightHoldTime = 0;
+            }
+
+        }
+
+        float upHoldTime = 0;
+        float downHoldTime = 0;
+        float leftHoldTime = 0;
+        float rightHoldTime = 0;
+        bool _upPressed = false;
+        bool _downPressed = false;
+        bool _leftPressed = false;
+        bool _rightPressed = false;
+
+    }
 
     public enum Page {
         NONE, //meaning entire pause screen is hidden

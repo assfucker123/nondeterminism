@@ -444,13 +444,14 @@ public class ProgressPage : MonoBehaviour {
     }
 
     public void update() {
-        
-        
+
+
         // input
-        if (Keys.instance.upPressed) {
+        keyHoldPress.update();
+        if (keyHoldPress.upPressed) {
             decrementSelection();
             SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-        } else if (Keys.instance.downPressed) {
+        } else if (keyHoldPress.downPressed) {
             incrementSelection();
             SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
         } else if (Keys.instance.confirmPressed) {
@@ -574,5 +575,7 @@ public class ProgressPage : MonoBehaviour {
     Vector2 selectionVisualPos0 = new Vector2();
     Vector2 selectionVisualPos1 = new Vector2();
     List<ProgressItem> list = new List<ProgressItem>();
+
+    PauseScreen.KeyHoldPress keyHoldPress = new PauseScreen.KeyHoldPress();
 
 }

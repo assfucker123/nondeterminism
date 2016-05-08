@@ -377,7 +377,7 @@ public class TalkPage : MonoBehaviour {
     
     public void update() {
 
-        
+        keyHoldPress.update();
 
         if (TextBox.instance.isBeingUsed) {
             // press pause to immediately end conversation
@@ -395,10 +395,10 @@ public class TalkPage : MonoBehaviour {
                 }
                 markNotNewOnceTextBoxNotUsed = false;
             }
-            if (Keys.instance.upPressed) {
+            if (keyHoldPress.upPressed) {
                 decrementSelection();
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
-            } else if (Keys.instance.downPressed) {
+            } else if (keyHoldPress.downPressed) {
                 incrementSelection();
                 SoundManager.instance.playSFXIgnoreVolumeScale(switchSound);
             } else if (Keys.instance.confirmPressed) {
@@ -504,5 +504,7 @@ public class TalkPage : MonoBehaviour {
     Vector2 selectionVisualPos1 = new Vector2();
     bool markNotNewOnceTextBoxNotUsed = false;
     List<TalkConversation> list = new List<TalkConversation>();
+
+    PauseScreen.KeyHoldPress keyHoldPress = new PauseScreen.KeyHoldPress();
 
 }
