@@ -71,6 +71,25 @@ public static class Utilities {
     }
 
     /// <summary>
+    /// Calculates the intersection points between a line (defined by 2 points on the line) and a circle.  Returns array of the 2 Vector2 intersections.  If there are no intersections, the array is null.
+    /// </summary>
+    /// <param name="lineP0">First point that defines the line</param>
+    /// <param name="lineP1">Second point that defines the line</param>
+    /// <param name="c">Center of the circle</param>
+    /// <param name="r">Radius of the circle</param>
+    /// <returns></returns>
+    public static Vector2[] lineCircleIntersection(Vector2 lineP0, Vector2 lineP1, Vector2 c, float r) {
+        Vector2 mid = closestPointOnLineToPoint(lineP0, lineP1, c);
+        float dist2 = r*r - (c-mid).sqrMagnitude;
+        if (dist2 < 0) return null;
+        Vector2 diff = (lineP1 - lineP0) * Mathf.Sqrt(dist2 / (lineP1 - lineP0).sqrMagnitude);
+        return new Vector2[] {
+            mid - diff,
+            mid + diff
+        };
+    }
+
+    /// <summary>
     /// Given elements in a line, all a spaced a specified distance from each other, with the average displacement being 0, what's the position of each element?
     /// </summary>
     /// <param name="spacing">Distance between each element</param>

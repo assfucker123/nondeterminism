@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: VisionMat
+  m_Name: VisionMatOld
   m_Shader: {fileID: 4800000, guid: 599d4b9fef32b5344be27014e6b70f98, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5

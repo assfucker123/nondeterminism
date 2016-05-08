@@ -468,7 +468,10 @@ public class Vars {
             decryptors.Add(decryptor);
     }
 
-    /* Returns if the ability described by the given descryptor can currently be used. */
+    /// <summary>
+    /// Returns if the ability described by the given descryptor can currently be used.  Having the decryptor, booster, etc. are automatically checked.
+    /// </summary>
+    /// <param name="decryptor">Decryptor ID of the ability</param>
     public static bool abilityKnown(Decryptor.ID decryptor) {
         if (decryptors.IndexOf(decryptor) == -1) return false;
         bool hasBooster = false;

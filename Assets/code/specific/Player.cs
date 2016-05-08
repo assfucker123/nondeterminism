@@ -992,32 +992,36 @@ public class Player : MonoBehaviour {
             SoundManager.instance.playSFXRandPitchBend(jumpSound);
         }
 
-        if (colFinder.hitBottom) {
-            //offset v.y to account for slope
-            float a = colFinder.normalBottom - Mathf.PI / 2;
-            v.y = v.x * Mathf.Atan(a) * SLOPE_RUN_MODIFIER;
-            float g = gravity * Time.deltaTime;
-            v.y -= g;
+        if (state != State.AIR) { // if state == State.AIR that means toAirState() was called previously
 
-            //offset v.x to match gravity so object doesn't slide down when still
-            v.x += g * SLOPE_STILL_MODIFIER * Mathf.Atan(a);
+            if (colFinder.hitBottom) {
+                //offset v.y to account for slope
+                float a = colFinder.normalBottom - Mathf.PI / 2;
+                v.y = v.x * Mathf.Atan(a) * SLOPE_RUN_MODIFIER;
+                float g = gravity * Time.deltaTime;
+                v.y -= g;
 
-        } else { //not touching ground
-            //attempt to snap back to the ground
-            if (!colFinder.raycastDownCorrection()) {
-                //attempt failed, in air
-                toAirState(false);
+                //offset v.x to match gravity so object doesn't slide down when still
+                v.x += g * SLOPE_STILL_MODIFIER * Mathf.Atan(a);
+
+            } else { //not touching ground
+                     //attempt to snap back to the ground
+                if (!colFinder.raycastDownCorrection()) {
+                    //attempt failed, in air
+                    toAirState(false);
+                }
+
             }
 
-        }
-
-        // step sounds
-        if (state == State.GROUND && isAnimatorCurrentState("run" + aimSuffix)) {
-            stepSoundPlayTime += Time.deltaTime;
-            if (stepSoundPlayTime > .25f) {
-                SoundManager.instance.playSFXRandPitchBend(stepSound);
-                stepSoundPlayTime = 0;
+            // step sounds
+            if (state == State.GROUND && isAnimatorCurrentState("run" + aimSuffix)) {
+                stepSoundPlayTime += Time.deltaTime;
+                if (stepSoundPlayTime > .25f) {
+                    SoundManager.instance.playSFXRandPitchBend(stepSound);
+                    stepSoundPlayTime = 0;
+                }
             }
+
         }
 
         rb2d.velocity = v;
@@ -1073,6 +1077,14 @@ public class Player : MonoBehaviour {
             jumpTime += Time.deltaTime;
             v.y = jumpSpeed;
             if (jumpTime > jumpMinDuration) {
+
+                if (true||Vars.abilityKnown(Decryptor.ID.WALL_RUN)) {
+                    // check to start wall run
+                    if (canStartWallRun()) {
+                        Debug.Log("Start wall run");
+                    }
+                }
+
                 if (jumpTime >= jumpMaxDuration || !jumpHeld ||
                     colFinder.hitTop) {
                     // end jump
@@ -1122,6 +1134,8 @@ public class Player : MonoBehaviour {
 
         rb2d.velocity = v;
     }
+
+    
 
     // damage state (called each frame)
     void stateDamage() {
@@ -1207,7 +1221,7 @@ public class Player : MonoBehaviour {
         if (rising) {
             animator.Play("idle_to_rising" + aimSuffix);
         } else {
-            animator.Play("falling" + aimSuffix);
+            animator.Play("rising_to_falling" + aimSuffix);
         }
     }
 
@@ -1489,10 +1503,28 @@ public class Player : MonoBehaviour {
             }
         }
     }
+    bool canStartWallRun() {
+        if (state != State.AIR) return false;
+        if (rb2d.velocity.y < 0) return false;
+        if (!jumpHeld) return false;
+
+        if (colFinder.hitLeft) {
+            if (!leftHeld) return false;
+            // also check wall angle?
+            return true;
+        }
+        if (colFinder.hitRight) {
+            if (!rightHeld) return false;
+            // also check wall angle?
+            return true;
+        }
+
+        return false;
+    }
 
     #endregion
 
-    
+
     // setting camera position
     void setCameraPosition() {
         /*
