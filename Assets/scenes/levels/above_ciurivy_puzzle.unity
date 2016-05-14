@@ -938,6 +938,10 @@ Prefab:
       propertyPath: mapY
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 11409956, guid: adcfa817722367346958dd11bda1ea91, type: 2}
+      propertyPath: backgroundMusic
+      value: tundra
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: adcfa817722367346958dd11bda1ea91, type: 2}
   m_IsPrefabParent: 0

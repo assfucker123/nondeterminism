@@ -294,3 +294,6 @@ o "Glitch" walls that prevent progress until the glitch is defeated can be exten
 	- After glitch is defeated, platforms go away, and need a different strategy to get through a room.
 	- MIGHT BE A BAD IDEA: fastest route cannot be using the glitch platforms
 o Use the energy grenades to destroy platforms below enemies, causing them to fall into spikes, etc.
+
+o Destroy platforms to drop phase crystals into lava, which freezes and makes temporary platforms to stand on.
+	o Used to support that the Omega Crystal could be used to stop the Meltdown.

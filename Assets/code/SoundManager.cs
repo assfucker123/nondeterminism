@@ -313,6 +313,8 @@ public class SoundManager : MonoBehaviour {
             musicSource1.volume = expectedVol * musicVolMultiplier1 * Vars.musicVolume;
             if (fadeTime1 >= fadeDuration1) {
                 fadeMode1 = FadeMode.NOT_FADING;
+                musicSource1.Stop();
+                musicElement1 = null;
             }
             break;
         case FadeMode.NOT_FADING:
@@ -334,6 +336,8 @@ public class SoundManager : MonoBehaviour {
             musicSource2.volume = expectedVol * musicVolMultiplier2 * Vars.musicVolume;
             if (fadeTime2 >= fadeDuration2) {
                 fadeMode2 = FadeMode.NOT_FADING;
+                musicSource2.Stop();
+                musicElement2 = null;
             }
             break;
         case FadeMode.NOT_FADING:

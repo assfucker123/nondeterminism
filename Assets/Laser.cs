@@ -11,6 +11,9 @@ public class Laser : MonoBehaviour {
     public float rayParticlesVertSpacing = .2f;
     public float rayParticleSpeed = 6;
     public GameObject rayParticleGameObject;
+    public float particleSpawnPeriod = .08f;
+    public float particleSpawnRadius = 1;
+    public GameObject particleGameObject;
 
     public float rotation {
         get {
@@ -47,7 +50,26 @@ public class Laser : MonoBehaviour {
 
         // scale sprite object
         spriteObject.transform.localScale = new Vector3(distance / spriteObjectBaseWidth, 1, 1);
-        updateParticles();
+        updateRayParticles();
+
+        // spawn particles
+        if (hit) {
+            particleTime += Time.deltaTime;
+            while (particleTime > particleSpawnPeriod) {
+                UnityEngine.Random.seed = timeUser.randSeed;
+                Vector2 point = UnityEngine.Random.insideUnitCircle;
+                timeUser.setRandSeed(UnityEngine.Random.seed);
+
+                point = point * particleSpawnRadius;
+                point += endpoint;
+                GameObject part = GameObject.Instantiate(particleGameObject, point, Quaternion.identity) as GameObject;
+                float scale = timeUser.randomRange(.5f, 1.5f);
+                part.transform.localScale = new Vector3(scale, scale, 1);
+                
+                particleTime -= particleSpawnPeriod;
+            }
+            
+        }
 
     }
 
@@ -62,7 +84,7 @@ public class Laser : MonoBehaviour {
         if (timeUser.shouldNotUpdate)
             return;
 
-        localRotation += 100 * Time.deltaTime;
+        localRotation += 20 * Time.deltaTime;
 
         rayTime += Time.deltaTime;
         updateRay();
@@ -72,17 +94,19 @@ public class Laser : MonoBehaviour {
     void OnSaveFrame(FrameInfo fi) {
         fi.floats["lr"] = localRotation;
         fi.floats["rt"] = rayTime;
+        fi.floats["pt"] = particleTime;
         fi.floats["d"] = distance;
     }
 
     void OnRevert(FrameInfo fi) {
         localRotation = fi.floats["lr"];
         rayTime = fi.floats["rt"];
+        particleTime = fi.floats["pt"];
         distance = fi.floats["d"];
-        updateParticles();
+        updateRayParticles();
     }
     
-    void updateParticles() {
+    void updateRayParticles() {
 
         float offset = Utilities.fmod(rayTime * rayParticleSpeed, rayParticleSpacing * 2);
         int numParticles = Mathf.FloorToInt((distance - offset) / rayParticleSpacing);
@@ -133,6 +157,7 @@ public class Laser : MonoBehaviour {
     GameObject spriteObject;
 
     float rayTime = 0;
+    float particleTime = 0;
     List<GameObject> particles = new List<GameObject>();
 
     List<GameObject> recycledParticles = new List<GameObject>();

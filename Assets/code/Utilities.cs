@@ -129,6 +129,14 @@ public static class Utilities {
     }
 
     /// <summary>
+    /// Returns if the given point is within the rectangular bounds defined by the given segment
+    /// </summary>
+    public static bool pointInSegmentBounds(Vector2 segmentP0, Vector2 segmentP1, Vector2 point) {
+        return Mathf.Min(segmentP0.x, segmentP1.x) <= point.x && point.x <= Mathf.Max(segmentP0.x, segmentP1.x) &&
+            Mathf.Min(segmentP0.y, segmentP1.y) <= point.y && point.y <= Mathf.Max(segmentP0.y, segmentP1.y);
+    }
+
+    /// <summary>
     /// Given a bezier curve defined by a start point p0, control point, and end point p2, find the point on the curve at t in [0,1]
     /// </summary>
     /// /// <param name="t">in [0,1]</param>
@@ -218,9 +226,15 @@ public static class Utilities {
         t--;
         return -c / 2 * (t * (t - 2) - 1) + b;
     }
+    public static Vector2 easeInOutQuad(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeInOutQuad(t, b.x, c.x, d), easeInOutQuad(t, b.y, c.y, d));
+    }
     public static float easeInOutQuadClamp(float t, float b, float c, float d) {
         t = Mathf.Min(d, Mathf.Max(0, t));
         return easeInOutQuad(t, b, c, d);
+    }
+    public static Vector2 easeInOutQuadClamp(float t, Vector2 b, Vector2 c, float d) {
+        return new Vector2(easeInOutQuadClamp(t, b.x, c.x, d), easeInOutQuadClamp(t, b.y, c.y, d));
     }
     public static float easeInCubic(float t, float b, float c, float d) {
         t /= d;
