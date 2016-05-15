@@ -11,7 +11,6 @@ GameObject:
   - 50: {fileID: 5073990}
   - 58: {fileID: 5822886}
   - 114: {fileID: 11400678}
-  - 114: {fileID: 11472136}
   - 114: {fileID: 11420694}
   - 114: {fileID: 11483150}
   m_Layer: 13
@@ -57,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.6000004, y: -7.44000006, z: 0}
+  m_LocalPosition: {x: 25.6, y: -7.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 447454}
@@ -70,9 +69,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151070}
+  m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 2.5
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -86,12 +86,13 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151070}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: bdd4c3bc96c50584f8926f0cda75db10, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.319999993}
+  m_Offset: {x: 0, y: -0.32}
   serializedVersion: 2
-  m_Radius: .200000003
+  m_Radius: 0.2
 --- !u!95 &9587004
 Animator:
   serializedVersion: 3
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomAngleThreshold: 35
-  raycastDownDistance: .200000003
+  raycastDownDistance: 0.2
   raycastDownGravity: 70
 --- !u!114 &11420694
 MonoBehaviour:
@@ -134,18 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37549b56456b61449a598d584451ef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11472136
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a75870cdc0e61b408c058f7741ff7ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformClingedToBottom: {fileID: 0}
+  updateAnimatorInfo: 1
+  updatePositionFromTransform: 0
 --- !u!114 &11483150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,7 +151,7 @@ MonoBehaviour:
   spawnPos: {x: 0, y: 0}
   explodeVel: {x: -1, y: 12}
   mercyFlashTime: 0
-  mercyFlashDuration: .5
+  mercyFlashDuration: 0.5
   rotateSpeed: 1300
   rotateAccel: -720
   state: 0
@@ -182,14 +173,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300016, guid: fba73457356b0eb41aeb998dc0abd1cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

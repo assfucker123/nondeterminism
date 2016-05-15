@@ -13,7 +13,6 @@ GameObject:
   - 58: {fileID: 5836490}
   - 61: {fileID: 6113470}
   - 114: {fileID: 11478022}
-  - 114: {fileID: 11400784}
   - 114: {fileID: 11451260}
   - 114: {fileID: 11418066}
   - 114: {fileID: 11425680}
@@ -172,18 +171,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400784
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 102646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a75870cdc0e61b408c058f7741ff7ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformClingedToBottom: {fileID: 0}
 --- !u!114 &11418066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,6 +241,9 @@ MonoBehaviour:
   idlePhaseReplenishDelay: 1.2
   idlePhaseReplenishSpeed: 4
   idlePhaseReplenishMax: 20
+  chamberFlashbackDuration: 1.9
+  chamberFlashbackRevertSpeedStart: 0.3
+  chamberFlashbackRevertSpeedEnd: 2.5
   damageSpeed: 14
   damageFriction: 40
   damageDuration: 0.3
@@ -289,9 +279,7 @@ MonoBehaviour:
     type: 3}
   roomRestartSound: {fileID: 8300000, guid: 5ea1538975014a840b550cd937ca6c18, type: 3}
   turnSound: {fileID: 8300000, guid: 96aad11b231bef24bba9452f4964fd3b, type: 3}
-  chamberFlashbackDuration: 1.9
-  chamberFlashbackRevertSpeedStart: 0.3
-  chamberFlashbackRevertSpeedEnd: 2.5
+  revertTimeUserTimeMin: 0
   flashbackNextFrameFlag: 0
 --- !u!114 &11426192
 MonoBehaviour:

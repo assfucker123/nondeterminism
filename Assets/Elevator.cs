@@ -10,6 +10,8 @@ public class Elevator : MonoBehaviour {
     public float endDecel = 10;
     public float bobDistance = .5f;
     public float bobPeriod = 1;
+    public AudioClip moveSound;
+    public AudioClip moveSoundEnd;
     
     public enum State {
         IDLE,
@@ -62,10 +64,14 @@ public class Elevator : MonoBehaviour {
         startPos = rb2d.position;
         endIndex = pointIndex;
         state = State.MOVING;
-
+        SoundManager.instance.playSFX(moveSound);
     }
 
     public void bob(Vector2 centerPosition) {
+        if (state == State.MOVING) {
+            SoundManager.instance.stopSFX(moveSound);
+            //SoundManager.instance.playSFX(moveSoundEnd);
+        }
         state = State.BOBBING;
         time = 0;
         startPos = centerPosition;

@@ -6,6 +6,7 @@ public class VisualEffect : MonoBehaviour {
 
     public float duration = .1f;
     public bool fadeOut = false;
+    public Vector2 speed = new Vector2();
 
     void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -19,6 +20,7 @@ public class VisualEffect : MonoBehaviour {
             return;
 
         time += Time.deltaTime;
+        transform.localPosition = transform.localPosition + (new Vector3(speed.x, speed.y)) * Time.deltaTime;
         updateFadeColor();
         
         if (time >= duration) {

@@ -5,6 +5,8 @@ using System;
 
 public class Laser : MonoBehaviour {
 
+    bool damagesPlayer = true;
+    int damage = 2;
     public float maxDistance = 70;
     public float spriteObjectBaseWidth = 4;
     public float rayParticleSpacing = .6f;
@@ -13,6 +15,8 @@ public class Laser : MonoBehaviour {
     public GameObject rayParticleGameObject;
     public float particleSpawnPeriod = .08f;
     public float particleSpawnRadius = 1;
+    public float particleSpread = 120;
+    public float particleSpeed = 15;
     public GameObject particleGameObject;
 
     public float rotation {
@@ -47,6 +51,7 @@ public class Laser : MonoBehaviour {
         distance = hit ? rh2d.distance : maxDistance;
         this.distance = distance;
         Vector2 endpoint = rh2d.point;
+        float normal = Mathf.Atan2(rh2d.normal.y, rh2d.normal.x) * Mathf.Rad2Deg;
 
         // scale sprite object
         spriteObject.transform.localScale = new Vector3(distance / spriteObjectBaseWidth, 1, 1);
@@ -63,13 +68,45 @@ public class Laser : MonoBehaviour {
                 point = point * particleSpawnRadius;
                 point += endpoint;
                 GameObject part = GameObject.Instantiate(particleGameObject, point, Quaternion.identity) as GameObject;
-                float scale = timeUser.randomRange(.5f, 1.5f);
+                float scale = timeUser.randomRange(.5f, 1.0f);
                 part.transform.localScale = new Vector3(scale, scale, 1);
+                float heading = normal;
+                heading += timeUser.randomRange(-particleSpread / 2, particleSpread / 2);
+                part.transform.localRotation = Utilities.setQuat(heading);
+                VisualEffect ve = part.GetComponent<VisualEffect>();
+                ve.speed.Set(particleSpeed * Mathf.Cos(heading * Mathf.Deg2Rad), particleSpeed * Mathf.Sin(heading * Mathf.Deg2Rad));
+
                 
                 particleTime -= particleSpawnPeriod;
             }
             
         }
+
+        checkDamaging();
+
+    }
+
+    void checkDamaging() {
+
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y);
+        Vector2 direction = new Vector2(Mathf.Cos(rotation * Mathf.Deg2Rad), Mathf.Sin(rotation * Mathf.Deg2Rad));
+
+        if (damagesPlayer) {
+            int layerMask = 1 << LayerMask.NameToLayer("Players");
+            RaycastHit2D rh2d = Physics2D.Raycast(origin, direction, distance, layerMask);
+            if (rh2d) {
+                Vector2 hitPoint = rh2d.point;
+                Vector2 plrPoint = Player.instance.rb2d.position - Player.instance.rb2d.velocity * Time.deltaTime;
+                Vector2 rayPoint = Utilities.closestPointOnLineToPoint(origin, origin+direction, plrPoint);
+                AttackInfo ai = new AttackInfo();
+                ai.damage = damage;
+                ai.impactPoint = hitPoint;
+                ai.impactHeading = Mathf.Atan2(plrPoint.y - rayPoint.y, plrPoint.x - rayPoint.x) * Mathf.Rad2Deg;
+                ai.impactMagnitude = 1;
+                Player.instance.GetComponent<ReceivesDamage>().dealDamage(ai);
+            }
+        }
+        
 
     }
 
