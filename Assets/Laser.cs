@@ -107,7 +107,6 @@ public class Laser : MonoBehaviour {
             }
         }
         
-
     }
 
     void Awake() {

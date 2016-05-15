@@ -157,6 +157,8 @@ public class PauseScreen : MonoBehaviour {
     public GameObject optionsPageGameObject;
     public TextAsset propAsset;
     float openAnimationDuration = .00001f; //can't be 0
+    public Vector2 tileSpeed = new Vector2(100, 50);
+    public GameObject tileGameObject;
 
     #endregion
 
@@ -288,6 +290,11 @@ public class PauseScreen : MonoBehaviour {
 
     void show(Page page) {
         image.enabled = true;
+        foreach (List<GameObject> col in BGTilesArray) {
+            foreach (GameObject GO in col) {
+                GO.GetComponent<Image>().enabled = true;
+            }
+        }
         mapPageText.makeAllCharsVisible();
         timeTreePageText.makeAllCharsVisible();
         talkPageText.makeAllCharsVisible();
@@ -302,6 +309,11 @@ public class PauseScreen : MonoBehaviour {
         switchPage(Page.NONE, true);
 
         image.enabled = false;
+        foreach (List<GameObject> col in BGTilesArray) {
+            foreach (GameObject GO in col) {
+                GO.GetComponent<Image>().enabled = false;
+            }
+        }
         mapPageText.setColor(DEFAULT_COLOR);
         mapPageText.makeAllCharsInvisible();
         timeTreePageText.setColor(DEFAULT_COLOR);
@@ -402,6 +414,7 @@ public class PauseScreen : MonoBehaviour {
         _instance = this;
         prop = new Properties(propAsset.text);
         image = GetComponent<Image>();
+        BGTiles = transform.Find("BGTiles").gameObject;
 		mapPageText = transform.Find("MapPageText").GetComponent<GlyphBox>();
         timeTreePageText = transform.Find("TimeTreePageText").GetComponent<GlyphBox>();
         talkPageText = transform.Find("TalkPageText").GetComponent<GlyphBox>();
@@ -624,7 +637,11 @@ public class PauseScreen : MonoBehaviour {
             optionsPage.update();
             break;
         }
-        
+
+        // update tiles
+        tileOffset += tileSpeed * Time.unscaledDeltaTime;
+        setBGTiles(tileOffset);
+
         // unpausing game
         if (timePaused > .1f && Keys.instance.startPressed) {
             unpauseGame();
@@ -651,6 +668,14 @@ public class PauseScreen : MonoBehaviour {
         if (optionsPage != null)
             GameObject.Destroy(optionsPage.gameObject);
         optionsPage = null;
+
+        foreach (List<GameObject> col in BGTilesArray) {
+            foreach (GameObject GO in col) {
+                GameObject.Destroy(GO);
+            }
+            col.Clear();
+        }
+        BGTilesArray.Clear();
     }
 
     private static PauseScreen _instance;
@@ -674,6 +699,7 @@ public class PauseScreen : MonoBehaviour {
 
     // main pause screen
     Image image;
+    GameObject BGTiles;
     GlyphBox mapPageText;
     GlyphBox timeTreePageText;
     GlyphBox talkPageText;
@@ -695,8 +721,40 @@ public class PauseScreen : MonoBehaviour {
     public TalkPage talkPage { get; private set; }
     public ProgressPage progressPage { get; private set; }
     public OptionsPage optionsPage { get; private set; }
-    
-    
+
+    // tiles
+    List<List<GameObject>> BGTilesArray = new List<List<GameObject>>();
+    Vector2 tileOffset = new Vector2(0, 0);
+    void setBGTiles(Vector2 offset) {
+        Image tileImage = tileGameObject.GetComponent<Image>();
+        float tileWidth = tileImage.sprite.textureRect.width * 2;
+        float tileHeight = tileImage.sprite.textureRect.height * 2;
+        Vector2 containerSize = BGTiles.GetComponent<RectTransform>().sizeDelta;
+        int width = Mathf.CeilToInt(containerSize.x / tileWidth) + 1;
+        int height = Mathf.CeilToInt(containerSize.y / tileHeight) + 1;
+
+        // adding tiles if needed
+        while (BGTilesArray.Count < width) {
+            List<GameObject> col = new List<GameObject>();
+            for (int i=0; i<height; i++) {
+                GameObject tile = GameObject.Instantiate(tileGameObject);
+                tile.transform.SetParent(BGTiles.transform, false);
+                col.Add(tile);
+            }
+            BGTilesArray.Add(col);
+        }
+
+        // positioning tiles
+        Vector2 pos = new Vector2();
+        for (int x=0; x < width; x++) {
+            for (int y=0; y < height; y++) {
+                pos.x = Utilities.fmod(x * tileWidth + offset.x, tileWidth * Mathf.Ceil(containerSize.x / tileWidth)) - tileWidth;
+                pos.y = Utilities.fmod(y * tileHeight + offset.y, tileHeight * Mathf.Ceil(containerSize.y / tileHeight)) - tileHeight;
+                BGTilesArray[x][y].transform.localPosition = pos;
+            }
+        }
+
+    }
     
     
     
