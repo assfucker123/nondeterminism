@@ -13,6 +13,7 @@ public class Level : MonoBehaviour {
     public int[] openBottomEdges = new int[0];
     public int[] openRightEdges = new int[0];
     public int[] openTopEdges = new int[0];
+    public Region region = Region.NONE;
     public string backgroundMusic = "";
     public bool showOnMap = true;
     public bool bobbingCamera = false;
@@ -23,12 +24,21 @@ public class Level : MonoBehaviour {
     public GameObject canvasGameObject;
     public GameObject playerGameObject;
 
+    public enum Region {
+        NONE,
+        TUTORIAL,
+        CALM_TUNDRA,
+        DIRT_UNDERGROUND
+    }
+
     public enum RestartOnDeathAction {
         LAST_SAVE,
         ROOM_ENTRANCE
     }
 
     public static Level currentLoadedLevel {  get { return _currentLoadedLevel; } } // reference to the last Level created
+
+    public static bool doNotStartBGMusic = false; // set to true to prevent bg music from being played when the level starts.  Automatically gets set back to false
 	
 	void Awake() {
 
@@ -105,7 +115,7 @@ public class Level : MonoBehaviour {
             // set entire room
             if (MapUI.instance.gridIsEmpty(mapX, mapY, mapWidth, mapHeight)) {
                 MapUI.instance.gridAddRoom(mapX, mapY, mapWidth, mapHeight,
-                    openLeftEdges, openTopEdges, openRightEdges, openBottomEdges);
+                    openLeftEdges, openTopEdges, openRightEdges, openBottomEdges, region);
             }
             // knock down wall player entered from
             
@@ -115,14 +125,14 @@ public class Level : MonoBehaviour {
                 int mapPlrPosX = Mathf.RoundToInt(mapPlrPos.x);
                 int mapPlrPosY = Mathf.RoundToInt(mapPlrPos.y);
                 if (plrPos.x - mapBounds.xMin < 2) {
-                    MapUI.instance.gridSetOpenLeftEdge(mapX, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenLeftEdge(mapX, mapPlrPosY, region);
                 } else if (plrPos.x - mapBounds.yMin < 2) {
-                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapY, true);
+                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapY, region);
                 } else if (mapBounds.xMax - plrPos.x < 2) {
-                    MapUI.instance.gridSetOpenRightEdge(mapX + mapWidth-1, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenRightEdge(mapX + mapWidth-1, mapPlrPosY, region);
                 } else if (mapBounds.yMax - plrPos.y < 2) {
                     // need to explicitly exit off the top of the room for this
-                    //MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapY + mapHeight-1, true);
+                    //MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapY + mapHeight-1, region);
                 }
             }
             
@@ -130,11 +140,15 @@ public class Level : MonoBehaviour {
         }
 
         // background music
-        if (backgroundMusic == "" && SoundManager.instance.currentVolume > .0001f) {
-            SoundManager.instance.fadeOutMusic();
-        } else if (backgroundMusic != "") {
-            if (SoundManager.instance.currentVolume < .0001f || SoundManager.instance.isFadingOut || SoundManager.instance.currentMusic != backgroundMusic) {
-                SoundManager.instance.playMusic(backgroundMusic);
+        if (doNotStartBGMusic) {
+            doNotStartBGMusic = false;
+        } else {
+            if (backgroundMusic == "" && SoundManager.instance.currentVolume > .0001f) {
+                SoundManager.instance.fadeOutMusic();
+            } else if (backgroundMusic != "") {
+                if (SoundManager.instance.currentVolume < .0001f || SoundManager.instance.isFadingOut || SoundManager.instance.currentMusic != backgroundMusic) {
+                    SoundManager.instance.playMusic(backgroundMusic);
+                }
             }
         }
 

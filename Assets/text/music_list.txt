@@ -3,4 +3,4 @@ white: level_white
 battle-intro: trainer battle intro
 battle: trainer battle
 
-tundra: snow_concept_1
+tundra: snow_concept_2

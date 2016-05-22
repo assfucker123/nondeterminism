@@ -95,27 +95,29 @@ public class Keys : MonoBehaviour {
         // device detached
     }
 
-    public static float DEAD_ZONE = 0;
+    public static float PRESS_DEAD_ZONE = 0;
+    public static float HOLD_DEAD_ZONE = .4f;
+    public static bool ANALOG_ENABLED = false;
 
     public bool leftPressed { get {
             if (Input.GetKeyDown(LEFT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadLeft.WasPressed) return true;
-            if (activeDevice.LeftStickX.WasPressed && activeDevice.LeftStickX.Value < -DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickX.WasPressed && activeDevice.LeftStickX.Value < -PRESS_DEAD_ZONE) return true;
             return false;
     } }
     public bool leftHeld { get {
             if (Input.GetKey(LEFT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadLeft.IsPressed) return true;
-            if (activeDevice.LeftStickX.Value < -DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickX.Value < -HOLD_DEAD_ZONE) return true;
             return false;
     } }
     public bool leftReleased { get {
             if (Input.GetKeyUp(LEFT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadLeft.WasReleased) return true;
-            if (activeDevice.LeftStickX.WasReleased) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickX.WasReleased) return true;
             return false;
     } }
 
@@ -123,21 +125,21 @@ public class Keys : MonoBehaviour {
             if (Input.GetKeyDown(RIGHT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadRight.WasPressed) return true;
-            if (activeDevice.LeftStickX.WasPressed && activeDevice.LeftStickX.Value > DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickX.WasPressed && activeDevice.LeftStickX.Value > PRESS_DEAD_ZONE) return true;
             return false;
     } }
     public bool rightHeld { get {
             if (Input.GetKey(RIGHT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadRight.IsPressed) return true;
-            if (activeDevice.LeftStickX.Value > DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickX.Value > HOLD_DEAD_ZONE) return true;
             return false;
     } }
     public bool rightReleased { get {
             if (Input.GetKeyUp(RIGHT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadRight.WasReleased) return true;
-            if (activeDevice.LeftStickX.WasReleased) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickX.WasReleased) return true;
             return false;
     } }
 
@@ -145,21 +147,21 @@ public class Keys : MonoBehaviour {
             if (Input.GetKeyDown(UP_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadUp.WasPressed) return true;
-            if (activeDevice.LeftStickY.WasPressed && activeDevice.LeftStickY.Value > DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickY.WasPressed && activeDevice.LeftStickY.Value > PRESS_DEAD_ZONE) return true;
             return false;
     } }
     public bool upHeld { get {
             if (Input.GetKey(UP_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadUp.IsPressed) return true;
-            if (activeDevice.LeftStickY.Value > DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickY.Value > HOLD_DEAD_ZONE) return true;
             return false;
     } }
     public bool upReleased { get {
             if (Input.GetKeyUp(UP_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadUp.WasReleased) return true;
-            if (activeDevice.LeftStickY.WasReleased) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickY.WasReleased) return true;
             return false;
     } }
 
@@ -167,21 +169,21 @@ public class Keys : MonoBehaviour {
             if (Input.GetKeyDown(DOWN_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadDown.WasPressed) return true;
-            if (activeDevice.LeftStickY.WasPressed && activeDevice.LeftStickY.Value < DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickY.WasPressed && activeDevice.LeftStickY.Value < -PRESS_DEAD_ZONE) return true;
             return false;
     } }
     public bool downHeld { get {
             if (Input.GetKey(DOWN_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadDown.IsPressed) return true;
-            if (activeDevice.LeftStickY.Value < DEAD_ZONE) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickY.Value < -HOLD_DEAD_ZONE) return true;
             return false;
     } }
     public bool downReleased { get {
             if (Input.GetKeyUp(DOWN_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadDown.WasReleased) return true;
-            if (activeDevice.LeftStickY.WasReleased) return true;
+            if (ANALOG_ENABLED && activeDevice.LeftStickY.WasReleased) return true;
             return false;
     } }
 

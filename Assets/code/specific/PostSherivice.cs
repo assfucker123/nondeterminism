@@ -74,6 +74,7 @@ public class PostSherivice : MonoBehaviour {
     
     void startBaseLanding() {
         VarsLoadData.loadBaseLandingData();
+        Level.doNotStartBGMusic = true;
         Vars.restartFromLastSave();
     }
     

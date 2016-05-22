@@ -47,14 +47,15 @@ public class LevelSensor : MonoBehaviour {
                 Vector2 mapPlrPos = MapUI.instance.gridPositionFromWorldPosition(mapX, mapY, plrPos, mapBounds.xMin, mapBounds.yMin);
                 int mapPlrPosX = Mathf.RoundToInt(mapPlrPos.x);
                 int mapPlrPosY = Mathf.RoundToInt(mapPlrPos.y);
+                Level.Region region = Level.currentLoadedLevel.region;
                 if (mapBounds.xMin - plrPos.x > -2) { // left open
-                    MapUI.instance.gridSetOpenLeftEdge(mapX, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenLeftEdge(mapX, mapPlrPosY, region);
                 } else if (mapBounds.yMin - plrPos.y > -2) { // bottom open
-                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapY, true);
+                    MapUI.instance.gridSetOpenBottomEdge(mapPlrPosX, mapY, region);
                 } else if (plrPos.x - mapBounds.xMax > -2) { // right open
-                    MapUI.instance.gridSetOpenRightEdge(mapX + mapWidth-1, mapPlrPosY, true);
+                    MapUI.instance.gridSetOpenRightEdge(mapX + mapWidth-1, mapPlrPosY, region);
                 } else if (plrPos.y - mapBounds.yMax > -2) { // top open
-                    MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapY + mapHeight-1, true);
+                    MapUI.instance.gridSetOpenTopEdge(mapPlrPosX, mapY + mapHeight-1, region);
                 }
             }
 

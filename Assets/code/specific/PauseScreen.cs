@@ -748,8 +748,8 @@ public class PauseScreen : MonoBehaviour {
         Vector2 pos = new Vector2();
         for (int x=0; x < width; x++) {
             for (int y=0; y < height; y++) {
-                pos.x = Utilities.fmod(x * tileWidth + offset.x, tileWidth * Mathf.Ceil(containerSize.x / tileWidth)) - tileWidth;
-                pos.y = Utilities.fmod(y * tileHeight + offset.y, tileHeight * Mathf.Ceil(containerSize.y / tileHeight)) - tileHeight;
+                pos.x = Utilities.fmod(x * tileWidth + offset.x, tileWidth * (Mathf.Ceil(containerSize.x / tileWidth) + 1)) - tileWidth;
+                pos.y = Utilities.fmod(y * tileHeight + offset.y, tileHeight * (Mathf.Ceil(containerSize.y / tileHeight) + 1)) - tileHeight;
                 BGTilesArray[x][y].transform.localPosition = pos;
             }
         }

@@ -43,7 +43,8 @@ public class ScriptRunner : EventHappener {
             UNFREEZE_COUNTDOWN_TIMER,   // unfreezeTimer // unfreezes the countdown timer
             PLAY_MUSIC,                 // playMusic songName [1.0] // brackets is fade in duration, default is .5 I think
             STOP_MUSIC,                 // stopMusic
-            FADE_OUT_MUSIC              // fadeOutMusic [1.0] // brackets is fade out duration, default is .5 I think
+            FADE_OUT_MUSIC,             // fadeOutMusic [1.0] // brackets is fade out duration, default is .5 I think
+            LEVEL_PREVENT_MUSIC,        // levelPreventMusic // sets Level.doNotStartBGMusic to true, which means the next level that loads will not automatically start background music
         }
 
         public ID id = ID.NONE;
@@ -307,6 +308,8 @@ public class ScriptRunner : EventHappener {
                 } else {
                     float0 = float.Parse(line.Substring(13).Trim());
                 }
+            } else if (word == "levelpreventmusic") {
+                id = ID.LEVEL_PREVENT_MUSIC;
             }
 
         }
@@ -790,6 +793,9 @@ public class ScriptRunner : EventHappener {
                         SoundManager.instance.fadeOutMusic(instr.float0);
                     }
                 }
+                break;
+            case Instruction.ID.LEVEL_PREVENT_MUSIC:
+                Level.doNotStartBGMusic = true;
                 break;
             }
 

@@ -2,6 +2,7 @@
 stopPlayer
 cbarsOn immediately
 freezeTimer
+stopMusic
 wait .7
 
 t-W: Alright, we made it.  Now we can finally start looking for the |Omega Phase Crystal|.
@@ -19,6 +20,7 @@ cbarsOff block // blocks until cutscene bars are off
 sendMessage ChamberPlatform BaseLandingReceiver // fixes save position issues
 unfreezeTimer
 resumePlayer
+playMusic tundra 1.0
 
 // spawn message telling player how to activate platforms
 wait .4

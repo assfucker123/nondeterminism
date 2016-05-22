@@ -1234,6 +1234,7 @@ public class Player : MonoBehaviour {
         HUD.instance.createGameOverScreen();
         HUD.instance.gameOverScreen.activate();
         SoundManager.instance.playSFX(deathSound);
+        SoundManager.instance.stopMusic();
         rb2d.velocity.Set(0, 0); // stop Player from moving
         deadTime = 0;
         deathExplosionTime = 0;
@@ -1342,7 +1343,7 @@ public class Player : MonoBehaviour {
 
         bool willDie = (receivesDamage.health <= 0);
         if (willDie) {
-            pitfallDeath = ai.message == "pitfall";
+            pitfallDeath = (ai.message == "pitfall");
         }
 
         bool knockbackRight = ai.impactToRight();

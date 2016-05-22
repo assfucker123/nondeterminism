@@ -96,6 +96,15 @@ public class OptionsPage : MonoBehaviour {
                     QualitySettings.vSyncCount = 0;
                     vsyncText.setPlainText(propAsset.getString("vsync_off"));
                 }
+            } else if (option == analogText) {
+                // toggle analog controls
+                if (Keys.ANALOG_ENABLED) {
+                    Keys.ANALOG_ENABLED = false;
+                    analogText.setPlainText(propAsset.getString("analog_off"));
+                } else {
+                    Keys.ANALOG_ENABLED = true;
+                    analogText.setPlainText(propAsset.getString("analog_on"));
+                }
             } else if (option == quitText) {
                 if (titleMode) { // when quitText actually says BACK
                     // do nothing.  TitleScreen will detect backing out of the options page
@@ -138,6 +147,7 @@ public class OptionsPage : MonoBehaviour {
         musicVolumeText = transform.Find("MusicVolumeText").GetComponent<GlyphBox>();
         volumeText = transform.Find("VolumeText").GetComponent<GlyphBox>();
         vsyncText = transform.Find("VSyncText").GetComponent<GlyphBox>();
+        analogText = transform.Find("AnalogText").GetComponent<GlyphBox>();
         quitText = transform.Find("QuitText").GetComponent<GlyphBox>();
         quitSureText = transform.Find("QuitSureText").GetComponent<GlyphBox>();
         quitSureYesText = transform.Find("QuitSureYesText").GetComponent<GlyphBox>();
@@ -154,6 +164,11 @@ public class OptionsPage : MonoBehaviour {
             vsyncText.setPlainText(propAsset.getString("vsync_off"));
         } else {
             vsyncText.setPlainText(propAsset.getString("vsync_on"));
+        }
+        if (Keys.ANALOG_ENABLED) {
+            analogText.setPlainText(propAsset.getString("analog_on"));
+        } else {
+            analogText.setPlainText(propAsset.getString("analog_off"));
         }
         quitText.setPlainText(propAsset.getString("quit"));
         quitSureText.setPlainText(propAsset.getString("quit_sure"));
@@ -189,6 +204,7 @@ public class OptionsPage : MonoBehaviour {
         musicVolumeText.makeAllCharsVisible();
         volumeText.makeAllCharsInvisible();
         vsyncText.makeAllCharsVisible();
+        analogText.makeAllCharsVisible();
         quitText.makeAllCharsVisible();
         quitSureText.makeAllCharsInvisible();
         quitSureYesText.makeAllCharsInvisible();
@@ -209,6 +225,7 @@ public class OptionsPage : MonoBehaviour {
         options.Add(sfxVolumeText);
         options.Add(musicVolumeText);
         options.Add(vsyncText);
+        options.Add(analogText);
         options.Add(quitText);
         setSelection(0, true);
     }
@@ -221,6 +238,7 @@ public class OptionsPage : MonoBehaviour {
         musicVolumeText.makeAllCharsInvisible();
         volumeText.makeAllCharsInvisible();
         vsyncText.makeAllCharsInvisible();
+        analogText.makeAllCharsInvisible();
         quitText.makeAllCharsInvisible();
         quitSureText.makeAllCharsInvisible();
         quitSureYesText.setColor(PauseScreen.DEFAULT_COLOR);
@@ -322,6 +340,7 @@ public class OptionsPage : MonoBehaviour {
     GlyphBox musicVolumeText;
     GlyphBox volumeText;
     GlyphBox vsyncText;
+    GlyphBox analogText;
 
     GlyphBox quitText; // renamed to BACK when in title mode
     GlyphBox quitSureText;

@@ -40,11 +40,11 @@ public class MapUI : MonoBehaviour {
     public static bool canDisplayMapInHUD = true;
     
     // will automatically determine if there should be a fill or not
-    public static int makeCell(Edge leftEdge, Edge topEdge, Edge rightEdge, Edge bottomEdge) {
+    /*public static int makeCell(Edge leftEdge, Edge topEdge, Edge rightEdge, Edge bottomEdge) {
         return makeCell(leftEdge, topEdge, rightEdge, bottomEdge,
             leftEdge != Edge.NO_WALL || topEdge != Edge.NO_WALL || rightEdge != Edge.NO_WALL || bottomEdge != Edge.NO_WALL);
-    }
-    public static int makeCell(Edge leftEdge, Edge topEdge, Edge rightEdge, Edge bottomEdge, bool fill) {
+    }*/
+    public static int makeCell(Edge leftEdge, Edge topEdge, Edge rightEdge, Edge bottomEdge, Level.Region fill) {
         int ret = 0;
         if (leftEdge != Edge.NO_WALL) {
             ret |= 1 << ((int)leftEdge - 1);
@@ -58,8 +58,9 @@ public class MapUI : MonoBehaviour {
         if (bottomEdge != Edge.NO_WALL) {
             ret |= 1 << 6 + ((int)bottomEdge - 1);
         }
-        if (fill) {
-            ret |= 1 << 8;
+        if (fill != Level.Region.NONE) {
+            int fillInt = (int)fill;
+            ret |= fillInt << 8;
         }
         return ret;
     }
@@ -85,8 +86,9 @@ public class MapUI : MonoBehaviour {
         if ((cell & 128) != 0) return Edge.WALL;
         return Edge.NO_WALL;
     }
-    public static bool fill(int cell) {
-        return (cell & 256) != 0;
+    public static Level.Region fill(int cell) {
+        int fillInt = (cell >> 8) & 31;
+        return (Level.Region)fillInt;
     }
     
     #endregion
@@ -120,12 +122,14 @@ public class MapUI : MonoBehaviour {
 
     public Color topEdgeColor = Color.white;
     public Color bottomEdgeColor = Color.black;
-    public Color fillColor = Color.magenta;
+    //public Color fillColor = Color.magenta;
     public int topOpenGapWidth = 3;
     public int leftOpenGapHeight = 2;
     public Vector2 HUDPos = new Vector2(0, 0);
     public Vector2 HUDSize = new Vector2(400, 200);
     public float slideDuration = .5f;
+    public Color calmTundraFillColor = new Color(0, 38/255f, 48/255f);
+    public Color dirtUndergroundFillColor = new Color(51/255f, 34/255f, 0);
     public GameObject iconChamberGameObject;
     public GameObject iconHealthUpgradeGameObject;
     public GameObject iconBoosterGameObject;
@@ -335,10 +339,21 @@ public class MapUI : MonoBehaviour {
             }
             break;
         }
-        if (fill(cell)) {
+        if (fill(cell) != Level.Region.NONE) {
+            Color fillC = Color.black;
+            switch (fill(cell)) {
+            case Level.Region.TUTORIAL:
+                break;
+            case Level.Region.CALM_TUNDRA:
+                fillC = calmTundraFillColor;
+                break;
+            case Level.Region.DIRT_UNDERGROUND:
+                fillC = dirtUndergroundFillColor;
+                break;
+            }
             for (int iy = 0; iy < CELL_HEIGHT; iy++) {
                 for (int ix = 0; ix < CELL_WIDTH; ix++) {
-                    mapFillTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT + iy, fillColor);
+                    mapFillTexture.SetPixel(x * CELL_WIDTH + ix, y * CELL_HEIGHT + iy, fillC);
                 }
             }
         }
@@ -350,24 +365,24 @@ public class MapUI : MonoBehaviour {
 
     }
 
-    public void gridSetOpenLeftEdge(int x, int y, bool applyDrawing = false) {
+    public void gridSetOpenLeftEdge(int x, int y, Level.Region region, bool applyDrawing = false) {
         int cell = gridGetCell(x, y);
-        int newCell = makeCell(Edge.OPEN, topEdge(cell), rightEdge(cell), bottomEdge(cell));
+        int newCell = makeCell(Edge.OPEN, topEdge(cell), rightEdge(cell), bottomEdge(cell), region);
         gridSetCell(x, y, newCell, applyDrawing);
     }
-    public void gridSetOpenTopEdge(int x, int y, bool applyDrawing = false) {
+    public void gridSetOpenTopEdge(int x, int y, Level.Region region, bool applyDrawing = false) {
         int cell = gridGetCell(x, y);
-        int newCell = makeCell(leftEdge(cell), Edge.OPEN, rightEdge(cell), bottomEdge(cell));
+        int newCell = makeCell(leftEdge(cell), Edge.OPEN, rightEdge(cell), bottomEdge(cell), region);
         gridSetCell(x, y, newCell, applyDrawing);
     }
-    public void gridSetOpenRightEdge(int x, int y, bool applyDrawing = false) {
+    public void gridSetOpenRightEdge(int x, int y, Level.Region region, bool applyDrawing = false) {
         int cell = gridGetCell(x, y);
-        int newCell = makeCell(leftEdge(cell), topEdge(cell), Edge.OPEN, bottomEdge(cell));
+        int newCell = makeCell(leftEdge(cell), topEdge(cell), Edge.OPEN, bottomEdge(cell), region);
         gridSetCell(x, y, newCell, applyDrawing);
     }
-    public void gridSetOpenBottomEdge(int x, int y, bool applyDrawing = false) {
+    public void gridSetOpenBottomEdge(int x, int y, Level.Region region, bool applyDrawing = false) {
         int cell = gridGetCell(x, y);
-        int newCell = makeCell(leftEdge(cell), topEdge(cell), rightEdge(cell), Edge.OPEN);
+        int newCell = makeCell(leftEdge(cell), topEdge(cell), rightEdge(cell), Edge.OPEN, region);
         gridSetCell(x, y, newCell, applyDrawing);
     }
 
@@ -443,7 +458,7 @@ public class MapUI : MonoBehaviour {
     /// <summary>
     /// Simply makes an empty room with walls on the border
     /// </summary>
-    public void gridAddRoom(int x, int y, int roomWidth, int roomHeight) {
+    public void gridAddRoom(int x, int y, int roomWidth, int roomHeight, Level.Region region) {
         if (roomWidth < 1 || roomHeight < 1) {
             Debug.LogError("Room invalid dimensions");
             return;
@@ -459,7 +474,7 @@ public class MapUI : MonoBehaviour {
                 te = iy == roomHeight - 1 ? Edge.WALL : Edge.NO_WALL;
                 re = ix == roomWidth - 1 ? Edge.WALL : Edge.NO_WALL;
                 be = iy == 0 ? Edge.WALL : Edge.NO_WALL;
-                cells[iy, ix] = makeCell(le, te, re, be, true);
+                cells[iy, ix] = makeCell(le, te, re, be, region);
             }
         }
         gridAddRoom(x, y, roomWidth, roomHeight, cells);
@@ -500,7 +515,7 @@ public class MapUI : MonoBehaviour {
     /// <param name="openRightEdges">for each iy in this array, cell (x+roomWidth-1, y+iy) will have an open right edge.</param>
     /// <param name="openBottomEdges">for each ix in this array, cell (x+ix, y) will have an open bottom edge.</param>
     public void gridAddRoom(int x, int y, int roomWidth, int roomHeight,
-        int[] openLeftEdges, int[] openTopEdges, int[] openRightEdges, int[] openBottomEdges) {
+        int[] openLeftEdges, int[] openTopEdges, int[] openRightEdges, int[] openBottomEdges, Level.Region region) {
         if (roomWidth < 1 || roomHeight < 1) {
             Debug.LogError("Room invalid dimensions");
             return;
@@ -533,7 +548,7 @@ public class MapUI : MonoBehaviour {
                     else topEdge = Edge.WALL;
                 }
                 
-                cells[iy, ix] = makeCell(leftEdge, topEdge, rightEdge, bottomEdge, true);
+                cells[iy, ix] = makeCell(leftEdge, topEdge, rightEdge, bottomEdge, region);
             }
         }
         gridAddRoom(x, y, roomWidth, roomHeight, cells);

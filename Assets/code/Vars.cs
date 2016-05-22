@@ -695,6 +695,7 @@ public class Vars {
         prop.setFloat("music_volume", musicVolume);
         prop.setInt("vsync", QualitySettings.vSyncCount);
         prop.setInt("save_file_last_used", saveFileIndexLastUsed);
+        prop.setBool("analog_controls", Keys.ANALOG_ENABLED);
         if (hardModesUnlocked) {
             prop.setBool("hard_modes", hardModesUnlocked);
         }
@@ -710,6 +711,7 @@ public class Vars {
         if (int0 != QualitySettings.vSyncCount)
             QualitySettings.vSyncCount = int0;
         saveFileIndexLastUsed = prop.getInt("save_file_last_used", saveFileIndexLastUsed);
+        Keys.ANALOG_ENABLED = prop.getBool("analog_controls", Keys.ANALOG_ENABLED);
         hardModesUnlocked = prop.getBool("hard_modes", hardModesUnlocked);
         
     }
