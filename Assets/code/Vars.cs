@@ -12,12 +12,14 @@ public class Vars {
     public static bool encryptSaveData = false; // encryption isn't consistent for some reason.  Need to fix
     public static bool buildIndexLevelIDs = false; // When true: some instances of a level name will be replaced with its build index, which reduces the size of the save file, but can mess things up if a level changes build index
     public static bool promptDifficulty = false; // should be true in the full game when difficulty and tutorial toggle is enabled
+    public static string version = "0.0.0";
 
     // TIME-INDEPENDENT
     public static int saveFileIndex = 0;
     public static string username = "";
     public static DateTime createdDate = new DateTime();
     public static DateTime modifiedDate = new DateTime();
+    public static string versionSaveFileCreated = ""; // the version of the game when the save file was created
     #region Difficulty
     public enum Difficulty {
         NONE,
@@ -513,15 +515,17 @@ public class Vars {
         createdDate = DateTime.Parse(strs[2]);
         // modified date
         modifiedDate = DateTime.Parse(strs[3]);
+        // version save file created
+        versionSaveFileCreated = strs[4];
         // play time, difficulty, tutorials enabled
-        string[] miscStrs = strs[4].Split(delims2);
+        string[] miscStrs = strs[5].Split(delims2);
         playTime = float.Parse(miscStrs[0]);
         difficulty = (Difficulty)int.Parse(miscStrs[1]);
         tutorialsEnabled = miscStrs[2] == "1";
         // all node data
-        NodeData.loadAllNodesFromString(strs[5]);
+        NodeData.loadAllNodesFromString(strs[6]);
         // current node data
-        NodeData savedCurrentNodeData = NodeData.nodeDataFromID(int.Parse(strs[6]));
+        NodeData savedCurrentNodeData = NodeData.nodeDataFromID(int.Parse(strs[7]));
         if (savedCurrentNodeData == null) {
             currentNodeData = null;
             Debug.LogWarning("WARNING: currentNodeData is null");
@@ -534,62 +538,62 @@ public class Vars {
         }
         // decryptors
         decryptors.Clear();
-        string[] dStrs = strs[7].Split(delims2);
+        string[] dStrs = strs[8].Split(delims2);
         for (int i=0; i<dStrs.Length; i++) {
             if (dStrs[i] == "") continue;
             decryptors.Add((Decryptor.ID)int.Parse(dStrs[i]));
         }
         // info events
         infoEvents.Clear();
-        string[] iStrs = strs[8].Split(delims2);
+        string[] iStrs = strs[9].Split(delims2);
         for (int i = 0; i < iStrs.Length; i++) {
             if (iStrs[i] == "") continue;
             infoEvents.Add((AdventureEvent.Info)int.Parse(iStrs[i]));
         }
         // current objective conversation
-        TalkPage.setCurrentObjectiveFile(strs[9]);
+        TalkPage.setCurrentObjectiveFile(strs[10]);
         // all talk conversations
-        TalkPage.loadAllConversationsFromString(strs[10]);
+        TalkPage.loadAllConversationsFromString(strs[11]);
         // pause screen lastPageOpened, mode, countdown timer visible, mode
-        string[] strsP = strs[11].Split(delims2);
+        string[] strsP = strs[12].Split(delims2);
         PauseScreen.lastPageOpened = (PauseScreen.Page)int.Parse(strsP[0]);
         PauseScreen.mode = (PauseScreen.Mode)int.Parse(strsP[1]);
         CountdownTimer.staticVisible = strsP[2] == "1";
         CountdownTimer.staticMode = (CountdownTimer.Mode)int.Parse(strsP[3]);
         // orbs found
         orbsFound.Clear();
-        string[] ofStrs = strs[12].Split(delims2);
+        string[] ofStrs = strs[13].Split(delims2);
         for (int i = 0; i < ofStrs.Length; i++) {
             if (ofStrs[i] == "") continue;
             orbsFound.Add((PhysicalUpgrade.Orb)int.Parse(ofStrs[i]));
         }
         // booster found
-        boosterFound = (strs[13] == "1");
+        boosterFound = (strs[14] == "1");
         // health upgrades found
         healthUpgradesFound.Clear();
-        string[] huStrs = strs[14].Split(delims2);
+        string[] huStrs = strs[15].Split(delims2);
         for (int i = 0; i < huStrs.Length; i++) {
             if (huStrs[i] == "") continue;
             healthUpgradesFound.Add((PhysicalUpgrade.HealthUpgrade)int.Parse(huStrs[i]));
         }
         // creature cards found
         creatureCardsFound.Clear();
-        string[] ccStrs = strs[15].Split(delims2);
+        string[] ccStrs = strs[16].Split(delims2);
         for (int i = 0; i < ccStrs.Length; i++) {
             if (ccStrs[i] == "") continue;
             creatureCardsFound.Add(int.Parse(ccStrs[i]));
         }
         // map
         if (MapUI.instance == null) {
-            MapUI.tempGridString = strs[16];
+            MapUI.tempGridString = strs[17];
         } else {
-            MapUI.instance.gridFromString(strs[16]);
+            MapUI.instance.gridFromString(strs[17]);
         }
         // map icons
         if (MapUI.instance == null) {
-            MapUI.tempIconString = strs[17];
+            MapUI.tempIconString = strs[18];
         } else {
-            MapUI.instance.iconsFromString(strs[17]);
+            MapUI.instance.iconsFromString(strs[18]);
         }
 
     }
@@ -606,11 +610,13 @@ public class Vars {
         // modified date (3)
         modifiedDate = DateTime.Now;
         ret += modifiedDate.ToString() + "\n";
-        // play time, difficulty, tutorials enabled (4)
+        // version save file created (4)
+        ret += versionSaveFileCreated + "\n";
+        // play time, difficulty, tutorials enabled (5)
         ret += playTime + "," + ((int)difficulty) + "," + (tutorialsEnabled ? "1" : "0") + "\n";
-        // all node data (5)
+        // all node data (6)
         ret += NodeData.saveAllNodesToString() + "\n";
-        // current node data (6)
+        // current node data (7)
         if (currentNodeData == null) ret += "0\n";
         else {
             if (currentNodeData.temporary) { // temporary node datas aren't saved.  We're interested in its parent
@@ -623,61 +629,61 @@ public class Vars {
                 ret += currentNodeData.id + "\n";
             }
         }
-        // decryptors (7)
+        // decryptors (8)
         for (int i=0; i<decryptors.Count; i++) {
             ret += (int)decryptors[i];
             if (i < decryptors.Count - 1)
                 ret += ",";
         }
         ret += "\n";
-        // info events (8)
+        // info events (9)
         for (int i = 0; i < infoEvents.Count; i++) {
             ret += (int)infoEvents[i];
             if (i < infoEvents.Count - 1)
                 ret += ",";
         }
         ret += "\n";
-        // current objective conversation (9)
+        // current objective conversation (10)
         ret += TalkPage.currentObjectiveFile;
         ret += "\n";
-        // all talk conversations (10)
+        // all talk conversations (11)
         ret += TalkPage.saveAllConversationsToString();
         ret += "\n";
-        // pause screen lastPageOpened, mode, countdown timer visible, mode (11)
+        // pause screen lastPageOpened, mode, countdown timer visible, mode (12)
         ret += (int)PauseScreen.lastPageOpened + "," + (int)PauseScreen.mode + "," + (CountdownTimer.staticVisible ? "1" : "0") + "," + (int)CountdownTimer.staticMode;
         ret += "\n";
-        // orbs found (12)
+        // orbs found (13)
         for (int i = 0; i < orbsFound.Count; i++) {
             ret += ((int)orbsFound[i]);
             if (i < orbsFound.Count - 1)
                 ret += ",";
         }
         ret += "\n";
-        // booster found (13)
+        // booster found (14)
         if (boosterFound) ret += "1"; else ret += "0";
         ret += "\n";
-        // health upgrades found (14)
+        // health upgrades found (15)
         for (int i = 0; i < healthUpgradesFound.Count; i++) {
             ret += ((int)healthUpgradesFound[i]);
             if (i < healthUpgradesFound.Count - 1)
                 ret += ",";
         }
         ret += "\n";
-        // creature cards found (15)
+        // creature cards found (16)
         for (int i = 0; i < creatureCardsFound.Count; i++) {
             ret += creatureCardsFound[i];
             if (i < creatureCardsFound.Count - 1)
                 ret += ",";
         }
         ret += "\n";
-        // map (16)
+        // map (17)
         if (MapUI.instance == null) {
             ret += "";
         } else {
             ret += MapUI.instance.gridToString();
         }
         ret += "\n";
-        // map icons (17)
+        // map icons (18)
         if (MapUI.instance == null) {
             ret += "";
         } else {

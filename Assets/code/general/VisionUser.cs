@@ -62,7 +62,7 @@ public class VisionUser : MonoBehaviour {
 
     private float flickerPeriod = .2f;
     private float flickerAlpha = .7f;
-    private float baseAlpha = .8f;
+    private float baseAlpha = .6f;
     public bool isVision { get { return _isVision; } }
     private float fadeInDuration = .35f; //how long for the vision to fade in
     private float flashbackAlpha = .15f; // alpha of a vision during a flashback (used to be 0)

@@ -972,9 +972,9 @@ public class Player : MonoBehaviour {
 
             // replenish phase while staying still
             if (idleGunTime >= idlePhaseReplenishDelay && !ScriptRunner.scriptsPreventPausing) {
-                if (phase < idlePhaseReplenishMax) {
+                if (phase < idlePhaseReplenishMax && postRevertTime >= postRevertDuration) { // also don't do this while phase is decreasing
                     if (phase + idlePhaseReplenishSpeed * Time.deltaTime >= idlePhaseReplenishMax) {
-                        HUD.instance.phaseMeter.increasePhase(idlePhaseReplenishMax - phase + .001f);
+                        HUD.instance.phaseMeter.increasePhase(idlePhaseReplenishMax - phase + .005f);
                     } else {
                         HUD.instance.phaseMeter.increasePhase(idlePhaseReplenishSpeed * Time.deltaTime);
                     }

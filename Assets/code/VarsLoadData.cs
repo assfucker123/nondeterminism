@@ -12,6 +12,8 @@ public class VarsLoadData {
         Vars.createdDate = DateTime.Now;
         // modified date
         Vars.modifiedDate = DateTime.Now;
+        // version when created
+        Vars.versionSaveFileCreated = Vars.version;
         // play time
         Vars.playTime = 0;
         // all node data
