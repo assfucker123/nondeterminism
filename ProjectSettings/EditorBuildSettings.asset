@@ -35,3 +35,9 @@ EditorBuildSettings:
     path: Assets/scenes/levels/return_up.unity
   - enabled: 1
     path: Assets/scenes/levels/first_chamber.unity
+  - enabled: 1
+    path: Assets/scenes/levels/panel_puzzle.unity
+  - enabled: 1
+    path: Assets/scenes/levels/first_health_upgrade.unity
+  - enabled: 1
+    path: Assets/scenes/levels/over_dirt.unity

@@ -416,6 +416,11 @@ public class Player : MonoBehaviour {
 
         revertTimeUserTimeMin = 0;
 
+        // if starting level when low to the ground and jumping, make jump max height
+        if (rb2d.position.y < 2 && jumping) {
+            maxJumpFlag = true;
+        }
+        
         saveFrameInfoOnLevelLoad();
 
     }
@@ -651,6 +656,7 @@ public class Player : MonoBehaviour {
     void OnSaveFrame(FrameInfo fi) {
         fi.state = (int)state;
         fi.floats["jumpTime"] = jumpTime;
+        fi.bools["mjf"] = maxJumpFlag;
         fi.floats["idleGunTime"] = idleGunTime;
         fi.floats["damageTime"] = damageTime;
         fi.floats["pFTime"] = phaseFlashTime;
@@ -673,6 +679,7 @@ public class Player : MonoBehaviour {
     void OnRevert(FrameInfo fi) {
         state = (State)fi.state;
         jumpTime = fi.floats["jumpTime"];
+        maxJumpFlag = fi.bools["mjf"];
         idleGunTime = fi.floats["idleGunTime"];
         damageTime = fi.floats["damageTime"];
         phaseFlashTime = fi.floats["pFTime"];
@@ -1085,13 +1092,14 @@ public class Player : MonoBehaviour {
                     }
                 }
 
-                if (jumpTime >= jumpMaxDuration || !jumpHeld ||
+                if (jumpTime >= jumpMaxDuration || (!jumpHeld && !maxJumpFlag) ||
                     colFinder.hitTop) {
                     // end jump
                     jumpTime = jumpMaxDuration + 1;
-                    if (!jumpHeld) {
+                    if (!jumpHeld && !maxJumpFlag) {
                         v.y = Mathf.Min(v.y, jumpReleaseSpeed);
                     }
+                    maxJumpFlag = false;
                 }
             }
 
@@ -1550,6 +1558,7 @@ public class Player : MonoBehaviour {
     // vars
     float revertTime = 0;
     float jumpTime = 99999;
+    bool maxJumpFlag = false;
     float idleGunTime = 0;
     float bulletTime = 99999; //involved in preventing Player from shooting too fast
     bool bulletPrePress = false;

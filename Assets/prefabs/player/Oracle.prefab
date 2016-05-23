@@ -211,7 +211,7 @@ MonoBehaviour:
   fastFallVelocity: 0
   jumpSpeed: 19
   jumpMinDuration: 0.06
-  jumpMaxDuration: 0.22
+  jumpMaxDuration: 0.21
   jumpReleaseSpeed: 14
   idleGunDownDuration: 0.5
   bulletGameObject: {fileID: 194332, guid: 4baa8d8ac98d8174ca8add180251ef9a, type: 2}
@@ -424,7 +424,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpMaxDuration
-      value: .219999999
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: airMaxSpeed

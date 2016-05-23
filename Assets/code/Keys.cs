@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 
 public class Keys : MonoBehaviour {
+    
+
+
+
 
     public static Keys instance { get { return _instance; } }
 
@@ -39,6 +43,44 @@ public class Keys : MonoBehaviour {
         "joystick button 18", "joystick button 19"
     };
 
+#if UNITY_STANDALONE_WIN
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    public static extern short GetAsyncKeyState(int vkey);
+    // https://msdn.microsoft.com/en-us/library/windows/desktop/ms646293(v=vs.85).aspx
+#endif
+
+    public static bool getKeyAsync(KeyCode keyCode) {
+        return getKeyAsync(inputToWinCode(keyCode));
+    }
+    public static bool getKeyAsync(int windowsKeyCode) {
+#if UNITY_STANDALONE_WIN
+        short ret = GetAsyncKeyState(windowsKeyCode);
+        short pressedShort = -32768;
+        if ((ret & pressedShort) != 0)
+            return true;
+        return false;
+#else
+        return false;
+#endif
+    }
+    public static int[] winKeyCodes = {
+        0,0,0,0,0,0,0,0,0x08,0x09,0,0,0x0C,0x0D,0,0,0,0,0,0x13,0,0,0,0,0,0,0,0x18,0,0,0,0,0x20,0,0,0,0,0,0,0,0,0,0,0,
+        0xBC,0xBD,0xBE,0xBF,0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,0,0xBA,0,0xBB,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0xDB,0xDC,0xDD,0,0,0,
+        0x41,0x42,0x43,0x44,0x45,0x46,0x47,0x48,0x49,0x4A,0x4B,0x4C,0x4D,0x4E,0x4F,0x50,0x51,0x52,0x53,0x54,0x55,0x56,0x57,0x58,0x59,0x5A,
+        0,0,0,0,0x2E,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0x60,0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69,0x6E,0x6F,0x6A,0x6D,0x6B,0,0,
+        0x26,0x28,0x27,0x25,0x2D,0x24,0x23,0x21,0x22,
+        0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x77,0x78,0x79,0x7A,0x7B,0x7C,0x7D,0x7E,0,0,0,
+        0x90,0x14,0x91,0xA1,0xA0,0xA3,0xA2,0x12,0x12
+    };
+    public static int inputToWinCode(KeyCode keyCode) {
+        int intCode = (int)keyCode;
+        if (intCode < 0 || intCode >= winKeyCodes.Length) return 0;
+        return winKeyCodes[intCode];
+    }
+    
+
     void Awake() {
         if (instance != null) {
             Destroy(gameObject);
@@ -60,7 +102,7 @@ public class Keys : MonoBehaviour {
         // handing controllers being attached
         InControl.InputManager.OnDeviceAttached += InputManager_OnDeviceAttached;
         InControl.InputManager.OnDeviceDetached += InputManager_OnDeviceDetached;
-
+        
         setUpCalled = true;
         
     }
@@ -108,6 +150,7 @@ public class Keys : MonoBehaviour {
     } }
     public bool leftHeld { get {
             if (Input.GetKey(LEFT_KEY)) return true;
+            if (getKeyAsync(LEFT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadLeft.IsPressed) return true;
             if (ANALOG_ENABLED && activeDevice.LeftStickX.Value < -HOLD_DEAD_ZONE) return true;
@@ -130,6 +173,7 @@ public class Keys : MonoBehaviour {
     } }
     public bool rightHeld { get {
             if (Input.GetKey(RIGHT_KEY)) return true;
+            if (getKeyAsync(RIGHT_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadRight.IsPressed) return true;
             if (ANALOG_ENABLED && activeDevice.LeftStickX.Value > HOLD_DEAD_ZONE) return true;
@@ -152,6 +196,7 @@ public class Keys : MonoBehaviour {
     } }
     public bool upHeld { get {
             if (Input.GetKey(UP_KEY)) return true;
+            if (getKeyAsync(UP_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadUp.IsPressed) return true;
             if (ANALOG_ENABLED && activeDevice.LeftStickY.Value > HOLD_DEAD_ZONE) return true;
@@ -174,6 +219,7 @@ public class Keys : MonoBehaviour {
     } }
     public bool downHeld { get {
             if (Input.GetKey(DOWN_KEY)) return true;
+            if (getKeyAsync(DOWN_KEY)) return true;
             if (activeDevice == null) return false;
             if (activeDevice.DPadDown.IsPressed) return true;
             if (ANALOG_ENABLED && activeDevice.LeftStickY.Value < -HOLD_DEAD_ZONE) return true;
