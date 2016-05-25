@@ -103,6 +103,16 @@ Enemy Attacks:
 		- Put a flipped variation over an instakill pit.  Need to shoot downwards from above to tip it, flipping the weakness to the top.
 - Enemy that shoots a homing attack every time it takes damage
 	- Introduces concept that visions won't work if actions react to what the player does
+- "Claw trap" - uses Vision
+	- Like those things from Shantae behind the waterfall that reach out and bite
+	- Vision can be used to see them coming
+	- Put several of these claw trap enemies in a row
+- Slant bouncer: just a thing that bounces around at an angle.  No vision attacks
+- Web enemy - in the background there's a web of nodes and connections between the nodes
+	- web enemies travel from node to node quickly.
+	- Can have hazardous trail (like a caterpillar), one of the segments is the weak point
+	- Can shoot bullets when at a node?
+- 
 	
 Special Enemy Attacks:
 - Quantum Attacks

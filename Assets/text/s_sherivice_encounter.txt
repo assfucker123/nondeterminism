@@ -32,7 +32,7 @@ closeText
 setCurrentObjective co_sherivice_fight
 sendMessage InvisibleWall EnableWall // makes invisible wall on left side
 camSetPosition(24, 11.5) 1.0
-//playMusic battle
+playMusic boss
 cbarsOff block
 resumePlayer
 

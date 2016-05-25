@@ -96,10 +96,11 @@ public class Decryptor {
             if (!prop.containsKey(key+"name")&&!prop.containsKey(key+"description"))
                 continue;
             DecryptorInfo di = new DecryptorInfo();
-            di.id=(ID)i;
-            di.name=prop.getString(key+"name", "");
-            di.description=prop.getString(key+"description", "");
-            info[di.id]=di;
+            di.id = (ID)i;
+            di.name = prop.getString(key + "name", "");
+            di.code = prop.getString(key + "code", "");
+            di.description = prop.getString(key + "description", "");
+            info[di.id] = di;
         }
         _initialized = true;
 
@@ -127,6 +128,14 @@ public class Decryptor {
         return info[decryptor].name;
     }
 
+    public static string getCode(ID decryptor) {
+        if (!initialized) initialize();
+        if (!info.ContainsKey(decryptor)) {
+            return "";
+        }
+        return info[decryptor].code;
+    }
+
     public static string getDescription(ID decryptor) {
         if (!initialized) initialize();
         if (!info.ContainsKey(decryptor)) {
@@ -139,6 +148,7 @@ public class Decryptor {
     class DecryptorInfo {
         public ID id = ID.NONE;
         public string name = "";
+        public string code = "";
         public string description = "";
     }
 

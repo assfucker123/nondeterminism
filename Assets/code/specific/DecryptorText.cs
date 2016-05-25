@@ -93,7 +93,8 @@ public class DecryptorText : MonoBehaviour {
                     instructions.setText(Decryptor.getName(decryptor) + " " + prop.getString("requires_booster"), 0);
                 } else if (hasPrerequisites) {
                     // can use now, standard unlock message
-                    ability.setText(prop.getString("decryptor_get") + " |" + Decryptor.getName(decryptor) + "|");
+                    //ability.setText(prop.getString("decryptor_get") + " |" + Decryptor.getName(decryptor) + "|");
+                    ability.setText(prop.getString("decryptor_left") + Decryptor.getCode(decryptor) + prop.getString("decryptor_right") + " |" + Decryptor.getName(decryptor) + "|");
                     instructions.setPlainText(Decryptor.getDescription(decryptor), 0);
                 } else {
                     // requires prerequisites message

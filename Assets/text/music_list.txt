@@ -1,6 +1,7 @@
-boss: boss1
+
 white: level_white
 battle-intro: trainer battle intro
 battle: trainer battle
 
-tundra: snow_concept_2
+tundra: Snow_concept_1_3
+boss: Bossfight_concept

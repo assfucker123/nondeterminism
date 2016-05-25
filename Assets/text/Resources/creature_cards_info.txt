@@ -7,4 +7,6 @@ Toucade: card_toucade 006/1/3/3/3/ -- Toucade's telekinetic power is mostly used
 Pengrunt: card_pengrunt 007/1/3/1/1/ -- Pengrunts fashion weapons from ancient Seudar technology.  There's a collaborative effort to make a giant Pengrunt mech.
 Vengemole: card_vengemole 008/1/4/2/1/ -- Creatures can get stuck in holes Vengemoles create.  Severed legs are then used as material for Vengemoles' hammers.
 
+Prittle: card_prittle 010/1/0/0/0/ It's Prittle.
+
 Sherivice: card_sherivice 009/2/3/5/3/ It's Sherivice.

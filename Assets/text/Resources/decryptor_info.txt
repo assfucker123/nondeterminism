@@ -1,8 +1,12 @@
 1name: Charge Shot
+1code: K1HDJ2
 1description: Hold down the shoot button and release to fire a powerful attack.
 2name: Charge Magnet
+2code: 9JWH1K
 2description: Holding down the shoot button will also attract nearby pickups.
 3name: Altered Shot
+3code: EN812J
 3description: Alternates between firing one and two bullets simultaneously.
 4name: Room Restart
+4code: WN55B1
 4description: Hold DODGE and JUMP while doing a Flashback to restart from the beginning of the room.

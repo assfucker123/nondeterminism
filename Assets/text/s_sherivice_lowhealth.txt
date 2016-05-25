@@ -2,6 +2,7 @@
 camDisableBounds // is this even needed?
 camSetPosition(20.5, 8) 1.0 // move camera slightly lower, so Oracle won't be obscured by textbox
 cbarsOn
+fadeOutMusic 1.5
 
 // move player to see Sherivice
 playerMoveX 12 block
@@ -18,12 +19,14 @@ sendMessage Sherivice CoverFace
 
 // explains why he did that
 t-Sherivice: Heh heh, but watch this!  How can you see my moves coming when not even I can see them coming?
-t-O: How in the world did you even arrive at that conclusion?
+t-O: ... You are going to hit yourself in the face.
+//t-O: How in the world did you even arrive at that conclusion?
 t-Sherivice: Clever huh?  Your tricks won't work now!
 
 // resume battle
 sendMessage Sherivice CoverStartThrow
 closeText
 camSetPosition(24, 11.5) 1.0
+playMusic boss
 cbarsOff block
 resumePlayer

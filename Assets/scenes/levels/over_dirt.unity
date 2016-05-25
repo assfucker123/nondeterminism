@@ -294,7 +294,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11460336, guid: 9ba879ed7f68b1d44a8002f50f7e069d, type: 2}
       propertyPath: levelTo
-      value: 
+      value: bomb_puzzle
       objectReference: {fileID: 0}
     - target: {fileID: 6158478, guid: 9ba879ed7f68b1d44a8002f50f7e069d, type: 2}
       propertyPath: m_Offset.x

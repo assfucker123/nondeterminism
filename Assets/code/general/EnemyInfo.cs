@@ -25,7 +25,8 @@ public class EnemyInfo : MonoBehaviour {
         SMOSEY_BULLET,
         SMOSEY_SWARM,
         MIDOW,
-        MIDOW_WEAK
+        MIDOW_WEAK,
+        PRITTLE
     }
 
     public enum SpawnLocation {

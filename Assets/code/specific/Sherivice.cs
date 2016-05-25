@@ -1062,7 +1062,7 @@ public class Sherivice : MonoBehaviour {
             //CameraControl.instance.shake(1f, 1f);
             gameObject.layer = LayerMask.NameToLayer("HitNothing");
             CameraControl.instance.moveToPosition(rb2d.position, .2f);
-
+            SoundManager.instance.stopMusic();
 
             state = State.FINAL_HIT_FROZEN;
             pos0 = rb2d.position;

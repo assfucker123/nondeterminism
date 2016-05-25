@@ -44,7 +44,7 @@ public class AttackObject : MonoBehaviour {
         if (rd == null)
             return;
         bool toRight = (gOrb2d.position.x > rb2d.position.x);
-
+        
         rd.dealDamage(damage, toRight);
         SendMessage("OnDealDamage", rd, SendMessageOptions.DontRequireReceiver);
     }
