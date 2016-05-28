@@ -4,4 +4,5 @@ battle-intro: trainer battle intro
 battle: trainer battle
 
 tundra: Snow_concept_1_3
-boss: Bossfight_concept
+boss-intro: Bossfight_concept_1_3_lower_intro
+boss: Bossfight_concept_1_3_lower

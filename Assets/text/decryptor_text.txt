@@ -1,7 +1,7 @@
 decryptor_get: Ability unlocked: 
 decryptor_found: Ability found: 
-decryptor_left: Decryptor -
-decryptor_right: - : 
+decryptor_left: Decryptor ~
+decryptor_right: ~ : 
 requires_booster: cannot be used until the |Booster Upgrade| is obtained.
 requires_prerequisite: To use, find the
 requires_prerequisite_2: decryptor too.

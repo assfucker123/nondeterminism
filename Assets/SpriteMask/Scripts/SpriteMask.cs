@@ -28,7 +28,7 @@ public class SpriteMask : SpriteMaskingComponent
 	/// Max supported mask levels. Allowed values: 1 - 7
 	/// Default value is 3.
 	/// </summary>
-	private const int MAX_LEVELS = 3;
+	private const int MAX_LEVELS = 1;
 
 	/// <summary>
 	/// Base render queue used by this mask renderer. 

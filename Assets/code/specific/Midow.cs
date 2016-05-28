@@ -364,7 +364,7 @@ public class Midow : MonoBehaviour {
                             idleDur *= weakIdleDurationMultiplier;
                         stateQueue.addState((int)State.IDLE, idleDur, lastInter, 0, false);
                     } else {
-                        // aadding shoot state
+                        // adding shoot state
                         stateQueue.addState((int)State.SHOOTING, shootingDuration, lastInter, 0, true);
                     }
                     break;

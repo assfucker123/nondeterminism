@@ -283,7 +283,7 @@ public class TimeUser : MonoBehaviour {
      * so it can be reverted back into existance later. */
     public void timeDestroy() {
         if (!exists) return;
-
+        
         SendMessage("OnTimeDestroy", SendMessageOptions.DontRequireReceiver);
 
         if (rb2d != null) {
@@ -305,6 +305,12 @@ public class TimeUser : MonoBehaviour {
         float val = Random.value; // in [0, 1)
         _randSeed = (int) (int.MaxValue * val);
         return val;
+    }
+    /// <summary>
+    /// Uses randomValue() to calculate a random int between the specified range (does not include max)
+    /// </summary>
+    public int randomRange(int min, int max) {
+        return min + Mathf.FloorToInt(randomValue() * (max - min));
     }
     /// <summary>
     /// Uses randomValue() to calculate a random float between the specified range.

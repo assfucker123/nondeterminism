@@ -38,7 +38,9 @@ public class Dummy : MonoBehaviour {
         defaultDeath = GetComponent<DefaultDeath>();
         enemyInfo = GetComponent<EnemyInfo>();
         playerAwareness = GetComponent<PlayerAwareness>();
-	}
+
+        stateQueue = new VisionUser.StateQueue(0);
+    }
 
     void Start() {
         // attach to Segment
@@ -49,8 +51,21 @@ public class Dummy : MonoBehaviour {
     void OnSpawn(SpawnInfo si) {
         flippedHoriz = !si.faceRight;
     }
-	
-	void Update() {
+
+    void addIdleStateToQueue() {
+        float duration = 1.5f;
+        stateQueue.addState((int)State.IDLE, duration, 0, 0, false);
+    }
+
+    /// <summary>
+    /// Going to idle state
+    /// </summary>
+    void idle(float duration) {
+        state = State.IDLE;
+        time = 0;
+    }
+
+    void Update() {
 
         if (timeUser.shouldNotUpdate)
             return;
@@ -61,8 +76,39 @@ public class Dummy : MonoBehaviour {
 
         Vector2 v = rb2d.velocity;
 
+        // adding states to state queue, alternate between idle and shooting
+        float planDuration = VisionUser.VISION_DURATION * 2;
+        if (stateQueue.planAheadDuration < planDuration) {
+
+            addIdleStateToQueue();
+
+            // if (stateQueue.empty || (State)stateQueue.getLastState() == State.SHOOTING) {
+        }
+
+        // handle states changing this frame
+        int statesPopped = stateQueue.numStatesPoppedByIncrementingTime(Time.deltaTime);
+        if (statesPopped >= 1) {
+            State nextState = (State)stateQueue.getState(statesPopped);
+            switch (nextState) {
+            case State.IDLE:
+                idle(stateQueue.getDuration(statesPopped));
+                break;
+            }
+        }
+
+        // increment time
+        stateQueue.incrementTime(Time.deltaTime);
+
+        // create visions if needed
+        if (!visionUser.isVision && stateQueue.shouldCreateVisionThisFrame(Time.deltaTime, VisionUser.VISION_DURATION) != -1) {
+            timeUser.addCurrentFrameInfo();
+            Prittle vision = visionUser.createVision(VisionUser.VISION_DURATION).GetComponent<Prittle>();
+        }
+
+        // state actions
         switch (state) {
         case State.IDLE:
+            
             break;
         }
 
@@ -108,6 +154,16 @@ public class Dummy : MonoBehaviour {
 
         // increment time
         time += timeInFuture;
+        int statesPopped = stateQueue.numStatesPoppedByIncrementingTime(timeInFuture);
+        if (statesPopped >= 1) {
+            State nextState = (State)stateQueue.getState(statesPopped);
+            /*if (nextState == State.SHOOTING) {
+                shooting(statesPopped);
+            } else {
+                Debug.Log("Something's wrong, this state should be SHOOTING");
+            }*/
+        }
+        stateQueue.incrementTime(timeInFuture);
     }
 
     /* called when this takes damage */
@@ -125,17 +181,21 @@ public class Dummy : MonoBehaviour {
     void OnSaveFrame(FrameInfo fi) {
         fi.state = (int)state;
         fi.floats["time"] = time;
+        stateQueue.OnSaveFrame(fi);
     }
     /* called when reverting back to a certain time */
     void OnRevert(FrameInfo fi) {
         state = (State)fi.state;
         time = fi.floats["time"];
+        stateQueue.OnRevert(fi);
     }
 
     float time;
     Segment segment;
-	
-	// components
+
+    VisionUser.StateQueue stateQueue;
+
+    // components
     Rigidbody2D rb2d;
     GameObject spriteObject;
     SpriteRenderer spriteRenderer;

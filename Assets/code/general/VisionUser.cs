@@ -344,6 +344,9 @@ public class VisionUser : MonoBehaviour {
             if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
             return stateObjects[queueIndex].state;
         }
+        public int getLastState() {
+            return getState(queueCount - 1);
+        }
         public float getDuration(int queueIndex = 0) {
             if (queueIndex < 0 || queueIndex >= stateObjects.Count) return -1;
             return stateObjects[queueIndex].duration;
